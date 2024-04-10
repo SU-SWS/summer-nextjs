@@ -21,6 +21,8 @@ import YoutubeIcon from "@components/elements/icons/YoutubeIcon";
 import FacebookIcon from "@components/elements/icons/FacebookIcon";
 import { Maybe, StanfordLocalFooter} from "@lib/gql/__generated__/drupal.d";
 import {buildUrl} from "@lib/drupal/utils";
+import InstagramIcon from "@components/elements/icons/InstagramIcon";
+import LinkedInIcon from "@components/elements/icons/LinkedInIcon";
 
 const LocalFooter = ({
   suFooterEnabled,
@@ -61,13 +63,13 @@ const LocalFooter = ({
   return (
     <div className="local-footer bg-foggy-light py-20">
       <div className="centered">
-        <div className="mb-20">
-          <FooterLockup {...lockupProps} />
-        </div>
+        <div className="grid md:grid-cols-12 gap-x-32 [&_a]:font-normal [&_a]:no-underline [&_a:hover]:underline [&_a:hover]:text-black [&_a:focus]:underline [&_a:focus]:text-black [&_a]:transition">
+            
+          <div className="col-start-2 col-span-5 rs-mb-4">
+            <FooterLockup {...lockupProps} />
+          </div>
 
-        <div
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-32 [&_a]:font-normal [&_a]:no-underline [&_a:hover]:underline [&_a:hover]:text-black [&_a:focus]:underline [&_a:focus]:text-black [&_a]:transition">
-          <div>
+          <div className="col-start-2 col-span-5">
 
             {suLocalFootAddress &&
               <Address {...suLocalFootAddress}/>
@@ -88,13 +90,15 @@ const LocalFooter = ({
               </ul>
             }
 
+            <Wysiwyg html={suLocalFootPrCo?.processed}/>
+
             {suLocalFootSocial &&
-              <ul className="list-unstyled flex gap-2">
+              <ul className="rs-mt-4 list-unstyled flex gap-2">
                 {suLocalFootSocial.map((link, index) => {
                   if (!link.url) return;
                   return (
                     <li key={`footer-action-link-${index}`}>
-                      <Link href={link.url}>
+                      <Link href={link.url} className="text-black hocus:text-digital-blue">
                         <SocialIcon url={link.url}/>
                         <span className="sr-only">{link.title}</span>
                       </Link>
@@ -103,11 +107,9 @@ const LocalFooter = ({
                 })}
               </ul>
             }
-
-            <Wysiwyg html={suLocalFootPrCo?.processed}/>
           </div>
 
-          <div>
+          <div className="col-start-7 col-span-2">
             {suLocalFootPrimeH &&
               <H2 className="text-m1">{suLocalFootPrimeH}</H2>}
             {suLocalFootPrimary &&
@@ -128,7 +130,7 @@ const LocalFooter = ({
 
           </div>
 
-          <div>
+          <div className="col-start-9 col-span-2">
             {suLocalFootSecondH &&
               <H2 className="text-m1">{suLocalFootSecondH}</H2>}
 
@@ -160,9 +162,11 @@ const LocalFooter = ({
 }
 
 const SocialIcon = ({url}: { url: string }) => {
-  if (url.includes("twitter.com")) return <TwitterIcon/>
+  if (url.includes("facebook")) return <FacebookIcon />
+  if (url.includes("linkdin")) return <LinkedInIcon />
+  if (url.includes("twitter.com")) return <TwitterIcon />
+  if (url.includes("instagram.com")) return <InstagramIcon />
   if (url.includes("youtube.com")) return <YoutubeIcon/>
-  if (url.includes("facebook")) return <FacebookIcon/>
   return null;
 }
 

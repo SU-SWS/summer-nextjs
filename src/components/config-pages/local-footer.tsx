@@ -93,7 +93,7 @@ const LocalFooter = ({
             <Wysiwyg html={suLocalFootPrCo?.processed} className="[&_a]:rounded-full"/>
 
             {suLocalFootSocial &&
-              <ul className="rs-mt-4 list-unstyled flex gap-2">
+              <ul className="rs-mt-4 list-unstyled flex gap-11 items-center children:mb-0">
                 {suLocalFootSocial.map((link, index) => {
                   if (!link.url) return;
                   return (
@@ -163,7 +163,7 @@ const LocalFooter = ({
 
 const SocialIcon = ({url}: { url: string }) => {
   if (url.includes("facebook")) return <FacebookIcon />
-  if (url.includes("linkdin")) return <LinkedInIcon />
+  if (url.includes("linkedin")) return <LinkedInIcon />
   if (url.includes("twitter.com")) return <TwitterIcon />
   if (url.includes("instagram.com")) return <InstagramIcon />
   if (url.includes("youtube.com")) return <YoutubeIcon/>

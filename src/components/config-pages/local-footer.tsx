@@ -90,7 +90,7 @@ const LocalFooter = ({
               </ul>
             }
 
-            <Wysiwyg html={suLocalFootPrCo?.processed} className="[&_a]:rounded-full"/>
+            <Wysiwyg html={suLocalFootPrCo?.processed} className="[&_a]:rounded-full text-archway"/>
 
             {suLocalFootSocial &&
               <ul className="rs-mt-4 list-unstyled flex gap-11 items-center children:mb-0">

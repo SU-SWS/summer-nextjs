@@ -63,13 +63,13 @@ const LocalFooter = ({
   return (
     <div className="local-footer bg-foggy-light py-20">
       <div className="centered">
-        <div className="grid md:grid-cols-12 gap-x-32 [&_a]:font-normal [&_a]:no-underline [&_a:hover]:underline [&_a:hover]:text-black [&_a:focus]:underline [&_a:focus]:text-black [&_a]:transition">
+        <div className="grid grid-cols-6 md:grid-cols-12 gap-32 md:gap-y-0 [&_a]:font-semibold [&_a]:no-underline [&_a:hover]:underline [&_a:hover]:text-black [&_a:focus]:underline [&_a:focus]:text-black [&_a]:transition">
             
-          <div className="col-start-2 col-span-5 rs-mb-4">
+          <div className="col-span-6 md:col-start-2 md:col-span-5 md:rs-mb-4">
             <FooterLockup {...lockupProps} />
           </div>
 
-          <div className="col-start-2 col-span-5">
+          <div className="col-span-6 md:col-start-2 md:col-span-5">
 
             {suLocalFootAddress &&
               <Address {...suLocalFootAddress}/>
@@ -90,7 +90,7 @@ const LocalFooter = ({
               </ul>
             }
 
-            <Wysiwyg html={suLocalFootPrCo?.processed}/>
+            <Wysiwyg html={suLocalFootPrCo?.processed} className="[&_a]:rounded-full"/>
 
             {suLocalFootSocial &&
               <ul className="rs-mt-4 list-unstyled flex gap-2">
@@ -98,7 +98,7 @@ const LocalFooter = ({
                   if (!link.url) return;
                   return (
                     <li key={`footer-action-link-${index}`}>
-                      <Link href={link.url} className="text-black hocus:text-digital-blue">
+                      <Link href={link.url} className="text-archway">
                         <SocialIcon url={link.url}/>
                         <span className="sr-only">{link.title}</span>
                       </Link>
@@ -109,16 +109,16 @@ const LocalFooter = ({
             }
           </div>
 
-          <div className="col-start-7 col-span-2">
+          <div className="col-span-6 sm:col-span-3 md:col-start-7 md:col-span-2 font-roboto">
             {suLocalFootPrimeH &&
-              <H2 className="text-m1">{suLocalFootPrimeH}</H2>}
+              <H2 className="text-m1 font-normal">{suLocalFootPrimeH}</H2>}
             {suLocalFootPrimary &&
               <ul className="list-unstyled">
                 {suLocalFootPrimary.map((link, index) => {
                   if (!link.url) return;
                   return (
                     <li key={`footer-primary-link-${index}`}>
-                      <Link href={link.url}>
+                      <Link href={link.url} className="link--arrow-right">
                         {link.title}
                       </Link>
                     </li>
@@ -130,9 +130,9 @@ const LocalFooter = ({
 
           </div>
 
-          <div className="col-start-9 col-span-2">
+          <div className="col-span-6 sm:col-span-3 md:col-start-9 md:col-span-2 font-roboto">
             {suLocalFootSecondH &&
-              <H2 className="text-m1">{suLocalFootSecondH}</H2>}
+              <H2 className="text-m1 font-normal">{suLocalFootSecondH}</H2>}
 
             {suLocalFootSecond &&
               <ul className="list-unstyled">
@@ -140,7 +140,7 @@ const LocalFooter = ({
                   if (!link.url) return;
                   return (
                     <li key={`footer-second-link-${index}`}>
-                      <Link href={link.url}>
+                      <Link href={link.url} className="link--arrow-right">
                         {link.title}
                       </Link>
                     </li>
@@ -194,7 +194,7 @@ const FooterLockup = ({useDefault = true, siteName, lockupOption, ...props}: Foo
       return (
         <div className="py-10">
           <Link href="/"
-                className="flex flex-col lg:flex-row gap-4 no-underline">
+                className="flex flex-row gap-4 no-underline font-roboto">
             <LockupLogo {...lockupProps}/>
           </Link>
         </div>
@@ -240,7 +240,7 @@ const FooterLockup = ({useDefault = true, siteName, lockupOption, ...props}: Foo
 
   return (
     <div className="py-10">
-      <Link href="/" className="flex flex-col lg:flex-row gap-4 no-underline">
+      <Link href="/" className="flex flex-row gap-4 no-underline">
         <LockupLogo {...lockupProps}/>
 
         <div className="w-[1px] bg-black shrink-0"/>

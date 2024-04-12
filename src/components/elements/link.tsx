@@ -4,7 +4,6 @@ import {EnvelopeIcon} from "@heroicons/react/24/outline";
 import ActionLink from "@components/elements/action-link";
 import Button from "@components/elements/button";
 import {LinkProps} from "next/dist/client/link";
-import { ArrowRightIcon } from "@heroicons/react/20/solid";
 
 type Props = HtmlHTMLAttributes<HTMLAnchorElement | HTMLButtonElement> & LinkProps & {
   /**
@@ -48,9 +47,6 @@ const DrupalLink = ({href, className, children, ...props}: Props) => {
       {children}
       {href.startsWith("mailto") &&
         <EnvelopeIcon width={20} className="ml-4 inline-block"/>
-      }
-      {className?.includes("link--arrow-right") &&
-        <ArrowRightIcon width={20} className="ml-4 inline-block"/>
       }
     </Link>
   )

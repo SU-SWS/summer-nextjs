@@ -63,7 +63,7 @@ const LocalFooter = ({
   return (
     <div className="local-footer bg-foggy-light py-20">
       <div className="centered">
-        <div className="grid grid-cols-6 md:grid-cols-12 gap-32 md:gap-y-0 [&_a]:font-semibold [&_a]:no-underline [&_a:hover]:underline [&_a:hover]:text-black [&_a:focus]:underline [&_a:focus]:text-black [&_a]:transition">
+        <div className="grid grid-cols-6 md:grid-cols-12 gap-32 md:gap-y-0 [&_a]:font-semibold [&_a]:no-underline [&_a:hover]:underline [&_a:focus]:underline [&_a]:transition">
             
           <div className="col-span-6 md:col-start-2 md:col-span-5 md:rs-mb-4">
             <FooterLockup {...lockupProps} />
@@ -90,7 +90,7 @@ const LocalFooter = ({
               </ul>
             }
 
-            <Wysiwyg html={suLocalFootPrCo?.processed} className="[&_a]:rounded-full text-archway"/>
+            <Wysiwyg html={suLocalFootPrCo?.processed} className="text-archway"/>
 
             {suLocalFootSocial &&
               <ul className="rs-mt-4 list-unstyled flex gap-11 items-center children:mb-0">
@@ -118,7 +118,7 @@ const LocalFooter = ({
                   if (!link.url) return;
                   return (
                     <li key={`footer-primary-link-${index}`}>
-                      <Link href={link.url} className="link--arrow-right">
+                      <Link href={link.url} className="link--action">
                         {link.title}
                       </Link>
                     </li>
@@ -140,7 +140,7 @@ const LocalFooter = ({
                   if (!link.url) return;
                   return (
                     <li key={`footer-second-link-${index}`}>
-                      <Link href={link.url} className="link--arrow-right">
+                      <Link href={link.url} className="link--action">
                         {link.title}
                       </Link>
                     </li>

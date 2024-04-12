@@ -65,11 +65,11 @@ const LocalFooter = ({
       <div className="centered">
         <div className="grid grid-cols-6 md:grid-cols-12 gap-32 md:gap-y-0 [&_a]:font-semibold [&_a]:no-underline [&_a:hover]:underline [&_a:focus]:underline [&_a]:transition">
             
-          <div className="col-span-6 md:col-start-2 md:col-span-5 md:rs-mb-4">
+          <div className="col-span-6 md:col-span-7 2xl:col-span-5 md:col-start-1 2xl:col-start-2 md:col-span-5 md:rs-mb-4">
             <FooterLockup {...lockupProps} />
           </div>
 
-          <div className="col-span-6 md:col-start-2 md:col-span-5">
+          <div className="col-span-6 md:col-span-7 2xl:col-span-5 md:col-start-1 2xl:col-start-2 md:col-span-5">
 
             {suLocalFootAddress &&
               <Address {...suLocalFootAddress}/>
@@ -109,7 +109,7 @@ const LocalFooter = ({
             }
           </div>
 
-          <div className="col-span-6 sm:col-span-3 md:col-start-7 md:col-span-2 font-roboto">
+          <div className="col-span-6 sm:col-span-3 md:col-span-2 md:col-start-8 2xl:col-start-7 font-roboto">
             {suLocalFootPrimeH &&
               <H2 className="text-m1 font-normal">{suLocalFootPrimeH}</H2>}
             {suLocalFootPrimary &&
@@ -130,7 +130,7 @@ const LocalFooter = ({
 
           </div>
 
-          <div className="col-span-6 sm:col-span-3 md:col-start-9 md:col-span-2 font-roboto">
+          <div className="col-span-6 sm:col-span-3 md:col-start-10 2xl:col-start-9 font-roboto">
             {suLocalFootSecondH &&
               <H2 className="text-m1 font-normal">{suLocalFootSecondH}</H2>}
 

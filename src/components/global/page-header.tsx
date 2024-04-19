@@ -1,4 +1,3 @@
-import SiteSearchForm from "@components/search/site-search-form";
 import MainMenu from "@components/menu/main-menu";
 import GlobalMessage from "@components/config-pages/global-message";
 import Lockup from "@components/elements/lockup/lockup";
@@ -30,11 +29,10 @@ const PageHeader = async () => {
         </div>
       </div>
       {globalMessageConfig && <GlobalMessage {...globalMessageConfig}/>}
-      <div className="relative shadow">
+      <div className="relative bg-fog-light">
         <div className="centered min-h-50 pr-24 lg:pr-0">
           <div className="flex w-full justify-between">
             <Lockup {...siteSettingsConfig} {...lockupSettingsConfig}/>
-            <SiteSearchForm className="hidden lg:block"/>
           </div>
         </div>
 

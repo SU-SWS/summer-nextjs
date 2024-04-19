@@ -7,15 +7,15 @@ type Props = HtmlHTMLAttributes<HTMLAnchorElement> & {
   /**
    * Link url.
    */
-  href: string;
+  href: string
 };
 
 const ActionLink = ({ children, ...props }: Props) => {
   return (
     <Link {...props} className={twMerge("relative", props.className)}>
       {children}
-      <ArrowRightIcon width={20} className='ml-2 inline-block' />
+      <ArrowRightIcon width={20} className="ml-2 inline-block" />
     </Link>
   );
 };
-export default ActionLink;
+export default ActionLink

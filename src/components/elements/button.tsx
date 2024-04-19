@@ -9,39 +9,39 @@ type Props = HtmlHTMLAttributes<HTMLAnchorElement | HTMLButtonElement> & {
   /**
    * Link URL.
    */
-  href?: Maybe<string>;
+  href?: Maybe<string>
   /**
    * If the element should be a <button>, default is <a>.
    */
-  buttonElem?: boolean;
+  buttonElem?: boolean
   /**
    * Display a larger button.
    */
-  big?: boolean;
+  big?: boolean
   /**
    * Display a secondary styled button.
    */
-  secondary?: boolean;
+  secondary?: boolean
   /**
    * Center the button in the container.
    */
-  centered?: boolean;
+  centered?: boolean
   /**
    * Click handler, mostly when using a button element.
    */
-  onClick?: MouseEventHandler;
+  onClick?: MouseEventHandler
   /**
    * Next.js prefetch functionality.
    */
-  prefetch?: boolean;
+  prefetch?: boolean
   /**
    * Type of button: submit, reset, or button.
    */
-  type?: HTMLButtonElement["type"];
+  type?: HTMLButtonElement["type"]
   /**
    * Disabled button element.
    */
-  disabled?: boolean;
+  disabled?: boolean
 };
 
 export const Button = ({
@@ -71,7 +71,7 @@ export const Button = ({
     return (
       <button
         className={twMerge(standardClasses, className)}
-        type='button'
+        type="button"
         {...props}
       >
         {children}
@@ -86,9 +86,9 @@ export const Button = ({
       {...props}
     >
       {children}
-      <ArrowRightIcon width={20} className='ml-2 inline-block' />
+      <ArrowRightIcon width={20} className="ml-2 inline-block" />
     </Link>
   );
 };
 
-export default Button;
+export default Button

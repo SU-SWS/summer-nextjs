@@ -43,7 +43,10 @@ module.exports = {
       },
       scale: {
         '-100': '-1'
-      }
+      },
+      fontFamily: {
+        roboto: ['var(--font-roboto)', 'sans-serif'],
+      },
     },
   },
   plugins: [

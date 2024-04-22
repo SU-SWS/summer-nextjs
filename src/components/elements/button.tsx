@@ -65,7 +65,7 @@ export const Button = ({
       big && secondary,
     "btn bg-digital-red font-normal text-white border-2 border-white hocus:outline hocus:outline-3 hocus:outline-digital-red py-4 px-8 no-underline hocus:underline transition rounded-full m-4":
       !big && !secondary,
-  });
+  })
 
   if (!href || buttonElem) {
     return (
@@ -76,7 +76,7 @@ export const Button = ({
       >
         {children}
       </button>
-    );
+    )
   }
 
   return (
@@ -88,7 +88,7 @@ export const Button = ({
       {children}
       <ArrowRightIcon width={20} className="ml-2 inline-block" />
     </Link>
-  );
-};
+  )
+}
 
 export default Button

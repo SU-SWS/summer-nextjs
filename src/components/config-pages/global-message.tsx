@@ -49,11 +49,11 @@ const GlobalMessage = ({
             <Wysiwyg html={suGlobalMsgMessage?.processed} />
           </div>
 
-          {suGlobalMsgLink?.url && (
+          {suGlobalMsgLink?.url && 
             <ActionLink href={suGlobalMsgLink.url} className="w-full max-w-fit">
               {suGlobalMsgLink.title}
             </ActionLink>
-          )}
+          }
         </div>
       </div>
     </div>

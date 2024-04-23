@@ -1,8 +1,8 @@
 import { H2 } from "@components/elements/headers";
 import Wysiwyg from "@components/elements/wysiwyg";
-import Link from "@components/elements/link";
 import { clsx } from "clsx";
 import { StanfordGlobalMessage } from "@lib/gql/__generated__/drupal.d";
+import ActionLink from "@components/elements/action-link";
 
 const GlobalMessage = ({
   suGlobalMsgEnabled,
@@ -23,11 +23,11 @@ const GlobalMessage = ({
 
   return (
     <div className='bg-fog-light'>
-      <div className='centered'>
+      <div className='md:centered'>
         <div
           className={
             wrapperClasses +
-            " px-16 py-10 rounded w-fit flex flex-col items-center md:flex-row gap-10"
+            " px-16 py-10 rounded-b-[25px] w-full lg:w-3/4 flex flex-col md:flex-row items-center gap-10"
           }
         >
           <div>
@@ -38,9 +38,9 @@ const GlobalMessage = ({
           </div>
 
           {suGlobalMsgLink?.url && (
-            <Link href={suGlobalMsgLink.url} className='link--action'>
+            <ActionLink href={suGlobalMsgLink.url} className="w-full max-w-fit">
               {suGlobalMsgLink.title}
-            </Link>
+            </ActionLink>
           )}
         </div>
       </div>

@@ -110,9 +110,7 @@ const LocalFooter = ({
           </div>
 
           <div className="col-span-6 sm:col-span-3 md:col-span-2 md:col-start-8 2xl:col-start-7 font-roboto">
-            {suLocalFootPrimeH && (
-              <H2 className="text-m1 font-normal">{suLocalFootPrimeH}</H2>
-            )}
+            {suLocalFootPrimeH && <H2 className="text-m1 font-normal">{suLocalFootPrimeH}</H2>}
             {suLocalFootPrimary && (
               <ul className="list-unstyled">
                 {suLocalFootPrimary.map((link, index) => {
@@ -131,11 +129,9 @@ const LocalFooter = ({
           </div>
 
           <div className="col-span-6 sm:col-span-3 md:col-start-10 2xl:col-start-9 font-roboto">
-            {suLocalFootSecondH && (
-              <H2 className="text-m1 font-normal">{suLocalFootSecondH}</H2>
-            )}
+            {suLocalFootSecondH && <H2 className="text-m1 font-normal">{suLocalFootSecondH}</H2>}
 
-            {suLocalFootSecond && (
+            {suLocalFootSecond && 
               <ul className="list-unstyled">
                 {suLocalFootSecond.map((link, index) => {
                   if (!link.url) return;
@@ -148,7 +144,7 @@ const LocalFooter = ({
                   );
                 })}
               </ul>
-            )}
+            }
 
             <Wysiwyg html={suLocalFootTr2Co?.processed} />
           </div>

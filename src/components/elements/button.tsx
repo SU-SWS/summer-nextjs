@@ -42,7 +42,7 @@ type Props = HtmlHTMLAttributes<HTMLAnchorElement | HTMLButtonElement> & {
    * Disabled button element.
    */
   disabled?: boolean
-};
+}
 
 export const Button = ({
   href,
@@ -61,9 +61,9 @@ export const Button = ({
       big && !secondary,
     "btn btn--secondary transition text-digital-red hocus:text-white hocus:bg-digital-red border-2 border-digital-red hocus:border-white no-underline hocus:underline hocus:outline hocus:outline-3 hocus:outline-digital-red py-4 px-16 font-normal rounded-full":
       !big && secondary,
-    "btn  btn--big btn--secondary transition text-5xl text-digital-red hocus:text-white hocus:bg-digital-red border-2 border-digital-red hocus:border-white no-underline hocus:underline hocus:outline hocus:outline-3 hocus:outline-digital-red py-6 px-18 font-normal rounded-full":
+    "btn  btn--big btn--secondary transition text-5xl text-digital-red hocus:text-white hocus:bg-digital-red border-2 border-digital-red hocus:border-white no-underline hocus:underline hocus:outline hocus:outline-3 hocus:outline-digital-red py-6 px-20 font-normal rounded-full":
       big && secondary,
-    "btn bg-digital-red font-normal text-white border-2 border-white hocus:outline hocus:outline-3 hocus:outline-digital-red py-4 px-8 no-underline hocus:underline transition rounded-full m-4":
+    "btn bg-digital-red font-normal text-white border-2 border-white hocus:text-white hocus:outline hocus:outline-3 hocus:outline-digital-red py-4 px-8 no-underline hocus:underline transition rounded-full m-4":
       !big && !secondary,
   })
 

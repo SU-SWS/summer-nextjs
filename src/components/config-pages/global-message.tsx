@@ -1,17 +1,23 @@
-import {BellIcon, CheckCircleIcon, ExclamationTriangleIcon, InformationCircleIcon} from "@heroicons/react/20/solid";
-import {H2} from "@components/elements/headers";
+import {
+  BellIcon,
+  CheckCircleIcon,
+  ExclamationTriangleIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/20/solid";
+import { H2 } from "@components/elements/headers";
 import Wysiwyg from "@components/elements/wysiwyg";
-import Link from "@components/elements/link";
-import {clsx} from "clsx";
-import {StanfordGlobalMessage} from "@lib/gql/__generated__/drupal.d";
+import { StanfordGlobalMessage } from "@lib/gql/__generated__/drupal.d";
+import ActionLink from "@components/elements/action-link";
+import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 const GlobalMessage = ({
   suGlobalMsgEnabled,
   suGlobalMsgType,
-  suGlobalMsgLabel,
   suGlobalMsgHeader,
+  suGlobalMsgLabel,
   suGlobalMsgLink,
-  suGlobalMsgMessage
+  suGlobalMsgMessage,
 }: StanfordGlobalMessage) => {
   if (!suGlobalMsgEnabled) return;
 
@@ -24,38 +30,50 @@ const GlobalMessage = ({
   });
 
   return (
-    <div className={wrapperClasses + " py-10"}>
-      <div className="centered flex flex-col lg:flex-row gap-10">
-        <div className="flex items-center leading-none shrink-0">
-          <MessageIcon messageType={suGlobalMsgType}/>
-          {suGlobalMsgLabel}:
-        </div>
-        <div className="[&_a]:text-white [&_a.btn]:bg-transparent [&_a.btn]:border-2 [&_a.btn]:border-white">
-          {suGlobalMsgHeader && <H2>{suGlobalMsgHeader}</H2>}
+    <div className="bg-fog-light">
+      <div className="md:centered">
+        <div
+          className={twMerge(
+            wrapperClasses,
+            "px-16 py-10 rounded-b-[25px] w-full lg:w-3/4 flex flex-col md:flex-row items-center gap-10"
+          )}
+        >
+          {suGlobalMsgLabel && 
+            <div className="flex items-center leading-none shrink-0">
+              <MessageIcon messageType={suGlobalMsgType} />
+              {suGlobalMsgLabel}:
+            </div>
+          }
+          <div>
+            {suGlobalMsgHeader && <H2 className="text-23 mb-3">{suGlobalMsgHeader}</H2>}
+            <Wysiwyg html={suGlobalMsgMessage?.processed} />
+          </div>
 
-          <Wysiwyg html={suGlobalMsgMessage?.processed}/>
-
-          {suGlobalMsgLink?.url &&
-            <Link href={suGlobalMsgLink.url} className="text-white">
+          {suGlobalMsgLink?.url && 
+            <ActionLink href={suGlobalMsgLink.url} className="w-full max-w-fit">
               {suGlobalMsgLink.title}
-            </Link>
+            </ActionLink>
           }
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-const MessageIcon = ({messageType}: { messageType: StanfordGlobalMessage["suGlobalMsgType"] }) => {
+const MessageIcon = ({
+  messageType,
+}: {
+  messageType: StanfordGlobalMessage["suGlobalMsgType"];
+}) => {
   switch (messageType) {
     case "info":
-      return <InformationCircleIcon width={40}/>
+      return <InformationCircleIcon width={40} />;
     case "success":
-      return <CheckCircleIcon width={40}/>
+      return <CheckCircleIcon width={40} />;
     case "plain":
-      return <BellIcon width={40}/>;
+      return <BellIcon width={40} />;
   }
-  return <ExclamationTriangleIcon width={40}/>;
-}
+  return <ExclamationTriangleIcon width={40} />;
+};
 
 export default GlobalMessage;

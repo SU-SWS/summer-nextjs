@@ -38,12 +38,12 @@ const GlobalMessage = ({
             "px-16 py-10 rounded-b-[25px] w-full lg:w-3/4 flex flex-col md:flex-row items-center gap-10"
           )}
         >
-          {suGlobalMsgLabel && (
+          {suGlobalMsgLabel && 
             <div className="flex items-center leading-none shrink-0">
               <MessageIcon messageType={suGlobalMsgType} />
               {suGlobalMsgLabel}:
             </div>
-          )}
+          }
           <div>
             {suGlobalMsgHeader && <H2 className="text-23 mb-3">{suGlobalMsgHeader}</H2>}
             <Wysiwyg html={suGlobalMsgMessage?.processed} />

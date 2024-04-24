@@ -43,7 +43,7 @@ export const Lockup = ({
 
   if (!suLockupEnabled) {
     return (
-      <div className="py-10">
+      <div>
         <Link href="/" className="flex no-underline">
           <div className="self-end">
             <div className="lg:inline-block pr-2 mr-2 lg:border-r border-black">
@@ -99,7 +99,7 @@ export const Lockup = ({
     case "none":
     default:
       return (
-        <div className="py-10">
+        <div>
           <Link href="/"
                 className="flex flex-col lg:flex-row gap-4 no-underline">
             <LockupLogo {...lockupProps}/>

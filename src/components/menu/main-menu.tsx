@@ -119,10 +119,9 @@ const MainMenu = ({ menuItems }: Props) => {
               level={0}
             />
           ))}
-          <button>
+          <Link href="/search">
             <MagnifyingGlassIcon width={25} className="text-archway-dark" />
-          </button>
-          <SiteSearchForm className="hidden lg:block" />
+          </Link>
         </ul>
       </div>
     </nav>
@@ -191,11 +190,11 @@ const MenuItem = ({
   const inTrail = activeTrail.includes(id) && !isCurrent;
 
   const linkStyles = clsx(
-    "w-full relative inline-block text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-spirited-light",
+    "w-full relative inline-block font-normal text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-spirited-light",
     leftPadding[level],
     // Top menu item styles.
     {
-      "lg:border-l-0 lg:border-b-[4px] mx-5 lg:pb-10": level === 0,
+      "lg:border-l-0 lg:border-b-[4px] mx-5 lg:mr-0 lg:pb-10": level === 0,
       "border-spirited-light": level === 0 && isCurrent,
       "border-transparent lg:border-spirited-light":
         level === 0 && !isCurrent && inTrail,
@@ -207,6 +206,18 @@ const MenuItem = ({
       "border-spirited-light": level !== 0 && isCurrent,
       "border-transparent": level !== 0 && !isCurrent,
     }
+  );
+
+  const chevronBtnStyles = clsx(
+    "shrink-0 relative right-10 lg:right-0 text-black bg-transparent lg:bg-transparent rounded-full lg:rounded-none lg:mr-5 lg:pb-6 lg:pl-2 lg:group-focus:border-b lg:group-hover:border-b-[4px] lg:group-focus:border-spirited-light lg:group-hover:border-spirited-light",
+    // Top menu item styles.
+    {
+      "lg:border-l-0 lg:border-b-[4px]": level === 0,
+      "border-spirited-light": level === 0 && isCurrent,
+      "border-transparent lg:border-spirited-light":
+        level === 0 && !isCurrent && inTrail,
+      "border-transparent": level === 0 && !isCurrent && !inTrail,
+    },
   );
 
   const subMenuStyles = clsx(
@@ -230,7 +241,7 @@ const MenuItem = ({
         { "lg:border-b-0 first:border-t-0": level === 0 }
       )}
     >
-      <div className="flex items-center justify-between lg:justify-end">
+      <div className="group flex justify-between lg:justify-end">
         <Link
           id={linkId}
           href={url || "#"}
@@ -243,7 +254,7 @@ const MenuItem = ({
         {children.length > 0 && level < menuLevelsToShow && (
           <button
             ref={buttonRef}
-            className="shrink-0 relative right-10 lg:right-0 text-black bg-transparent lg:bg-transparent rounded-full lg:rounded-none group lg:pb-10"
+            className={chevronBtnStyles}
             onClick={toggleSubmenu}
             aria-expanded={submenuOpen}
             aria-labelledby={linkId}

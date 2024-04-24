@@ -9,7 +9,7 @@ import Wysiwyg from "@components/elements/wysiwyg";
 import { StanfordGlobalMessage } from "@lib/gql/__generated__/drupal.d";
 import ActionLink from "@components/elements/action-link";
 import { twMerge } from "tailwind-merge";
-import clsx from "clsx/clsx";
+import clsx from "clsx";
 
 const GlobalMessage = ({
   suGlobalMsgEnabled,

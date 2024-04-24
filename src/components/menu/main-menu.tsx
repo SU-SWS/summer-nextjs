@@ -106,7 +106,7 @@ const MainMenu = ({ menuItems }: Props) => {
       <div
         className={
           (menuOpen ? "block" : "hidden") +
-          " lg:flex lg:justify-end lg:items-center bg-black lg:bg-transparent absolute top-100 lg:relative z-10 w-full"
+          " lg:flex lg:justify-end lg:items-center bg-fog-light lg:bg-transparent absolute top-100 lg:relative z-10 w-full"
         }
       >
         <SiteSearchForm className="px-10 lg:hidden" />
@@ -191,12 +191,12 @@ const MenuItem = ({
   const inTrail = activeTrail.includes(id) && !isCurrent;
 
   const linkStyles = clsx(
-    "w-full relative inline-block text-white lg:text-black hocus:text-white lg:hocus:text-black no-underline py-5 border-b-[4px] hocus:border-spirited-light",
+    "w-full relative inline-block text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-spirited-light",
     leftPadding[level],
     // Top menu item styles.
     {
       "lg:border-l-0 lg:border-b-[4px] mx-5 lg:pb-10": level === 0,
-      "border-digital-red lg:border-black": level === 0 && isCurrent,
+      "border-spirited-light": level === 0 && isCurrent,
       "border-transparent lg:border-spirited-light":
         level === 0 && !isCurrent && inTrail,
       "border-transparent": level === 0 && !isCurrent && !inTrail,
@@ -226,7 +226,7 @@ const MenuItem = ({
     <li
       ref={menuItemRef}
       className={clsx(
-        "m-0 py-2 lg:py-0 relative border-b last:border-0 border-spirited-light lg:relative",
+        "m-0 lg:py-0 relative border-b last:border-0 border-spirited-light lg:relative",
         { "lg:border-b-0 first:border-t-0": level === 0 }
       )}
     >
@@ -243,13 +243,13 @@ const MenuItem = ({
         {children.length > 0 && level < menuLevelsToShow && (
           <button
             ref={buttonRef}
-            className="shrink-0 relative right-10 lg:right-0 text-white lg:text-digital-red bg-digital-red lg:bg-transparent rounded-full lg:rounded-none group"
+            className="shrink-0 relative right-10 lg:right-0 text-black bg-transparent lg:bg-transparent rounded-full lg:rounded-none group lg:pb-10"
             onClick={toggleSubmenu}
             aria-expanded={submenuOpen}
             aria-labelledby={linkId}
           >
             <ChevronDownIcon
-              height={35}
+              height={25}
               className={clsx(
                 "transition group-hocus:scale-125 group-hocus:text-black ease-in-out duration-150",
                 { "rotate-180": submenuOpen }

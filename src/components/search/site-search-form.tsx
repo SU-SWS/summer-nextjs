@@ -5,7 +5,7 @@ const SiteSearchForm = ({...props}: HTMLAttributes<HTMLFormElement>) => {
   const inputId = useId();
   return (
     <form aria-label="Site Search" action="/search" {...props}>
-      <div className="relative">
+      <div className="relative mt-10">
         <label htmlFor={inputId} className="sr-only">
           Search this site
         </label>
@@ -18,7 +18,7 @@ const SiteSearchForm = ({...props}: HTMLAttributes<HTMLFormElement>) => {
           required
         />
         <button type="submit" className="absolute top-2 right-5">
-          <MagnifyingGlassIcon width={25} className="text-archway-dark"/>
+          <MagnifyingGlassIcon width={25} className="text-digital-red"/>
           <span className="sr-only">Submit Search</span>
         </button>
       </div>

@@ -74,7 +74,7 @@ const LocalFooter = ({
           <div className="col-span-6 md:col-span-7 2xl:col-span-5 md:col-start-1 2xl:col-start-2 md:col-span-5">
             {suLocalFootAddress && <Address {...suLocalFootAddress} />}
 
-            {suLocalFootAction && (
+            {suLocalFootAction &&
               <ul className="list-unstyled">
                 {suLocalFootAction.map((link, index) => {
                   if (!link.url) return;
@@ -85,7 +85,7 @@ const LocalFooter = ({
                   );
                 })}
               </ul>
-            )}
+            }
 
             <Wysiwyg
               html={suLocalFootPrCo?.processed}

@@ -178,8 +178,8 @@ const MenuItem = ({
   useEventListener("keydown", handleEscape, menuItemRef);
 
   // List out the specific classes so tailwind will include them. Dynamic classes values don"t get compiled.
-  const zIndexes = ["z-[1]", "z-[2]", "z-[3]", "z-[4]", "z-[5]"];
-  const leftPadding = ["pl-10", "pl-20", "pl-28", "pl-48"];
+  const zIndexes = ["z-[1]", "z-[2]", "z-[3]", "z-[4]", "z-[5]"]
+  const leftPadding = ["pl-10", "pl-20", "pl-28", "pl-48"]
 
   // The last item in the current trail would be the current item id if the user is on that page.
   const isCurrent = activeTrail.at(-1) === id;

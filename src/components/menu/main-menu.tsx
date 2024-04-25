@@ -32,11 +32,7 @@ const MainMenu = ({ menuItems }: Props) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const navId = useId();
 
-  const {
-    value: menuOpen,
-    setFalse: closeMenu,
-    toggle: toggleMenu,
-  } = useBoolean(false);
+  const { value: menuOpen, setFalse: closeMenu, toggle: toggleMenu } = useBoolean(false);
   const browserUrl = usePathname();
   const activeTrail = useActiveTrail(menuItems, usePathname() || "");
 

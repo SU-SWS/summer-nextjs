@@ -64,7 +64,7 @@ const MainMenu = ({ menuItems }: Props) => {
     >
       <button
         ref={buttonRef}
-        className="flex flex-col items-center lg:hidden absolute top-5 right-10 group"
+        className="flex flex-col items-center lg:hidden absolute top-5 right-10 rs-py-2 group"
         onClick={toggleMenu}
         aria-expanded={menuOpen}
         aria-labelledby={navId}
@@ -117,7 +117,7 @@ const MainMenu = ({ menuItems }: Props) => {
             />
           ))}
 
-          <li className="mb-0 pb-0">
+          <li className="hidden lg:block mb-0 pb-0">
             <Link id="search" href="/search" className="h-full inline-block no-underline border-b-[4px] border-transparent px-5 pt-5 pb-10 border-b-[4px] hocus:border-spirited-light">
               <MagnifyingGlassIcon width={25} className="text-archway-dark" />
             </Link>
@@ -210,10 +210,10 @@ const MenuItem = ({
   );
 
   const chevronBtnStyles = clsx(
-    "shrink-0 relative right-10 lg:right-0 text-black bg-transparent lg:bg-transparent rounded-full lg:rounded-none lg:pr-5 lg:pb-6 lg:pl-2 lg:group-focus:border-b lg:group-hover:border-b-[4px] lg:group-focus:border-spirited-light lg:group-hover:border-spirited-light",
+    "shrink-0 relative pr-10 lg:right-0 text-black bg-transparent lg:bg-transparent lg:pr-5 lg:pb-6 lg:pl-2 lg:group-focus:border-b lg:group-hover:border-b-[4px] lg:group-focus:border-spirited-light lg:group-hover:border-spirited-light",
     // Top menu item styles.
     {
-      "lg:border-l-0 lg:border-b-[4px]": level === 0,
+      "border-b-[4px]": level === 0,
       "border-spirited-light": level === 0 && isCurrent,
       "border-transparent lg:border-spirited-light":
         level === 0 && !isCurrent && inTrail,
@@ -242,7 +242,7 @@ const MenuItem = ({
         { "lg:border-b-0 first:border-t-0 lg:mr-10 lg:last:mr-0": level === 0 }
       )}
     >
-      <div className="group flex justify-between lg:justify-end">
+      <div className="group flex lg:justify-end">
         <Link
           id={linkId}
           href={url || "#"}

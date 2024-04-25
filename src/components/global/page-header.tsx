@@ -30,9 +30,11 @@ const PageHeader = async () => {
       </div>
       {globalMessageConfig && <GlobalMessage {...globalMessageConfig}/>}
       <div className="relative bg-fog-light">
-        <div className="centered min-h-50 pr-24 lg:rs-py-2 lg:pr-0">
-          <div className="flex w-full justify-between">
-            <Lockup {...siteSettingsConfig} {...lockupSettingsConfig}/>
+        <div className="w-full border-b-2">
+          <div className="centered min-h-50 pr-24 rs-py-2 lg:pr-0">
+            <div className="flex w-full justify-between">
+              <Lockup {...siteSettingsConfig} {...lockupSettingsConfig}/>
+            </div>
           </div>
         </div>
 

@@ -4,10 +4,7 @@ import Link from "@components/elements/link";
 import SiteSearchForm from "@components/search/site-search-form";
 import useActiveTrail from "@lib/hooks/useActiveTrail";
 import useOutsideClick from "@lib/hooks/useOutsideClick";
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/20/solid";
+import { ArrowRightIcon, ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { MenuItem as MenuItemType } from "@lib/gql/__generated__/drupal.d";
 import { clsx } from "clsx";
 import { useBoolean, useEventListener } from "usehooks-ts";
@@ -119,9 +116,12 @@ const MainMenu = ({ menuItems }: Props) => {
               level={0}
             />
           ))}
-          <Link href="/search">
-            <MagnifyingGlassIcon width={25} className="text-archway-dark" />
-          </Link>
+
+          <li className="mb-0 pb-0">
+            <Link id="search" href="/search" className="h-full inline-block no-underline border-b-[4px] border-transparent px-5 pt-5 pb-10 border-b-[4px] hocus:border-spirited-light">
+              <MagnifyingGlassIcon width={25} className="text-archway-dark" />
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
@@ -190,15 +190,16 @@ const MenuItem = ({
   const inTrail = activeTrail.includes(id) && !isCurrent;
 
   const linkStyles = clsx(
-    "w-full relative inline-block font-normal text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-spirited-light",
+    "group w-full relative inline-block font-normal text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-spirited-light",
     leftPadding[level],
     // Top menu item styles.
     {
-      "lg:border-l-0 lg:border-b-[4px] mx-5 lg:mr-0 lg:pb-10": level === 0,
+      "lg:border-l-0 lg:border-b-[4px] lg:mr-0 lg:pb-10": level === 0,
       "border-spirited-light": level === 0 && isCurrent,
       "border-transparent lg:border-spirited-light":
         level === 0 && !isCurrent && inTrail,
       "border-transparent": level === 0 && !isCurrent && !inTrail,
+      "lg:pr-10" : level === 0 && children.length === 0,
     },
     // Child menu item styles.
     {
@@ -209,7 +210,7 @@ const MenuItem = ({
   );
 
   const chevronBtnStyles = clsx(
-    "shrink-0 relative right-10 lg:right-0 text-black bg-transparent lg:bg-transparent rounded-full lg:rounded-none lg:mr-5 lg:pb-6 lg:pl-2 lg:group-focus:border-b lg:group-hover:border-b-[4px] lg:group-focus:border-spirited-light lg:group-hover:border-spirited-light",
+    "shrink-0 relative right-10 lg:right-0 text-black bg-transparent lg:bg-transparent rounded-full lg:rounded-none lg:pr-5 lg:pb-6 lg:pl-2 lg:group-focus:border-b lg:group-hover:border-b-[4px] lg:group-focus:border-spirited-light lg:group-hover:border-spirited-light",
     // Top menu item styles.
     {
       "lg:border-l-0 lg:border-b-[4px]": level === 0,
@@ -221,7 +222,7 @@ const MenuItem = ({
   );
 
   const subMenuStyles = clsx(
-    "list-unstyled w-full min-w-[300px] lg:bg-fog-light lg:border lg:border-white lg:shadow-2xl lg:absolute lg:rounded-[25px] lg:px-12 lg:py-4 lg:mt-3",
+    "list-unstyled w-full min-w-[350px] lg:bg-fog-light lg:border lg:border-white lg:shadow-2xl lg:absolute lg:rounded-[25px] lg:px-12 lg:py-4 lg:mt-3",
     zIndexes[level],
     {
       "lg:top-full lg:right-0": level === 0,
@@ -238,7 +239,7 @@ const MenuItem = ({
       ref={menuItemRef}
       className={clsx(
         "m-0 lg:py-0 relative border-b last:border-0 border-spirited-light lg:relative",
-        { "lg:border-b-0 first:border-t-0": level === 0 }
+        { "lg:border-b-0 first:border-t-0 lg:mr-10 lg:last:mr-0": level === 0 }
       )}
     >
       <div className="group flex justify-between lg:justify-end">
@@ -249,6 +250,7 @@ const MenuItem = ({
           aria-current={isCurrent ? "true" : undefined}
         >
           {title}
+          {level !== 0 && <ArrowRightIcon width={20} className="hidden group-focus:inline-block group-hover:inline-block ml-2" />}
         </Link>
 
         {children.length > 0 && level < menuLevelsToShow && (

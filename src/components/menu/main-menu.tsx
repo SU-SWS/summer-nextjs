@@ -253,7 +253,7 @@ const MenuItem = ({
           {level !== 0 && <ArrowRightIcon width={20} className="hidden group-focus:inline-block group-hover:inline-block ml-2" />}
         </Link>
 
-        {children.length > 0 && level < menuLevelsToShow && (
+        {children.length > 0 && level < menuLevelsToShow &&
           <button
             ref={buttonRef}
             className={chevronBtnStyles}
@@ -269,10 +269,10 @@ const MenuItem = ({
               )}
             />
           </button>
-        )}
+        }
       </div>
 
-      {children.length > 0 && level < menuLevelsToShow && (
+      {children.length > 0 && level < menuLevelsToShow &&
         <ul className={subMenuStyles} ref={belowListRef}>
           {children.map((item) => (
             <MenuItem
@@ -283,7 +283,7 @@ const MenuItem = ({
             />
           ))}
         </ul>
-      )}
+      }
     </li>
   );
 };

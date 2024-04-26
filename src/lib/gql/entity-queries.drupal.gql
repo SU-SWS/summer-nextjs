@@ -176,6 +176,12 @@ query ConfigPages {
             suSiteMenuLevels
             suSiteName
             suSiteNobots
+            sumSiteHeaderPrim {
+                ...FragmentLink
+            }
+            sumSiteHeaderSec {
+                ...FragmentLink
+            }
         }
     }
     stanfordGlobalMessages(first: 1) {

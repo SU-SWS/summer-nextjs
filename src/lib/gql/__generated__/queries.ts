@@ -4,6 +4,22 @@ import * as DrupalTypes from './drupal.d';
 import { GraphQLClient, RequestOptions } from 'graphql-request';
 import gql from 'graphql-tag';
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders'];
+export const FragmentLinkFragmentDoc = gql`
+    fragment FragmentLink on Link {
+  title
+  url
+}
+    `;
+export const FragmentNameTypeFragmentDoc = gql`
+    fragment FragmentNameType on NameType {
+  title
+  given
+  middle
+  family
+  generational
+  credentials
+}
+    `;
 export const FragmentDateTimeFragmentDoc = gql`
     fragment FragmentDateTime on DateTime {
   timezone
@@ -684,6 +700,52 @@ ${FragmentNodeStanfordPersonTeaserFragmentDoc}
 ${FragmentParagraphUnionFragmentDoc}
 ${FragmentMediaImageFragmentDoc}
 ${FragmentTermInterfaceFragmentDoc}`;
+export const FragmentNodeSumSummerCourseFragmentDoc = gql`
+    fragment FragmentNodeSumSummerCourse on NodeSumSummerCourse {
+  ...FragmentNodeInterface
+  sumCourseAvailability {
+    ...FragmentTermInterface
+  }
+  sumCourseCatalogNumber
+  sumCourseClassNumber
+  sumCourseCourseCost
+  sumCourseCrossListing
+  sumCourseDescription {
+    processed
+  }
+  sumCourseEndDate {
+    ...FragmentDateTime
+  }
+  sumCourseFormat
+  sumCourseInstructors
+  sumCourseInterestArea {
+    ...FragmentTermInterface
+  }
+  sumCourseLength
+  sumCourseNotes {
+    processed
+  }
+  sumCoursePopulation {
+    ...FragmentTermInterface
+  }
+  sumCoursePrerequisites {
+    processed
+  }
+  sumCourseSchedule
+  sumCourseStartDate {
+    ...FragmentDateTime
+  }
+  sumCourseSyllabusFile {
+    ...FragmentMediaFile
+  }
+  sumCourseUniqueImportId
+  sumCourseUnits
+  sumStudentsAlsoStudied
+}
+    ${FragmentNodeInterfaceFragmentDoc}
+${FragmentTermInterfaceFragmentDoc}
+${FragmentDateTimeFragmentDoc}
+${FragmentMediaFileFragmentDoc}`;
 export const FragmentNodeUnionFragmentDoc = gql`
     fragment FragmentNodeUnion on NodeUnion {
   ...FragmentNodeInterface
@@ -695,6 +757,7 @@ export const FragmentNodeUnionFragmentDoc = gql`
   ...FragmentNodeStanfordPerson
   ...FragmentNodeStanfordPolicy
   ...FragmentNodeStanfordPublication
+  ...FragmentNodeSumSummerCourse
 }
     ${FragmentNodeInterfaceFragmentDoc}
 ${FragmentNodeStanfordCourseFragmentDoc}
@@ -704,7 +767,8 @@ ${FragmentNodeStanfordNewsFragmentDoc}
 ${FragmentNodeStanfordPageFragmentDoc}
 ${FragmentNodeStanfordPersonFragmentDoc}
 ${FragmentNodeStanfordPolicyFragmentDoc}
-${FragmentNodeStanfordPublicationFragmentDoc}`;
+${FragmentNodeStanfordPublicationFragmentDoc}
+${FragmentNodeSumSummerCourseFragmentDoc}`;
 export const FragmentNodeStanfordCourseTeaserFragmentDoc = gql`
     fragment FragmentNodeStanfordCourseTeaser on NodeStanfordCourse {
   ...FragmentNodeInterface
@@ -775,6 +839,11 @@ export const FragmentNodeStanfordPublicationTeaserFragmentDoc = gql`
 }
     ${FragmentNodeInterfaceFragmentDoc}
 ${FragmentTermInterfaceFragmentDoc}`;
+export const FragmentNodeSumSummerCourseTeaserFragmentDoc = gql`
+    fragment FragmentNodeSumSummerCourseTeaser on NodeSumSummerCourse {
+  ...FragmentNodeInterface
+}
+    ${FragmentNodeInterfaceFragmentDoc}`;
 export const FragmentNodeTeaserUnionFragmentDoc = gql`
     fragment FragmentNodeTeaserUnion on NodeUnion {
   ...FragmentNodeInterface
@@ -786,6 +855,7 @@ export const FragmentNodeTeaserUnionFragmentDoc = gql`
   ...FragmentNodeStanfordPersonTeaser
   ...FragmentNodeStanfordPolicyTeaser
   ...FragmentNodeStanfordPublicationTeaser
+  ...FragmentNodeSumSummerCourseTeaser
 }
     ${FragmentNodeInterfaceFragmentDoc}
 ${FragmentNodeStanfordCourseTeaserFragmentDoc}
@@ -795,7 +865,8 @@ ${FragmentNodeStanfordNewsTeaserFragmentDoc}
 ${FragmentNodeStanfordPageTeaserFragmentDoc}
 ${FragmentNodeStanfordPersonTeaserFragmentDoc}
 ${FragmentNodeStanfordPolicyTeaserFragmentDoc}
-${FragmentNodeStanfordPublicationTeaserFragmentDoc}`;
+${FragmentNodeStanfordPublicationTeaserFragmentDoc}
+${FragmentNodeSumSummerCourseTeaserFragmentDoc}`;
 export const FragmentMenuLinkFragmentDoc = gql`
     fragment FragmentMenuLink on MenuItem {
   url
@@ -1000,6 +1071,12 @@ export const ConfigPagesDocument = gql`
       suSiteMenuLevels
       suSiteName
       suSiteNobots
+      sumSiteHeaderPrim {
+        ...FragmentLink
+      }
+      sumSiteHeaderSec {
+        ...FragmentLink
+      }
     }
   }
   stanfordGlobalMessages(first: 1) {
@@ -1138,7 +1215,7 @@ export const ConfigPagesDocument = gql`
     }
   }
 }
-    `;
+    ${FragmentLinkFragmentDoc}`;
 export const MenuDocument = gql`
     query Menu($name: MenuAvailable = MAIN) {
   menu(name: $name) {

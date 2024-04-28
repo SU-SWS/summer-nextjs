@@ -9,6 +9,7 @@ import {
   StanfordGlobalMessage
 } from "@lib/gql/__generated__/drupal.d";
 import {isPreviewMode} from "@lib/drupal/utils";
+import HeaderButtons from "@components/config-pages/header-buttons";
 
 const PageHeader = async () => {
   const menuItems = await getMenu(MenuAvailable.Main, isPreviewMode());
@@ -33,12 +34,14 @@ const PageHeader = async () => {
         <div className="w-full border-b-2 lg:border-b-0">
           <div className="centered min-h-50 pr-24 rs-py-2 lg:pr-0">
             <div className="flex w-full justify-between">
-              <Lockup {...siteSettingsConfig} {...lockupSettingsConfig}/>
+              <Lockup {...siteSettingsConfig} {...lockupSettingsConfig} />
+              <div className="hidden lg:block">
+                <HeaderButtons  {...siteSettingsConfig} />
+              </div>
             </div>
           </div>
         </div>
-
-        <MainMenu menuItems={menuItems}/>
+        <MainMenu menuItems={menuItems} {...siteSettingsConfig}/>
       </div>
     </header>
   )

@@ -5,7 +5,7 @@ import SiteSearchForm from "@components/search/site-search-form";
 import useActiveTrail from "@lib/hooks/useActiveTrail";
 import useOutsideClick from "@lib/hooks/useOutsideClick";
 import { ArrowRightIcon, ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { MenuItem as MenuItemType } from "@lib/gql/__generated__/drupal.d";
+import { MenuItem as MenuItemType, StanfordBasicSiteSetting } from "@lib/gql/__generated__/drupal.d";
 import { clsx } from "clsx";
 import { useBoolean, useEventListener } from "usehooks-ts";
 import {
@@ -17,17 +17,19 @@ import {
   useState,
 } from "react";
 import { usePathname } from "next/navigation";
+import HeaderButtons from "@components/config-pages/header-buttons";
 
 const menuLevelsToShow = 2;
 
-type Props = {
+type Props =
+  Omit<StanfordBasicSiteSetting, "__typename" | "id" | "metatag"> & {
   /**
    * Array of nested menu items.
    */
   menuItems: MenuItemType[];
 };
 
-const MainMenu = ({ menuItems }: Props) => {
+const MainMenu = ({ menuItems, ...siteSettingsConfig}: Props) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const navId = useId();
@@ -103,6 +105,9 @@ const MainMenu = ({ menuItems }: Props) => {
         }
       >
         <SiteSearchForm className="px-10 lg:hidden" />
+        <div className="border-b border-spirited-light flex flex-col items-center mt-10 lg:hidden children:w-full children:centered">
+          <HeaderButtons  {...siteSettingsConfig} />
+        </div>
         <ul className="list-unstyled lg:flex lg:justify-end flex-wrap m-0 p-0">
           {menuItems.map((item) => (
             <MenuItem

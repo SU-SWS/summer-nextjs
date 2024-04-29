@@ -20,13 +20,9 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
    * Eagerly load the banner image.
    */
   eagerLoadImage?: Maybe<boolean>
-  /**
-   * Position of the text over the image.
-   */
-  overlayPosition?: Maybe<"left" | "right">
 }
 
-const ArchBanner = ({imageUrl, imageAlt, eagerLoadImage, isSection, overlayPosition, children, ...props}: Props) => {
+const ArchBanner = ({imageUrl, imageAlt, eagerLoadImage, isSection, children, ...props}: Props) => {
   const BannerWrapper: ElementType = isSection ? "section" : "div";
 
   return (

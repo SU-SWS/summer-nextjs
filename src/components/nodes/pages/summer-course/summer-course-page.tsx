@@ -21,7 +21,17 @@ const SummerCoursePage = ({node, ...props}: Props) => {
       >
         <div className="flex flex-col justify-center items-center border-archway-dark border-b rs-pb-4 rs-mx-6">
           {/* {node.sumCourseStartDate && node.sumCourseEndDate &&
-            <div>{node.sumCourseStartDate} — {node.sumCourseEndDate}</div>
+            <div>
+              {node.sumCourseStartDate.toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+              })} — {node.sumCourseEndDate.toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric"
+              })}
+            </div>
           } */}
           <H1 className="font-normal font-roboto w-[900px] text-center">
             {node.title}

@@ -17,7 +17,7 @@ import {
   useState,
 } from "react";
 import { usePathname } from "next/navigation";
-import HeaderButtons from "@components/config-pages/header-buttons";
+import Button from "@components/elements/button";
 
 const menuLevelsToShow = 2;
 
@@ -98,28 +98,24 @@ const MainMenu = ({ menuItems, ...siteSettingsConfig}: Props) => {
         </span>
       </button>
 
-      <div
-        className={
-          (menuOpen ? "block" : "hidden") +
-          " lg:flex lg:justify-end lg:items-center bg-fog-light lg:bg-transparent absolute top-100 lg:relative z-10 w-full"
-        }
-      >
+      <div className={clsx(menuOpen ? "block" : "hidden", "lg:flex lg:justify-end lg:items-center bg-fog-light lg:bg-transparent absolute top-100 lg:relative z-10 w-full")}>
         <SiteSearchForm className="px-10 lg:hidden" />
         <div className="border-b border-spirited-light flex flex-col items-center mt-10 lg:hidden children:w-full children:centered">
-          <HeaderButtons  {...siteSettingsConfig} />
+          {siteSettingsConfig && siteSettingsConfig.sumSiteHeaderPrim && <Button href={siteSettingsConfig.sumSiteHeaderPrim.url} secondary>{siteSettingsConfig.sumSiteHeaderPrim.title}</Button>}
+          {siteSettingsConfig && siteSettingsConfig.sumSiteHeaderSec && <Button href={siteSettingsConfig.sumSiteHeaderSec.url}>{siteSettingsConfig.sumSiteHeaderSec.title}</Button>}
         </div>
         <ul className="list-unstyled lg:flex lg:justify-end flex-wrap m-0 p-0">
-          {menuItems.map((item) => (
+          {menuItems.map((item) =>
             <MenuItem
               key={item.id}
               {...item}
               activeTrail={activeTrail}
               level={0}
             />
-          ))}
+          )}
 
           <li className="hidden lg:block mb-0 pb-0">
-            <Link id="search" href="/search" className="h-full inline-block no-underline border-b-[4px] border-transparent px-5 pt-5 pb-10 border-b-[4px] hocus:border-spirited-light">
+            <Link id="search" href="/search" prefetch={false} className="h-full inline-block no-underline border-b-[4px] border-transparent px-5 pt-5 pb-10 border-b-[4px] hocus:border-spirited-light">
               <MagnifyingGlassIcon width={25} className="text-archway-dark" />
             </Link>
           </li>
@@ -211,7 +207,7 @@ const MenuItem = ({
   );
 
   const chevronBtnStyles = clsx(
-    "shrink-0 relative pr-10 lg:right-0 text-black bg-transparent lg:bg-transparent lg:pr-5 lg:pb-6 lg:pl-2 lg:group-focus:border-b lg:group-hover:border-b-[4px] lg:group-focus:border-spirited-light lg:group-hover:border-spirited-light",
+    "shrink-0 relative pr-10 lg:right-0 text-black bg-transparent lg:bg-transparent lg:pr-5 lg:pb-6 lg:pl-2 hocus:border-b-[4px] lg:group-hover:border-b-[4px] hocus:border-spirited-light lg:group-hover:border-spirited-light",
     // Top menu item styles.
     {
       "border-b-[4px]": level === 0,
@@ -275,14 +271,14 @@ const MenuItem = ({
 
       {children.length > 0 && level < menuLevelsToShow &&
         <ul className={subMenuStyles} ref={belowListRef}>
-          {children.map((item) => (
+          {children.map((item) =>
             <MenuItem
               key={item.id}
               {...item}
               level={level + 1}
               activeTrail={activeTrail}
             />
-          ))}
+          )}
         </ul>
       }
     </li>

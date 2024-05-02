@@ -26,8 +26,8 @@ type Props = {
    * Array of nested menu items.
    */
   menuItems: MenuItemType[];
-  sumSiteHeaderPrim: StanfordBasicSiteSetting["sumSiteHeaderPrim"];
-  sumSiteHeaderSec: StanfordBasicSiteSetting["sumSiteHeaderSec"];
+  sumSiteHeaderPrim?: StanfordBasicSiteSetting["sumSiteHeaderPrim"];
+  sumSiteHeaderSec?: StanfordBasicSiteSetting["sumSiteHeaderSec"];
 };
 
 const MainMenu = ({ menuItems, ...siteSettingsConfig}: Props) => {

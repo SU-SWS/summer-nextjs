@@ -32,8 +32,6 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
   const startDate = node.sumCourseStartDate && convertToLocalDateTime(node.sumCourseStartDate).toUpperCase();
   const endDate = node.sumCourseEndDate && convertToLocalDateTime(node.sumCourseEndDate).toUpperCase();
 
-  console.log("node.sumCourseImage", node.sumCourseImage)
-
   return (
     <article {...props}>
       <ArchBanner

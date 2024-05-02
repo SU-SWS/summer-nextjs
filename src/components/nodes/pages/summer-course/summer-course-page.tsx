@@ -20,9 +20,9 @@ const convertToLocalDateTime = (timeObject: TimeObject): string => {
   const utcDate = new Date(timeObject.time);
   const localDate = utcDate.toLocaleString("en-US", {
       timeZone: timeObject.timezone,
-      month: "long", // Display full month name
-      day: "numeric", // Display numeric day
-      year: "numeric" // Display full year
+      month: "long",
+      day: "numeric",
+      year: "numeric"
   });
 
   return localDate;

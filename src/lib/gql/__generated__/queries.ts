@@ -297,6 +297,51 @@ export const FragmentParagraphStanfordLayoutFragmentDoc = gql`
   ...FragmentParagraphInterface
 }
     ${FragmentParagraphInterfaceFragmentDoc}`;
+export const FragmentDoubleStringFloatFragmentDoc = gql`
+    fragment FragmentDoubleStringFloat on DoubleStringFloat {
+  first
+  second
+}
+    `;
+export const FragmentDoubleIntFloatFragmentDoc = gql`
+    fragment FragmentDoubleIntFloat on DoubleIntFloat {
+  first
+  second
+}
+    `;
+export const FragmentParagraphSumCalculatorFragmentDoc = gql`
+    fragment FragmentParagraphSumCalculator on ParagraphSumCalculator {
+  ...FragmentParagraphInterface
+  sumCalcAppFee {
+    ...FragmentDoubleStringFloat
+  }
+  sumCalcBooks
+  sumCalcDocuments
+  sumCalcGradUnitCost {
+    ...FragmentDoubleIntFloat
+  }
+  sumCalcHealthFee
+  sumCalcHighUnitCost {
+    ...FragmentDoubleIntFloat
+  }
+  sumCalcHouseFees {
+    ...FragmentDoubleStringFloat
+  }
+  sumCalcI20Fee
+  sumCalcInsurance
+  sumCalcMailFee
+  sumCalcMeals
+  sumCalcProgFee {
+    ...FragmentDoubleStringFloat
+  }
+  sumCalcTechFee
+  sumCalcUgUnitCost {
+    ...FragmentDoubleIntFloat
+  }
+}
+    ${FragmentParagraphInterfaceFragmentDoc}
+${FragmentDoubleStringFloatFragmentDoc}
+${FragmentDoubleIntFloatFragmentDoc}`;
 export const FragmentParagraphUnionFragmentDoc = gql`
     fragment FragmentParagraphUnion on ParagraphUnion {
   ...FragmentParagraphInterface
@@ -310,6 +355,7 @@ export const FragmentParagraphUnionFragmentDoc = gql`
   ...FragmentParagraphStanfordSpacer
   ...FragmentParagraphStanfordWysiwyg
   ...FragmentParagraphStanfordLayout
+  ...FragmentParagraphSumCalculator
 }
     ${FragmentParagraphInterfaceFragmentDoc}
 ${FragmentParagraphStanfordAccordionFragmentDoc}
@@ -321,7 +367,8 @@ ${FragmentParagraphStanfordListFragmentDoc}
 ${FragmentParagraphStanfordMediaCaptionFragmentDoc}
 ${FragmentParagraphStanfordSpacerFragmentDoc}
 ${FragmentParagraphStanfordWysiwygFragmentDoc}
-${FragmentParagraphStanfordLayoutFragmentDoc}`;
+${FragmentParagraphStanfordLayoutFragmentDoc}
+${FragmentParagraphSumCalculatorFragmentDoc}`;
 export const FragmentSmartDateTypeFragmentDoc = gql`
     fragment FragmentSmartDateType on SmartDateType {
   value

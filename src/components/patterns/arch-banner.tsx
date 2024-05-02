@@ -30,7 +30,7 @@ const ArchBanner = ({imageUrl, imageAlt, eagerLoadImage, isSection, children, ..
       {...props}
       className={twMerge("@container md:min-h-[400px] rs-mb-5", props.className)}
     >
-      <div className="aspect-[16/9] @6xl:aspect-auto relative @6xl:absolute w-full @6xl:h-full bg-cool-grey">
+      <div className="aspect-[16/9] @6xl:aspect-auto absolute @6xl:absolute w-full @6xl:h-full bg-cool-grey">
         {imageUrl &&
           <Image
             className="object-cover"

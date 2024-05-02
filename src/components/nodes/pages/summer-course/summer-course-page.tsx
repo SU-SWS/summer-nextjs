@@ -16,10 +16,8 @@ interface TimeObject {
 }
 
 
-const convertToLocalDateTime = (timeObject: TimeObject): string[] => {
+const convertToLocalDateTime = (timeObject: TimeObject): string => {
   const utcDate = new Date(timeObject.time);
-
-  // Use toLocaleString with the timeZone option and appropriate date and time styles
   const localDate = utcDate.toLocaleString("en-US", {
       timeZone: timeObject.timezone,
       month: "long", // Display full month name
@@ -27,21 +25,15 @@ const convertToLocalDateTime = (timeObject: TimeObject): string[] => {
       year: "numeric" // Display full year
   });
 
-  // Use toLocaleString with the timeZone option and time style
-  const localTime = utcDate.toLocaleString("en-US", {
-      timeZone: timeObject.timezone,
-      hour: "numeric", // Display numeric hour
-      minute: "numeric", // Display numeric minute
-      hour12: true // Use 12-hour clock
-  });
-
-  // Return an array with formatted date and time
-  return [localDate, localTime];
+  return localDate;
 };
 
 const SummerCoursePage = ({ node, ...props }: Props) => {
-  const startDateTime = node.sumCourseStartDate && convertToLocalDateTime(node.sumCourseStartDate);
-  const endDateTime = node.sumCourseEndDate && convertToLocalDateTime(node.sumCourseEndDate);
+  const startDate = node.sumCourseStartDate && convertToLocalDateTime(node.sumCourseStartDate).toUpperCase();
+  const endDate = node.sumCourseEndDate && convertToLocalDateTime(node.sumCourseEndDate).toUpperCase();
+
+  console.log("node.sumCourseImage", node.sumCourseImage)
+
   return (
     <article {...props}>
       <ArchBanner
@@ -53,9 +45,9 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
       >
         <div className="w-screen">
           <div className="flex flex-col justify-center items-center border-archway-dark border-b rs-pb-4 rs-mx-6">
-            {startDateTime &&
+            {startDate &&
               <div className="font-sans font-normal rs-mb-0">
-                {startDateTime[0].toUpperCase()}{endDateTime && (` — ${endDateTime[0].toUpperCase()}`)}
+                {startDate}{endDate && (` — ${endDate}`)}
               </div>
             }
             <H1 className="font-normal max-w-[900px] font-roboto text-center rs-mb-0">
@@ -72,40 +64,63 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
             </div>
             <div className="col-span-12 md:col-span-8">
               <div className="flex flex-col md:flex-row gap-10 rs-mb-4">
-                <div className="relative aspect-1/1 w-full h-[200px] md:w-[500px] md:h-[500px] *:rounded-[25px]">
-                  <Image
-                    className="object-cover"
-                    src="/images/temp-img.jpg"
-                    alt=""
-                    loading="eager"
-                    fill
-                    sizes="100vw"
-                  />
-                </div>
+                {node.sumCourseImage &&
+                  <div className="relative aspect-1/1 w-full h-[200px] md:w-[500px] md:h-[500px] *:rounded-[25px]">
+                    <Image
+                      className="object-cover"
+                      src={node.sumCourseImage.mediaImage.url}
+                      alt={node.sumCourseImage.mediaImage.alt || ""}
+                      loading="eager"
+                      fill
+                      sizes="100vw"
+                    />
+                  </div>
+                }
                 <div className="pt-12 children:mb-5 [&_span]:font-bold">
                   <p className="font-bold">Details:</p>
 
-                  {startDateTime && endDateTime && <div><span>Time:</span> {`${startDateTime[1]} — ${endDateTime[1]}`}</div>} 
+                  {node.sumCourseSchedule && <div><span>Time:</span> {node.sumCourseSchedule}</div>} 
                   {node.sumCourseUnits && <div><span>Units:</span> {node.sumCourseUnits}</div>} 
                   
                   {node.sumCourseInterestArea && <div><span>Interest Area:</span> {node.sumCourseInterestArea.name}</div>} 
 
-                  {node.sumCourseInstructors &&
+                  {node.sumCourseInstructors && 
                     <div>
                       <span>Instructor(s):</span>
                       {node.sumCourseInstructors.map((instructor, i) =>
-                        <p className="inline-block mb-0" key={`instructor-${i}`}> {instructor}</p>
+                        <p className="inline-block mb-0" key={`instructor-${i}`}>
+                          {instructor}{node.sumCourseInstructors && node.sumCourseInstructors.length > 1 && i !== node.sumCourseInstructors.length - 1 && ", "}
+                        </p>
+                      )}
+                    </div>
+                  }
+
+                  {node.sumCoursePopulation &&
+                    <div>
+                      <span>Population: </span>
+                      {node.sumCoursePopulation.map((population, i) =>
+                        <p className="inline-block mb-0" key={`population-${i}`}>
+                          {population.name}{node.sumCoursePopulation && node.sumCoursePopulation.length > 1 && i !== node.sumCoursePopulation.length - 1 && ", "}
+                        </p>
                       )}
                     </div>
                   }
                   
-                  {node.sumCoursePopulation && <div><span>Population:</span> {node.sumCoursePopulation.name}</div>}
-                  
                   {node.sumCourseInterestArea && <div><span>Interest Area:</span> {node.sumCourseInterestArea.name}</div>}
 
-                  {node.sumCourseFormat && <div><span>Course Format & Length:</span> {node.sumCourseFormat}</div>}
+                  {node.sumCourseFormat && <div><span>Course Format & Length: </span>{node.sumCourseFormat}{node.sumCourseLength && `, ${node.sumCourseLength}`}</div>}
 
-                  {node.sumCourseCrossListing && <div><span>Cross Listings:</span> {node.sumCourseCrossListing}</div>}
+
+                  {node.sumCourseCrossListing && (
+                    <div>
+                      <span>Cross Listings: </span>
+                      {node.sumCourseCrossListing.map((courseCrossListing, i) =>
+                        <p className="inline-block mb-0" key={`courseCrossListing-${i}`}>
+                          {courseCrossListing}{node.sumCourseCrossListing && node.sumCourseCrossListing.length > 1 && i !== node.sumCourseCrossListing.length - 1 && ", "}
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
               <div>

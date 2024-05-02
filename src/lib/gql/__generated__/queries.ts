@@ -717,6 +717,9 @@ export const FragmentNodeSumSummerCourseFragmentDoc = gql`
     ...FragmentDateTime
   }
   sumCourseFormat
+  sumCourseImage {
+    ...FragmentMediaImage
+  }
   sumCourseInstructors
   sumCourseInterestArea {
     ...FragmentTermInterface
@@ -745,6 +748,7 @@ export const FragmentNodeSumSummerCourseFragmentDoc = gql`
     ${FragmentNodeInterfaceFragmentDoc}
 ${FragmentTermInterfaceFragmentDoc}
 ${FragmentDateTimeFragmentDoc}
+${FragmentMediaImageFragmentDoc}
 ${FragmentMediaFileFragmentDoc}`;
 export const FragmentNodeUnionFragmentDoc = gql`
     fragment FragmentNodeUnion on NodeUnion {

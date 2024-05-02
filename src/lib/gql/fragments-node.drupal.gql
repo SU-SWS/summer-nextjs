@@ -29,6 +29,9 @@ fragment FragmentNodeSumSummerCourse on NodeSumSummerCourse {
         ...FragmentDateTime
     }
     sumCourseFormat
+    sumCourseImage {
+        ...FragmentMediaImage
+    }
     sumCourseInstructors
     sumCourseInterestArea {
         ...FragmentTermInterface

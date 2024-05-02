@@ -86,7 +86,7 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
 
                   {node.sumCourseInstructors && 
                     <div>
-                      <span>Instructor(s):</span>
+                      <span>Instructor: </span>
                       {node.sumCourseInstructors.map((instructor, i) =>
                         <p className="inline-block mb-0" key={`instructor-${i}`}>
                           {instructor}{node.sumCourseInstructors && node.sumCourseInstructors.length > 1 && i !== node.sumCourseInstructors.length - 1 && ", "}

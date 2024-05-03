@@ -30,7 +30,7 @@ type Props = {
   sumSiteHeaderSec?: StanfordBasicSiteSetting["sumSiteHeaderSec"];
 };
 
-const MainMenu = ({ menuItems, ...siteSettingsConfig}: Props) => {
+const MainMenu = ({ menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const navId = useId();

@@ -96,12 +96,14 @@ const SumCalculatorParagraph = ({
       <div className="max-w-7xl mx-auto pb-72 flex flex-col gap-20">
         <div>
           <SelectList
+
             label="I am a/an _________ student"
             options={[
               {value: "undergraduate", label: "Undergraduate"},
               {value: "highschool", label: "High School"},
               {value: "graduate", label: "Graduate"}
             ]}
+            downIcon={<ChevronDownIcon width={30} className="bg-digital-red rounded-full text-white "/>}
             onChange={(_e, value) => setStudentType(value as "highschool" | "graduate" | "undergraduate")}
             required
           />
@@ -120,9 +122,10 @@ const SumCalculatorParagraph = ({
               {value: "no1", label: "No, I am a US citizen or permanent US resident"},
               {value: "no2", label: "No, I am an international student with an I-20 sponsored by another institution"}
             ]}
+            downIcon={<ChevronDownIcon width={30} className="bg-digital-red rounded-full text-white ml-auto flex-shrink-0"/>}
             onChange={(_e, value) => setNeedsI20(value === "yes")}
-            required
             disabled={!studentType}
+            required
           />
 
           {needsI20 === true && i20Help}
@@ -135,9 +138,10 @@ const SumCalculatorParagraph = ({
               {value: "yes", label: "On-Campus"},
               {value: "no", label: "Living off campus and commuting"},
             ]}
+            downIcon={<ChevronDownIcon width={30} className="bg-digital-red rounded-full text-white"/>}
             onChange={(_e, value) => setOnCampus(value === "yes")}
-            required
             disabled={needsI20 ===undefined}
+            required
           />
 
           {onCampus && onCampusHousingHelp}
@@ -148,9 +152,10 @@ const SumCalculatorParagraph = ({
           <SelectList
             label="How many units will you be taking?"
             options={unitOptions}
+            downIcon={<ChevronDownIcon width={30} className="bg-digital-red rounded-full text-white"/>}
             onChange={(_e, value) => setUnits(parseInt(value as string))}
-            required
             disabled={onCampus === undefined}
+            required
           />
 
           {(studentType === "undergraduate" && units > 0) && undergradUnitsHelp}
@@ -165,9 +170,10 @@ const SumCalculatorParagraph = ({
               {value: "yes", label: "Yes, I will be waiving Cardinal Care."},
               {value: "no", label: "No, I would like to stay enrolled in Cardinal Care Health Insurance"},
             ]}
+            downIcon={<ChevronDownIcon width={30} className="bg-digital-red rounded-full text-white"/>}
             onChange={(_e, value) => setWaivingInsurance(value === "yes")}
-            required
             disabled={units < 3}
+            required
           />
 
           {waivingInsurance && wavedInsuranceHelp}
@@ -175,9 +181,9 @@ const SumCalculatorParagraph = ({
         </div>
       </div>
 
-      <div ref={summaryRef} className="sticky bottom-0">
+      <div className="sticky bottom-0">
 
-        <div className="absolute bottom-0 w-full">
+        <div ref={summaryRef} className="absolute bottom-0 w-full">
           <div className="absolute -z-10 top-0 w-screen h-full bg-black-10 left-1/2 -translate-x-1/2"></div>
 
           <div className="max-w-7xl mx-auto my-5">

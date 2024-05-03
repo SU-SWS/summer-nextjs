@@ -169,22 +169,47 @@ fragment FragmentParagraphStanfordPageTitleBanner on ParagraphStanfordPageTitleB
 
 fragment FragmentParagraphSumCalculator on ParagraphSumCalculator {
     ...FragmentParagraphInterface
-    sumCalcAppFee {
-        ...FragmentDoubleStringFloat
-    }
+    sumCalcAppFee
     sumCalcBooks
+    sumCalcCommuteHelp {
+        processed
+    }
     sumCalcDocuments
+    sumCalcGradAppHelp {
+        processed
+    }
     sumCalcGradUnitCost {
         ...FragmentDoubleIntFloat
     }
+    sumCalcGradUnitHelp {
+        processed
+    }
     sumCalcHealthFee
+    sumCalcHighAppHelp {
+        processed
+    }
     sumCalcHighUnitCost {
         ...FragmentDoubleIntFloat
+    }
+    sumCalcHighUnitHelp {
+        processed
     }
     sumCalcHouseFees {
         ...FragmentDoubleStringFloat
     }
+    sumCalcHouseHelp {
+        processed
+    }
     sumCalcI20Fee
+    sumCalcI20Help {
+        processed
+    }
+    sumCalcInsHelp {
+        processed
+    }
+    sumCalcInsWaveHelp {
+        processed
+    }
     sumCalcInsurance
     sumCalcMailFee
     sumCalcMeals
@@ -192,8 +217,14 @@ fragment FragmentParagraphSumCalculator on ParagraphSumCalculator {
         ...FragmentDoubleStringFloat
     }
     sumCalcTechFee
+    sumCalcUgAppHelp {
+        processed
+    }
     sumCalcUgUnitCost {
         ...FragmentDoubleIntFloat
+    }
+    sumCalcUgUnitHelp {
+        processed
     }
 }
 

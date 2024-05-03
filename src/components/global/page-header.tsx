@@ -42,7 +42,7 @@ const PageHeader = async () => {
             </div>
           </div>
         </div>
-        <MainMenu menuItems={menuItems} {...siteSettingsConfig}/>
+        <MainMenu menuItems={menuItems} sumSiteHeaderPrim={siteSettingsConfig?.sumSiteHeaderPrim} sumSiteHeaderSec={siteSettingsConfig?.sumSiteHeaderSec}/>
       </div>
     </header>
   )

@@ -9,6 +9,7 @@ import ListParagraph from "@components/paragraphs/stanford-lists/list-paragraph"
 import {isPreviewMode} from "@lib/drupal/utils";
 import {ParagraphUnion} from "@lib/gql/__generated__/drupal.d";
 import {Suspense} from "react";
+import UserFavoriteParagraph from "@components/paragraphs/summer-user-favorite/user-favorite-paragraph";
 
 type Props = {
   /**
@@ -43,6 +44,8 @@ const Paragraph = async ({paragraph}: Props) => {
       return <WysiwygParagraph paragraph={paragraph} {...itemProps}/>
     case "ParagraphStanfordList":
       return <Suspense><ListParagraph paragraph={paragraph} {...itemProps}/></Suspense>
+    case "ParagraphSumUserFavorite":
+      return <Suspense><UserFavoriteParagraph paragraph={paragraph} {...itemProps}/></Suspense>
   }
   console.warn(`Unknown paragraph ${paragraph.__typename}. Item ${paragraph.id}.`);
 }

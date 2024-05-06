@@ -167,6 +167,67 @@ fragment FragmentParagraphStanfordPageTitleBanner on ParagraphStanfordPageTitleB
     }
 }
 
+fragment FragmentParagraphSumCalculator on ParagraphSumCalculator {
+    ...FragmentParagraphInterface
+    sumCalcAppFee
+    sumCalcBooks
+    sumCalcCommuteHelp {
+        processed
+    }
+    sumCalcDocuments
+    sumCalcGradAppHelp {
+        processed
+    }
+    sumCalcGradUnitCost {
+        ...FragmentDoubleIntFloat
+    }
+    sumCalcGradUnitHelp {
+        processed
+    }
+    sumCalcHealthFee
+    sumCalcHighAppHelp {
+        processed
+    }
+    sumCalcHighUnitCost {
+        ...FragmentDoubleIntFloat
+    }
+    sumCalcHighUnitHelp {
+        processed
+    }
+    sumCalcHouseFees {
+        ...FragmentDoubleStringFloat
+    }
+    sumCalcHouseHelp {
+        processed
+    }
+    sumCalcI20Fee
+    sumCalcI20Help {
+        processed
+    }
+    sumCalcInsHelp {
+        processed
+    }
+    sumCalcInsWaveHelp {
+        processed
+    }
+    sumCalcInsurance
+    sumCalcMailFee
+    sumCalcMeals
+    sumCalcProgFee {
+        ...FragmentDoubleStringFloat
+    }
+    sumCalcTechFee
+    sumCalcUgAppHelp {
+        processed
+    }
+    sumCalcUgUnitCost {
+        ...FragmentDoubleIntFloat
+    }
+    sumCalcUgUnitHelp {
+        processed
+    }
+}
+
 fragment FragmentParagraphUnion on ParagraphUnion {
     ...FragmentParagraphInterface
     ...FragmentParagraphStanfordAccordion
@@ -179,4 +240,5 @@ fragment FragmentParagraphUnion on ParagraphUnion {
     ...FragmentParagraphStanfordSpacer
     ...FragmentParagraphStanfordWysiwyg
     ...FragmentParagraphStanfordLayout
+    ...FragmentParagraphSumCalculator
 }

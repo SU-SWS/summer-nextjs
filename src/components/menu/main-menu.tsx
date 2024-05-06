@@ -102,8 +102,8 @@ const MainMenu = ({ menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props) => {
       <div className={clsx(menuOpen ? "block" : "hidden", "lg:flex lg:justify-end lg:items-center bg-fog-light lg:bg-transparent absolute top-100 lg:relative z-10 w-full")}>
         <SiteSearchForm className="px-10 lg:hidden" />
         <div className="border-b border-spirited-light flex flex-col items-center mt-10 lg:hidden children:w-full children:centered">
-          {siteSettingsConfig && siteSettingsConfig.sumSiteHeaderSec && <Button href={siteSettingsConfig.sumSiteHeaderSec.url} secondary>{siteSettingsConfig.sumSiteHeaderSec.title}</Button>}
-          {siteSettingsConfig && siteSettingsConfig.sumSiteHeaderPrim && <Button href={siteSettingsConfig.sumSiteHeaderPrim.url}>{siteSettingsConfig.sumSiteHeaderPrim.title}</Button>}
+          {sumSiteHeaderSec && <Button href={sumSiteHeaderSec.url} secondary>{sumSiteHeaderSec.title}</Button>}
+          {sumSiteHeaderPrim && <Button href={sumSiteHeaderPrim.url}>{sumSiteHeaderPrim.title}</Button>}
         </div>
         <ul className="list-unstyled lg:flex lg:justify-end flex-wrap m-0 p-0">
           {menuItems.map((item) =>

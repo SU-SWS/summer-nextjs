@@ -66,11 +66,7 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
               {node.sumCourseInstructors && 
                 <div>
                   <span>Instructor: </span>
-                  {node.sumCourseInstructors.map((instructor, i) =>
-                    <p className="inline-block mb-0" key={`instructor-${i}`}>
-                      {instructor}{node.sumCourseInstructors && node.sumCourseInstructors.length > 1 && i !== node.sumCourseInstructors.length - 1 && ", "}
-                    </p>
-                  )}
+                      {node.sumCourseInstructors && node.sumCourseInstructors.length > 1 ? node.sumCourseInstructors.join(", ") : node.sumCourseInstructors[0]}
                 </div>
               }
 
@@ -93,11 +89,7 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
               {node.sumCourseCrossListing && (
                 <div>
                   <span>Cross Listings: </span>
-                  {node.sumCourseCrossListing.map((courseCrossListing, i) =>
-                    <p className="inline-block mb-0" key={`courseCrossListing-${i}`}>
-                      {courseCrossListing}{node.sumCourseCrossListing && node.sumCourseCrossListing.length > 1 && i !== node.sumCourseCrossListing.length - 1 && ", "}
-                    </p>
-                  )}
+                  {node.sumCourseCrossListing && node.sumCourseCrossListing.length > 1 ? node.sumCourseCrossListing.join(", ") : node.sumCourseCrossListing[0]}
                 </div>
               )}
             </div>

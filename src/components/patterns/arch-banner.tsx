@@ -44,7 +44,7 @@ const ArchBanner = ({imageUrl, imageAlt, eagerLoadImage, isSection, children, ..
       </div>
 
       {children &&
-        <div className="aspect-[2/1] w-[120%] relative flex flex-col items-center rounded-t-full bg-white border-t border-archway-light left-[-10%] pt-[20%] rs-mt-8">
+        <div className="aspect-2/1 w-[120%] relative flex flex-col items-center rounded-t-full bg-white border-t border-archway-light left-[-10%] pt-[20%] rs-mt-8">
           {children}
         </div>
       }

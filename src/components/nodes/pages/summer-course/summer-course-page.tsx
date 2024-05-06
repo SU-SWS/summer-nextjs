@@ -1,5 +1,5 @@
 import Wysiwyg from "@components/elements/wysiwyg";
-import {H1, H3} from "@components/elements/headers";
+import {H1, H2, H3} from "@components/elements/headers";
 import {HtmlHTMLAttributes} from "react";
 import Image from "next/image";
 import {NodeSumSummerCourse} from "@lib/gql/__generated__/drupal.d";
@@ -35,7 +35,7 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
               {node.title}
             </H1>
             {node.sumCourseCatalogNumber &&
-              <H3 className="font-normal">{node.sumCourseCatalogNumber}</H3>
+              <H2 className="font-normal">{node.sumCourseCatalogNumber}</H2>
             }
           </div>
         </div>
@@ -44,14 +44,13 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
         <div className="order-2 col-span-12 md:col-span-8">
           <div className="flex flex-col md:flex-row gap-10 rs-mb-4">
             {node.sumCourseImage &&
-              <div className="relative aspect-1/1 w-full h-[200px] md:w-[500px] md:h-[500px] *:rounded-[25px]">
+              <div className="relative w-full h-0 aspect-w-1 aspect-h-1">
                 <Image
-                  className="object-cover"
+                  className="object-cover rounded-[25px]"
                   src={node.sumCourseImage.mediaImage.url}
                   alt={node.sumCourseImage.mediaImage.alt || ""}
-                  loading="eager"
                   fill
-                  sizes="100vw"
+                  sizes="(max-width: 768px) 300px, 500px"
                 />
               </div>
             }

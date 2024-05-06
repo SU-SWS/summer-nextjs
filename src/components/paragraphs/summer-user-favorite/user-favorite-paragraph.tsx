@@ -2,7 +2,7 @@ import { HtmlHTMLAttributes} from "react";
 import {
   ParagraphSumUserFavorite
 } from "@lib/gql/__generated__/drupal.d";
-import { H3 } from "@components/elements/headers";
+import { H2, H3 } from "@components/elements/headers";
 import Wysiwyg from "@components/elements/wysiwyg";
 import Image from "next/image";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
@@ -28,7 +28,7 @@ const favoriteCourseList = [
     "sumCourseLength": "Short",
     "sumCourseNotes": "Vivamus consectetuer hendrerit lacus. Proin faucibus arcu quis ante. Nunc nonummy metus. Sed hendrerit. Maecenas vestibulum mollis diam.",
     "sumCoursePopulation": ["Graduate", "Part-time"],
-    "sumCoursePrerequisites": "ASTRO-001",
+    "sumCoursePrerequisites": ["ASTRO-001"],
     "sumCourseSchedule": "e4KLfvQNQw1o3a0WmWLaN00b63IXixsNcLdPpGYSZa",
     "sumCourseStartDate": "2023-08-14T04:33:14.440Z",
     "sumCourseSyllabusFile": {
@@ -60,7 +60,7 @@ const favoriteCourseList = [
     "sumCourseLength": "Long",
     "sumCourseNotes": "Etiam feugiat lorem non metus. Nulla neque dolor, sagittis eget, iaculis quis, molestie non, velit. Sed in libero ut nibh placerat accumsan. Phasellus volutpat, metus eget egestas mollis, lacus lacus blandit dui, id egestas quam mauris ut lacus. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla.",
     "sumCoursePopulation": ["Undergraduate", "Full-time"],
-    "sumCoursePrerequisites": "ANTHO-021",
+    "sumCoursePrerequisites": ["oW8aE5bT", "qD1fH7jR"],
     "sumCourseSchedule": "m6L6NbGcUgDRirfDoDZF",
     "sumCourseStartDate": "2023-03-12T17:38:42.015Z",
     "sumCourseSyllabusFile": {
@@ -92,7 +92,7 @@ const UserFavoriteParagraph = async ({paragraph, ...props}: Props) => {
               <div className="flex flex-row items-center"><CheckCircleIcon width={20} className="text-digital-green mr-2" />{course.sumCourseAvailability.toUpperCase()}</div>
               <div>Favorite Icon Here</div>
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-row rs-mb-3">
             {course.sumCourseImage && 
               <div className="relative aspect-1/1 w-full h-[200px] md:w-[500px] md:h-[500px] *:rounded-[25px]">
                 <Image
@@ -106,7 +106,7 @@ const UserFavoriteParagraph = async ({paragraph, ...props}: Props) => {
             }
             <div>
               <div>{course.sumCourseCatalogNumber}</div>
-              <H3>{course.title}</H3>
+              <H2>{course.title}</H2>
             </div>
             <div>
               {course.sumCourseUnits && <div><span>Units: </span>{course.sumCourseUnits}</div>}
@@ -125,7 +125,7 @@ const UserFavoriteParagraph = async ({paragraph, ...props}: Props) => {
             
             <button>Show all details</button>
             {/* Show/Hide */}
-            <div className="flex flex-row">
+            <div className="flex flex-row rs-mt-2">
               <div>
                 {course.sumCourseDescription &&
                   <div className="rs-mb-1"><H3 className="text-m1 mb-5">Summary:</H3><Wysiwyg html={course.sumCourseDescription} /></div>
@@ -136,24 +136,18 @@ const UserFavoriteParagraph = async ({paragraph, ...props}: Props) => {
               </div>
               <div>
                 <H3 className="text-m1 ">Details:</H3>
-
+                {course.sumCourseInterestArea && <div><span>Interest Area:</span> {course.sumCourseInterestArea}</div>}
                 {course.sumCourseSchedule && <div><span>Time:</span> {course.sumCourseSchedule}</div>}
                 {course.sumCourseUnits && <div><span>Units:</span> {course.sumCourseUnits}</div>}
+                {course.sumCourseFormat && <div><span>Format: </span>{course.sumCourseFormat}</div>}
+                {course.sumCourseLength && <div><span>Course length:</span>{course.sumCourseLength}</div>}
 
-                {course.sumCourseInterestArea && <div><span>Interest Area:</span> {course.sumCourseInterestArea}</div>}
-
-
-                {course.sumCourseInstructors &&
+                {course.sumCoursePrerequisites && (
                   <div>
-                    <span>Instructor: </span>
-                    {course.sumCourseInstructors && course.sumCourseInstructors.length > 1 ? course.sumCourseInstructors.join(", ") : course.sumCourseInstructors[0]}
+                    <span>Cross Listings: </span>
+                    {course.sumCoursePrerequisites && course.sumCoursePrerequisites.length > 1 ? course.sumCoursePrerequisites.join(", ") : course.sumCoursePrerequisites[0]}
                   </div>
-                }
-
-                {course.sumCourseInterestArea && <div><span>Interest Area:</span> {course.sumCourseInterestArea}</div>}
-
-                {course.sumCourseFormat && <div><span>Course Format & Length: </span>{course.sumCourseFormat}{course.sumCourseLength && `, ${course.sumCourseLength}`}</div>}
-
+                )}
 
                 {course.sumCourseCrossListing && (
                   <div>

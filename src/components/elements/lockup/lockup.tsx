@@ -43,19 +43,17 @@ export const Lockup = ({
 
   if (!suLockupEnabled) {
     return (
-      <div className="py-10">
-        <Link href="/" className="flex no-underline">
-          <div className="self-end">
-            <div className="lg:inline-block pr-2 mr-2 lg:border-r border-black">
-              <LockupLogo {...lockupProps}/>
-            </div>
-            <div
-              className="lg:inline-block font-normal text-black text-m2">
-              {suSiteName || "University"}
-            </div>
+      <Link href="/" className="flex no-underline">
+        <div className="self-end">
+          <div className="lg:inline-block pr-2 mr-2 lg:border-r border-black">
+            <LockupLogo {...lockupProps}/>
           </div>
-        </Link>
-      </div>
+          <div
+            className="lg:inline-block font-normal text-black text-m2">
+            {suSiteName || "University"}
+          </div>
+        </div>
+      </Link>
     )
   }
 
@@ -99,12 +97,10 @@ export const Lockup = ({
     case "none":
     default:
       return (
-        <div className="py-10">
-          <Link href="/"
-                className="flex flex-col lg:flex-row gap-4 no-underline">
-            <LockupLogo {...lockupProps}/>
-          </Link>
-        </div>
+        <Link href="/"
+              className="flex flex-col lg:flex-row gap-4 no-underline">
+          <LockupLogo {...lockupProps}/>
+        </Link>
       )
   }
 }

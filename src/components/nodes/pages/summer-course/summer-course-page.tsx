@@ -11,7 +11,6 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   headingLevel?: "h2" | "h3"
 }
 
-
 const SummerCoursePage = ({ node, ...props }: Props) => {
   const startDate = node.sumCourseStartDate && convertToLocalDateTime(node.sumCourseStartDate).toUpperCase();
   const endDate = node.sumCourseEndDate && convertToLocalDateTime(node.sumCourseEndDate).toUpperCase();
@@ -36,7 +35,7 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
               {node.title}
             </H1>
             {node.sumCourseCatalogNumber &&
-              <div>{node.sumCourseCatalogNumber}</div>
+              <H3 className="font-normal">{node.sumCourseCatalogNumber}</H3>
             }
           </div>
         </div>
@@ -57,7 +56,7 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
               </div>
             }
             <div className="pt-12 children:mb-5 [&_span]:font-bold">
-              <p className="font-bold">Details:</p>
+              <H3 className="text-m1 ">Details:</H3>
 
               {node.sumCourseSchedule && <div><span>Time:</span> {node.sumCourseSchedule}</div>} 
               {node.sumCourseUnits && <div><span>Units:</span> {node.sumCourseUnits}</div>} 
@@ -105,10 +104,10 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
           </div>
           <div>
             {node.sumCourseDescription &&
-              <div className="rs-mb-1"><p className="font-bold mb-5">Summary:</p><Wysiwyg html={node.sumCourseDescription.processed} /></div>
+              <div className="rs-mb-1"><H3 className="text-m1 mb-5">Summary:</H3><Wysiwyg html={node.sumCourseDescription.processed} /></div>
             }
             {node.sumCourseNotes &&
-            <><p className="font-bold mb-5">Course notes:</p><Wysiwyg html={node.sumCourseNotes?.processed} /></>
+            <><H3 className="text-m1 mb-5">Course notes:</H3><Wysiwyg html={node.sumCourseNotes?.processed} /></>
             }
           </div>
         </div>

@@ -28,7 +28,7 @@ const ArchBanner = ({imageUrl, imageAlt, eagerLoadImage, isSection, children, ..
   return (
     <BannerWrapper
       {...props}
-      className={twMerge("@container md:min-h-[400px] rs-mb-5", props.className)}
+      className={twMerge("@container md:min-h-[400px]", props.className)}
     >
       <div className="aspect-[16/9] @6xl:aspect-auto absolute @6xl:absolute w-full @6xl:h-full bg-cool-grey">
         {imageUrl &&
@@ -44,7 +44,7 @@ const ArchBanner = ({imageUrl, imageAlt, eagerLoadImage, isSection, children, ..
       </div>
 
       {children &&
-        <div className="aspect-[2/1] w-[120%] relative flex flex-col items-center rounded-t-full bg-white border-t border-archway-light left-[-10%] pt-[20%] rs-mt-8">
+        <div className="aspect-[2/1] w-screen relative flex flex-col items-center rounded-t-full bg-white border-t border-archway-light pt-[20%] rs-mt-8">
           {children}
         </div>
       }

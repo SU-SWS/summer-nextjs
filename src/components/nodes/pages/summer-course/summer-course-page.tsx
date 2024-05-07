@@ -44,7 +44,7 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
         <div className="order-2 col-span-12 md:col-span-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 rs-mb-4">
             {node.sumCourseImage &&
-              <div className="relative w-full h-0 aspect-w-1 aspect-h-1 rounded-[25px] overflow-hidden">
+              <div className="relative aspect-w-1 aspect-h-1">
                 <Image
                   className="object-cover rounded-[25px]"
                   src={node.sumCourseImage.mediaImage.url}

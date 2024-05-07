@@ -42,7 +42,7 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
       </ArchBanner>
       <div className="centered my-32 grid grid-cols-12 gap-10">
         <div className="order-2 col-span-12 md:col-span-8">
-          <div className="flex flex-col md:flex-row gap-10 rs-mb-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 rs-mb-4">
             {node.sumCourseImage &&
               <div className="relative w-full h-0 aspect-w-1 aspect-h-1 rounded-[25px] overflow-hidden">
                 <Image

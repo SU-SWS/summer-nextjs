@@ -21,8 +21,8 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
   const headerTagChoice = (behaviors.su_card_styles?.heading || "h2").split(".", 2);
   const headerTag = headerTagChoice[0]
   const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "text-m2 font-bold")
-
-  const hideHeader = behaviors.su_card_styles?.hide_heading;
+  const cardVariant = behaviors.su_card_styles?.card_variant;
+  const hideHeader = behaviors.su_card_styles?.heading;
 
   return (
     <ImageCard
@@ -32,6 +32,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
       imageAlt={image?.alt}
       videoUrl={videoUrl}
       isArticle={!!paragraph.suCardHeader}
+      className={cardVariant}
     >
       {paragraph.suCardHeader &&
         <div id={paragraph.id} className={twMerge("order-2", hideHeader && "sr-only")}>

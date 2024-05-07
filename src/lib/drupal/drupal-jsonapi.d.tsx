@@ -37,4 +37,5 @@ export type ParagraphBehaviors = {
   su_card_styles?: CardParagraphBehaviors
   hero_pattern?: BannerParagraphBehaviors
   stanford_teaser?: TeaserParagraphBehaviors
+  card_variant?: BannerParagraphBehaviors
 }

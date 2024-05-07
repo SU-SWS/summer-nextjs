@@ -23,6 +23,7 @@ const useAccordion = ({initiallyVisible, panelId, buttonId}: Props = {}) => {
     "aria-labelledby": buttonId || `${id}--button`,
     id: panelId || `${id}--panel`,
     role: "region",
+    className: expanded ? "block" : "hidden"
   }
   return {buttonProps, panelProps, expanded, toggleExpanded}
 }

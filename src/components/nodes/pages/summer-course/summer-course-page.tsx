@@ -40,8 +40,8 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
           </div>
         </div>
       </ArchBanner>
-      <div className="centered my-32 grid grid-cols-12 gap-10">
-        <div className="order-2 col-span-12 md:col-span-8">
+      <div className="centered my-32 grid grid-cols-12 gap-10 z-10 relative">
+        <div className="order-2 col-span-12 lg:col-span-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 rs-mb-4">
             {node.sumCourseImage &&
               <div className="relative aspect-w-1 aspect-h-1">
@@ -98,7 +98,7 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
             }
           </div>
         </div>
-        <div className="order-1 col-span-12 md:col-span-4">
+        <div className="order-1 col-span-12 lg:col-span-4">
           {/* Favorite List */}
           <H3>Favorites List</H3>
         </div>

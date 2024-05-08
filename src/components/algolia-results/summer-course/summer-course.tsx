@@ -27,7 +27,7 @@ const SummerCourse = ({hit}: Props) => {
 
   return (
     <div className="flex flex-col rounded-[25px] bg-fog-light rs-py-3 rs-px-4 rs-mb-4">
-      <div className="flex gap-11">
+      <div className="flex gap-[48px]">
 
         <div className="flex flex-col flex-grow">
           <H3><a href={hit.url} className="font-normal">{hit.title}</a></H3>
@@ -79,15 +79,15 @@ const SummerCourse = ({hit}: Props) => {
         </div>
       }
 
-      <button {...buttonProps} className="group text-digital-blue underline">
+      <button {...buttonProps} className="group text-digital-blue no-underline">
         <span className="flex gap-5 items-center w-full">
-          <H4 className="ml-auto mb-0 p-0 text-m0 group-hocus:underline">{expanded ? "Collapse details" : "Show all details"}</H4>
+          <H4 className="ml-auto mb-0 p-0 text-m0 group-hocus:underline font-semibold">{expanded ? "Collapse details" : "Show all details"}</H4>
           <ChevronDownIcon width={20} className={expanded ? "rotate-180" : undefined}/>
         </span>
       </button>
 
       <div {...panelProps}>
-        <div className="flex gap-5 rs-mt-2">
+        <div className="flex gap-[90px] rs-mt-2">
           <div className="flex-grow">
             <div>
               <div className="font-semibold text-m1 mb-5">Summary:</div>

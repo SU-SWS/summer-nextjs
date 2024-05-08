@@ -5,9 +5,9 @@ import PageHeader from "@components/global/page-header";
 import {Icon} from "next/dist/lib/metadata/types/metadata-types";
 import { roboto, sourceSans3} from "../src/styles/fonts";
 import DrupalWindowSync from "@components/elements/drupal-window-sync";
-import {isPreviewMode} from "@lib/drupal/utils";
 import UserAnalytics from "@components/elements/user-analytics";
 import clsx from "clsx";
+import Editori11y from "@components/tools/editorially";
 
 const appleIcons: Icon[] = [60, 72, 76, 114, 120, 144, 152, 180].map(size => ({
   url: `https://www-media.stanford.edu/assets/favicon/apple-touch-icon-${size}x${size}.png`,
@@ -44,14 +44,14 @@ export const metadata = {
 export const revalidate = false;
 
 const RootLayout = ({children, modal}: { children: React.ReactNode, modal: React.ReactNode }) => {
-  const isPreview = isPreviewMode();
+  const isDevMode = process.env.NODE_ENV === "development";
+
   return (
     <html lang="en" className={clsx(sourceSans3.className, roboto.variable)}>
-    {/* Add Google Analytics and SiteImprove when not in preview mode. */}
-    {!isPreview &&
-      <UserAnalytics/>
-    }
+    <UserAnalytics/>
     <DrupalWindowSync/>
+    {isDevMode && <Editori11y/>}
+
     <body>
     <nav aria-label="Skip Links">
       <a href="#main-content" className="skiplink">Skip to main content</a>

@@ -1,4 +1,14 @@
 
+fragment FragmentDoubleStringFloat on DoubleStringFloat {
+    first
+    second
+}
+
+fragment FragmentDoubleIntFloat on DoubleIntFloat {
+    first
+    second
+}
+
 fragment FragmentSuPolicyLog on SuPolicyLog {
     __typename
     id

@@ -8,6 +8,7 @@ const UserAnalytics = async () => {
   if (isPreviewMode()) return;
   const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
   if (!siteSettingsConfig?.suGoogleAnalytics) return;
+
   return (
     <>
       <Script async src="//siteimproveanalytics.com/js/siteanalyze_80352.js"/>

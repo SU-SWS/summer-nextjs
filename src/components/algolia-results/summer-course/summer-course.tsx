@@ -5,7 +5,7 @@ import Image from "next/image";
 import useAccordion from "@lib/hooks/useAccordion";
 import {H3, H4} from "@components/elements/headers";
 import {formatCurrency} from "@lib/utils/format-currency";
-import {ChevronDownIcon} from "@heroicons/react/20/solid";
+import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
 type Props = {
   hit: AlgoliaHit
@@ -26,12 +26,12 @@ const SummerCourse = ({hit}: Props) => {
   });
 
   return (
-    <div className="flex flex-col">
-      <div className="flex gap-5">
+    <div className="flex flex-col rounded-[25px] bg-fog-light rs-py-3 rs-px-4 rs-mb-4">
+      <div className="flex gap-11">
 
         <div className="flex flex-col flex-grow">
-          <H3><a href={hit.url}>{hit.title}</a></H3>
-          <div className="order-first">
+          <H3><a href={hit.url} className="font-normal">{hit.title}</a></H3>
+          <div className="order-first font-semibold text-archway-dark mb-6">
             {hit.sum_course_catalog_number}
           </div>
         </div>
@@ -39,7 +39,7 @@ const SummerCourse = ({hit}: Props) => {
         {hit.photo &&
           <div className="order-first relative aspect-1 w-1/4">
             <Image
-              className="object-cover"
+              className="object-cover rounded-[25px]"
               src={hit.photo}
               alt={""}
               fill
@@ -48,93 +48,95 @@ const SummerCourse = ({hit}: Props) => {
           </div>
         }
 
-        <div className="w-1/4 shrink-0">
+        <div className="w-1/4 shrink-0 *:mb-4">
           {hit.sum_course_units &&
             <div>
-              <span className="font-bold">Units: </span>{hit.sum_course_units}
+              <span className="font-semibold">Units: </span>{hit.sum_course_units}
             </div>
           }
           {(start && end) &&
             <div>
-              <span className="font-bold">Dates: </span>{`${start} - ${end}`}
+              <span className="font-semibold">Dates: </span>{`${start} - ${end}`}
             </div>
           }
           {hit.sum_course_course_cost &&
             <div>
-              <span className="font-bold">Course Cost: </span>{formatCurrency(hit.sum_course_course_cost)}
+              <span className="font-semibold">Course Cost: </span>{formatCurrency(hit.sum_course_course_cost)}
             </div>
           }
           {hit.sum_course_population &&
             <div>
-              <span className="font-bold">Units: </span>{hit.sum_course_population.join(", ")}
+              <span className="font-semibold">Population: </span>{hit.sum_course_population.join(", ")}
             </div>
           }
         </div>
       </div>
 
       {hit.sum_course_availability &&
-        <div className="order-first">
-          {hit.sum_course_availability}
+        <div className="order-first flex flex-row items-center rs-mb-2">
+          <CheckCircleIcon width={20} className="text-digital-green mr-2" />
+          {hit.sum_course_availability.toUpperCase()}
         </div>
       }
 
-      <button {...buttonProps} className="group">
+      <button {...buttonProps} className="group text-digital-blue underline">
         <span className="flex gap-5 items-center w-full">
-          <H4 className="ml-auto mb-0 p-0 text-m0 group-hocus:underline">Show all details</H4>
+          <H4 className="ml-auto mb-0 p-0 text-m0 group-hocus:underline">{expanded ? "Collapse details" : "Show all details"}</H4>
           <ChevronDownIcon width={20} className={expanded ? "rotate-180" : undefined}/>
         </span>
       </button>
 
       <div {...panelProps}>
-        <div className="flex gap-5">
+        <div className="flex gap-5 rs-mt-2">
           <div className="flex-grow">
             <div>
-              <div className="font-bold">Summary:</div>
+              <div className="font-semibold text-m1 mb-5">Summary:</div>
               {hit.html}
             </div>
 
             {hit.sum_course_notes &&
-              <div>
-                <div className="font-bold">Course notes:</div>
+              <div className="mt-8">
+                <div className="font-semibold text-m1 mb-5">Course notes:</div>
                 {hit.sum_course_notes}
               </div>
             }
           </div>
 
-          <div className="w-1/4 shrink-0">
+          <div className="w-1/4 shrink-0 *:mb-4">
+            <div className="font-semibold text-m1">Details:</div>
             {hit.sum_course_interest &&
               <div>
-                <span className="font-bold">Interest Area: </span>{hit.sum_course_interest.join(", ")}
+                <span className="font-semibold">Interest Area: </span>{hit.sum_course_interest.join(", ")}
               </div>
             }
 
             {hit.sum_course_schedule &&
               <div>
-                <span className="font-bold">Time: </span>{hit.sum_course_schedule}
+                <span className="font-semibold">Time: </span>{hit.sum_course_schedule}
               </div>
             }
 
             {hit.sum_course_format &&
               <div>
-                <span className="font-bold">Format: </span>{hit.sum_course_format}
+                <span className="font-semibold">Format: </span>{hit.sum_course_format}
               </div>
             }
 
             {hit.sum_course_length &&
               <div>
-                <span className="font-bold">Course length: </span>{hit.sum_course_length}
+                <span className="font-semibold">Course length: </span>{hit.sum_course_length}
               </div>
             }
 
             {hit.sum_course_prerequisites &&
               <div>
-                <span className="font-bold">Pre-requisites: </span>{hit.sum_course_prerequisites}
+                <span className="font-semibold">Pre-requisites: </span>{hit.sum_course_prerequisites}
               </div>
             }
 
             {hit.sum_course_cross_listing &&
               <div>
-                <span className="font-bold">Cross Listings: </span>{hit.sum_course_cross_listing}
+                <span className="font-semibold">Cross Listings: </span>{hit.sum_course_cross_listing}
               </div>
             }
           </div>

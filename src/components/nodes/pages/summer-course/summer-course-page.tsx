@@ -1,5 +1,5 @@
 import Wysiwyg from "@components/elements/wysiwyg";
-import {H1, H2, H3} from "@components/elements/headers";
+import {H1, H3} from "@components/elements/headers";
 import {HtmlHTMLAttributes} from "react";
 import Image from "next/image";
 import {NodeSumSummerCourse} from "@lib/gql/__generated__/drupal.d";
@@ -35,7 +35,7 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
               {node.title}
             </H1>
             {node.sumCourseCatalogNumber &&
-              <H2 className="font-normal">{node.sumCourseCatalogNumber}</H2>
+              <div className="font-normal">{node.sumCourseCatalogNumber}</div>
             }
           </div>
         </div>
@@ -65,18 +65,14 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
               {node.sumCourseInstructors && 
                 <div>
                   <span>Instructor: </span>
-                      {node.sumCourseInstructors && node.sumCourseInstructors.length > 1 ? node.sumCourseInstructors.join(", ") : node.sumCourseInstructors[0]}
+                      {node.sumCourseInstructors && node.sumCourseInstructors.length > 1 && node.sumCourseInstructors.join(", ")}
                 </div>
               }
 
               {node.sumCoursePopulation &&
                 <div>
                   <span>Population: </span>
-                  {node.sumCoursePopulation.map((population, i) =>
-                    <p className="inline-block mb-0" key={`population-${i}`}>
-                      {population.name}{node.sumCoursePopulation && node.sumCoursePopulation.length > 1 && i !== node.sumCoursePopulation.length - 1 && ", "}
-                    </p>
-                  )}
+                  {node.sumCoursePopulation.map((population) => population.name).join(", ")}
                 </div>
               }
               
@@ -88,7 +84,7 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
               {node.sumCourseCrossListing && (
                 <div>
                   <span>Cross Listings: </span>
-                  {node.sumCourseCrossListing && node.sumCourseCrossListing.length > 1 ? node.sumCourseCrossListing.join(", ") : node.sumCourseCrossListing[0]}
+                  {node.sumCourseCrossListing && node.sumCourseCrossListing.length > 1 && node.sumCourseCrossListing.join(", ")}
                 </div>
               )}
             </div>

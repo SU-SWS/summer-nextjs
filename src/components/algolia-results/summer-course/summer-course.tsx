@@ -6,6 +6,7 @@ import useAccordion from "@lib/hooks/useAccordion";
 import {H3, H4} from "@components/elements/headers";
 import {formatCurrency} from "@lib/utils/format-currency";
 import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import FavoriteButton from "@components/elements/favorite-button";
 
 type Props = {
   hit: AlgoliaHit
@@ -79,7 +80,11 @@ const SummerCourse = ({hit}: Props) => {
         </div>
       }
 
-      <button {...buttonProps} className="group text-digital-blue no-underline">
+      <div>
+        <FavoriteButton title={hit.title} uuid={hit.objectID} />
+      </div>
+
+      <button {...buttonProps} className="group text-digital-blue no-underline mt-12">
         <span className="flex gap-5 items-center w-full">
           <H4 className="ml-auto mb-0 p-0 text-m0 group-hocus:underline font-semibold">{expanded ? "Collapse details" : "Show all details"}</H4>
           <ChevronDownIcon width={20} className={expanded ? "rotate-180" : undefined}/>

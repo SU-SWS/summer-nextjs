@@ -1,8 +1,11 @@
 import { HtmlHTMLAttributes} from "react";
+import {getConfigPage} from "@lib/gql/gql-queries";
 import {
+  StanfordBasicSiteSetting,
   ParagraphSumUserFavorite
 } from "@lib/gql/__generated__/drupal.d";
-import SummerCourse from "@components/algolia-results/summer-course/summer-course";
+import AlgoliaCourseList from "@components/patterns/algolia-course-list";
+
 
 const favoriteCourseList = [
   {
@@ -65,13 +68,24 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 }
 
 const UserFavoriteParagraph = async ({paragraph, ...props}: Props) => {
-  
+  const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
+
+  if (!siteSettingsConfig?.suSiteAlgoliaId || !siteSettingsConfig.suSiteAlgoliaSearch || !siteSettingsConfig.suSiteAlgoliaIndex) {
+    return;
+  }
+
   return (
     <div>
       <div>
         {/* Favorites List */}
       </div>
-      {favoriteCourseList.map((course, i) => <SummerCourse hit={course} key={i} />)}
+      {/* {favoriteCourseList.map((course, i) => <SummerCourse hit={course} key={i} />)} */}
+      <AlgoliaCourseList
+        appId={siteSettingsConfig.suSiteAlgoliaId}
+        searchIndex={siteSettingsConfig.suSiteAlgoliaIndex}
+        searchApiKey={siteSettingsConfig.suSiteAlgoliaSearch}
+        itemUuids={["eb0fe1c4-e98d-4fda-8962-4faa627340e0", "e66bd9be-a47b-4df7-804f-b173839e12aa", "e2979287-eef5-46a6-bb1e-e15e4c0e8280"]}
+      />
     </div>
   )
 }

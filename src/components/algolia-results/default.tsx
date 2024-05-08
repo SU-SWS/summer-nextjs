@@ -12,6 +12,7 @@ export type AlgoliaHit = {
   photo?: string
   updated: number
   html?: string
+  objectID: string
   type: string
   sum_course_availability?: string
   sum_course_catalog_number?: string

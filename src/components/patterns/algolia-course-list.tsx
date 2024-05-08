@@ -5,6 +5,7 @@ import {useHits,usePagination, Configure} from "react-instantsearch";
 import {InstantSearchNext} from "react-instantsearch-nextjs";
 import {useMemo} from "react";
 import {Hit as HitType} from "instantsearch.js";
+import SummerCourse from "@components/algolia-results/summer-course/summer-course";
 
 type Props = {
   appId: string
@@ -44,13 +45,7 @@ const HitList = () => {
   return (
     <div>
       <ul className="list-unstyled">
-        {hits.map(hit =>
-          <li key={hit.objectID} className="border-b border-gray-300 last:border-0">
-            <div>
-              {hit.title}
-            </div>
-          </li>
-        )}
+        {hits.map((hit, i) => <SummerCourse hit={hit}  key={i} />)}
       </ul>
 
       {pages.length > 1 &&

@@ -10,6 +10,8 @@ import {isPreviewMode} from "@lib/drupal/utils";
 import {ParagraphUnion} from "@lib/gql/__generated__/drupal.d";
 import {Suspense} from "react";
 import UserFavoriteParagraph from "@components/paragraphs/summer-user-favorite/user-favorite-paragraph";
+import SumCalculatorParagraph from "@components/paragraphs/sum-calculator/sum-calculator-paragraph";
+import SumCourseFilterParagraph from "@components/paragraphs/sum-course-filter/sum-course-filter-paragraph";
 
 type Props = {
   /**
@@ -44,8 +46,12 @@ const Paragraph = async ({paragraph}: Props) => {
       return <WysiwygParagraph paragraph={paragraph} {...itemProps}/>
     case "ParagraphStanfordList":
       return <Suspense><ListParagraph paragraph={paragraph} {...itemProps}/></Suspense>
+    case "ParagraphSumCalculator":
+      return <SumCalculatorParagraph paragraph={paragraph} {...itemProps}/>
+    case "ParagraphSumCourseFilter":
+      return <SumCourseFilterParagraph {...itemProps}/>
     case "ParagraphSumUserFavorite":
-      return <Suspense><UserFavoriteParagraph paragraph={paragraph} {...itemProps}/></Suspense>
+      return <UserFavoriteParagraph paragraph={paragraph} {...itemProps}/>
   }
   console.warn(`Unknown paragraph ${paragraph.__typename}. Item ${paragraph.id}.`);
 }

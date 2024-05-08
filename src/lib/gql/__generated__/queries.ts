@@ -297,6 +297,82 @@ export const FragmentParagraphStanfordLayoutFragmentDoc = gql`
   ...FragmentParagraphInterface
 }
     ${FragmentParagraphInterfaceFragmentDoc}`;
+export const FragmentDoubleIntFloatFragmentDoc = gql`
+    fragment FragmentDoubleIntFloat on DoubleIntFloat {
+  first
+  second
+}
+    `;
+export const FragmentDoubleStringFloatFragmentDoc = gql`
+    fragment FragmentDoubleStringFloat on DoubleStringFloat {
+  first
+  second
+}
+    `;
+export const FragmentParagraphSumCalculatorFragmentDoc = gql`
+    fragment FragmentParagraphSumCalculator on ParagraphSumCalculator {
+  ...FragmentParagraphInterface
+  sumCalcAppFee
+  sumCalcBooks
+  sumCalcCommuteHelp {
+    processed
+  }
+  sumCalcDocuments
+  sumCalcGradAppHelp {
+    processed
+  }
+  sumCalcGradUnitCost {
+    ...FragmentDoubleIntFloat
+  }
+  sumCalcGradUnitHelp {
+    processed
+  }
+  sumCalcHealthFee
+  sumCalcHighAppHelp {
+    processed
+  }
+  sumCalcHighUnitCost {
+    ...FragmentDoubleIntFloat
+  }
+  sumCalcHighUnitHelp {
+    processed
+  }
+  sumCalcHouseFees {
+    ...FragmentDoubleStringFloat
+  }
+  sumCalcHouseHelp {
+    processed
+  }
+  sumCalcI20Fee
+  sumCalcI20Help {
+    processed
+  }
+  sumCalcInsHelp {
+    processed
+  }
+  sumCalcInsWaveHelp {
+    processed
+  }
+  sumCalcInsurance
+  sumCalcMailFee
+  sumCalcMeals
+  sumCalcProgFee {
+    ...FragmentDoubleStringFloat
+  }
+  sumCalcTechFee
+  sumCalcUgAppHelp {
+    processed
+  }
+  sumCalcUgUnitCost {
+    ...FragmentDoubleIntFloat
+  }
+  sumCalcUgUnitHelp {
+    processed
+  }
+}
+    ${FragmentParagraphInterfaceFragmentDoc}
+${FragmentDoubleIntFloatFragmentDoc}
+${FragmentDoubleStringFloatFragmentDoc}`;
 export const FragmentParagraphUnionFragmentDoc = gql`
     fragment FragmentParagraphUnion on ParagraphUnion {
   ...FragmentParagraphInterface
@@ -310,6 +386,7 @@ export const FragmentParagraphUnionFragmentDoc = gql`
   ...FragmentParagraphStanfordSpacer
   ...FragmentParagraphStanfordWysiwyg
   ...FragmentParagraphStanfordLayout
+  ...FragmentParagraphSumCalculator
 }
     ${FragmentParagraphInterfaceFragmentDoc}
 ${FragmentParagraphStanfordAccordionFragmentDoc}
@@ -321,7 +398,8 @@ ${FragmentParagraphStanfordListFragmentDoc}
 ${FragmentParagraphStanfordMediaCaptionFragmentDoc}
 ${FragmentParagraphStanfordSpacerFragmentDoc}
 ${FragmentParagraphStanfordWysiwygFragmentDoc}
-${FragmentParagraphStanfordLayoutFragmentDoc}`;
+${FragmentParagraphStanfordLayoutFragmentDoc}
+${FragmentParagraphSumCalculatorFragmentDoc}`;
 export const FragmentSmartDateTypeFragmentDoc = gql`
     fragment FragmentSmartDateType on SmartDateType {
   value

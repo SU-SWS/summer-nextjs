@@ -1,5 +1,6 @@
 "use client";
 
+import {JSX} from "react";
 import {useSelect, SelectOptionDefinition, SelectProvider, SelectValue} from "@mui/base/useSelect";
 import {useOption} from "@mui/base/useOption";
 import {
@@ -17,6 +18,8 @@ import {
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {useIsClient} from "usehooks-ts";
 import {Maybe} from "@lib/gql/__generated__/drupal.d";
+import {clsx} from "clsx";
+import {twMerge} from "tailwind-merge";
 
 interface OptionProps {
   rootRef: RefObject<HTMLUListElement>
@@ -94,6 +97,8 @@ interface Props {
   emptyValue?: Maybe<string>
   emptyLabel?: Maybe<string>
   name?: Maybe<string>
+  downIcon?: JSX.Element
+  buttonClassName?: string
 }
 
 const SelectList = ({
@@ -106,6 +111,8 @@ const SelectList = ({
   name,
   emptyValue,
   emptyLabel = "- None -",
+  downIcon,
+  buttonClassName,
   ...props
 }: Props) => {
   const labelId = useId();
@@ -143,25 +150,30 @@ const SelectList = ({
     <div className="relative h-fit">
       <button
         {...getButtonProps()}
-        className="w-full border border-black-40 rounded text-left p-5"
+        className={clsx(twMerge("w-full border-2 border-black-10 rounded text-left p-5", buttonClassName), {"bg-black-20": props.disabled})}
         aria-labelledby={labeledBy}
       >
-        <div className="flex justify-between flex-wrap">
-          {label &&
-            <div className={"relative " + (optionChosen ? "text-m0 top-[-15px] w-full" : "text-m1")}>
-              <div id={labelId} className="bg-white w-fit px-5">
-                {label}
-              </div>
+        {label &&
+          <div className={clsx("relative  max-w-[calc(100%-30px)]", {
+            "text-m0 top-[-15px] w-full": optionChosen,
+            "text-m1": !optionChosen
+          })}>
+            <div id={labelId} className={clsx("bg-white w-fit px-5", {"bg-black-20": props.disabled})}>
+              {label}
             </div>
-          }
-          {optionChosen &&
-            <div className="overflow-hidden max-w-[calc(100%-30px)]">
-              {renderSelectedValue(value, options)}
-            </div>
-          }
+          </div>
+        }
 
-          <ChevronDownIcon width={20} className="flex-shrink-0"/>
-        </div>
+
+        {optionChosen &&
+          <div className="overflow-hidden max-w-[calc(100%-30px)]">
+            {renderSelectedValue(value, options)}
+          </div>
+        }
+
+        <span className="absolute top-0 right-5 h-full flex items-center">
+           {downIcon || <ChevronDownIcon width={20}/>}
+        </span>
       </button>
 
       <div

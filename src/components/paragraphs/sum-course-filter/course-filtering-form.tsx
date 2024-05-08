@@ -13,7 +13,8 @@ import {IndexUiState} from "instantsearch.js/es/types/ui-state";
 import useAccordion from "@lib/hooks/useAccordion";
 import {RefinementListItem} from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
 import {clsx} from "clsx";
-import DefaultResult, {AlgoliaHit} from "@components/algolia-results/default";
+import {AlgoliaHit} from "@components/algolia-results/default";
+import SummerCourse from "@components/algolia-results/summer-course/summer-course";
 
 type Props = {
   appId: string
@@ -262,8 +263,8 @@ const HitList = () => {
 
       <ul className="list-unstyled">
         {hits.map(hit =>
-          <li key={hit.objectID} className="border-b border-gray-300 last:border-0">
-            <DefaultResult hit={hit}/>
+          <li key={hit.objectID}>
+            <SummerCourse hit={hit}/>
           </li>
         )}
       </ul>

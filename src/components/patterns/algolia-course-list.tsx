@@ -33,7 +33,7 @@ const AlgoliaCourseList = ({appId, searchIndex, searchApiKey, itemUuids}: Props)
 }
 
 const HitList = () => {
-  const {hits} = useHits<HitType>({});
+  const { hits } = useHits<HitType>({});
   const {currentRefinement: currentPage, pages, nbPages, refine: goToPage} = usePagination({padding: 2})
 
   if (hits.length === 0) {
@@ -45,7 +45,11 @@ const HitList = () => {
   return (
     <div>
       <ul className="list-unstyled">
-        {hits.map((hit, i) => <SummerCourse hit={hit}  key={i} />)}
+        {hits.map(hit =>
+          <li key={hit.objectID}>
+            <SummerCourse hit={hit} />
+          </li>
+        )}
       </ul>
 
       {pages.length > 1 &&

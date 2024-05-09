@@ -1,4 +1,4 @@
-import { HtmlHTMLAttributes} from "react";
+import { HtmlHTMLAttributes } from "react";
 import {getConfigPage} from "@lib/gql/gql-queries";
 import {
   StanfordBasicSiteSetting,
@@ -12,8 +12,8 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 }
 
 const UserFavoriteParagraph = async ({ paragraph, ...props }: Props) => {
-  const { favs } = useFavorites();
   const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
+  const { favs } = useFavorites();
 
   if (!siteSettingsConfig?.suSiteAlgoliaId || !siteSettingsConfig.suSiteAlgoliaSearch || !siteSettingsConfig.suSiteAlgoliaIndex) {
     return;
@@ -28,7 +28,8 @@ const UserFavoriteParagraph = async ({ paragraph, ...props }: Props) => {
         appId={siteSettingsConfig.suSiteAlgoliaId}
         searchIndex={siteSettingsConfig.suSiteAlgoliaIndex}
         searchApiKey={siteSettingsConfig.suSiteAlgoliaSearch}
-        itemUuids={favs}
+        // itemUuids={favs}
+        itemUuids={[]}
         // itemUuids={["eb0fe1c4-e98d-4fda-8962-4faa627340e0", "e66bd9be-a47b-4df7-804f-b173839e12aa", "e2979287-eef5-46a6-bb1e-e15e4c0e8280"]}
       />
     </div>

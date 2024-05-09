@@ -81,7 +81,7 @@ const SummerCourse = ({hit}: Props) => {
         </div>
         }
         <div className="ml-auto">
-          <FavoriteButton title={hit.title} uuid={hit.objectID} />
+          <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units} />
         </div>
       </div>
 

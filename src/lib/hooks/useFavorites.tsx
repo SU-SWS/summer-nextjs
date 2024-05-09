@@ -1,32 +1,38 @@
 "use client";
 
 import { useCallback } from "react";
-import { useLocalStorage, useIsClient } from "usehooks-ts";
+import { useLocalStorage } from "usehooks-ts";
+
+type Favorite = {
+  uuid: string;
+  title: string;
+  path: string; 
+  units: number;
+};
 
 const useFavorites = (): {
-  favs: string[];
-  addFav: (_uuid: string) => void;
+  favs: Favorite[];
+  addFav: (_uuid: string, _title: string, _path: string, _units?: number) => void;
   removeFav: (_uuid: string) => void;
 } => {
-  const isClient = useIsClient();
-  const [favs, setFavs] = useLocalStorage<string[]>("favorites", [], { initializeWithValue: false });
+  const [favs, setFavs] = useLocalStorage<Favorite[]>("favorites", [], {initializeWithValue: false});
 
   const addFav = useCallback(
-    (uuid: string) => {
-      setFavs([...favs, uuid ]);
+    (uuid: string, title: string, path: string, units: number) => {
+      setFavs([...favs, { uuid, title, path, units }]);
     },
     [favs, setFavs]
   );
 
   const removeFav = useCallback(
     (uuid: string) => {
-      const updatedFavs = favs.filter((fav) => fav !== uuid);
+      const updatedFavs = favs.filter((fav) => fav.uuid !== uuid);
       setFavs(updatedFavs);
     },
     [favs, setFavs]
   );
 
-  return { favs: isClient ? favs : [], addFav, removeFav };
+  return { favs, addFav, removeFav };
 };
 
 export default useFavorites;

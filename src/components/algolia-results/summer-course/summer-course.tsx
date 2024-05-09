@@ -73,16 +73,18 @@ const SummerCourse = ({hit}: Props) => {
         </div>
       </div>
 
-      {hit.sum_course_availability &&
-        <div className="order-first flex flex-row items-center rs-mb-2">
+      <div className="order-first flex flex-row justify-between items-center rs-mb-2">
+        {hit.sum_course_availability &&
+          <div>
           <CheckCircleIcon width={20} className="text-digital-green mr-2" />
           {hit.sum_course_availability.toUpperCase()}
         </div>
-      }
-
-      <div>
-        <FavoriteButton title={hit.title} uuid={hit.objectID} />
+        }
+        <div className="ml-auto">
+          <FavoriteButton title={hit.title} uuid={hit.objectID} />
+        </div>
       </div>
+
 
       <button {...buttonProps} className="group text-digital-blue no-underline mt-12">
         <span className="flex gap-5 items-center w-full">

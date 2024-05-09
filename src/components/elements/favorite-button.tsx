@@ -9,7 +9,7 @@ type Props = HTMLAttributes<HTMLButtonElement> & {
   uuid: string;
   title: string;
   path: string; 
-  units?: number;
+  units: number;
 };
 
 const FavoriteButton = ({ uuid, title, path, units, ...props }: Props) => {

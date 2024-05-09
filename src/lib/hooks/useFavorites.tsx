@@ -12,7 +12,7 @@ type Favorite = {
 
 const useFavorites = (): {
   favs: Favorite[];
-  addFav: (_uuid: string, _title: string, _path: string, _units?: number) => void;
+  addFav: (_uuid: string, _title: string, _path: string, _units: number) => void;
   removeFav: (_uuid: string) => void;
 } => {
   const [favs, setFavs] = useLocalStorage<Favorite[]>("favorites", [], {initializeWithValue: false});

@@ -17,12 +17,6 @@ const FavoritesList = () => {
   return (
     <div>
       {favs.length > 0 ?
-        <div>
-          Your favorites list is empty. Tap the{" "}
-          <HeartIcon width={30} className="text-spirited-dark" />{" "}
-          icon on courses you’re interested in to see them here. And share them with family and friends.
-        </div>
-        :
         <>
           <ul>
             {favs.map(fav => 
@@ -40,6 +34,12 @@ const FavoritesList = () => {
             Total units 
           </div>
         </>
+        :
+        <div>
+          Your favorites list is empty. Tap the{" "}
+          <HeartIcon width={30} className="text-spirited-dark" />{" "}
+          icon on courses you’re interested in to see them here. And share them with family and friends.
+        </div>
       }
       <div>
         {/* Shareable options: Text, Email, Copy Link */}

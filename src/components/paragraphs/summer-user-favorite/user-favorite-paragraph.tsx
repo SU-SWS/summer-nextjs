@@ -5,7 +5,7 @@ import {
   ParagraphSumUserFavorite
 } from "@lib/gql/__generated__/drupal.d";
 import AlgoliaCourseList from "@components/patterns/algolia-course-list";
-import useFavorites from "@lib/hooks/useFavorites";
+import FavoritesList from "@components/elements/favorites-list";
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumUserFavorite
@@ -13,7 +13,6 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 
 const UserFavoriteParagraph = async ({ paragraph, ...props }: Props) => {
   const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
-  const { favs } = useFavorites();
 
   if (!siteSettingsConfig?.suSiteAlgoliaId || !siteSettingsConfig.suSiteAlgoliaSearch || !siteSettingsConfig.suSiteAlgoliaIndex) {
     return;
@@ -22,15 +21,12 @@ const UserFavoriteParagraph = async ({ paragraph, ...props }: Props) => {
   return (
     <div>
       <div>
-        {/* Favorites List */}
+        <FavoritesList />
       </div>
       <AlgoliaCourseList
         appId={siteSettingsConfig.suSiteAlgoliaId}
         searchIndex={siteSettingsConfig.suSiteAlgoliaIndex}
         searchApiKey={siteSettingsConfig.suSiteAlgoliaSearch}
-        // itemUuids={favs}
-        itemUuids={[]}
-        // itemUuids={["eb0fe1c4-e98d-4fda-8962-4faa627340e0", "e66bd9be-a47b-4df7-804f-b173839e12aa", "e2979287-eef5-46a6-bb1e-e15e4c0e8280"]}
       />
     </div>
   )

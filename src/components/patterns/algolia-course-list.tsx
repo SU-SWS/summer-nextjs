@@ -6,16 +6,21 @@ import {InstantSearchNext} from "react-instantsearch-nextjs";
 import {useMemo} from "react";
 import {Hit as HitType} from "instantsearch.js";
 import SummerCourse from "@components/algolia-results/summer-course/summer-course";
+import useFavorites from "@lib/hooks/useFavorites";
 
 type Props = {
   appId: string
   searchIndex: string
   searchApiKey: string
-  itemUuids: string[]
 }
 
-const AlgoliaCourseList = ({appId, searchIndex, searchApiKey, itemUuids}: Props) => {
+const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
   const searchClient = useMemo(() => algoliasearch(appId, searchApiKey), [appId, searchApiKey])
+  const { favs } = useFavorites()
+  console.log("COURSE LIST FAVS:", favs.length > 0 && favs.map(item => item.uuid));
+  const itemUuids: string[] = ["eb0fe1c4-e98d-4fda-8962-4faa627340e0", "e66bd9be-a47b-4df7-804f-b173839e12aa", "e2979287-eef5-46a6-bb1e-e15e4c0e8280"]
+  // console.log("UUIDS", itemUuids)
+
   return (
     <InstantSearchNext
       indexName={searchIndex}

@@ -15,6 +15,7 @@ import {RefinementListItem} from "instantsearch.js/es/connectors/refinement-list
 import {clsx} from "clsx";
 import {AlgoliaHit} from "@components/algolia-results/default";
 import SummerCourse from "@components/algolia-results/summer-course/summer-course";
+import FavoritesList from "@components/elements/favorites-list";
 
 type Props = {
   appId: string
@@ -197,7 +198,9 @@ const SearchForm = () => {
           </Button>
         </form>
 
-        <H2 className="order-first">Favorites List</H2>
+        <div className="order-first rs-mb-2">
+          <FavoritesList />
+        </div>
       </div>
       <div className="lg:float-right lg:ml-20 lg:w-[calc(75%-5rem)]">
         <HitList/>

@@ -103,23 +103,23 @@ const SearchForm = () => {
   }, [router, searchParams, currentRefinements, query]);
 
   return (
-    <div className="flex gap-10">
-      <div className="flex flex-col">
+    <div className="grid grid-cols-12 gap-12">
+      <div className="col-span-3 flex flex-col">
         <form
-          className="flex flex-col gap-10"
+          className="flex flex-col gap-12"
           role="search"
           aria-label="Search Courses"
           onSubmit={(e) => e.preventDefault()}
         >
           <H2 className="sr-only">Search and filter course results</H2>
           <div>
-            <label className="font-semibold" htmlFor={`${id}-search-input`}>
+            <label className="font-semibold text-18" htmlFor={`${id}-search-input`}>
               Search courses<span className="sr-only">&nbsp;by keywords</span>
             </label>
-            <div className="relative">
+            <div className="relative mt-4">
               <input
                 id={`${id}-search-input`}
-                className="flex-grow border border-black-30 text-m2"
+                className="flex-grow border-3 border-fog-light w-full px-8 py-5 text-m1"
                 ref={inputRef}
                 autoComplete="on"
                 autoCapitalize="off"
@@ -129,14 +129,13 @@ const SearchForm = () => {
                 placeholder="Search by keyword"
                 defaultValue={query}
               />
-
               <button
                 type="submit"
-                className="absolute top-3 right-10"
+                className="absolute top-5 right-5"
                 onClick={() => refine(inputRef.current?.value || "")}
               >
                 <span className="sr-only">Submit Search</span>
-                <MagnifyingGlassIcon width={40} className="bg-cardinal-red text-white rounded-full p-3 block"/>
+                <MagnifyingGlassIcon width={40} className="bg-digital-red text-white rounded-full p-3 block"/>
               </button>
             </div>
           </div>
@@ -202,7 +201,7 @@ const SearchForm = () => {
           <FavoritesList />
         </div>
       </div>
-      <div className="lg:float-right lg:ml-20 lg:w-[calc(75%-5rem)]">
+      <div className="col-span-9">
         <HitList/>
       </div>
     </div>
@@ -227,7 +226,7 @@ const RefinementInput = ({
     <fieldset>
       <legend className="border-t border-black w-full">
         <button {...buttonProps} className="flex w-full items-center justify-between group">
-          <H3 className="mb-0 pb-0 text-m1 group-hocus:underline">{label}</H3>
+          <H3 className="my-5 pb-0 text-18 group-hocus:underline">{label}</H3>
           <ChevronDownIcon width={20} className={clsx({"rotate-180": expanded})}/>
         </button>
       </legend>
@@ -235,6 +234,7 @@ const RefinementInput = ({
         {refinementOptions.map(refinementOption =>
           <label key={refinementOption.value} className="flex items-center gap-5 mb-5 last:mb-0">
             <input
+              className="block w-[2.4rem] h-[2.4rem] border-2 rounded-full outline-none cursor-pointer group-hover:border-lagunita border-black-50 focus:border-lagunita checked:text-lagunita checked:border-lagunita-light checked:group-hover:text-lagunita-dark checked:focus:text-lagunita-dark checked:hover:border-lagunita checked:focus:border-lagunita group-hover:bg-transparent focus:bg-transparent focus-visible:outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 checked:group-hover:text-lagunita-dark checked:focus:text-lagunita-dark checked:group-hover:bg-lagunita-dark checked:focus:bg-lagunita-dark transition-all checked:ring-4 checked:ring-inset checked:ring-white checked:bg-[length:0px_0px] checked:focus:ring-4 checked:focus:ring-inset checked:focus:ring-[#99D7E1] group-hover:checked:ring-[#99D7E1]"
               type="checkbox"
               checked={refinementOption.isRefined}
               name="units"

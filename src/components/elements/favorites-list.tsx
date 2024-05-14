@@ -61,7 +61,7 @@ const FavoritesList = () => {
   if (!useIsClient()) return;
   
   return (
-    <div className="shadow border pt-12 pb-24 px-24">
+    <div className="shadow border rs-pt-1 rs-pb-2 rs-px-2">
       <div className="font-normal type-2 text-center rs-mb-1">Favorites List</div>
       {favs.length > 0 ?
         <>
@@ -72,13 +72,13 @@ const FavoritesList = () => {
                   <XMarkIcon width={24} className="mt-2 group-hocus:text-spirited-dark" />
                   <span className="sr-only">Remove &quot;{fav.title}&quot; from favorites</span>
                 </button>
-                <p className="font-roboto">{fav.title}</p>
-                <p className="ml-auto shrink-0">Units {fav.units}</p>
+                <p className="font-roboto text-21">{fav.title}</p>
+                <p className="ml-auto shrink-0 text-21">Units {fav.units}</p>
               </li>
             )}
           </ul>
           <div className="border-t border-archway-dark w-full flex pb-12">
-            <div className="ml-auto mt-3">Total units {totalUnits}</div>
+            <div className="ml-auto mt-3 text-21">Total units {totalUnits}</div>
           </div>
         </>
         :

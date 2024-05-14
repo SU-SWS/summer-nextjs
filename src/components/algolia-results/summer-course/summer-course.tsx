@@ -28,7 +28,7 @@ const SummerCourse = ({hit}: Props) => {
 
   return (
     <div className="flex flex-col rounded-[25px] bg-fog-light rs-py-3 rs-px-4 rs-mb-4">
-      <div className="flex gap-[48px]">
+      <div className="flex flex-col md:flex-row gap-5 md:gap-[48px]">
 
         <div className="flex flex-col flex-grow">
           <H3><a href={hit.url} className="font-normal">{hit.title}</a></H3>
@@ -94,7 +94,7 @@ const SummerCourse = ({hit}: Props) => {
       </button>
 
       <div {...panelProps}>
-        <div className="flex gap-[90px] rs-mt-2">
+        <div className="flex flex-col md:flex-row gap-10 md:gap-[90px] rs-mt-2">
           <div className="flex-grow">
             <div>
               <div className="font-semibold text-m1 mb-5">Summary:</div>

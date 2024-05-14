@@ -104,7 +104,7 @@ const SearchForm = () => {
 
   return (
     <div className="grid grid-cols-12 gap-12">
-      <div className="col-span-3 flex flex-col">
+      <div className="col-span-12 md:col-span-4 xl:col-span-3 flex flex-col">
         <form
           className="flex flex-col"
           role="search"
@@ -201,7 +201,7 @@ const SearchForm = () => {
           <FavoritesList />
         </div>
       </div>
-      <div className="col-span-9">
+      <div className="col-span-12 md:col-span-8 xl:col-span-9">
         <HitList/>
       </div>
     </div>

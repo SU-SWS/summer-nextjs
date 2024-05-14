@@ -5,10 +5,15 @@ import { ChatBubbleLeftEllipsisIcon, ClipboardDocumentIcon, EnvelopeIcon, HeartI
 import {useIsClient} from "usehooks-ts";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 
+
 const ShareButtons = () => {
+  const baseUrl = window.location.origin;
+  const { favs } = useFavorites();
+  const urlParams = `/favorites?fav=${favs.map(fav => fav.uuid).join(",")}`
+
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(baseUrl + urlParams);
       alert("URL copied to clipboard!");
     } catch (error) {
       console.error("Failed to copy URL: ", error);
@@ -18,7 +23,7 @@ const ShareButtons = () => {
 
   const handleSendEmail = () => {
     const subject = "Check out these summer courses!";
-    const body = `Here is the link: ${window.location.href}`;
+    const body = `Here is the link: ${baseUrl + urlParams}`;
     window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 

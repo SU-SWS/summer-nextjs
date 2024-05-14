@@ -3,10 +3,11 @@
 import algoliasearch from "algoliasearch/lite";
 import {useHits,usePagination, Configure} from "react-instantsearch";
 import {InstantSearchNext} from "react-instantsearch-nextjs";
-import {useMemo} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {Hit as HitType} from "instantsearch.js";
 import SummerCourse from "@components/algolia-results/summer-course/summer-course";
 import useFavorites from "@lib/hooks/useFavorites";
+import { useSearchParams } from "next/navigation";
 
 type Props = {
   appId: string
@@ -16,8 +17,25 @@ type Props = {
 
 const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
   const searchClient = useMemo(() => algoliasearch(appId, searchApiKey), [appId, searchApiKey])
-  const { favs } = useFavorites()
-  const itemUuids: string[] = favs.map(item => item.uuid)
+  const [urlParams, setUrlParams] = useState<string[]>([]);
+  const { favs, addFav } = useFavorites()
+  const searchParams = useSearchParams();
+  
+  useEffect(() => {
+    const uuids = searchParams.get("fav");
+    console.log("uuids:", uuids)
+    if (uuids) {
+      const uuidsArray = uuids.split(",");
+      setUrlParams(uuidsArray); 
+      uuidsArray.forEach(uuid => {
+        if (!favs.some(fav => fav.uuid === uuid)) {
+          addFav(uuid, "", "", 0);
+        }
+      });
+    }
+  }, [searchParams, addFav, favs]);
+
+  const itemUuids: string[] = urlParams || favs.map(item => item.uuid)
 
   return (
     <InstantSearchNext

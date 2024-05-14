@@ -106,13 +106,13 @@ const SearchForm = () => {
     <div className="grid grid-cols-12 gap-12">
       <div className="col-span-3 flex flex-col">
         <form
-          className="flex flex-col gap-12"
+          className="flex flex-col"
           role="search"
           aria-label="Search Courses"
           onSubmit={(e) => e.preventDefault()}
         >
           <H2 className="sr-only">Search and filter course results</H2>
-          <div>
+          <div className="mb-10">
             <label className="font-semibold text-18" htmlFor={`${id}-search-input`}>
               Search courses<span className="sr-only">&nbsp;by keywords</span>
             </label>
@@ -223,7 +223,7 @@ const RefinementInput = ({
   const {buttonProps, panelProps, expanded} = useAccordion({initiallyVisible: startExpanded})
 
   return (
-    <fieldset>
+    <fieldset className="rs-mb-1">
       <legend className="border-t border-black w-full">
         <button {...buttonProps} className="flex w-full items-center justify-between group">
           <H3 className="my-5 pb-0 text-18 group-hocus:underline">{label}</H3>
@@ -260,7 +260,7 @@ const HitList = () => {
 
   return (
     <div>
-      <H2 className="text-m0" aria-live="polite" aria-atomic>
+      <H2 className="rs-ml-1 font-normal text-m0" aria-live="polite" aria-atomic>
         {nbHits} {nbHits > 1 ? "results" : "result"}
       </H2>
 

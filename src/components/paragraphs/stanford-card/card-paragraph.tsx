@@ -20,7 +20,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
 
   const headerTagChoice = (behaviors.su_card_styles?.heading || "h2").split(".", 2);
   const headerTag = headerTagChoice[0]
-  const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash mb-12", "text-m2 font-normal mb-12")
+  const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "text-m2 font-normal mb-12") || "font-normal mb-12"
   // const cardVariant = behaviors?.card_variant;
   const hideHeader = behaviors.su_card_styles?.heading;
 
@@ -35,7 +35,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
       // className={cardVariant}
     >
       {paragraph.suCardHeader &&
-        <div id={paragraph.id} className={twMerge("order-2", hideHeader && "sr-only")}>
+        <div id={paragraph.id} className={twMerge("order-2", !hideHeader && "sr-only")}>
           {headerTag === "h2" &&
             <H2 className={headerClasses}>{paragraph.suCardHeader}</H2>
           }

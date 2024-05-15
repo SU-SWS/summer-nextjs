@@ -35,7 +35,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
       // className={cardVariant}
     >
       {paragraph.suCardHeader &&
-        <div id={paragraph.id} className={twMerge("order-2", !hideHeader && "sr-only")}>
+        <div id={paragraph.id} className={twMerge("order-2", hideHeader && "sr-only")}>
           {headerTag === "h2" &&
             <H2 className={headerClasses}>{paragraph.suCardHeader}</H2>
           }

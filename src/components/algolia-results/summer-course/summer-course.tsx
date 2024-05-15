@@ -5,11 +5,39 @@ import Image from "next/image";
 import useAccordion from "@lib/hooks/useAccordion";
 import {H3, H4} from "@components/elements/headers";
 import {formatCurrency} from "@lib/utils/format-currency";
-import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon, ChevronDownIcon, ExclamationCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 import FavoriteButton from "@components/elements/favorite-button";
 
 type Props = {
   hit: AlgoliaHit
+}
+
+const CourseAvailability = ({ availabilityStatus }) => {
+  switch (availabilityStatus) {
+    case "Available":
+      return (
+        <>
+          <CheckCircleIcon width={20} className="text-digital-green mr-3" />
+          {availabilityStatus.toUpperCase()}
+        </>
+      )
+    case "Almost Full":
+      return (
+        <>
+          <ExclamationTriangleIcon width={20} className="text-poppy mr-3" />
+          {availabilityStatus.toUpperCase()}
+        </>
+      )
+    case "Full":
+      return (
+        <>
+          <ExclamationCircleIcon width={20} className="text-digital-red mr-3" />
+          {availabilityStatus.toUpperCase()}
+        </>
+      )
+    default:
+      return;
+  }
 }
 
 const SummerCourse = ({hit}: Props) => {
@@ -74,12 +102,7 @@ const SummerCourse = ({hit}: Props) => {
       </div>
 
       <div className="order-first flex flex-row justify-between items-center rs-mb-2">
-        {hit.sum_course_availability &&
-          <div>
-          <CheckCircleIcon width={20} className="text-digital-green mr-2" />
-          {hit.sum_course_availability.toUpperCase()}
-        </div>
-        }
+        {hit.sum_course_availability && <CourseAvailability availabilityStatus={hit.sum_course_availability} />}
         <div className="ml-auto">
           <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units} />
         </div>

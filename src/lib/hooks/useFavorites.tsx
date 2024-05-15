@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
-type Favorite = {
+export type Favorite = {
   uuid: string;
   title: string;
   path: string; 

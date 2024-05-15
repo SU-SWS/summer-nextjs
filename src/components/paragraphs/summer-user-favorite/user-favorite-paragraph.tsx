@@ -21,7 +21,7 @@ const UserFavoriteParagraph = async ({ paragraph, ...props }: Props) => {
   return (
     <div className="grid grid-cols-12 gap-12">
       <div className="col-span-3">
-        <FavoritesList />
+        <FavoritesList isDisplayOnly />
       </div>
       <div className="col-span-9">
         <AlgoliaCourseList

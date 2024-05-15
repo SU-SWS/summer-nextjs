@@ -9,7 +9,7 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 const ShareButtons = () => {
   const baseUrl = window.location.origin;
   const { favs } = useFavorites();
-  const urlParams = `/favorites?fav=${favs.map(fav => fav.uuid).join(",")}`
+  const urlParams = `/favorites?fav=${favs.map(fav => `${fav.uuid}:${fav.title}:${fav.units}`).join(",")}`;
 
   const handleCopy = async () => {
     try {
@@ -57,7 +57,7 @@ const ShareButtons = () => {
 };
 
 
-const FavoritesList = () => {
+const FavoritesList = ({isDisplayOnly = false}) => {
   const { favs, removeFav } = useFavorites();
   const totalUnits = favs.reduce((totalUnits, item) => totalUnits + item.units, 0);
   const removeFavorite = (uuid: string) => removeFav(uuid);
@@ -73,10 +73,12 @@ const FavoritesList = () => {
           <ul className="list-none pl-0">
             {favs.map(fav => 
               <li key={fav.uuid} className="flex flex-row items-start gap-5">
-                <button type="button" onClick={() => removeFavorite(fav.uuid)} className="group">
-                  <XMarkIcon width={24} className="mt-2 group-hocus:text-spirited-dark" />
-                  <span className="sr-only">Remove &quot;{fav.title}&quot; from favorites</span>
-                </button>
+                {!isDisplayOnly &&
+                  <button type="button" onClick={() => removeFavorite(fav.uuid)} className="group">
+                    <XMarkIcon width={24} className="mt-2 group-hocus:text-spirited-dark" />
+                    <span className="sr-only">Remove &quot;{fav.title}&quot; from favorites</span>
+                  </button>
+                }
                 <p className="font-roboto text-21">{fav.title}</p>
                 <p className="ml-auto shrink-0 text-21">Units {fav.units}</p>
               </li>

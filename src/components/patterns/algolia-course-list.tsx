@@ -15,27 +15,45 @@ type Props = {
   searchApiKey: string
 }
 
+type FavoriteItem = {
+  uuid: string;
+  title: string;
+  path?: string; 
+  units: number;
+}
+
+type FavoritesList = FavoriteItem[];
+
 const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
   const searchClient = useMemo(() => algoliasearch(appId, searchApiKey), [appId, searchApiKey])
-  const [urlParams, setUrlParams] = useState<string[]>([]);
+  const [urlParams, setUrlParams] = useState<FavoritesList>([]);
   const { favs, addFav } = useFavorites()
   const searchParams = useSearchParams();
-  
+
   useEffect(() => {
-    const uuids = searchParams.get("fav");
-    console.log("uuids:", uuids)
-    if (uuids) {
-      const uuidsArray = uuids.split(",");
-      setUrlParams(uuidsArray); 
-      uuidsArray.forEach(uuid => {
-        if (!favs.some(fav => fav.uuid === uuid)) {
-          addFav(uuid, "", "", 0);
-        }
-      });
+    const favParamData = searchParams.get("fav");
+    console.log("favParamData:", favParamData)
+    if (favParamData) {
+      try {
+        const favData = favParamData.split(",").map(fav => {
+          const [uuid, title, unitsStr] = fav.split(":");
+          const units = Number(unitsStr);
+          return { uuid, title, units };
+        })
+        setUrlParams(favData);
+
+        favData.forEach(({ uuid, title, units }) => {
+          if (!favs.some(fav => fav.uuid === uuid)) {
+            addFav(uuid, title, "", units);
+          }
+        });
+      } catch (error) {
+        console.error("Error parsing favData:", error);
+      }
     }
   }, [searchParams, addFav, favs]);
 
-  const itemUuids: string[] = urlParams || favs.map(item => item.uuid)
+  const itemUuids = urlParams.map(item => item.uuid) || favs.map(item => item.uuid)
 
   return (
     <InstantSearchNext

@@ -11,7 +11,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumUserFavorite
 }
 
-const UserFavoriteParagraph = async ({ paragraph, ...props }: Props) => {
+const UserFavoriteParagraph = async ({ ...props }: Props) => {
   const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
 
   if (!siteSettingsConfig?.suSiteAlgoliaId || !siteSettingsConfig.suSiteAlgoliaSearch || !siteSettingsConfig.suSiteAlgoliaIndex) {

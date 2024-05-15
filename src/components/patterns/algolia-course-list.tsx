@@ -8,6 +8,7 @@ import {Hit as HitType} from "instantsearch.js";
 import SummerCourse from "@components/algolia-results/summer-course/summer-course";
 import useFavorites from "@lib/hooks/useFavorites";
 import { useSearchParams } from "next/navigation";
+import { AlgoliaHit } from "@components/algolia-results/default";
 
 type Props = {
   appId: string
@@ -32,7 +33,6 @@ const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
 
   useEffect(() => {
     const favParamData = searchParams.get("fav");
-    console.log("favParamData:", favParamData)
     if (favParamData) {
       try {
         const favData = favParamData.split(",").map(fav => {
@@ -48,7 +48,7 @@ const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
           }
         });
       } catch (error) {
-        console.error("Error parsing favData:", error);
+        throw new Error(`Error parsing favData: ${error}`);
       }
     }
   }, [searchParams, addFav, favs]);
@@ -86,7 +86,7 @@ const HitList = () => {
       <ul className="list-unstyled">
         {hits.map(hit =>
           <li key={hit.objectID}>
-            <SummerCourse hit={hit} />
+            <SummerCourse hit={hit as HitType<AlgoliaHit>} />
           </li>
         )}
       </ul>

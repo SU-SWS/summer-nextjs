@@ -1,16 +1,11 @@
 "use client";
-import useFavorites from "@lib/hooks/useFavorites";
+import useFavorites, { Favorite } from "@lib/hooks/useFavorites";
 import { HTMLAttributes } from "react";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { clsx } from "clsx";
 import { useIsClient } from "usehooks-ts";
 
-type Props = HTMLAttributes<HTMLButtonElement> & {
-  uuid: string;
-  title: string;
-  path: string; 
-  units: number;
-};
+type Props = HTMLAttributes<HTMLButtonElement> & Favorite
 
 const FavoriteButton = ({ uuid, title, path, units, ...props }: Props) => {
   const { favs, addFav, removeFav } = useFavorites();

@@ -14,6 +14,8 @@ import {RefinementListItem} from "instantsearch.js/es/connectors/refinement-list
 import {clsx} from "clsx";
 import SummerCourse from "@components/algolia-results/summer-course/summer-course";
 import FavoritesList from "@components/elements/favorites-list";
+import { AlgoliaHit } from "@components/algolia-results/default";
+import {Hit as HitType} from "instantsearch.js";
 
 type Props = {
   appId: string
@@ -265,7 +267,7 @@ const HitList = () => {
       <ul className="list-unstyled">
         {hits.map(hit =>
           <li key={hit.objectID}>
-            <SummerCourse hit={hit}/>
+            <SummerCourse hit={hit as HitType<AlgoliaHit>}/>
           </li>
         )}
       </ul>

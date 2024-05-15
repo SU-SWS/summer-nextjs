@@ -2,6 +2,7 @@
 
 import {AlgoliaHit} from "@components/algolia-results/default";
 import Image from "next/image";
+import {Hit as HitType} from "instantsearch.js/es/types/results";
 import useAccordion from "@lib/hooks/useAccordion";
 import {H3, H4} from "@components/elements/headers";
 import {formatCurrency} from "@lib/utils/format-currency";
@@ -9,10 +10,14 @@ import { CheckCircleIcon, ChevronDownIcon, ExclamationCircleIcon, ExclamationTri
 import FavoriteButton from "@components/elements/favorite-button";
 
 type Props = {
-  hit: AlgoliaHit
+  hit: HitType<AlgoliaHit>
 }
 
-const CourseAvailability = ({ availabilityStatus }) => {
+type CourseAvailabilityProps = {
+  availabilityStatus: string
+}
+
+const CourseAvailability: React.FC<CourseAvailabilityProps> = ({ availabilityStatus }) => {
   switch (availabilityStatus) {
     case "Available":
       return (
@@ -103,9 +108,11 @@ const SummerCourse = ({hit}: Props) => {
 
       <div className="order-first flex flex-row justify-between items-center rs-mb-2">
         {hit.sum_course_availability && <CourseAvailability availabilityStatus={hit.sum_course_availability} />}
-        <div className="ml-auto">
-          <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units} />
-        </div>
+        {hit && hit.sum_course_units && 
+          <div className="ml-auto">
+            <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units} />
+          </div>
+        }
       </div>
 
 

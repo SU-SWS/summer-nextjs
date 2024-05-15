@@ -14,10 +14,8 @@ const ShareButtons = () => {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(baseUrl + urlParams);
-      alert("URL copied to clipboard!");
     } catch (error) {
-      console.error("Failed to copy URL: ", error);
-      alert("Failed to copy URL. Please try again.");
+      throw new Error(`Failed to copy URL: ${error}`);
     }
   };
 

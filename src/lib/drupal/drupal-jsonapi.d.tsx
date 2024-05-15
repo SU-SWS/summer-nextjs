@@ -19,6 +19,7 @@ export type CardParagraphBehaviors = {
   heading?: "h2" | "h3" | "h4" | "div.su-splash-font"
   hide_heading?: boolean
   link_style?: "action" | "button"
+  card_variant?: "default" | "pill"
 }
 
 export type BannerParagraphBehaviors = {
@@ -37,5 +38,4 @@ export type ParagraphBehaviors = {
   su_card_styles?: CardParagraphBehaviors
   hero_pattern?: BannerParagraphBehaviors
   stanford_teaser?: TeaserParagraphBehaviors
-  card_variant?: BannerParagraphBehaviors
 }

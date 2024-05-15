@@ -7,6 +7,7 @@ import ActionLink from "@components/elements/action-link";
 import Button from "@components/elements/button";
 import {twMerge} from "tailwind-merge";
 import ImageCard from "@components/patterns/image-card";
+import PillCard from "@components/patterns/pill-card";
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordCard
@@ -21,18 +22,19 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
   const headerTagChoice = (behaviors.su_card_styles?.heading || "h2").split(".", 2);
   const headerTag = headerTagChoice[0]
   const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "text-m2 font-normal mb-12") || "font-normal mb-12"
-  // const cardVariant = behaviors?.card_variant;
+  const cardVariant = behaviors.su_card_styles?.card_variant;
   const hideHeader = behaviors.su_card_styles?.hide_heading;
 
+  const Element = cardVariant === "default" ? ImageCard : PillCard
+
   return (
-    <ImageCard
+    <Element
       {...props}
       aria-labelledby={paragraph.suCardHeader ? paragraph.id : undefined}
       imageUrl={image?.url}
       imageAlt={image?.alt}
       videoUrl={videoUrl}
       isArticle={!!paragraph.suCardHeader}
-      // className={cardVariant}
     >
       {paragraph.suCardHeader &&
         <div id={paragraph.id} className={twMerge("order-2", hideHeader && "sr-only")}>
@@ -74,7 +76,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
           }
         </div>
       }
-    </ImageCard>
+    </Element>
   )
 }
 

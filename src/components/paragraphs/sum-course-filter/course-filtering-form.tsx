@@ -1,19 +1,17 @@
 "use client";
 
 import algoliasearch from "algoliasearch/lite";
-import {useHits, useSearchBox, useRefinementList, useClearRefinements, usePagination, useCurrentRefinements, Configure} from "react-instantsearch";
+import { useSearchBox, useRefinementList, useClearRefinements, useCurrentRefinements, Configure, useInfiniteHits, usePagination} from "react-instantsearch";
 import {InstantSearchNext} from "react-instantsearch-nextjs";
 import {H2, H3} from "@components/elements/headers";
 import {useEffect, useId, useMemo, useRef} from "react";
 import Button from "@components/elements/button";
 import {useRouter, useSearchParams} from "next/navigation";
-import {Hit as HitType} from "instantsearch.js";
 import {ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/20/solid";
 import {IndexUiState} from "instantsearch.js/es/types/ui-state";
 import useAccordion from "@lib/hooks/useAccordion";
 import {RefinementListItem} from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
 import {clsx} from "clsx";
-import {AlgoliaHit} from "@components/algolia-results/default";
 import SummerCourse from "@components/algolia-results/summer-course/summer-course";
 import FavoritesList from "@components/elements/favorites-list";
 
@@ -249,8 +247,8 @@ const RefinementInput = ({
 }
 
 const HitList = () => {
-  const {hits} = useHits<HitType<AlgoliaHit>>({});
-  const {currentRefinement: currentPage, pages, nbPages, nbHits, refine: goToPage} = usePagination({padding: 2})
+  const { hits, showMore, isLastPage } = useInfiniteHits();
+  const { nbHits } = usePagination({padding: 2})
 
   if (hits.length === 0) {
     return (
@@ -272,35 +270,12 @@ const HitList = () => {
         )}
       </ul>
 
-      {pages.length > 1 &&
-        <nav aria-label="Search results pager">
-          <ul className="list-unstyled flex justify-between">
-            {pages[0] > 0 &&
-              <li>
-                <button onClick={() => goToPage(0)}>
-                  First
-                </button>
-              </li>
-            }
-
-            {pages.map(pageNum =>
-              <li key={`page-${pageNum}`} aria-current={currentPage === pageNum}>
-                <button onClick={() => goToPage(pageNum)}>
-                  {pageNum + 1}
-                </button>
-              </li>
-            )}
-
-            {pages[pages.length - 1] !== nbPages &&
-              <li>
-                <button onClick={() => goToPage(nbPages - 1)}>
-                  Last
-                </button>
-              </li>
-            }
-          </ul>
-        </nav>
-      }
+      <div className="flex flex-col items-center">
+      <Button big centered onClick={showMore} disabled={isLastPage}>
+        Load more<span className="sr-only">results</span>
+        <ChevronDownIcon className="inline-block ml-5" width={30} />
+      </Button>
+      </div>
     </div>
   )
 }

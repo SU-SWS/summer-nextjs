@@ -22,7 +22,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
   const headerTag = headerTagChoice[0]
   const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "text-m2 font-normal mb-12") || "font-normal mb-12"
   // const cardVariant = behaviors?.card_variant;
-  const hideHeader = behaviors.su_card_styles?.heading;
+  const hideHeader = behaviors.su_card_styles?.hide_heading;
 
   return (
     <ImageCard
@@ -52,7 +52,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
       }
 
       {paragraph.suCardSuperHeader &&
-        <div className="order-1 font-normal uppercase text-20 mb-5"> 
+        <div className="order-1 font-normal uppercase text-20 mb-5">
           {paragraph.suCardSuperHeader}
         </div>
       }

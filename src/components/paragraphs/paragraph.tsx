@@ -12,6 +12,7 @@ import {Suspense} from "react";
 import UserFavoriteParagraph from "@components/paragraphs/summer-user-favorite/user-favorite-paragraph";
 import SumCalculatorParagraph from "@components/paragraphs/sum-calculator/sum-calculator-paragraph";
 import SumCourseFilterParagraph from "@components/paragraphs/sum-course-filter/sum-course-filter-paragraph";
+import SumAccordionParagraph from "./sum-accordion/accordion-paragraph";
 
 type Props = {
   /**
@@ -52,6 +53,8 @@ const Paragraph = async ({paragraph}: Props) => {
       return <SumCourseFilterParagraph {...itemProps}/>
     case "ParagraphSumUserFavorite":
       return <UserFavoriteParagraph paragraph={paragraph} {...itemProps}/>
+    case "ParagraphStanfordAccordion":
+      return <SumAccordionParagraph paragraph={paragraph} {...itemProps} />
   }
   console.warn(`Unknown paragraph ${paragraph.__typename}. Item ${paragraph.id}.`);
 }

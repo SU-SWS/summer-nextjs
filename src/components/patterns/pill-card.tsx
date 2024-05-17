@@ -30,8 +30,7 @@ type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
 
 const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor,...props}: Props) => {
   const CardWrapper: ElementType = isArticle ? "article" : "div";
-  console.log("BG COLOR:", bgColor);
-
+  
   return (
     <CardWrapper
       {...props}

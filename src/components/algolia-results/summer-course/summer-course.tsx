@@ -46,7 +46,7 @@ const CourseAvailability: React.FC<CourseAvailabilityProps> = ({ availabilitySta
 }
 
 const SummerCourse = ({hit}: Props) => {
-  const {buttonProps, panelProps, expanded} = useAccordion()
+  const { buttonProps, panelProps, expanded } = useAccordion()
 
   const start = hit.sum_course_start_date && new Date(hit.sum_course_start_date * 1000).toLocaleDateString("en-us", {
     month: "long",
@@ -107,7 +107,7 @@ const SummerCourse = ({hit}: Props) => {
       </div>
 
       <div className="order-first flex flex-row justify-between items-center rs-mb-2">
-        {hit.sum_course_availability && <CourseAvailability availabilityStatus={hit.sum_course_availability} />}
+        {hit.sum_course_availability && <CourseAvailability availabilityStatus={hit.sum_course_availability[0]} />}
         {hit && hit.sum_course_units && 
           <div className="ml-auto">
             <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units} />

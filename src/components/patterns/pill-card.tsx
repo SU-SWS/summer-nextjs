@@ -35,11 +35,11 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor,..
     <CardWrapper
       {...props}
       className={twMerge("centered lg:max-w-[980px] w-full outline outline-4 border-4 border-white rounded-full bg-poppy-light outline-poppy-light", props.className, clsx({
-        "bg-poppy-light bg-opacity-80 outline-poppy-light-[80%]" : bgColor === "semitransparent_poppy",
+        "bg-poppy-light bg-opacity-80 outline-poppy-light/[80%]" : bgColor === "semitransparent_poppy",
         "bg-olive-light outline-olive-light" : bgColor === "olive",
-        "bg-olive-light bg-opacity-80 outline-olive-light-[80%]" : bgColor === "semitransparent_olive",
+        "bg-olive-light bg-opacity-80 outline-olive-light/[80%]" : bgColor === "semitransparent_olive",
         "bg-spirited-light outline-spirited-light" : bgColor === "spirited",
-        "bg-spirited-light bg-opacity-80 outline-spirited-light-[80%]": bgColor === "semitransparent_spirited",
+        "bg-spirited-light bg-opacity-80 outline-spirited-light/[80%]": bgColor === "semitransparent_spirited",
       }))}
     >
       {imageUrl &&

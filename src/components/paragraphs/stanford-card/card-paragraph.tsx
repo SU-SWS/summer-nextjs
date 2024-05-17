@@ -8,6 +8,7 @@ import Button from "@components/elements/button";
 import {twMerge} from "tailwind-merge";
 import ImageCard from "@components/patterns/image-card";
 import PillCard from "@components/patterns/pill-card";
+import clsx from "clsx";
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordCard
@@ -22,11 +23,11 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
   const headerTagChoice = (behaviors.su_card_styles?.heading || "h2").split(".", 2);
   const headerTag = headerTagChoice[0]
   const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "text-m2 font-normal mb-12") || "font-normal mb-12"
-  const cardVariant = behaviors.su_card_styles?.card_variant;
+  const cardVariant = behaviors.su_card_styles?.sum_card_variant;
   const pillCardBgColor = behaviors.su_card_styles?.sum_card_bg_color_variant;
   const hideHeader = behaviors.su_card_styles?.hide_heading;
 
-  const Element = cardVariant === "pill" ? ImageCard : PillCard
+  const Element = cardVariant ? PillCard : ImageCard
 
   return (
     <Element
@@ -66,7 +67,9 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
       {paragraph.suCardLink?.url &&
         <div className="order-4 rs-mt-2">
           {behaviors.su_card_styles?.link_style === "action" &&
-            <ActionLink href={paragraph.suCardLink.url} className="no-underline hocus:underline font-roboto font-medium text-18">
+            <ActionLink href={paragraph.suCardLink.url} className={clsx("no-underline hocus:underline font-roboto font-medium text-18", {
+              "text-archway-dark": cardVariant
+            })}>
               {paragraph.suCardLink.title}
             </ActionLink>
           }

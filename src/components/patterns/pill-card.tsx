@@ -3,6 +3,7 @@ import Image from "next/image";
 import Oembed from "@components/elements/ombed";
 import {ElementType, HTMLAttributes} from "react";
 import {Maybe} from "@lib/gql/__generated__/drupal";
+import clsx from "clsx";
 
 type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
   /**
@@ -21,15 +22,26 @@ type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
    * If the wrapper should be an article or a div, use an article if an appropriate heading is within the card.
    */
   isArticle?: Maybe<boolean>
+  /**
+   * Color variants
+   */
+  bgColor?: Maybe<string>
 }
 
-const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, ...props}: Props) => {
+const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor,...props}: Props) => {
   const CardWrapper: ElementType = isArticle ? "article" : "div";
+  console.log("BG COLOR:", bgColor);
 
   return (
     <CardWrapper
       {...props}
-      className={twMerge("centered lg:max-w-[980px] w-full bg-fog-light rounded-full", props.className)}
+      className={twMerge("centered lg:max-w-[980px] w-full outline outline-4 border-4 border-white rounded-full bg-poppy-light outline-poppy-light", props.className, clsx({
+        "bg-poppy-light bg-opacity-80 outline-poppy-light-[80%]" : bgColor === "semitransparent_poppy",
+        "bg-olive-light outline-olive-light" : bgColor === "olive",
+        "bg-olive-light bg-opacity-80 outline-olive-light-[80%]" : bgColor === "semitransparent_olive",
+        "bg-spirited-light outline-spirited-light" : bgColor === "spirited",
+        "bg-spirited-light bg-opacity-80 outline-spirited-light-[80%]": bgColor === "semitransparent_spirited",
+      }))}
     >
       {imageUrl &&
         <div className="relative aspect-1 w-full">

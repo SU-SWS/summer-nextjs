@@ -20,6 +20,7 @@ export type CardParagraphBehaviors = {
   hide_heading?: boolean
   link_style?: "action" | "button"
   card_variant?: "default" | "pill"
+  sum_card_bg_color_variant?: "default" | "semitransparent_poppy" | "olive" | "semitransparent_olive" | "spirited" | "semitransparent_spirited"
 }
 
 export type BannerParagraphBehaviors = {

@@ -30,7 +30,7 @@ type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
 
 const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor,...props}: Props) => {
   const CardWrapper: ElementType = isArticle ? "article" : "div";
-  
+
   return (
     <CardWrapper
       {...props}
@@ -58,7 +58,7 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor,..
         <Oembed url={videoUrl}/>
       }
 
-      <div className="pt-20 px-10 lg:px-20 rs-pb-10 flex flex-col">
+      <div className="pt-20 px-10 lg:px-14 pb-[165px] sm:pb-[245px] md:pb-[200px] flex flex-col">
         {children}
       </div>
     </CardWrapper>

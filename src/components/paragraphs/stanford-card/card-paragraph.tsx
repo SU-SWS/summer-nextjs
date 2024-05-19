@@ -27,7 +27,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
   const pillCardBgColor = behaviors.su_card_styles?.sum_card_bg_color_variant;
   const hideHeader = behaviors.su_card_styles?.hide_heading;
 
-  const Element = cardVariant ? PillCard : ImageCard
+  const Element = cardVariant === "pill" ? PillCard : ImageCard
 
   return (
     <Element

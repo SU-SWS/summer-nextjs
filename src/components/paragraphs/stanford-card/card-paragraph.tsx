@@ -68,7 +68,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
         <div className="order-4 rs-mt-2">
           {behaviors.su_card_styles?.link_style === "action" &&
             <ActionLink href={paragraph.suCardLink.url} className={clsx("no-underline hocus:underline font-roboto font-medium text-18", {
-              "text-archway-dark": cardVariant
+              "text-archway-dark": cardVariant === "pill"
             })}>
               {paragraph.suCardLink.title}
             </ActionLink>

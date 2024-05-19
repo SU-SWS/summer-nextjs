@@ -58,7 +58,7 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor,..
         <Oembed url={videoUrl}/>
       }
 
-      <div className="pt-20 px-10 lg:px-14 pb-[165px] sm:pb-[245px] md:pb-[200px] flex flex-col">
+      <div className={clsx("pt-20 px-10 lg:px-14 pb-[165px] sm:pb-[245px] md:pb-[200px] flex flex-col", {"pt-[165px] sm:pt-[245px] md:pt-[200px]" : !imageUrl})}>
         {children}
       </div>
     </CardWrapper>

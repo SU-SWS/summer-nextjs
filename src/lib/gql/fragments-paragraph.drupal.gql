@@ -228,6 +228,13 @@ fragment FragmentParagraphSumCalculator on ParagraphSumCalculator {
     }
 }
 
+fragment FragmentParagraphSumVideo on ParagraphSumVideo {
+    ...FragmentParagraphInterface
+    sumVideoVideo {
+        ...FragmentMediaVideo
+    }
+}
+
 fragment FragmentParagraphUnion on ParagraphUnion {
     ...FragmentParagraphInterface
     ...FragmentParagraphStanfordAccordion
@@ -241,4 +248,5 @@ fragment FragmentParagraphUnion on ParagraphUnion {
     ...FragmentParagraphStanfordWysiwyg
     ...FragmentParagraphStanfordLayout
     ...FragmentParagraphSumCalculator
+    ...FragmentParagraphSumVideo
 }

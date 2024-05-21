@@ -373,6 +373,15 @@ export const FragmentParagraphSumCalculatorFragmentDoc = gql`
     ${FragmentParagraphInterfaceFragmentDoc}
 ${FragmentDoubleIntFloatFragmentDoc}
 ${FragmentDoubleStringFloatFragmentDoc}`;
+export const FragmentParagraphSumVideoFragmentDoc = gql`
+    fragment FragmentParagraphSumVideo on ParagraphSumVideo {
+  ...FragmentParagraphInterface
+  sumVideoVideo {
+    ...FragmentMediaVideo
+  }
+}
+    ${FragmentParagraphInterfaceFragmentDoc}
+${FragmentMediaVideoFragmentDoc}`;
 export const FragmentParagraphUnionFragmentDoc = gql`
     fragment FragmentParagraphUnion on ParagraphUnion {
   ...FragmentParagraphInterface
@@ -387,6 +396,7 @@ export const FragmentParagraphUnionFragmentDoc = gql`
   ...FragmentParagraphStanfordWysiwyg
   ...FragmentParagraphStanfordLayout
   ...FragmentParagraphSumCalculator
+  ...FragmentParagraphSumVideo
 }
     ${FragmentParagraphInterfaceFragmentDoc}
 ${FragmentParagraphStanfordAccordionFragmentDoc}
@@ -399,7 +409,8 @@ ${FragmentParagraphStanfordMediaCaptionFragmentDoc}
 ${FragmentParagraphStanfordSpacerFragmentDoc}
 ${FragmentParagraphStanfordWysiwygFragmentDoc}
 ${FragmentParagraphStanfordLayoutFragmentDoc}
-${FragmentParagraphSumCalculatorFragmentDoc}`;
+${FragmentParagraphSumCalculatorFragmentDoc}
+${FragmentParagraphSumVideoFragmentDoc}`;
 export const FragmentSmartDateTypeFragmentDoc = gql`
     fragment FragmentSmartDateType on SmartDateType {
   value

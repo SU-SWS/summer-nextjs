@@ -2,49 +2,44 @@
 
 import useFavorites from "@lib/hooks/useFavorites";
 import { ChatBubbleLeftEllipsisIcon, ClipboardDocumentIcon, EnvelopeIcon, HeartIcon} from "@heroicons/react/24/outline";
-import {useIsClient} from "usehooks-ts";
+import {useCopyToClipboard, useIsClient} from "usehooks-ts";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 
 
 const ShareButtons = () => {
+  const [copiedText, copy] = useCopyToClipboard()
   const baseUrl = window.location.origin;
   const { favs } = useFavorites();
-  const urlParams = `/favorites?fav=${favs.map(fav => `${fav.uuid}:${fav.title}:${fav.units}`).join(",")}`;
+  const urlParams = `/favorites?fav=${favs.map(fav => `${fav.uuid}`).join(",")}`;
+  const copyUrl = baseUrl + urlParams;
+  const smsCopy = `sms:&body=I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl}`;
+  const emailCopy = `mailto:?body=I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl} &subject=Someone wants you to see their list of favorite courses from Stanford Summer Session`;
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(baseUrl + urlParams);
-    } catch (error) {
-      throw new Error(`Failed to copy URL: ${error}`);
-    }
-  };
-
-  const handleSendEmail = () => {
-    const subject = "Check out these summer courses!";
-    const body = `Here is the link: ${baseUrl + urlParams}`;
-    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
-
-  const handleSendSMS = () => {
-    const body = `Check out this link: ${window.location.href}`;
-    window.location.href = `sms:?body=${encodeURIComponent(body)}`;
-  };
+  const handleCopy = () => {
+    copy(copyUrl)
+      .then(() => {
+        console.log("Copied!", { copyUrl })
+      })
+      .catch(error => {
+        console.error("Failed to copy!", error)
+      })
+  }
 
   return (
     <>
-      <button className="flex flex-col items-center hocus:underline" onClick={handleSendSMS}>
+      <a className="flex flex-col items-center font-semibold text-archway-dark no-underline hocus:underline" href={smsCopy}>
         <span className="bg-spirited-dark rounded-full p-5 mb-4">
           <ChatBubbleLeftEllipsisIcon width={30} className="text-white" />
         </span>
         Text
-      </button>
-      <button className="flex flex-col items-center hocus:underline" onClick={handleSendEmail}>
+      </a>
+      <a className="flex flex-col items-center font-semibold text-archway-dark no-underline hocus:underline" href={emailCopy}>
         <span className="bg-spirited-dark rounded-full p-5 mb-4">
           <EnvelopeIcon width={30} className="text-white" />
         </span>
         Email
-      </button>
-      <button className="flex flex-col items-center hocus:underline" onClick={handleCopy}>
+      </a>
+      <button className="flex flex-col items-center font-semibold hocus:underline" onClick={handleCopy}>
         <span className="bg-spirited-dark rounded-full p-5 mb-4">
           <ClipboardDocumentIcon width={30} className="text-white" />
         </span>

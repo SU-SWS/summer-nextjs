@@ -19,12 +19,11 @@ const FavoriteButton = ({ uuid, title, path, units, ...props }: Props) => {
   if (!useIsClient()) return null;
 
   return (
-    <button onClick={onClick} role="switch" aria-checked={isFavorite} {...props}>
+    <button onClick={onClick} role="switch" aria-checked={isFavorite} aria-labelledby={title} {...props}>
       <HeartIcon
         width={30}
         className={clsx("text-spirited-dark", { "fill-spirited-dark": isFavorite })}
       />
-      <span className="sr-only">Add/Remove &quot;{title}&quot; from favorites</span>
     </button>
   );
 };

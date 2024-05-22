@@ -85,7 +85,7 @@ const FavoritesList = ({isDisplayOnly = false}) => {
         :
         <div className="pb-20 border-b border-archway-dark">
           Your favorites list is empty. Tap the{" "}
-          <HeartIcon width={30} className="text-spirited-dark inline-block" />{" "}
+          <HeartIcon width={30} className="text-spirited-dark inline-block" title="Favorite Heart" />{" "}
           icon on courses you’re interested in to see them here. And share them with family and friends.
         </div>
       }

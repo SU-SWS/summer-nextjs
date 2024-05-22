@@ -29,12 +29,12 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, ...props}
   return (
     <CardWrapper
       {...props}
-      className={twMerge("centered lg:max-w-[980px] w-full shadow-lg border border-black-10", props.className)}
+      className={twMerge("centered lg:max-w-[980px] w-full bg-fog-light rounded-[25px]", props.className)}
     >
       {imageUrl &&
         <div className="relative aspect-[16/9] w-full">
           <Image
-            className="object-cover object-center"
+            className="object-cover object-center rounded-t-[25px]"
             src={imageUrl}
             alt={imageAlt || ""}
             fill
@@ -47,7 +47,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, ...props}
         <Oembed url={videoUrl}/>
       }
 
-      <div className="py-20 px-10 lg:px-20 flex flex-col gap-5">
+      <div className="py-20 px-10 lg:px-20 flex flex-col">
         {children}
       </div>
     </CardWrapper>

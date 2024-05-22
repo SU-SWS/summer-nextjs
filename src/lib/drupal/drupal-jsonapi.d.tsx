@@ -19,6 +19,8 @@ export type CardParagraphBehaviors = {
   heading?: "h2" | "h3" | "h4" | "div.su-splash-font"
   hide_heading?: boolean
   link_style?: "action" | "button"
+  sum_card_variant?: "pill"
+  sum_card_bg_color_variant?: "semitransparent_poppy" | "olive" | "semitransparent_olive" | "spirited" | "semitransparent_spirited"
 }
 
 export type BannerParagraphBehaviors = {

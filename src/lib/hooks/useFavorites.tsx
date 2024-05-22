@@ -1,19 +1,47 @@
 "use client";
 
-import {useBoolean, useLocalStorage} from "usehooks-ts";
-import {useCallback, useEffect} from "react";
+import { useCallback } from "react";
+import { useLocalStorage } from "usehooks-ts";
 
-const useFavorites = (): [boolean, (_value: boolean) => void] => {
-  const {value: isIntl, setValue: setIsIntl} =  useBoolean(false)
-  const [userIntl, setUserIntl] = useLocalStorage<boolean | undefined>("intl", undefined, {initializeWithValue: false})
+export type Favorite = {
+  uuid: string;
+  title: string;
+  path: string; 
+  units: number;
+};
 
-  const onEvent = useCallback(({coords}: { coords: GeolocationCoordinates }) => {
-    const {latitude, longitude} = coords;
-    setIsIntl(latitude < 24.5 || longitude > -52 || longitude < -170)
-  }, [setIsIntl]);
+const useFavorites = (): {
+  favs: Favorite[];
+  addFav: (_uuid: string, _title: string, _path: string, _units: number) => void;
+  removeFav: (_uuid: string) => void;
+  toggleFav: (_uuid: string, _title: string, _path: string, _units: number) => void;
+} => {
+  const [favs, setFavs] = useLocalStorage<Favorite[]>("favorites", [], {initializeWithValue: false});
 
-  useEffect(() => navigator.geolocation.getCurrentPosition(onEvent), [onEvent]);
-  return [userIntl !== undefined ? userIntl : isIntl, setUserIntl];
-}
+  const addFav = useCallback(
+    (uuid: string, title: string, path: string, units: number) => {
+      setFavs([...favs, { uuid, title, path, units }]);
+    },
+    [favs, setFavs]
+  );
+
+  const removeFav = useCallback(
+    (uuid: string) => {
+      const updatedFavs = favs.filter((fav) => fav.uuid !== uuid);
+      setFavs(updatedFavs);
+    },
+    [favs, setFavs]
+  );
+
+  const toggleFav = useCallback(
+    (uuid: string, title: string, path: string, units: number) => {
+      const isFav = favs.some((fav) => fav.uuid === uuid);
+      isFav ? removeFav(uuid) : addFav(uuid, title, path, units);
+    },
+    [favs, addFav, removeFav]
+  );
+
+  return { favs, addFav, removeFav, toggleFav};
+};
 
 export default useFavorites;

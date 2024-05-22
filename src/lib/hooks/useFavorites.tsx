@@ -14,6 +14,7 @@ const useFavorites = (): {
   favs: Favorite[];
   addFav: (_uuid: string, _title: string, _path: string, _units: number) => void;
   removeFav: (_uuid: string) => void;
+  toggleFav: (_uuid: string, _title: string, _path: string, _units: number) => void;
 } => {
   const [favs, setFavs] = useLocalStorage<Favorite[]>("favorites", [], {initializeWithValue: false});
 
@@ -32,7 +33,19 @@ const useFavorites = (): {
     [favs, setFavs]
   );
 
-  return { favs, addFav, removeFav };
+  const toggleFav = useCallback(
+    (uuid: string, title: string, path: string, units: number) => {
+      const isFav = favs.some((fav) => fav.uuid === uuid);
+      if (isFav) {
+        removeFav(uuid);
+      } else {
+        addFav(uuid, title, path, units);
+      }
+    },
+    [favs, addFav, removeFav]
+  );
+
+  return { favs, addFav, removeFav, toggleFav};
 };
 
 export default useFavorites;

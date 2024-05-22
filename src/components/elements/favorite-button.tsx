@@ -8,11 +8,11 @@ import { useIsClient } from "usehooks-ts";
 type Props = HTMLAttributes<HTMLButtonElement> & Favorite
 
 const FavoriteButton = ({ uuid, title, path, units, ...props }: Props) => {
-  const { favs, addFav, removeFav } = useFavorites();
+  const { favs, toggleFav } = useFavorites();
   const isFavorite = favs.some((fav) => fav.uuid === uuid);
 
   const onClick = () => {
-    isFavorite ? removeFav(uuid) : addFav(uuid, title, path, units);
+    toggleFav(uuid, title, path, units);
   };
 
   // No need to add the button on the server, but also it doesn't show initial state correctly for some reason.

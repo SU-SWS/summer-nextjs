@@ -24,7 +24,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
   const headerTag = headerTagChoice[0]
   const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "text-m2 font-normal mb-12") || "font-normal mb-12"
   const cardVariant = behaviors.su_card_styles?.sum_card_variant;
-  const pillCardBgColor = behaviors.su_card_styles?.sum_card_bg_color_variant;
+  const pillCardBgColor = cardVariant === "pill" ? behaviors.su_card_styles?.sum_card_bg_color_variant : undefined;
   const hideHeader = behaviors.su_card_styles?.hide_heading;
 
   const Element = cardVariant === "pill" ? PillCard : ImageCard

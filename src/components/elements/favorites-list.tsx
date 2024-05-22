@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 "use client";
 
 import useFavorites from "@lib/hooks/useFavorites";

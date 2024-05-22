@@ -3,7 +3,7 @@
 import algoliasearch from "algoliasearch/lite";
 import {useHits,usePagination, Configure} from "react-instantsearch";
 import {InstantSearchNext} from "react-instantsearch-nextjs";
-import {useEffect, useMemo, useState} from "react";
+import {useMemo} from "react";
 import {Hit as HitType} from "instantsearch.js";
 import SummerCourse from "@components/algolia-results/summer-course/summer-course";
 import useFavorites from "@lib/hooks/useFavorites";
@@ -23,37 +23,12 @@ type FavoriteItem = {
   units: number;
 }
 
-type FavoritesList = FavoriteItem[];
-
 const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
   const searchClient = useMemo(() => algoliasearch(appId, searchApiKey), [appId, searchApiKey])
-  const [urlParams, setUrlParams] = useState<FavoritesList>([]);
-  const { favs, addFav } = useFavorites()
+  const {favs} = useFavorites()
   const searchParams = useSearchParams();
 
-  useEffect(() => {
-    const favParamData = searchParams.get("fav");
-    if (favParamData) {
-      try {
-        const favData = favParamData.split(",").map(fav => {
-          const [uuid, title, unitsStr] = fav.split(":");
-          const units = Number(unitsStr);
-          return { uuid, title, units };
-        })
-        setUrlParams(favData);
-
-        favData.forEach(({ uuid, title, units }) => {
-          if (!favs.some(fav => fav.uuid === uuid)) {
-            addFav(uuid, title, "", units);
-          }
-        });
-      } catch (error) {
-        throw new Error(`Error parsing favData: ${error}`);
-      }
-    }
-  }, [searchParams, addFav, favs]);
-
-  const itemUuids = urlParams.map(item => item.uuid) || favs.map(item => item.uuid)
+  const itemUuids = searchParams.get("favs")?.split(",") || favs.map(item => item.uuid)
 
   return (
     <InstantSearchNext

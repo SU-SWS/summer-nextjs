@@ -225,10 +225,12 @@ const RefinementInput = ({
   return (
     <fieldset className="rs-mb-1">
       <legend className="border-t border-black w-full">
-        <button {...buttonProps} className="flex w-full items-center justify-between group">
-          <H3 className="my-5 pb-0 text-18 group-hocus:underline">{label}</H3>
-          <ChevronDownIcon width={20} className={clsx({"rotate-180": expanded})}/>
-        </button>
+        <H3 className="my-5 pb-0 text-18">
+          <button {...buttonProps} className="flex w-full items-center justify-between hocus:underline">
+            {label}
+            <ChevronDownIcon width={20} className={clsx({"rotate-180": expanded})}/>
+          </button>
+        </H3>
       </legend>
       <div {...panelProps}>
         {refinementOptions.map(refinementOption =>

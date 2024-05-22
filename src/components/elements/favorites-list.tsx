@@ -4,6 +4,7 @@ import useFavorites from "@lib/hooks/useFavorites";
 import { ChatBubbleLeftEllipsisIcon, ClipboardDocumentIcon, EnvelopeIcon, HeartIcon} from "@heroicons/react/24/outline";
 import {useCopyToClipboard, useIsClient} from "usehooks-ts";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { H2 } from "./headers";
 
 
 const ShareButtons = () => {
@@ -60,7 +61,7 @@ const FavoritesList = ({isDisplayOnly = false}) => {
   
   return (
     <div className="shadow border rs-pt-1 rs-pb-2 rs-px-2">
-      <div className="font-normal type-2 text-center rs-mb-1">Favorites List</div>
+      <H2 className="font-normal type-2 text-center rs-mb-1">Favorites List</H2>
       {favs.length > 0 ?
         <>
           <ul className="list-none pl-0">

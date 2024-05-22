@@ -3,7 +3,7 @@ import {H3} from "@components/elements/headers";
 import Link from "@components/elements/link";
 import {Snippet} from "react-instantsearch";
 import Image from "next/image";
-import SummerCourse from "@components/algolia-results/summer-course/summer-course";
+import SummerCourse from "@components/algolia/results/summer-course/summer-course";
 
 export type AlgoliaHit = {
   url: string

@@ -9,7 +9,7 @@ import {useRouter, useSearchParams} from "next/navigation";
 import {Hit as HitType} from "instantsearch.js";
 import {IndexUiState} from "instantsearch.js/es/types/ui-state";
 import {MagnifyingGlassIcon} from "@heroicons/react/20/solid";
-import DefaultResult, {AlgoliaHit} from "@components/algolia-results/default";
+import DefaultResult, {AlgoliaHit} from "@components/algolia/results/default";
 
 type Props = {
   appId: string
@@ -18,7 +18,7 @@ type Props = {
   initialUiState?: IndexUiState
 }
 
-const AlgoliaSearch = ({appId, searchIndex, searchApiKey, initialUiState = {}}: Props) => {
+const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey, initialUiState = {}}: Props) => {
   const searchClient = useMemo(() => algoliasearch(appId, searchApiKey), [appId, searchApiKey])
 
   return (
@@ -153,4 +153,4 @@ const HitList = () => {
   )
 }
 
-export default AlgoliaSearch;
+export default AlgoliaSiteSearch;

@@ -1,6 +1,6 @@
 "use client";
 
-import {AlgoliaHit} from "@components/algolia-results/default";
+import {AlgoliaHit} from "@components/algolia/results/default";
 import Image from "next/image";
 import {Hit as HitType} from "instantsearch.js/es/types/results";
 import useAccordion from "@lib/hooks/useAccordion";
@@ -64,7 +64,7 @@ const SummerCourse = ({hit}: Props) => {
       <div className="flex flex-col md:flex-row gap-5 md:gap-[48px]">
 
         <div className="flex flex-col flex-grow">
-          <H3><a href={hit.url} className="font-normal">{hit.title}</a></H3>
+          <H3 id={hit.objectID}><a href={hit.url} className="font-normal">{hit.title}</a></H3>
           <div className="order-first font-semibold text-archway-dark mb-6">
             {hit.sum_course_catalog_number}
           </div>
@@ -115,13 +115,14 @@ const SummerCourse = ({hit}: Props) => {
         }
       </div>
 
-
-      <button {...buttonProps} className="group text-digital-blue no-underline mt-12">
+      <H4 className="ml-auto mb-0 p-0 text-m0 group-hocus:underline font-semibold">
+        <button {...buttonProps} className="group text-digital-blue no-underline mt-12">
         <span className="flex gap-5 items-center w-full">
-          <H4 className="ml-auto mb-0 p-0 text-m0 group-hocus:underline font-semibold">{expanded ? "Collapse details" : "Show all details"}</H4>
+          {expanded ? "Collapse details" : "Show all details"}
           <ChevronDownIcon width={20} className={expanded ? "rotate-180" : undefined}/>
         </span>
-      </button>
+        </button>
+      </H4>
 
       <div {...panelProps}>
         <div className="flex flex-col md:flex-row gap-10 md:gap-[90px] rs-mt-2">

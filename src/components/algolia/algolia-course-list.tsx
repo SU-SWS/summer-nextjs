@@ -5,22 +5,15 @@ import {useHits,usePagination, Configure} from "react-instantsearch";
 import {InstantSearchNext} from "react-instantsearch-nextjs";
 import {useMemo} from "react";
 import {Hit as HitType} from "instantsearch.js";
-import SummerCourse from "@components/algolia-results/summer-course/summer-course";
+import SummerCourse from "@components/algolia/results/summer-course/summer-course";
 import useFavorites from "@lib/hooks/useFavorites";
 import { useSearchParams } from "next/navigation";
-import { AlgoliaHit } from "@components/algolia-results/default";
+import { AlgoliaHit} from "@components/algolia/results/default";
 
 type Props = {
   appId: string
   searchIndex: string
   searchApiKey: string
-}
-
-type FavoriteItem = {
-  uuid: string;
-  title: string;
-  path?: string; 
-  units: number;
 }
 
 const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {

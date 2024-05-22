@@ -1,31 +1,18 @@
-/* eslint-disable no-console */
 "use client";
 
 import useFavorites from "@lib/hooks/useFavorites";
 import { ChatBubbleLeftEllipsisIcon, ClipboardDocumentIcon, EnvelopeIcon, HeartIcon} from "@heroicons/react/24/outline";
-import {useCopyToClipboard, useIsClient} from "usehooks-ts";
+import {useCopyToClipboard} from "usehooks-ts";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { H2 } from "./headers";
 
-
 const ShareButtons = () => {
-  const [copiedText, copy] = useCopyToClipboard()
-  const baseUrl = window.location.origin;
+  const [_copiedText, copy] = useCopyToClipboard()
   const { favs } = useFavorites();
   const urlParams = `/favorites?fav=${favs.map(fav => `${fav.uuid}`).join(",")}`;
-  const copyUrl = baseUrl + urlParams;
+  const copyUrl = "https://summer.stanford.edu" + urlParams;
   const smsCopy = `sms:&body=I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl}`;
   const emailCopy = `mailto:?body=I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl} &subject=Someone wants you to see their list of favorite courses from Stanford Summer Session`;
-
-  const handleCopy = () => {
-    copy(copyUrl)
-      .then(() => {
-        console.log("Copied!", { copyUrl })
-      })
-      .catch(error => {
-        console.error("Failed to copy!", error)
-      })
-  }
 
   return (
     <>
@@ -41,7 +28,7 @@ const ShareButtons = () => {
         </span>
         Email
       </a>
-      <button className="flex flex-col items-center font-semibold hocus:underline" onClick={handleCopy}>
+      <button className="flex flex-col items-center font-semibold hocus:underline" onClick={() => copy(copyUrl)}>
         <span className="bg-spirited-dark rounded-full p-5 mb-4">
           <ClipboardDocumentIcon width={30} className="text-white" />
         </span>
@@ -57,9 +44,6 @@ const FavoritesList = ({isDisplayOnly = false}) => {
   const totalUnits = favs.reduce((totalUnits, item) => totalUnits + item.units, 0);
   const removeFavorite = (uuid: string) => removeFav(uuid);
 
-  // No need to add the button on the server, but also it doesn't show initial state correctly for some reason.
-  if (!useIsClient()) return;
-  
   return (
     <div className="shadow border rs-pt-1 rs-pb-2 rs-px-2">
       <H2 className="font-normal type-2 text-center rs-mb-1">Favorites List</H2>

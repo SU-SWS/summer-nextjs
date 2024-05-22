@@ -4,7 +4,7 @@ import {
   StanfordBasicSiteSetting,
   ParagraphSumUserFavorite
 } from "@lib/gql/__generated__/drupal.d";
-import AlgoliaCourseList from "@components/patterns/algolia-course-list";
+import AlgoliaCourseList from "@components/algolia/algolia-course-list";
 import FavoritesList from "@components/elements/favorites-list";
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {

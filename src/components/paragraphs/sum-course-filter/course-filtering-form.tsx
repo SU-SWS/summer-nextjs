@@ -12,9 +12,9 @@ import {IndexUiState} from "instantsearch.js/es/types/ui-state";
 import useAccordion from "@lib/hooks/useAccordion";
 import {RefinementListItem} from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
 import {clsx} from "clsx";
-import SummerCourse from "@components/algolia-results/summer-course/summer-course";
+import SummerCourse from "@components/algolia/results/summer-course/summer-course";
 import FavoritesList from "@components/elements/favorites-list";
-import { AlgoliaHit } from "@components/algolia-results/default";
+import { AlgoliaHit} from "@components/algolia/results/default";
 import {Hit as HitType} from "instantsearch.js";
 
 type Props = {

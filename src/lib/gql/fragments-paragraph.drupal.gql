@@ -228,6 +228,17 @@ fragment FragmentParagraphSumCalculator on ParagraphSumCalculator {
     }
 }
 
+fragment FragmentParagraphSumAccordion on ParagraphSumAccordion {
+    ...FragmentParagraphInterface
+    sumAccordionsAccords {
+        ...FragmentParagraphStanfordAccordion
+    }
+    sumAccordionsDesc {
+        processed
+    }
+    sumAccordionsHeading
+}
+
 fragment FragmentParagraphUnion on ParagraphUnion {
     ...FragmentParagraphInterface
     ...FragmentParagraphStanfordAccordion
@@ -241,4 +252,5 @@ fragment FragmentParagraphUnion on ParagraphUnion {
     ...FragmentParagraphStanfordWysiwyg
     ...FragmentParagraphStanfordLayout
     ...FragmentParagraphSumCalculator
+    ...FragmentParagraphSumAccordion
 }

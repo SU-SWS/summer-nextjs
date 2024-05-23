@@ -53,7 +53,7 @@ const Paragraph = async ({paragraph}: Props) => {
       return <SumCourseFilterParagraph {...itemProps}/>
     case "ParagraphSumUserFavorite":
       return <UserFavoriteParagraph paragraph={paragraph} {...itemProps}/>
-    case "ParagraphStanfordAccordion":
+    case "ParagraphSumAccordion":
       return <SumAccordionParagraph paragraph={paragraph} {...itemProps} />
   }
   console.warn(`Unknown paragraph ${paragraph.__typename}. Item ${paragraph.id}.`);

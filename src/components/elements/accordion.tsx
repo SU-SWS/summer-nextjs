@@ -61,7 +61,7 @@ const Accordion = ({
 
   const Heading = headingLevel === "h2" ? H2 : headingLevel === "h3" ? H3 : H4;
   return (
-    <section aria-labelledby={`${id}-button`} className="centered bg-fog-light rs-px-3 lg:max-w-[980px] border border-fog-light" {...props}>
+    <section aria-labelledby={`${id}-button`} className="centered bg-fog-light even:bg-white rs-px-3 lg:max-w-[980px] border border-fog-light even:border-transparent" {...props}>
       <Heading className="mb-0 rs-py-3">
         <button
           {...buttonProps}

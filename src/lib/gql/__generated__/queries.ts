@@ -373,6 +373,19 @@ export const FragmentParagraphSumCalculatorFragmentDoc = gql`
     ${FragmentParagraphInterfaceFragmentDoc}
 ${FragmentDoubleIntFloatFragmentDoc}
 ${FragmentDoubleStringFloatFragmentDoc}`;
+export const FragmentParagraphSumAccordionFragmentDoc = gql`
+    fragment FragmentParagraphSumAccordion on ParagraphSumAccordion {
+  ...FragmentParagraphInterface
+  sumAccordionsAccords {
+    ...FragmentParagraphStanfordAccordion
+  }
+  sumAccordionsDesc {
+    processed
+  }
+  sumAccordionsHeading
+}
+    ${FragmentParagraphInterfaceFragmentDoc}
+${FragmentParagraphStanfordAccordionFragmentDoc}`;
 export const FragmentParagraphUnionFragmentDoc = gql`
     fragment FragmentParagraphUnion on ParagraphUnion {
   ...FragmentParagraphInterface
@@ -387,6 +400,7 @@ export const FragmentParagraphUnionFragmentDoc = gql`
   ...FragmentParagraphStanfordWysiwyg
   ...FragmentParagraphStanfordLayout
   ...FragmentParagraphSumCalculator
+  ...FragmentParagraphSumAccordion
 }
     ${FragmentParagraphInterfaceFragmentDoc}
 ${FragmentParagraphStanfordAccordionFragmentDoc}
@@ -399,7 +413,8 @@ ${FragmentParagraphStanfordMediaCaptionFragmentDoc}
 ${FragmentParagraphStanfordSpacerFragmentDoc}
 ${FragmentParagraphStanfordWysiwygFragmentDoc}
 ${FragmentParagraphStanfordLayoutFragmentDoc}
-${FragmentParagraphSumCalculatorFragmentDoc}`;
+${FragmentParagraphSumCalculatorFragmentDoc}
+${FragmentParagraphSumAccordionFragmentDoc}`;
 export const FragmentSmartDateTypeFragmentDoc = gql`
     fragment FragmentSmartDateType on SmartDateType {
   value

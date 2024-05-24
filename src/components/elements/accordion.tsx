@@ -4,7 +4,6 @@ import {HTMLAttributes, JSX, useId} from "react";
 import {useBoolean} from "usehooks-ts";
 import {H2, H3, H4} from "@components/elements/headers";
 import { MinusIcon, PlusIcon} from "@heroicons/react/20/solid";
-import {clsx} from "clsx";
 import {twMerge} from "tailwind-merge";
 
 type Props = HTMLAttributes<HTMLElement> & {
@@ -73,10 +72,12 @@ const Accordion = ({
         >
           {button}
           <span className="transition text-5xl text-white group-hocus:text-white bg-digital-red border-2 border-white group-hocus:outline group-hocus:outline-3 group-hocus:outline-digital-red no-underline group-hocus:underline p-6 font-normal rounded-full m-4">
-            {isExpanded ? 
-              <MinusIcon height={30} className={clsx("shrink-0 ml-auto duration-150", {"rotate-180": isExpanded})}/>
-              :
-              <PlusIcon height={30} className={clsx("shrink-0 ml-auto duration-150", { "rotate-180": isExpanded })} />
+            {isExpanded &&
+              <MinusIcon height={30} className="shrink-0 ml-auto"/>
+            }
+
+            {!isExpanded &&
+              <PlusIcon height={30} className="shrink-0 ml-auto" />
             }
           </span>
         </button>

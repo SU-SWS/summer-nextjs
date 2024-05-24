@@ -41,9 +41,6 @@ const Accordion = ({
   button,
   children,
   headingLevel = "h2",
-  onClick,
-  isVisible,
-  initiallyVisible = false,
   ...props
 }: Props) => {
   const id = useId()

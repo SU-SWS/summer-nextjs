@@ -5,6 +5,7 @@ import Image from "next/image";
 import {NodeSumSummerCourse} from "@lib/gql/__generated__/drupal.d";
 import ArchBanner from "@components/patterns/arch-banner";
 import { convertToLocalDateTime } from "@lib/utils/convert-date";
+import FavoritesList from "@components/elements/favorites-list";
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeSumSummerCourse
@@ -19,10 +20,8 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
     <article {...props}>
       <ArchBanner
         {...props}
-        aria-labelledby="undefined"
         imageUrl="/images/temp-bg.jpg"
         imageAlt=""
-        eagerLoadImage
       >
         <div className="w-screen">
           <div className="flex flex-col justify-center items-center border-archway-dark border-b rs-pb-4 rs-mx-6">
@@ -99,8 +98,7 @@ const SummerCoursePage = ({ node, ...props }: Props) => {
           </div>
         </div>
         <div className="order-1 col-span-12 lg:col-span-4">
-          {/* Favorite List */}
-          <H3>Favorites List</H3>
+          <FavoritesList isDisplayOnly />
         </div>
       </div>
       <div>

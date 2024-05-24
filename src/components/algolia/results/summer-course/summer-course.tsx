@@ -2,41 +2,54 @@
 
 import {AlgoliaHit} from "@components/algolia/results/default";
 import Image from "next/image";
-import {Hit as HitType} from "instantsearch.js/es/types/results";
 import useAccordion from "@lib/hooks/useAccordion";
 import {H3, H4} from "@components/elements/headers";
 import {formatCurrency} from "@lib/utils/format-currency";
-import { CheckCircleIcon, ChevronDownIcon, ExclamationCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/solid";
+import {CheckCircleIcon, ChevronDownIcon, ExclamationCircleIcon, ExclamationTriangleIcon} from "@heroicons/react/24/solid";
 import FavoriteButton from "@components/elements/favorite-button";
 
-type Props = {
-  hit: HitType<AlgoliaHit>
+type CourseHit = AlgoliaHit & {
+  sum_course_availability?: string
+  sum_course_catalog_number?: string
+  sum_course_class_number?: string
+  sum_course_course_cost?: number
+  sum_course_cross_listing?: string
+  sum_course_end_date?: number
+  sum_course_format?: string
+  sum_course_interest?: string[]
+  sum_course_length?: string
+  sum_course_notes?: string
+  sum_course_population?: string[]
+  sum_course_prerequisites?: string
+  sum_course_schedule?: string
+  sum_course_start_date?: number
+  sum_course_units?: number
 }
 
-type CourseAvailabilityProps = {
+type Props = {
   availabilityStatus: string
 }
 
-const CourseAvailability: React.FC<CourseAvailabilityProps> = ({ availabilityStatus }) => {
+const CourseAvailability = ({availabilityStatus}: Props) => {
   switch (availabilityStatus) {
     case "Available":
       return (
         <>
-          <CheckCircleIcon width={20} className="text-digital-green mr-3" />
+          <CheckCircleIcon width={20} className="text-digital-green mr-3"/>
           {availabilityStatus.toUpperCase()}
         </>
       )
     case "Almost Full":
       return (
         <>
-          <ExclamationTriangleIcon width={20} className="text-poppy mr-3" />
+          <ExclamationTriangleIcon width={20} className="text-poppy mr-3"/>
           {availabilityStatus.toUpperCase()}
         </>
       )
     case "Full":
       return (
         <>
-          <ExclamationCircleIcon width={20} className="text-digital-red mr-3" />
+          <ExclamationCircleIcon width={20} className="text-digital-red mr-3"/>
           {availabilityStatus.toUpperCase()}
         </>
       )
@@ -45,8 +58,8 @@ const CourseAvailability: React.FC<CourseAvailabilityProps> = ({ availabilitySta
   }
 }
 
-const SummerCourse = ({hit}: Props) => {
-  const { buttonProps, panelProps, expanded } = useAccordion()
+const SummerCourse = ({hit}: {hit: CourseHit}) => {
+  const {buttonProps, panelProps, expanded} = useAccordion()
 
   const start = hit.sum_course_start_date && new Date(hit.sum_course_start_date * 1000).toLocaleDateString("en-us", {
     month: "long",
@@ -59,12 +72,16 @@ const SummerCourse = ({hit}: Props) => {
     year: "numeric"
   });
 
+  const hitDomain = new URL(hit.url).origin
+
   return (
     <div className="flex flex-col rounded-[25px] bg-fog-light rs-py-3 rs-px-4 rs-mb-4">
       <div className="flex flex-col md:flex-row gap-5 md:gap-[48px]">
 
         <div className="flex flex-col flex-grow">
-          <H3 id={hit.objectID}><a href={hit.url} className="font-normal">{hit.title}</a></H3>
+          <H3 id={hit.objectID}>
+            <a href={hit.url.replace(hitDomain, "")} className="font-normal">{hit.title}</a>
+          </H3>
           <div className="order-first font-semibold text-archway-dark mb-6">
             {hit.sum_course_catalog_number}
           </div>
@@ -107,10 +124,10 @@ const SummerCourse = ({hit}: Props) => {
       </div>
 
       <div className="order-first flex flex-row justify-between items-center rs-mb-2">
-        {hit.sum_course_availability && <CourseAvailability availabilityStatus={hit.sum_course_availability[0]} />}
-        {hit && hit.sum_course_units && 
+        {hit.sum_course_availability && <CourseAvailability availabilityStatus={hit.sum_course_availability[0]}/>}
+        {hit && hit.sum_course_units &&
           <div className="ml-auto">
-            <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units} />
+            <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units}/>
           </div>
         }
       </div>

@@ -14,33 +14,18 @@ export type AlgoliaHit = {
   html?: string
   objectID: string
   type: string
-  sum_course_availability?: string
-  sum_course_catalog_number?: string
-  sum_course_class_number?: string
-  sum_course_course_cost?: number
-  sum_course_cross_listing?: string
-  sum_course_end_date?: number
-  sum_course_format?: string
-  sum_course_interest?: string[]
-  sum_course_length?: string
-  sum_course_notes?: string
-  sum_course_population?: string[]
-  sum_course_prerequisites?: string
-  sum_course_schedule?: string
-  sum_course_start_date?: number
-  sum_course_units?: number
 }
 
 const DefaultResult = ({hit}: { hit: HitType<AlgoliaHit> }) => {
   if (hit.type === "Summer Courses") return <SummerCourse hit={hit}/>
 
-  const hitUrl = new URL(hit.url);
+  const hitDomain = new URL(hit.url).origin
 
   return (
     <article className="@container flex justify-between gap-20 py-12">
       <div>
         <H3 className="text-m2">
-          <Link href={hit.url.replace(hitUrl.origin, "")}>
+          <Link href={hit.url.replace(hitDomain, "")}>
             {hit.title}
           </Link>
         </H3>

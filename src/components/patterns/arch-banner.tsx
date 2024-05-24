@@ -16,19 +16,15 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
    * Is the banner supposed to be a section or a div.
    */
   isSection?:Maybe<boolean>
-  /**
-   * Eagerly load the banner image.
-   */
-  eagerLoadImage?: Maybe<boolean>
 }
 
-const ArchBanner = ({imageUrl, imageAlt, eagerLoadImage, isSection, children, ...props}: Props) => {
+const ArchBanner = ({imageUrl, imageAlt, isSection, children, ...props}: Props) => {
   const BannerWrapper: ElementType = isSection ? "section" : "div";
 
   return (
     <BannerWrapper
       {...props}
-      className={twMerge("@container md:min-h-[400px] z-0 relative mb-[-10%] lg:mb-[-20%] 2xl:mb-[-30%]", props.className)}
+      className={twMerge("@container md:min-h-[400px] z-0 relative mb-[-10%] lg:mb-[-20%] 2xl:mb-[-25%]", props.className)}
     >
       <div className="aspect-[16/9] @6xl:aspect-auto absolute @6xl:absolute w-full @6xl:h-full bg-cool-grey">
         {imageUrl &&
@@ -36,7 +32,7 @@ const ArchBanner = ({imageUrl, imageAlt, eagerLoadImage, isSection, children, ..
             className="object-cover"
             src={imageUrl}
             alt={imageAlt || ""}
-            loading={eagerLoadImage ? "eager" : "lazy"}
+            loading="eager"
             fill
             sizes="100vw"
           />

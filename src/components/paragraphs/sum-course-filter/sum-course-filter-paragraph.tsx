@@ -2,6 +2,7 @@ import {HtmlHTMLAttributes} from "react";
 import {getConfigPage} from "@lib/gql/gql-queries";
 import {StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal";
 import CourseFilteringForm from "@components/paragraphs/sum-course-filter/course-filtering-form";
+import {twMerge} from "tailwind-merge";
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {}
 
@@ -12,7 +13,7 @@ const SumCourseFilterParagraph = async ({...props}: Props) => {
     return;
   }
   return (
-    <div {...props}>
+    <div {...props} className={twMerge("centered", props.className)}>
       <CourseFilteringForm
         appId={siteSettingsConfig.suSiteAlgoliaId}
         searchIndex={siteSettingsConfig.suSiteAlgoliaIndex}

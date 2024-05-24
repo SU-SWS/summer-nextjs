@@ -8,6 +8,7 @@ import useAccordion from "@lib/hooks/useAccordion";
 import {clsx} from "clsx";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import useOutsideClick from "@lib/hooks/useOutsideClick";
+import {twMerge} from "tailwind-merge";
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   costPerStudentTypes: Map<string, Map<number, number>>
@@ -92,7 +93,7 @@ const SumCalculatorParagraph = ({
   }
 
   return (
-    <div {...props}>
+    <div {...props} className={twMerge("centered", props.className)}>
       <div className="max-w-7xl mx-auto pb-72 flex flex-col gap-20">
         <div>
           <SelectList

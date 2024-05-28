@@ -1,7 +1,13 @@
 import {stringify} from "qs"
-import {AccessToken} from "next-drupal";
 import {getAccessToken} from "@lib/drupal/get-access-token";
 import {cookies} from "next/headers";
+
+export type AccessToken = {
+  token_type: string
+  expires_in: number
+  access_token: string
+  refresh_token?: string
+}
 
 /*
  * Draft mode works when in normal builds. Use environment variable during development.

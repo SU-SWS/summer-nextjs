@@ -15,8 +15,7 @@ import SummerCourse from "@components/algolia/results/summer-course/summer-cours
 import FavoritesList from "@components/elements/favorites-list";
 import {AlgoliaHit} from "@components/algolia/results/default";
 import {Hit as HitType} from "instantsearch.js";
-import {UseRefinementListProps} from "react-instantsearch-core/dist/es/connectors/useRefinementList";
-import {RefinementListItem} from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
+import {type RefinementListConnectorParams, RefinementListItem} from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
 
 type Props = {
   appId: string
@@ -211,7 +210,7 @@ const RefinementInput = ({
   attribute: string
   label: string
   accordionExpanded?: boolean
-  useRefinementProps?: Omit<UseRefinementListProps, "attribute">
+  useRefinementProps?: Omit<RefinementListConnectorParams, "attribute">
 }) => {
 
   const {items: refinementOptions, refine: refineOption} = useRefinementList({

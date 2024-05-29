@@ -386,6 +386,20 @@ export const FragmentParagraphSumAccordionFragmentDoc = gql`
 }
     ${FragmentParagraphInterfaceFragmentDoc}
 ${FragmentParagraphStanfordAccordionFragmentDoc}`;
+export const FragmentParagraphSumArcBannerFragmentDoc = gql`
+    fragment FragmentParagraphSumArcBanner on ParagraphSumArcBanner {
+  ...FragmentParagraphInterface
+  sumArcHeadline
+  sumArcSuperhead
+  sumArcImage {
+    ...FragmentMediaImage
+  }
+  sumArcDescription {
+    processed
+  }
+}
+    ${FragmentParagraphInterfaceFragmentDoc}
+${FragmentMediaImageFragmentDoc}`;
 export const FragmentParagraphUnionFragmentDoc = gql`
     fragment FragmentParagraphUnion on ParagraphUnion {
   ...FragmentParagraphInterface
@@ -401,6 +415,7 @@ export const FragmentParagraphUnionFragmentDoc = gql`
   ...FragmentParagraphStanfordLayout
   ...FragmentParagraphSumCalculator
   ...FragmentParagraphSumAccordion
+  ...FragmentParagraphSumArcBanner
 }
     ${FragmentParagraphInterfaceFragmentDoc}
 ${FragmentParagraphStanfordAccordionFragmentDoc}
@@ -414,7 +429,8 @@ ${FragmentParagraphStanfordSpacerFragmentDoc}
 ${FragmentParagraphStanfordWysiwygFragmentDoc}
 ${FragmentParagraphStanfordLayoutFragmentDoc}
 ${FragmentParagraphSumCalculatorFragmentDoc}
-${FragmentParagraphSumAccordionFragmentDoc}`;
+${FragmentParagraphSumAccordionFragmentDoc}
+${FragmentParagraphSumArcBannerFragmentDoc}`;
 export const FragmentSmartDateTypeFragmentDoc = gql`
     fragment FragmentSmartDateType on SmartDateType {
   value
@@ -639,6 +655,7 @@ export const FragmentNodeStanfordPageFragmentDoc = gql`
   suPageBanner {
     ...FragmentParagraphStanfordBanner
     ...FragmentParagraphStanfordPageTitleBanner
+    ...FragmentParagraphSumArcBanner
   }
   suPageComponents {
     ...FragmentParagraphUnion
@@ -652,6 +669,7 @@ export const FragmentNodeStanfordPageFragmentDoc = gql`
 ${FragmentTermInterfaceFragmentDoc}
 ${FragmentParagraphStanfordBannerFragmentDoc}
 ${FragmentParagraphStanfordPageTitleBannerFragmentDoc}
+${FragmentParagraphSumArcBannerFragmentDoc}
 ${FragmentParagraphUnionFragmentDoc}
 ${FragmentMediaUnionFragmentDoc}`;
 export const FragmentNodeStanfordPersonFragmentDoc = gql`

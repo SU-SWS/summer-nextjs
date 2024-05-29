@@ -239,6 +239,18 @@ fragment FragmentParagraphSumAccordion on ParagraphSumAccordion {
     sumAccordionsHeading
 }
 
+fragment FragmentParagraphSumArcBanner on ParagraphSumArcBanner {
+    ...FragmentParagraphInterface
+    sumArcHeadline
+    sumArcSuperhead
+    sumArcImage {
+        ...FragmentMediaImage
+    }
+    sumArcDescription {
+        processed
+    }
+}
+
 fragment FragmentParagraphUnion on ParagraphUnion {
     ...FragmentParagraphInterface
     ...FragmentParagraphStanfordAccordion
@@ -253,4 +265,5 @@ fragment FragmentParagraphUnion on ParagraphUnion {
     ...FragmentParagraphStanfordLayout
     ...FragmentParagraphSumCalculator
     ...FragmentParagraphSumAccordion
+    ...FragmentParagraphSumArcBanner
 }

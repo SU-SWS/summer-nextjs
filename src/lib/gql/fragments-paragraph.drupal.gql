@@ -241,13 +241,35 @@ fragment FragmentParagraphSumAccordion on ParagraphSumAccordion {
 
 fragment FragmentParagraphSumArcBanner on ParagraphSumArcBanner {
     ...FragmentParagraphInterface
-    sumArcHeadline
     sumArcSuperhead
     sumArcImage {
         ...FragmentMediaImage
     }
     sumArcDescription {
         processed
+    }
+}
+
+fragment FragmentParagraphSumCarousel on ParagraphSumCarousel {
+    ...FragmentParagraphInterface
+    sumCarouselDescription {
+        processed
+    }
+    sumCarouselHeader
+    sumCarouselLink {
+        ... FragmentLink
+    }
+    sumCarouselSlides {
+        ...FragmentParagraphStanfordCard
+        ...FragmentParagraphSumSlideTeaser
+    }
+    sumCarouselSuperheader
+}
+
+fragment FragmentParagraphSumSlideTeaser on ParagraphSumSlideTeaser {
+    ...FragmentParagraphInterface
+    sumSlideTeaserEntity {
+        ...FragmentNodeTeaserUnion
     }
 }
 
@@ -266,4 +288,5 @@ fragment FragmentParagraphUnion on ParagraphUnion {
     ...FragmentParagraphSumCalculator
     ...FragmentParagraphSumAccordion
     ...FragmentParagraphSumArcBanner
+    ...FragmentParagraphSumCarousel
 }

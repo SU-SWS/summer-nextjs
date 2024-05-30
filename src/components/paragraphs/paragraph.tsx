@@ -13,6 +13,8 @@ import UserFavoriteParagraph from "@components/paragraphs/summer-user-favorite/u
 import SumCalculatorParagraph from "@components/paragraphs/sum-calculator/sum-calculator-paragraph";
 import SumCourseFilterParagraph from "@components/paragraphs/sum-course-filter/sum-course-filter-paragraph";
 import SumAccordionParagraph from "./sum-accordion/accordion-paragraph";
+import SumCarouselParagraph from "@components/paragraphs/sum-carousel/sum-carousel-paragraph";
+import SumSlideTeaserParagraph from "@components/paragraphs/sum-slide-teaser/sum-slide-teaser-paragraph";
 
 type Props = {
   /**
@@ -55,6 +57,10 @@ const Paragraph = async ({paragraph}: Props) => {
       return <UserFavoriteParagraph paragraph={paragraph} {...itemProps}/>
     case "ParagraphSumAccordion":
       return <SumAccordionParagraph paragraph={paragraph} {...itemProps} />
+    case "ParagraphSumCarousel":
+      return <SumCarouselParagraph paragraph={paragraph} {...itemProps} />
+    case "ParagraphSumSlideTeaser":
+      return <SumSlideTeaserParagraph paragraph={paragraph} {...itemProps} />
   }
   console.warn(`Unknown paragraph ${paragraph.__typename}. Item ${paragraph.id}.`);
 }

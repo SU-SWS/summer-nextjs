@@ -24,23 +24,24 @@ const ArchBanner = ({imageUrl, imageAlt, isSection, children, ...props}: Props) 
   return (
     <BannerWrapper
       {...props}
-      className={twMerge("@container md:min-h-[400px] z-0 relative", props.className)}
+      className={twMerge("md:min-h-[400px] relative", props.className)}
     >
-      <div className="aspect-[16/9] @6xl:aspect-auto absolute @6xl:absolute w-full @6xl:h-full bg-cool-grey">
-        {imageUrl &&
-          <Image
-            className="object-cover"
-            src={imageUrl}
-            alt={imageAlt || ""}
-            loading="eager"
-            fill
-            sizes="100vw"
-          />
-        }
+      <div className="w-full h-1/4 md:h-1/2 xl:h-3/4 2xl:h-full absolute top-0 left-0 -z-50">
+          {imageUrl &&
+            <Image
+              className="object-cover"
+              src={imageUrl}
+              alt={imageAlt || ""}
+              loading="eager"
+              fill
+              sizes="100vw"
+            />
+          }
+          <div className="w-full h-full bg-white clip-arc"/>
       </div>
 
       {children &&
-        <div className="w-[120%] left-[-10%] aspect-[2/1] box-border relative flex flex-col items-center rounded-t-full bg-white border-t border-archway-light pt-[20%] rs-mt-8">
+        <div className="items-center pt-72">
           {children}
         </div>
       }

@@ -14,3 +14,74 @@
   width: 100%;
   height: 100%;
 }
+
+@layer utilities {
+  .clip-arc {
+    clip-path: ellipse(51% 90% at 50% 100%);
+  }
+}
+
+.slick-slide {
+  transition: .2s padding ease-out
+}
+
+/* 1 item shown. */
+.slick-current {
+  padding: 0 45px;
+}
+
+.slick-slide:not(.slick-active) {
+  padding-left: 90px;
+  padding-right: 0;
+}
+
+.slick-active + .slick-slide:not(.slick-active) {
+  padding-left: 0;
+  padding-right: 90px
+}
+
+/* 2 items shown. */
+@media (min-width: 768px) {
+  .slick-current {
+    padding: 0 22px 0 44px;
+  }
+
+  .slick-current + .slick-active {
+    padding: 0 44px 0 22px;
+  }
+
+  .slick-slide:not(.slick-active) {
+    padding-left: 66px;
+    padding-right: 0;
+  }
+
+  .slick-active + .slick-slide:not(.slick-active) {
+    padding-left: 0;
+    padding-right: 66px
+  }
+}
+
+/* 3 items shown. */
+@media (min-width: 1200px) {
+  .slick-current {
+    padding: 0 15px 0 44px;
+  }
+
+  .slick-current + .slick-active {
+    padding: 0 30px;
+  }
+
+  .slick-current + .slick-active + .slick-active {
+    padding: 0 44px 0 15px;
+  }
+
+  .slick-slide:not(.slick-active) {
+    padding-left: 59px;
+    padding-right: 0;
+  }
+
+  .slick-active + .slick-slide:not(.slick-active) {
+    padding-left: 0;
+    padding-right: 59px
+  }
+}

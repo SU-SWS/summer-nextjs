@@ -26,12 +26,12 @@ const StanfordPagePage = ({node, ...props}: Props) => {
             <PageTitleBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title}/>
           }
           {node.suPageBanner.__typename === "ParagraphSumArcBanner" &&
-            <SumArcBannerParagraph paragraph={node.suPageBanner}/>
+            <SumArcBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title}/>
           }
         </header>
       }
 
-      {node.suPageBanner?.__typename !== "ParagraphStanfordPageTitleBanner"  &&
+      {(node.suPageBanner?.__typename !== "ParagraphStanfordPageTitleBanner" && node.suPageBanner?.__typename !== "ParagraphSumArcBanner" ) &&
         <H1 className="mt-32 centered">
           {node.title}
         </H1>

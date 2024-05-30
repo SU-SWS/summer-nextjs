@@ -8,6 +8,7 @@ import StanfordPolicyCard from "@components/nodes/cards/stanford-policy/stanford
 import StanfordPublicationCard from "@components/nodes/cards/stanford-publication/stanford-publication-card";
 import {isPreviewMode} from "@lib/drupal/utils";
 import {NodeUnion} from "@lib/gql/__generated__/drupal.d";
+import SummerCourseCard from "@components/nodes/cards/summer-course/summer-course-card";
 
 type Props = {
   /**
@@ -44,6 +45,8 @@ const NodeCard = ({node, headingLevel}: Props) => {
       return <StanfordPolicyCard node={node} headingLevel={headingLevel} {...itemProps}/>
     case "NodeStanfordPublication":
       return <StanfordPublicationCard node={node} headingLevel={headingLevel} {...itemProps}/>
+    case "NodeSumSummerCourse":
+      return <SummerCourseCard node={node} headingLevel={headingLevel} {...itemProps}/>
   }
 }
 export default NodeCard;

@@ -52,7 +52,7 @@ const RootLayout = ({children, modal}: { children: React.ReactNode, modal: React
     <DrupalWindowSync/>
     {isDevMode && <Editori11y/>}
 
-    <body>
+    <body className="text-archway-dark">
     <nav aria-label="Skip Links">
       <a href="#main-content" className="skiplink">Skip to main content</a>
     </nav>

@@ -10,5 +10,5 @@ export const roboto = Roboto({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-roboto",
-  weight: "400"
+  weight: ["300", "400", "500", "700"]
 });

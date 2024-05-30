@@ -1,4 +1,4 @@
-import {Maybe, NodeStanfordEvent, NodeStanfordNews, NodeStanfordPage, NodeStanfordPerson, NodeStanfordPolicy, NodeUnion, ParagraphStanfordWysiwyg, ParagraphUnion} from "@lib/gql/__generated__/drupal.d";
+import {Maybe, NodeStanfordEvent, NodeStanfordNews, NodeStanfordPage, NodeStanfordPerson, NodeStanfordPolicy, NodeSumSummerCourse, NodeUnion, ParagraphStanfordWysiwyg, ParagraphUnion} from "@lib/gql/__generated__/drupal.d";
 import {Metadata} from "next";
 import {decode} from "html-entities";
 
@@ -37,9 +37,29 @@ export const getNodeMetadata = (node: NodeUnion): Metadata => {
         ...getPolicyMetaData(node),
         ...defaultData
       }
+
+    case "NodeSumSummerCourse":
+      return {
+        ...getSummerCourseMetaData(node),
+        ...defaultData
+      }
   }
 
   return defaultData;
+}
+
+const getSummerCourseMetaData = (node: NodeSumSummerCourse) => {
+  const image = node.sumCourseImage?.mediaImage;
+  const description = getCleanDescription(node.sumCourseDescription?.processed)
+  return {
+    description,
+    openGraph: {
+      type: "website",
+      title: node.title,
+      description,
+      images: image ? getOpenGraphImage(image.url, image.alt || "") : []
+    }
+  }
 }
 
 const getBasicPageMetaData = (node: NodeStanfordPage) => {
@@ -50,11 +70,11 @@ const getBasicPageMetaData = (node: NodeStanfordPage) => {
   const description = node.suPageDescription || getFirstText(node.suPageComponents);
 
   return {
-    description: description,
+    description,
     openGraph: {
       type: "website",
       title: node.title,
-      description: description,
+      description,
       images: image ? getOpenGraphImage(image.url, image.alt || "") : []
     }
   }
@@ -75,11 +95,11 @@ const getNewsMetaData = (node: NodeStanfordNews) => {
   }
 
   return {
-    description: description,
+    description,
     openGraph: {
       type: "article",
       title: node.title,
-      description: description,
+      description,
       publishedTime: publishTime || null,
       tag: node.suNewsTopics?.map(term => term.name) || [],
       images: getOpenGraphImage(imageUrl, imageAlt)
@@ -94,11 +114,11 @@ const getPersonMetaData = (node: NodeStanfordPerson) => {
   const description = node.suPersonFullTitle || getCleanDescription(node.body?.processed);
 
   return {
-    description: description,
+    description,
     openGraph: {
       type: "profile",
       title: node.title,
-      description: description,
+      description,
       firstName: node.suPersonFirstName,
       lastName: node.suPersonLastName,
       images: getOpenGraphImage(imageUrl, imageAlt)
@@ -110,11 +130,11 @@ const getEventMetaData = (node: NodeStanfordEvent) => {
   const description = node.suEventSubheadline || getCleanDescription(node.body?.processed);
 
   return {
-    description: description,
+    description,
     openGraph: {
       type: "website",
       title: node.title,
-      description: description,
+      description,
     }
   }
 }
@@ -123,11 +143,11 @@ const getPolicyMetaData = (node: NodeStanfordPolicy) => {
   const description = getCleanDescription(node.body?.processed);
 
   return {
-    description: description,
+    description,
     openGraph: {
       type: "website",
       title: node.title,
-      description: description,
+      description,
     }
   }
 }

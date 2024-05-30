@@ -34,11 +34,13 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
       </div>
 
       {paragraph.sumCarouselSlides &&
-        <Slideshow>
-          {paragraph.sumCarouselSlides.map(slide =>
-            <Paragraph key={slide.id} paragraph={slide}/>
-          )}
-        </Slideshow>
+        <div className="relative w-screen left-1/2 -translate-x-1/2">
+          <Slideshow className="w-[calc(100%-50px)] xl:w-[calc(100%-150px)] mx-auto">
+            {paragraph.sumCarouselSlides.map(slide =>
+              <Paragraph key={slide.id} paragraph={slide}/>
+            )}
+          </Slideshow>
+        </div>
       }
     </div>
   )

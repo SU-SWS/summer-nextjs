@@ -62,7 +62,6 @@ const SumCalculatorParagraph = ({
   undergradUnitsHelp,
   ...props
 }: Props) => {
-
   const [studentType, setStudentType] = useState<"highschool" | "graduate" | "undergraduate" | "">("")
   const [needsI20, setNeedsI20] = useState<boolean | undefined>();
   const [onCampus, setOnCampus] = useState<boolean | undefined>();
@@ -71,7 +70,7 @@ const SumCalculatorParagraph = ({
 
   const {buttonProps, panelProps, expanded, toggleExpanded} = useAccordion();
 
-  const summaryRef = useRef(null)
+  const summaryRef = useRef<HTMLDivElement>(null)
   useOutsideClick(summaryRef, () => expanded && toggleExpanded())
 
   const appFee = studentType ? appCost : 0
@@ -92,10 +91,24 @@ const SumCalculatorParagraph = ({
     unitOptions.push({value: `${i}`, label: `${i}`})
   }
 
+  const onSelectFocus = () => {
+    // When tabbing through the items, if tab end up behind the sticky summary, scroll the window enough to view the
+    // tabbed element.
+    if (document.activeElement && summaryRef.current) {
+      const {y: activeY, height: activeH} = document.activeElement.getBoundingClientRect();
+      const {y: summaryY} = summaryRef.current.getBoundingClientRect();
+
+      const positionDifference = summaryY - activeY - activeH;
+      if (positionDifference < 0) {
+        window.scrollTo({top: window.scrollY - positionDifference + 1});
+      }
+    }
+  }
+
   return (
     <div {...props} className={twMerge("centered", props.className)}>
       <div className="max-w-7xl mx-auto pb-72 flex flex-col gap-20">
-        <div>
+        <div onFocus={onSelectFocus}>
           <SelectList
 
             label="I am a/an _________ student"
@@ -114,7 +127,7 @@ const SumCalculatorParagraph = ({
           {studentType === "highschool" && highSchoolAppHelp}
         </div>
 
-        <div>
+        <div onFocus={onSelectFocus}>
 
           <SelectList
             label="Are you an international student that requires a Stanford issued I-20?"
@@ -123,7 +136,8 @@ const SumCalculatorParagraph = ({
               {value: "no1", label: "No, I am a US citizen or permanent US resident"},
               {value: "no2", label: "No, I am an international student with an I-20 sponsored by another institution"}
             ]}
-            downIcon={<ChevronDownIcon width={30} className="bg-digital-red rounded-full text-white ml-auto flex-shrink-0"/>}
+            downIcon={<ChevronDownIcon width={30}
+                                       className="bg-digital-red rounded-full text-white ml-auto flex-shrink-0"/>}
             onChange={(_e, value) => setNeedsI20(value === "yes")}
             disabled={!studentType}
             required
@@ -132,7 +146,7 @@ const SumCalculatorParagraph = ({
           {needsI20 === true && i20Help}
         </div>
 
-        <div>
+        <div onFocus={onSelectFocus}>
           <SelectList
             label="Will you be living on campus?"
             options={[
@@ -141,7 +155,7 @@ const SumCalculatorParagraph = ({
             ]}
             downIcon={<ChevronDownIcon width={30} className="bg-digital-red rounded-full text-white"/>}
             onChange={(_e, value) => setOnCampus(value === "yes")}
-            disabled={needsI20 ===undefined}
+            disabled={needsI20 === undefined}
             required
           />
 
@@ -149,7 +163,7 @@ const SumCalculatorParagraph = ({
           {onCampus === false && commuterHelp}
         </div>
 
-        <div>
+        <div onFocus={onSelectFocus}>
           <SelectList
             label="How many units will you be taking?"
             options={unitOptions}
@@ -164,7 +178,7 @@ const SumCalculatorParagraph = ({
           {(studentType === "highschool" && units > 0) && highSchoolUnitHelp}
         </div>
 
-        <div>
+        <div onFocus={onSelectFocus}>
           <SelectList
             label="Will you be waiving Cardinal Care Health Insurance?"
             options={[

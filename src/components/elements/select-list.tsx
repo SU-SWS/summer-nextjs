@@ -99,6 +99,7 @@ interface Props {
   name?: Maybe<string>
   downIcon?: JSX.Element
   buttonClassName?: string
+  onFocus?: () => void
 }
 
 const SelectList = ({
@@ -143,9 +144,6 @@ const SelectList = ({
 
   const optionChosen = (multiple && value) ? value.length > 0 : !!value;
 
-  // With Mui and Next.js 14, an error occurs on the server rendering. To avoid that issue, only render the component on the client.
-  if (!isClient) return null;
-
   return (
     <div className="relative h-fit">
       <button
@@ -158,7 +156,7 @@ const SelectList = ({
             "text-m0 top-[-15px] w-full": optionChosen,
             "text-m1": !optionChosen
           })}>
-            <div id={labelId} className={clsx("bg-white w-fit px-5", {"bg-black-20": props.disabled})}>
+            <div id={labelId} className={twMerge("bg-white w-fit px-5", clsx({"bg-black-20": props.disabled}))}>
               {label}
             </div>
           </div>

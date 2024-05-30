@@ -22,7 +22,12 @@
 }
 
 .slick-slide {
-  transition: .2s padding ease-out
+  transition: .2s padding ease-out;
+
+  > * {
+    max-width: 700px;
+    margin: 0 auto;
+  }
 }
 
 /* 1 item shown. */

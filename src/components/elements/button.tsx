@@ -9,40 +9,40 @@ type Props = HtmlHTMLAttributes<HTMLAnchorElement | HTMLButtonElement> & {
   /**
    * Link URL.
    */
-  href?: Maybe<string>
+  href?: Maybe<string>;
   /**
    * If the element should be a <button>, default is <a>.
    */
-  buttonElem?: boolean
+  buttonElem?: boolean;
   /**
    * Display a larger button.
    */
-  big?: boolean
+  big?: boolean;
   /**
    * Display a secondary styled button.
    */
-  secondary?: boolean
+  secondary?: boolean;
   /**
    * Center the button in the container.
    */
-  centered?: boolean
+  centered?: boolean;
   /**
    * Click handler, mostly when using a button element.
    */
-  onClick?: MouseEventHandler
+  onClick?: MouseEventHandler;
   /**
    * Next.js prefetch functionality.
    */
-  prefetch?: boolean
+  prefetch?: boolean;
   /**
    * Type of button: submit, reset, or button.
    */
-  type?: HTMLButtonElement["type"]
+  type?: HTMLButtonElement["type"];
   /**
    * Disabled button element.
    */
-  disabled?: boolean
-}
+  disabled?: boolean;
+};
 
 export const Button = ({
   href,
@@ -56,16 +56,16 @@ export const Button = ({
 }: Props) => {
   const standardClasses = clsx({
     "flex items-center w-fit mx-auto": centered,
-    "inline-block text-center w-fit": !centered,
-    "btn btn--big transition text-5xl text-white hocus:text-white bg-digital-red border-2 border-white hocus:outline hocus:outline-3 hocus:outline-digital-red no-underline hocus:underline py-6 px-12 font-normal rounded-full m-4":
+    "inline-block text-center w-fit m-4": !centered,
+    "btn btn--big transition text-5xl text-white hocus:text-white bg-digital-red border-2 border-white hocus:outline hocus:outline-3 hocus:outline-digital-red no-underline hocus:underline py-6 px-12 font-normal rounded-full":
       big && !secondary,
     "btn btn--secondary transition text-digital-red hocus:text-white hocus:bg-digital-red border-2 border-digital-red hocus:border-white no-underline hocus:underline hocus:outline hocus:outline-3 hocus:outline-digital-red py-4 px-16 font-normal rounded-full":
       !big && secondary,
     "btn  btn--big btn--secondary transition text-5xl text-digital-red hocus:text-white hocus:bg-digital-red border-2 border-digital-red hocus:border-white no-underline hocus:underline hocus:outline hocus:outline-3 hocus:outline-digital-red py-6 px-20 font-normal rounded-full":
       big && secondary,
-    "btn bg-digital-red font-normal text-white border-2 border-white hocus:text-white hocus:outline hocus:outline-3 hocus:outline-digital-red py-4 px-8 no-underline hocus:underline transition rounded-full m-4":
+    "btn bg-digital-red font-normal text-white border-2 border-white hocus:text-white hocus:outline hocus:outline-3 hocus:outline-digital-red py-4 px-8 no-underline hocus:underline transition rounded-full":
       !big && !secondary,
-  })
+  });
 
   if (!href || buttonElem) {
     return (
@@ -76,7 +76,7 @@ export const Button = ({
       >
         {children}
       </button>
-    )
+    );
   }
 
   return (
@@ -88,7 +88,7 @@ export const Button = ({
       {children}
       <ArrowRightIcon width={20} className="ml-2 inline-block" />
     </Link>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

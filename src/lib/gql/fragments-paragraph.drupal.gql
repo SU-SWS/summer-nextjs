@@ -1,292 +1,349 @@
-
 fragment FragmentParagraphInterface on ParagraphInterface {
-    __typename
-    id
-    behaviors
+  __typename
+  id
+  behaviors
 }
 
 fragment FragmentParagraphStanfordAccordion on ParagraphStanfordAccordion {
-    ...FragmentParagraphInterface
-    suAccordionBody {
-        processed
-    }
-    suAccordionTitle
+  ...FragmentParagraphInterface
+  suAccordionBody {
+    ...FragmentText
+  }
+  suAccordionTitle
 }
 
 fragment FragmentParagraphStanfordBanner on ParagraphStanfordBanner {
-    ...FragmentParagraphInterface
-    suBannerHeader
-    suBannerBody {
-        processed
-    }
-    suBannerSupHeader
-    suBannerButton {
-        url
-        title
-    }
-    suBannerImage {
-        ...FragmentMediaImage
-    }
+  ...FragmentParagraphInterface
+  suBannerHeader
+  suBannerBody {
+    ...FragmentText
+  }
+  suBannerSupHeader
+  suBannerButton {
+    url
+    title
+  }
+  suBannerImage {
+    ...FragmentMediaImage
+  }
 }
 
 fragment FragmentParagraphStanfordCard on ParagraphStanfordCard {
-    ...FragmentParagraphInterface
-    suCardHeader
-    suCardSuperHeader
-    suCardBody {
-        processed
-    }
-    suCardLink {
-        url
-        title
-    }
-    suCardMedia {
-        ...FragmentMediaUnion
-    }
+  ...FragmentParagraphInterface
+  suCardHeader
+  suCardSuperHeader
+  suCardBody {
+    ...FragmentText
+  }
+  suCardLink {
+    url
+    title
+  }
+  suCardMedia {
+    ...FragmentMediaUnion
+  }
 }
 
 fragment FragmentParagraphStanfordEntity on ParagraphStanfordEntity {
-    ...FragmentParagraphInterface
-    suEntityHeadline
-    suEntityDescription {
-        processed
+  ...FragmentParagraphInterface
+  suEntityHeadline
+  suEntityDescription {
+    ...FragmentText
+  }
+  suEntityButton {
+    url
+    title
+  }
+  suEntityItem {
+    ... on NodeInterface {
+      id
+      path
     }
-    suEntityButton {
-        url
-        title
-    }
-    suEntityItem {
-        ... on NodeInterface {
-            id
-            path
-        }
-    }
+  }
 }
 
 fragment FragmentParagraphStanfordGallery on ParagraphStanfordGallery {
-    ...FragmentParagraphInterface
-    suGalleryHeadline
-    suGalleryDescription {
-        processed
-    }
-    suGalleryButton {
-        url
-        title
-    }
-    suGalleryImages {
-        ...FragmentMediaStanfordGalleryImage
-    }
+  ...FragmentParagraphInterface
+  suGalleryHeadline
+  suGalleryDescription {
+    ...FragmentText
+  }
+  suGalleryButton {
+    url
+    title
+  }
+  suGalleryImages {
+    ...FragmentMediaStanfordGalleryImage
+  }
 }
 
 fragment FragmentParagraphStanfordList on ParagraphStanfordList {
-    ...FragmentParagraphInterface
-    suListHeadline
-    suListDescription {
-        processed
-    }
-    suListButton {
-        url
-        title
-    }
-    suListView {
-        view
-        display
-        contextualFilter
-        pageSize
-    }
+  ...FragmentParagraphInterface
+  suListHeadline
+  suListDescription {
+    ...FragmentText
+  }
+  suListButton {
+    url
+    title
+  }
+  suListView {
+    view
+    display
+    contextualFilter
+    pageSize
+  }
 }
 
 fragment FragmentParagraphStanfordMediaCaption on ParagraphStanfordMediaCaption {
-    ...FragmentParagraphInterface
-    suMediaCaptionMedia {
-        ...FragmentMediaUnion
-    }
-    suMediaCaptionLink {
-        url
-        title
-    }
-    suMediaCaptionCaption {
-        processed
-    }
+  ...FragmentParagraphInterface
+  suMediaCaptionMedia {
+    ...FragmentMediaUnion
+  }
+  suMediaCaptionLink {
+    url
+    title
+  }
+  suMediaCaptionCaption {
+    ...FragmentText
+  }
 }
 
 fragment FragmentParagraphStanfordPersonCtum on ParagraphStanfordPersonCtum {
-    ...FragmentParagraphInterface
-    suPersonCtaName
-    suPersonCtaTitle
-    suPersonCtaLink {
-        url
-        title
-    }
-    suPersonCtaImage {
-        ...FragmentMediaImage
-    }
+  ...FragmentParagraphInterface
+  suPersonCtaName
+  suPersonCtaTitle
+  suPersonCtaLink {
+    url
+    title
+  }
+  suPersonCtaImage {
+    ...FragmentMediaImage
+  }
 }
 
 fragment FragmentParagraphStanfordSchedule on ParagraphStanfordSchedule {
-    ...FragmentParagraphInterface
-    suScheduleHeadline
-    suScheduleDescription {
-        processed
-    }
-    suScheduleDateTime {
-        ...FragmentSmartDateType
-    }
-    suScheduleLocation {
-        ...FragmentAddressType
-    }
-    suScheduleUrl {
-        url
-        title
-    }
-    suScheduleSpeaker {
-        ...FragmentParagraphStanfordPersonCtum
-    }
+  ...FragmentParagraphInterface
+  suScheduleHeadline
+  suScheduleDescription {
+    ...FragmentText
+  }
+  suScheduleDateTime {
+    ...FragmentSmartDateType
+  }
+  suScheduleLocation {
+    ...FragmentAddressType
+  }
+  suScheduleUrl {
+    url
+    title
+  }
+  suScheduleSpeaker {
+    ...FragmentParagraphStanfordPersonCtum
+  }
 }
 
 fragment FragmentParagraphStanfordLayout on ParagraphStanfordLayout {
-    ...FragmentParagraphInterface
+  ...FragmentParagraphInterface
 }
 
 fragment FragmentParagraphStanfordSpacer on ParagraphStanfordSpacer {
-    ...FragmentParagraphInterface
-    suSpacerSize
+  ...FragmentParagraphInterface
+  suSpacerSize
 }
 
 fragment FragmentParagraphStanfordWysiwyg on ParagraphStanfordWysiwyg {
-    ...FragmentParagraphInterface
-    suWysiwygText {
-        processed
-    }
+  ...FragmentParagraphInterface
+  suWysiwygText {
+    ...FragmentText
+  }
 }
 
 fragment FragmentParagraphStanfordPageTitleBanner on ParagraphStanfordPageTitleBanner {
-    ...FragmentParagraphInterface
-    suTitleBannerImage {
-        ...FragmentMediaImage
-    }
+  ...FragmentParagraphInterface
+  suTitleBannerImage {
+    ...FragmentMediaImage
+  }
 }
 
 fragment FragmentParagraphSumCalculator on ParagraphSumCalculator {
-    ...FragmentParagraphInterface
-    sumCalcAppFee
-    sumCalcBooks
-    sumCalcCommuteHelp {
-        processed
-    }
-    sumCalcDocuments
-    sumCalcGradAppHelp {
-        processed
-    }
-    sumCalcGradUnitCost {
-        ...FragmentDoubleIntFloat
-    }
-    sumCalcGradUnitHelp {
-        processed
-    }
-    sumCalcHealthFee
-    sumCalcHighAppHelp {
-        processed
-    }
-    sumCalcHighUnitCost {
-        ...FragmentDoubleIntFloat
-    }
-    sumCalcHighUnitHelp {
-        processed
-    }
-    sumCalcHouseFees {
-        ...FragmentDoubleStringFloat
-    }
-    sumCalcHouseHelp {
-        processed
-    }
-    sumCalcI20Fee
-    sumCalcI20Help {
-        processed
-    }
-    sumCalcInsHelp {
-        processed
-    }
-    sumCalcInsWaveHelp {
-        processed
-    }
-    sumCalcInsurance
-    sumCalcMailFee
-    sumCalcMeals
-    sumCalcProgFee {
-        ...FragmentDoubleStringFloat
-    }
-    sumCalcTechFee
-    sumCalcUgAppHelp {
-        processed
-    }
-    sumCalcUgUnitCost {
-        ...FragmentDoubleIntFloat
-    }
-    sumCalcUgUnitHelp {
-        processed
-    }
+  ...FragmentParagraphInterface
+  sumCalcAppFee
+  sumCalcBooks
+  sumCalcCommuteHelp {
+    ...FragmentText
+  }
+  sumCalcDocuments
+  sumCalcGradAppHelp {
+    ...FragmentText
+  }
+  sumCalcGradUnitCost {
+    ...FragmentDoubleIntFloat
+  }
+  sumCalcGradUnitHelp {
+    ...FragmentText
+  }
+  sumCalcHealthFee
+  sumCalcHighAppHelp {
+    ...FragmentText
+  }
+  sumCalcHighUnitCost {
+    ...FragmentDoubleIntFloat
+  }
+  sumCalcHighUnitHelp {
+    ...FragmentText
+  }
+  sumCalcHouseFees {
+    ...FragmentDoubleStringFloat
+  }
+  sumCalcHouseHelp {
+    ...FragmentText
+  }
+  sumCalcI20Fee
+  sumCalcI20Help {
+    ...FragmentText
+  }
+  sumCalcInsHelp {
+    ...FragmentText
+  }
+  sumCalcInsWaveHelp {
+    ...FragmentText
+  }
+  sumCalcInsurance
+  sumCalcMailFee
+  sumCalcMeals
+  sumCalcProgFee {
+    ...FragmentDoubleStringFloat
+  }
+  sumCalcTechFee
+  sumCalcUgAppHelp {
+    ...FragmentText
+  }
+  sumCalcUgUnitCost {
+    ...FragmentDoubleIntFloat
+  }
+  sumCalcUgUnitHelp {
+    ...FragmentText
+  }
 }
 
 fragment FragmentParagraphSumAccordion on ParagraphSumAccordion {
-    ...FragmentParagraphInterface
-    sumAccordionsAccords {
-        ...FragmentParagraphStanfordAccordion
-    }
-    sumAccordionsDesc {
-        processed
-    }
-    sumAccordionsHeading
+  ...FragmentParagraphInterface
+  sumAccordionsAccords {
+    ...FragmentParagraphStanfordAccordion
+  }
+  sumAccordionsDesc {
+    ...FragmentText
+  }
+  sumAccordionsHeading
 }
 
 fragment FragmentParagraphSumArcBanner on ParagraphSumArcBanner {
-    ...FragmentParagraphInterface
-    sumArcSuperhead
-    sumArcImage {
-        ...FragmentMediaImage
-    }
-    sumArcDescription {
-        processed
-    }
+  ...FragmentParagraphInterface
+  sumArcSuperhead
+  sumArcImage {
+    ...FragmentMediaImage
+  }
+  sumArcDescription {
+    ...FragmentText
+  }
 }
 
 fragment FragmentParagraphSumCarousel on ParagraphSumCarousel {
-    ...FragmentParagraphInterface
-    sumCarouselDescription {
-        processed
-    }
-    sumCarouselHeader
-    sumCarouselLink {
-        ... FragmentLink
-    }
-    sumCarouselSlides {
-        ...FragmentParagraphStanfordCard
-        ...FragmentParagraphSumSlideTeaser
-    }
-    sumCarouselSuperheader
+  ...FragmentParagraphInterface
+  sumCarouselDescription {
+    ...FragmentText
+  }
+  sumCarouselHeader
+  sumCarouselLink {
+    ...FragmentLink
+  }
+  sumCarouselSlides {
+    ...FragmentParagraphStanfordCard
+    ...FragmentParagraphSumSlideTeaser
+  }
+  sumCarouselSuperheader
 }
 
 fragment FragmentParagraphSumSlideTeaser on ParagraphSumSlideTeaser {
-    ...FragmentParagraphInterface
-    sumSlideTeaserEntity {
-        ...FragmentNodeTeaserUnion
-    }
+  ...FragmentParagraphInterface
+  sumSlideTeaserEntity {
+    ...FragmentNodeTeaserUnion
+  }
+}
+
+fragment FragmentParagraphSumTopBanner on ParagraphSumTopBanner {
+  ...FragmentParagraphInterface
+  sumTopBannerCards {
+    ...FragmentParagraphStanfordCard
+  }
+  sumTopBannerDescrip {
+    ...FragmentText
+  }
+  sumTopBannerHeadline
+  sumTopBannerImage {
+    ...FragmentMediaImage
+  }
+  sumTopBannerLink {
+    ...FragmentLink
+  }
+  sumTopBannerSuperhead
+}
+
+fragment FragmentParagraphSumVideo on ParagraphSumVideo {
+  ...FragmentParagraphInterface
+  sumVideoVideo {
+    ...FragmentMediaVideo
+  }
+}
+
+fragment FragmentParagraphSumUserFavorite on ParagraphSumUserFavorite {
+  ...FragmentParagraphInterface
+}
+
+fragment FragmentParagraphSumCourseFilter on ParagraphSumCourseFilter {
+  ...FragmentParagraphInterface
+}
+
+fragment FragmentParagraphSumFact on ParagraphSumFact {
+  ...FragmentParagraphInterface
+  sumFactsLabel
+  sumFactsText
+}
+
+fragment FragmentParagraphSumAtAGlance on ParagraphSumAtAGlance {
+  ...FragmentParagraphInterface
+  sumAtAGlanceDescrip {
+    ...FragmentText
+  }
+  sumAtAGlanceFacts {
+    ...FragmentParagraphSumFact
+  }
+  sumAtAGlanceHeadline
+  sumAtAGlanceLink {
+    ...FragmentLink
+  }
 }
 
 fragment FragmentParagraphUnion on ParagraphUnion {
-    ...FragmentParagraphInterface
-    ...FragmentParagraphStanfordAccordion
-    ...FragmentParagraphStanfordBanner
-    ...FragmentParagraphStanfordCard
-    ...FragmentParagraphStanfordEntity
-    ...FragmentParagraphStanfordGallery
-    ...FragmentParagraphStanfordList
-    ...FragmentParagraphStanfordMediaCaption
-    ...FragmentParagraphStanfordSpacer
-    ...FragmentParagraphStanfordWysiwyg
-    ...FragmentParagraphStanfordLayout
-    ...FragmentParagraphSumCalculator
-    ...FragmentParagraphSumAccordion
-    ...FragmentParagraphSumArcBanner
-    ...FragmentParagraphSumCarousel
+  ...FragmentParagraphInterface
+  ...FragmentParagraphStanfordAccordion
+  ...FragmentParagraphStanfordBanner
+  ...FragmentParagraphStanfordCard
+  ...FragmentParagraphStanfordEntity
+  ...FragmentParagraphStanfordGallery
+  ...FragmentParagraphStanfordLayout
+  ...FragmentParagraphStanfordList
+  ...FragmentParagraphStanfordMediaCaption
+  ...FragmentParagraphStanfordSpacer
+  ...FragmentParagraphStanfordWysiwyg
+  ...FragmentParagraphSumAccordion
+  ...FragmentParagraphSumArcBanner
+  ...FragmentParagraphSumCalculator
+  ...FragmentParagraphSumCarousel
+  ...FragmentParagraphSumCourseFilter
+  ...FragmentParagraphSumTopBanner
+  ...FragmentParagraphSumUserFavorite
+  ...FragmentParagraphSumVideo
+  ...FragmentParagraphSumAtAGlance
 }

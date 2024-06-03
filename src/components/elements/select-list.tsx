@@ -21,7 +21,6 @@ import {
   useState,
 } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { useIsClient } from "usehooks-ts";
 import { Maybe } from "@lib/gql/__generated__/drupal.d";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";

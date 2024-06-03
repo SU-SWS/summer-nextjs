@@ -547,7 +547,6 @@ export const FragmentParagraphSumTopBannerFragmentDoc = gql`
     sumTopBannerDescrip {
       ...FragmentText
     }
-    sumTopBannerHeadline
     sumTopBannerImage {
       ...FragmentMediaImage
     }

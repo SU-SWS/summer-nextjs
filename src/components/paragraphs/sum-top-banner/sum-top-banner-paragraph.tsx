@@ -1,82 +1,41 @@
 import React, { HtmlHTMLAttributes } from "react";
 import { ParagraphSumTopBanner } from "@lib/gql/__generated__/drupal.d";
-import { H2, H3, H4 } from "@components/elements/headers";
+import { H1 } from "@components/elements/headers";
 import Wysiwyg from "@components/elements/wysiwyg";
 import Button from "@components/elements/button";
 import { getParagraphBehaviors } from "@components/paragraphs/get-paragraph-behaviors";
 import { twMerge } from "tailwind-merge";
 import HeroBanner from "@components/patterns/hero-banner";
 
+import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph";
+import { clsx } from "clsx";
+
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumTopBanner;
-  eagerLoadImage?: boolean;
+  pageTitle: string;
 };
 
-const SumTopBannerParagraph = ({
-  paragraph,
-  eagerLoadImage,
-  ...props
-}: Props) => {
+const SumTopBannerParagraph = ({ paragraph, pageTitle, ...props }: Props) => {
   const behaviors = getParagraphBehaviors(paragraph);
-  const hasCard =
-    paragraph.sumTopBannerSuperhead ||
-    paragraph.sumTopBannerLink ||
-    paragraph.sumTopBannerDescrip ||
-    paragraph.sumTopBannerHeadline;
-
-  const headerTagChoice = (behaviors.hero_pattern?.heading || "h2").split(
-    ".",
-    2,
-  );
-  const headerTag = headerTagChoice[0];
-  const headerClasses = headerTagChoice[1]
-    ?.replace(".", " ")
-    .replace("su-font-splash", "text-m2 font-bold");
 
   return (
-    <HeroBanner
-      {...props}
-      aria-labelledby={
-        paragraph.sumTopBannerHeadline ? paragraph.id : undefined
-      }
-      imageUrl={paragraph.sumTopBannerImage?.mediaImage.url}
-      imageAlt={paragraph.sumTopBannerImage?.mediaImage.alt}
-      isSection={!!paragraph.sumTopBannerHeadline}
-      overlayPosition={behaviors.hero_pattern?.overlay_position}
-      eagerLoadImage={eagerLoadImage}
-    >
-      {hasCard && (
-        <>
-          {paragraph.sumTopBannerHeadline && (
-            <div
-              id={paragraph.id}
-              className={twMerge(
-                "order-2",
-                behaviors.hero_pattern?.hide_heading && "sr-only",
-              )}
-            >
-              {headerTag === "h2" && (
-                <H2 className={twMerge(headerClasses, "mb-0")}>
-                  {paragraph.sumTopBannerHeadline}
-                </H2>
-              )}
-              {headerTag === "h3" && (
-                <H3 className={headerClasses}>
-                  {paragraph.sumTopBannerHeadline}
-                </H3>
-              )}
-              {headerTag === "h4" && (
-                <H4 className={headerClasses}>
-                  {paragraph.sumTopBannerHeadline}
-                </H4>
-              )}
-              {headerTag === "div" && (
-                <div className={headerClasses}>
-                  {paragraph.sumTopBannerHeadline}
-                </div>
-              )}
-            </div>
+    <div {...props} className={twMerge("mb-32", props.className)}>
+      <HeroBanner
+        className="mb-0"
+        imageUrl={paragraph.sumTopBannerImage?.mediaImage.url}
+        imageAlt={paragraph.sumTopBannerImage?.mediaImage.alt}
+        overlayPosition={behaviors.hero_pattern?.overlay_position}
+        eagerLoadImage
+      >
+        <div
+          className={twMerge(
+            "flex flex-col",
+            clsx({ "pb-96": !!paragraph.sumTopBannerCards }),
           )}
+        >
+          <div className="order-2">
+            <H1>{pageTitle}</H1>
+          </div>
 
           {paragraph.sumTopBannerSuperhead && (
             <div className="order-1 text-09em font-semibold">
@@ -96,9 +55,17 @@ const SumTopBannerParagraph = ({
               </Button>
             </div>
           )}
-        </>
+        </div>
+      </HeroBanner>
+
+      {paragraph.sumTopBannerCards && (
+        <div className="centered relative z-10 -mt-96 flex flex-col gap-32 xl:flex-row">
+          {paragraph.sumTopBannerCards.map((card) => (
+            <CardParagraph key={card.id} paragraph={card} />
+          ))}
+        </div>
       )}
-    </HeroBanner>
+    </div>
   );
 };
 export default SumTopBannerParagraph;

@@ -39,7 +39,7 @@ const Home = async () => {
         <SumArcBannerParagraph paragraph={entity.suPageBanner} pageTitle="" />
       )}
       {entity.suPageBanner?.__typename === "ParagraphSumTopBanner" && (
-        <SumTopBannerParagraph paragraph={entity.suPageBanner} />
+        <SumTopBannerParagraph paragraph={entity.suPageBanner} pageTitle="" />
       )}
       {entity.suPageComponents && <Rows components={entity.suPageComponents} />}
     </article>

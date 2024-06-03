@@ -2438,8 +2438,6 @@ export type ParagraphSumTopBanner = LayoutParagraphsInterface &
     sumTopBannerCards?: Maybe<Array<ParagraphStanfordCard>>;
     /** Description  */
     sumTopBannerDescrip?: Maybe<Text>;
-    /** Headline */
-    sumTopBannerHeadline?: Maybe<Scalars["String"]["output"]>;
     /** Image */
     sumTopBannerImage?: Maybe<MediaImage>;
     /** Link */
@@ -5698,7 +5696,6 @@ export type NodeQuery = {
             }
           | {
               __typename: "ParagraphSumTopBanner";
-              sumTopBannerHeadline?: string | null;
               sumTopBannerSuperhead?: string | null;
               id: string;
               behaviors?: string | null;
@@ -6540,7 +6537,6 @@ export type NodeQuery = {
                               }
                             | {
                                 __typename: "ParagraphSumTopBanner";
-                                sumTopBannerHeadline?: string | null;
                                 sumTopBannerSuperhead?: string | null;
                                 id: string;
                                 behaviors?: string | null;
@@ -8951,7 +8947,6 @@ export type BasicPagesQuery = {
           }
         | {
             __typename: "ParagraphSumTopBanner";
-            sumTopBannerHeadline?: string | null;
             sumTopBannerSuperhead?: string | null;
             id: string;
             behaviors?: string | null;
@@ -9757,7 +9752,6 @@ export type BasicPagesQuery = {
                             }
                           | {
                               __typename: "ParagraphSumTopBanner";
-                              sumTopBannerHeadline?: string | null;
                               sumTopBannerSuperhead?: string | null;
                               id: string;
                               behaviors?: string | null;
@@ -11867,7 +11861,6 @@ export type ParagraphQuery = {
                         }
                       | {
                           __typename: "ParagraphSumTopBanner";
-                          sumTopBannerHeadline?: string | null;
                           sumTopBannerSuperhead?: string | null;
                           id: string;
                           behaviors?: string | null;
@@ -12076,7 +12069,6 @@ export type ParagraphQuery = {
         __typename: "ParagraphSumTopBanner";
         id: string;
         behaviors?: string | null;
-        sumTopBannerHeadline?: string | null;
         sumTopBannerSuperhead?: string | null;
         sumTopBannerCards?: Array<{
           __typename: "ParagraphStanfordCard";
@@ -13314,7 +13306,6 @@ export type FragmentNodeStanfordPageFragment = {
       }
     | {
         __typename: "ParagraphSumTopBanner";
-        sumTopBannerHeadline?: string | null;
         sumTopBannerSuperhead?: string | null;
         id: string;
         behaviors?: string | null;
@@ -14052,7 +14043,6 @@ export type FragmentNodeStanfordPageFragment = {
                         }
                       | {
                           __typename: "ParagraphSumTopBanner";
-                          sumTopBannerHeadline?: string | null;
                           sumTopBannerSuperhead?: string | null;
                           id: string;
                           behaviors?: string | null;
@@ -17133,7 +17123,6 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
       }
     | {
         __typename: "ParagraphSumTopBanner";
-        sumTopBannerHeadline?: string | null;
         sumTopBannerSuperhead?: string | null;
         id: string;
         behaviors?: string | null;
@@ -17871,7 +17860,6 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
                         }
                       | {
                           __typename: "ParagraphSumTopBanner";
-                          sumTopBannerHeadline?: string | null;
                           sumTopBannerSuperhead?: string | null;
                           id: string;
                           behaviors?: string | null;
@@ -19071,7 +19059,6 @@ export type FragmentNodeStanfordPageTeaserFragment = {
       }
     | {
         __typename: "ParagraphSumTopBanner";
-        sumTopBannerHeadline?: string | null;
         sumTopBannerSuperhead?: string | null;
         id: string;
         behaviors?: string | null;
@@ -19448,7 +19435,6 @@ type FragmentNodeTeaserUnion_NodeStanfordPage_Fragment = {
       }
     | {
         __typename: "ParagraphSumTopBanner";
-        sumTopBannerHeadline?: string | null;
         sumTopBannerSuperhead?: string | null;
         id: string;
         behaviors?: string | null;
@@ -20453,7 +20439,6 @@ export type FragmentParagraphSumCarouselFragment = {
                   }
                 | {
                     __typename: "ParagraphSumTopBanner";
-                    sumTopBannerHeadline?: string | null;
                     sumTopBannerSuperhead?: string | null;
                     id: string;
                     behaviors?: string | null;
@@ -20841,7 +20826,6 @@ export type FragmentParagraphSumSlideTeaserFragment = {
             }
           | {
               __typename: "ParagraphSumTopBanner";
-              sumTopBannerHeadline?: string | null;
               sumTopBannerSuperhead?: string | null;
               id: string;
               behaviors?: string | null;
@@ -20989,7 +20973,6 @@ export type FragmentParagraphSumSlideTeaserFragment = {
 
 export type FragmentParagraphSumTopBannerFragment = {
   __typename: "ParagraphSumTopBanner";
-  sumTopBannerHeadline?: string | null;
   sumTopBannerSuperhead?: string | null;
   id: string;
   behaviors?: string | null;
@@ -21703,7 +21686,6 @@ type FragmentParagraphUnion_ParagraphSumCarousel_Fragment = {
                   }
                 | {
                     __typename: "ParagraphSumTopBanner";
-                    sumTopBannerHeadline?: string | null;
                     sumTopBannerSuperhead?: string | null;
                     id: string;
                     behaviors?: string | null;
@@ -21873,7 +21855,6 @@ type FragmentParagraphUnion_ParagraphSumTopBanner_Fragment = {
   __typename: "ParagraphSumTopBanner";
   id: string;
   behaviors?: string | null;
-  sumTopBannerHeadline?: string | null;
   sumTopBannerSuperhead?: string | null;
   sumTopBannerCards?: Array<{
     __typename: "ParagraphStanfordCard";
@@ -23340,7 +23321,6 @@ export type RouteQuery = {
                   }
                 | {
                     __typename: "ParagraphSumTopBanner";
-                    sumTopBannerHeadline?: string | null;
                     sumTopBannerSuperhead?: string | null;
                     id: string;
                     behaviors?: string | null;
@@ -24230,7 +24210,6 @@ export type RouteQuery = {
                                     }
                                   | {
                                       __typename: "ParagraphSumTopBanner";
-                                      sumTopBannerHeadline?: string | null;
                                       sumTopBannerSuperhead?: string | null;
                                       id: string;
                                       behaviors?: string | null;
@@ -25563,7 +25542,6 @@ export type StanfordBasicPagesQuery = {
               }
             | {
                 __typename: "ParagraphSumTopBanner";
-                sumTopBannerHeadline?: string | null;
                 sumTopBannerSuperhead?: string | null;
                 id: string;
                 behaviors?: string | null;
@@ -25715,7 +25693,6 @@ export type StanfordBasicPagesCardsQuery = {
               }
             | {
                 __typename: "ParagraphSumTopBanner";
-                sumTopBannerHeadline?: string | null;
                 sumTopBannerSuperhead?: string | null;
                 id: string;
                 behaviors?: string | null;
@@ -26892,7 +26869,6 @@ export type StanfordSharedTagsQuery = {
               }
             | {
                 __typename: "ParagraphSumTopBanner";
-                sumTopBannerHeadline?: string | null;
                 sumTopBannerSuperhead?: string | null;
                 id: string;
                 behaviors?: string | null;

@@ -280,7 +280,6 @@ fragment FragmentParagraphSumTopBanner on ParagraphSumTopBanner {
   sumTopBannerDescrip {
     ...FragmentText
   }
-  sumTopBannerHeadline
   sumTopBannerImage {
     ...FragmentMediaImage
   }

@@ -1,41 +1,53 @@
-import React, {ElementType, HtmlHTMLAttributes} from "react";
+import React, { ElementType, HtmlHTMLAttributes } from "react";
 import Image from "next/image";
-import {twMerge} from "tailwind-merge";
-import {Maybe} from "@lib/gql/__generated__/drupal";
+import { twMerge } from "tailwind-merge";
+import { Maybe } from "@lib/gql/__generated__/drupal";
+import { clsx } from "clsx";
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
    * Absolute image url path.
    */
-  imageUrl?: Maybe<string>
+  imageUrl?: Maybe<string>;
   /**
    * Image alt string.
    */
-  imageAlt?: Maybe<string>
+  imageAlt?: Maybe<string>;
   /**
    * Is the banner supposed to be a section or a div.
    */
-  isSection?:Maybe<boolean>
+  isSection?: Maybe<boolean>;
   /**
    * Eagerly load the banner image.
    */
-  eagerLoadImage?: Maybe<boolean>
+  eagerLoadImage?: Maybe<boolean>;
   /**
    * Position of the text over the image.
    */
-  overlayPosition?: Maybe<"left" | "right">
-}
+  overlayPosition?: Maybe<"left" | "right">;
+};
 
-const HeroBanner = ({imageUrl, imageAlt, eagerLoadImage, isSection, overlayPosition, children, ...props}: Props) => {
+const HeroBanner = ({
+  imageUrl,
+  imageAlt,
+  eagerLoadImage,
+  isSection,
+  overlayPosition,
+  children,
+  ...props
+}: Props) => {
   const BannerWrapper: ElementType = isSection ? "section" : "div";
 
   return (
     <BannerWrapper
       {...props}
-      className={twMerge("@container md:min-h-[400px] rs-mb-5", props.className)}
+      className={twMerge(
+        "rs-mb-5 @container md:min-h-[400px]",
+        props.className,
+      )}
     >
-      <div className="aspect-[16/9] @6xl:aspect-auto relative @6xl:absolute w-full @6xl:h-full bg-cool-grey">
-        {imageUrl &&
+      <div className="@6xl:aspect-auto relative aspect-[16/9] w-full bg-cool-grey @6xl:absolute @6xl:h-full">
+        {imageUrl && (
           <Image
             className="object-cover"
             src={imageUrl}
@@ -44,15 +56,23 @@ const HeroBanner = ({imageUrl, imageAlt, eagerLoadImage, isSection, overlayPosit
             fill
             sizes="100vw"
           />
-        }
+        )}
       </div>
 
-      {children &&
-        <div className={twMerge("w-full relative shadow-lg flex flex-col gap-10 rs-p-2 @6xl:bg-white @6xl:max-w-[550px] @6xl:my-24 @6xl:z-10", overlayPosition === "right" ? "@6xl:ml-auto @6xl:mr-20" : "@6xl:mr-auto @6xl:ml-20")}>
+      {children && (
+        <div
+          className={twMerge(
+            "rs-p-2 relative flex w-full flex-col gap-10 shadow-lg @6xl:z-10 @6xl:w-1/2 @6xl:bg-white",
+            clsx({
+              "@6xl:ml-auto @6xl:mr-20": overlayPosition === "right",
+              "@6xl:ml-20 @6xl:mr-auto": overlayPosition !== "right",
+            }),
+          )}
+        >
           {children}
         </div>
-      }
+      )}
     </BannerWrapper>
-  )
-}
-export default HeroBanner
+  );
+};
+export default HeroBanner;

@@ -33,13 +33,17 @@ const StanfordPagePage = ({ node, ...props }: Props) => {
             />
           )}
           {node.suPageBanner?.__typename === "ParagraphSumTopBanner" && (
-            <SumTopBannerParagraph paragraph={node.suPageBanner} />
+            <SumTopBannerParagraph
+              paragraph={node.suPageBanner}
+              pageTitle={node.title}
+            />
           )}
         </header>
       )}
 
       {node.suPageBanner?.__typename !== "ParagraphStanfordPageTitleBanner" &&
-        node.suPageBanner?.__typename !== "ParagraphSumArcBanner" && (
+        node.suPageBanner?.__typename !== "ParagraphSumArcBanner" &&
+        node.suPageBanner?.__typename !== "ParagraphSumTopBanner" && (
           <H1 className="centered mt-32">{node.title}</H1>
         )}
 

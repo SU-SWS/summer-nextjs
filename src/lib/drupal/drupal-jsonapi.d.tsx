@@ -4,7 +4,7 @@
 
 export type LayoutParagraphBehaviors = {
   layout: "layout_paragraphs_1_column" | "layout_paragraphs_2_column" | "layout_paragraphs_3_column" | string
-  config: { label?: string }
+  config: {label?: string}
   parent_uuid?: string
   region?: string
 }
@@ -33,10 +33,17 @@ export type TeaserParagraphBehaviors = {
   heading_behavior?: "show" | "hide" | "remove"
 }
 
+export type PillBannerBehaviors = {
+  sum_pill_banner_overlay_bkg?: "olive" | "spirited" | "spirited_dark" | "white"
+  sum_pill_banner_oval_bkgd?: boolean
+  sum_pill_banner_copy_size?: boolean
+}
+
 export type ParagraphBehaviors = {
   layout_paragraphs?: LayoutParagraphBehaviors
   list_paragraph?: ListParagraphBehaviors
   su_card_styles?: CardParagraphBehaviors
   hero_pattern?: BannerParagraphBehaviors
   stanford_teaser?: TeaserParagraphBehaviors
+  sum_pill_banner_behaviors?: PillBannerBehaviors
 }

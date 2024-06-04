@@ -324,6 +324,24 @@ fragment FragmentParagraphSumAtAGlance on ParagraphSumAtAGlance {
   }
 }
 
+fragment FragmentParagraphSumPillBanner on ParagraphSumPillBanner {
+  ...FragmentParagraphInterface
+  sumPillBannerBkgd {
+    ... FragmentMediaImage
+  }
+  sumPillBannerCards {
+    ... FragmentParagraphStanfordCard
+  }
+  sumPillBannerDescrip {
+    ... FragmentText
+  }
+  sumPillBannerHeadline
+  sumPillBannerLink {
+    ... FragmentLink
+  }
+  sumPillBannerSuphead
+}
+
 fragment FragmentParagraphUnion on ParagraphUnion {
   ...FragmentParagraphInterface
   ...FragmentParagraphStanfordAccordion
@@ -345,4 +363,5 @@ fragment FragmentParagraphUnion on ParagraphUnion {
   ...FragmentParagraphSumUserFavorite
   ...FragmentParagraphSumVideo
   ...FragmentParagraphSumAtAGlance
+  ...FragmentParagraphSumPillBanner
 }

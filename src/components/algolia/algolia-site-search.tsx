@@ -1,15 +1,15 @@
-"use client";
+"use client"
 
-import algoliasearch from "algoliasearch/lite";
-import {useHits, useSearchBox, usePagination} from "react-instantsearch";
-import {InstantSearchNext} from "react-instantsearch-nextjs";
-import {useEffect, useMemo, useRef} from "react";
-import Button from "@components/elements/button";
-import {useRouter, useSearchParams} from "next/navigation";
-import {Hit as HitType} from "instantsearch.js";
-import {IndexUiState} from "instantsearch.js/es/types/ui-state";
-import {MagnifyingGlassIcon} from "@heroicons/react/20/solid";
-import DefaultResult, {AlgoliaHit} from "@components/algolia/results/default";
+import algoliasearch from "algoliasearch/lite"
+import {useHits, useSearchBox, usePagination} from "react-instantsearch"
+import {InstantSearchNext} from "react-instantsearch-nextjs"
+import {useEffect, useMemo, useRef} from "react"
+import Button from "@components/elements/button"
+import {useRouter, useSearchParams} from "next/navigation"
+import {Hit as HitType} from "instantsearch.js"
+import {IndexUiState} from "instantsearch.js/es/types/ui-state"
+import {MagnifyingGlassIcon} from "@heroicons/react/20/solid"
+import DefaultResult, {AlgoliaHit} from "@components/algolia/results/default"
 
 type Props = {
   appId: string
@@ -29,34 +29,40 @@ const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey, initialUiState = {
         initialUiState={{[searchIndex]: initialUiState}}
         future={{preserveSharedStateOnUnmount: true}}
       >
-        <SearchForm/>
+        <SearchForm />
       </InstantSearchNext>
     </div>
   )
 }
 
 const SearchForm = () => {
-
   const router = useRouter()
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()
 
-  const inputRef = useRef<HTMLInputElement>(null);
-  const {query, refine} = useSearchBox({});
+  const inputRef = useRef<HTMLInputElement>(null)
+  const {query, refine} = useSearchBox({})
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams.toString())
     params.delete("q")
 
     // Keyword search.
     if (query) params.set("q", query)
     router.replace(`?${params.toString()}`, {scroll: false})
-  }, [router, searchParams, query]);
+  }, [router, searchParams, query])
 
   return (
     <div>
-      <form role="search" aria-labelledby="page-title" onSubmit={(e) => e.preventDefault()}>
-        <div className="max-w-6xl mx-auto mb-20 flex gap-5 items-center">
-          <label className="sr-only" htmlFor="search-input">
+      <form
+        role="search"
+        aria-labelledby="page-title"
+        onSubmit={e => e.preventDefault()}
+      >
+        <div className="mx-auto mb-20 flex max-w-6xl items-center gap-5">
+          <label
+            className="sr-only"
+            htmlFor="search-input"
+          >
             Keywords Search
           </label>
           <input
@@ -77,7 +83,10 @@ const SearchForm = () => {
             onClick={() => refine(inputRef.current?.value || "")}
           >
             <span className="sr-only">Submit Search</span>
-            <MagnifyingGlassIcon width={40} className="bg-cardinal-red text-white rounded-full p-3 block"/>
+            <MagnifyingGlassIcon
+              width={40}
+              className="block rounded-full bg-cardinal-red p-3 text-white"
+            />
           </button>
 
           <Button
@@ -93,64 +102,65 @@ const SearchForm = () => {
           </Button>
         </div>
       </form>
-      <HitList/>
+      <h2 className="sr-only">Search Results</h2>
+      <HitList />
     </div>
   )
 }
 
 const HitList = () => {
-  const {hits} = useHits<HitType<AlgoliaHit>>({});
+  const {hits} = useHits<HitType<AlgoliaHit>>({})
   const {currentRefinement: currentPage, pages, nbPages, nbHits, refine: goToPage} = usePagination({padding: 2})
 
   if (hits.length === 0) {
-    return (
-      <p>No results for your search. Please try another search.</p>
-    )
+    return <p>No results for your search. Please try another search.</p>
   }
 
   return (
     <div>
-      <div aria-live="polite">{nbHits} {nbHits > 1 ? "Results" : "Result"}</div>
+      <div aria-live="polite">
+        {nbHits} {nbHits > 1 ? "Results" : "Result"}
+      </div>
 
       <ul className="list-unstyled">
-        {hits.map(hit =>
-          <li key={hit.objectID} className="border-b border-gray-300 last:border-0">
-            <DefaultResult hit={hit}/>
+        {hits.map(hit => (
+          <li
+            key={hit.objectID}
+            className="border-b border-gray-300 last:border-0"
+          >
+            <DefaultResult hit={hit} />
           </li>
-        )}
+        ))}
       </ul>
 
-      {pages.length > 1 &&
+      {pages.length > 1 && (
         <nav aria-label="Search results pager">
           <ul className="list-unstyled flex justify-between">
-            {pages[0] > 0 &&
+            {pages[0] > 0 && (
               <li>
-                <button onClick={() => goToPage(0)}>
-                  First
-                </button>
-              </li>
-            }
-
-            {pages.map(pageNum =>
-              <li key={`page-${pageNum}`} aria-current={currentPage === pageNum}>
-                <button onClick={() => goToPage(pageNum)}>
-                  {pageNum + 1}
-                </button>
+                <button onClick={() => goToPage(0)}>First</button>
               </li>
             )}
 
-            {pages[pages.length - 1] !== nbPages &&
-              <li>
-                <button onClick={() => goToPage(nbPages - 1)}>
-                  Last
-                </button>
+            {pages.map(pageNum => (
+              <li
+                key={`page-${pageNum}`}
+                aria-current={currentPage === pageNum}
+              >
+                <button onClick={() => goToPage(pageNum)}>{pageNum + 1}</button>
               </li>
-            }
+            ))}
+
+            {pages[pages.length - 1] !== nbPages && (
+              <li>
+                <button onClick={() => goToPage(nbPages - 1)}>Last</button>
+              </li>
+            )}
           </ul>
         </nav>
-      }
+      )}
     </div>
   )
 }
 
-export default AlgoliaSiteSearch;
+export default AlgoliaSiteSearch

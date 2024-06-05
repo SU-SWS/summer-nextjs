@@ -1,9 +1,9 @@
-import {twMerge} from "tailwind-merge";
-import Image from "next/image";
-import Oembed from "@components/elements/ombed";
-import {ElementType, HTMLAttributes} from "react";
-import {Maybe} from "@lib/gql/__generated__/drupal";
-import clsx from "clsx";
+import {twMerge} from "tailwind-merge"
+import Image from "next/image"
+import Oembed from "@components/elements/ombed"
+import {ElementType, HTMLAttributes} from "react"
+import {Maybe} from "@lib/gql/__generated__/drupal"
+import clsx from "clsx"
 
 type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
   /**
@@ -28,37 +28,46 @@ type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
   bgColor?: Maybe<string>
 }
 
-const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor,...props}: Props) => {
-  const CardWrapper: ElementType = isArticle ? "article" : "div";
+const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, ...props}: Props) => {
+  const CardWrapper: ElementType = isArticle ? "article" : "div"
 
   return (
     <CardWrapper
       {...props}
-      className={twMerge("centered lg:max-w-[980px] w-full outline outline-4 border-4 border-white rounded-full bg-poppy-light outline-poppy-light", props.className, clsx({
-        "bg-poppy-light bg-opacity-80 outline-poppy-light/[80%]" : bgColor === "semitransparent_poppy",
-        "bg-olive-light outline-olive-light" : bgColor === "olive",
-        "bg-olive-light bg-opacity-80 outline-olive-light/[80%]" : bgColor === "semitransparent_olive",
-        "bg-spirited-light outline-spirited-light" : bgColor === "spirited",
-        "bg-spirited-light bg-opacity-80 outline-spirited-light/[80%]": bgColor === "semitransparent_spirited",
-      }))}
+      className={twMerge(
+        "centered w-full max-w-[980px] rounded-full border-4 border-white bg-poppy-light outline outline-4 outline-poppy-light @container",
+        props.className,
+        clsx({
+          "bg-poppy-light bg-opacity-80 outline-poppy-light/[80%]": bgColor === "semitransparent_poppy",
+          "bg-olive-light outline-olive-light": bgColor === "olive",
+          "bg-olive-light bg-opacity-80 outline-olive-light/[80%]": bgColor === "semitransparent_olive",
+          "bg-spirited-light outline-spirited-light": bgColor === "spirited",
+          "bg-spirited-light bg-opacity-80 outline-spirited-light/[80%]": bgColor === "semitransparent_spirited",
+        })
+      )}
     >
-      {imageUrl &&
+      {imageUrl && (
         <div className="relative aspect-1 w-full">
           <Image
-            className="object-cover object-center rounded-full"
+            className="rounded-full object-cover object-center"
             src={imageUrl}
             alt={imageAlt || ""}
             fill
             sizes="(max-width: 768px) 100vw, 1000px"
           />
         </div>
-      }
+      )}
 
-      {videoUrl &&
-        <Oembed url={videoUrl}/>
-      }
+      {videoUrl && <Oembed url={videoUrl} />}
 
-      <div className={clsx("pt-20 px-10 lg:px-14 pb-[165px] sm:pb-[245px] md:pb-[200px] flex flex-col", {"pt-[165px] sm:pt-[245px] md:pt-[200px]" : !imageUrl})}>
+      <div
+        className={twMerge(
+          "flex flex-col px-10 pb-[125px] pt-20 @3xl:pb-[175px] @4xl:pb-[225px] @5xl:pb-[250px] @7xl:pb-[300px] lg:px-14",
+          clsx({
+            "pt-[125px] @3xl:pt-[175px] @4xl:pt-[225px] @5xl:pt-[250px] @7xl:pt-[300px]": !imageUrl,
+          })
+        )}
+      >
         {children}
       </div>
     </CardWrapper>
@@ -67,11 +76,10 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor,..
 
 export const PillCardSkeleton = () => {
   return (
-    <div className="centered lg:max-w-[980px] w-full shadow-lg border border-black-10 pb-20 rounded-full">
-      <div className="aspect-[16/9] w-full bg-black-10">
-      </div>
+    <div className="centered w-full rounded-full border border-black-10 pb-20 shadow-lg lg:max-w-[980px]">
+      <div className="aspect-[16/9] w-full bg-black-10"></div>
     </div>
   )
 }
 
-export default PillCard;
+export default PillCard

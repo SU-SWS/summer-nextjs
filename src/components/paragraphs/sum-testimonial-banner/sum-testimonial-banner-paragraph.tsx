@@ -84,10 +84,10 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
           <YoutubeVideoPill
             videoUrl={paragraph.sumTestimonialHsVideo.mediaOembedVideo}
             className={twMerge(
-              "absolute h-[600px] w-[300px]",
+              "absolute h-[608px] w-[308px] rounded-full border-4 border-white",
               clsx({
-                "-top-[300px] right-[calc(50%-150px)] xl:-left-[150px] xl:top-[calc(50%-300px)]": leftText,
-                "-bottom-[300px] right-[calc(50%-150px)] xl:-right-[150px] xl:bottom-[calc(50%-300px)]": !leftText,
+                "-top-[304px] right-[calc(50%-150px)] xl:-left-[150px] xl:top-[calc(50%-304px)]": leftText,
+                "-bottom-[304px] right-[calc(50%-150px)] xl:-right-[150px] xl:bottom-[calc(50%-304px)]": !leftText,
               })
             )}
           />

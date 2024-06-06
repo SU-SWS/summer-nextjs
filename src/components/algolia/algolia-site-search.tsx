@@ -109,7 +109,7 @@ const SearchForm = () => {
 }
 
 const HitList = () => {
-  const {hits} = useHits<HitType<AlgoliaHit>>({})
+  const {items: hits} = useHits<HitType<AlgoliaHit>>({})
   const {currentRefinement: currentPage, pages, nbPages, nbHits, refine: goToPage} = usePagination({padding: 2})
 
   if (hits.length === 0) {

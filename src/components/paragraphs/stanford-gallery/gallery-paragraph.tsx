@@ -1,80 +1,136 @@
-import Wysiwyg from "@components/elements/wysiwyg";
-import Button from "@components/elements/button";
-import Image from "next/image";
-import {H2} from "@components/elements/headers";
-import {ElementType, HtmlHTMLAttributes} from "react";
-import {MediaStanfordGalleryImage, ParagraphStanfordGallery} from "@lib/gql/__generated__/drupal.d";
-import Link from "@components/elements/link";
-import {twMerge} from "tailwind-merge";
+import Wysiwyg from "@components/elements/wysiwyg"
+import Button from "@components/elements/button"
+import Image from "next/image"
+import {H2} from "@components/elements/headers"
+import {ElementType, HTMLAttributes, HtmlHTMLAttributes} from "react"
+import {MediaStanfordGalleryImage, ParagraphStanfordGallery} from "@lib/gql/__generated__/drupal.d"
+import Link from "@components/elements/link"
+import {twMerge} from "tailwind-merge"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordGallery
 }
 
 const GalleryParagraph = ({paragraph, ...props}: Props) => {
-  const GalleryWrapper: ElementType = paragraph.suGalleryHeadline ? "article" : "div";
+  const GalleryWrapper: ElementType = paragraph.suGalleryHeadline ? "article" : "div"
 
   return (
     <GalleryWrapper
       {...props}
-      className={twMerge("@container centered lg:max-w-[980px] flex flex-col gap-10 mb-20", props.className)}
+      className={twMerge("centered mb-20 flex flex-col gap-10 @container lg:max-w-[980px]", props.className)}
       aria-labelledby={paragraph.suGalleryHeadline ? paragraph.id : undefined}
     >
-      {paragraph.suGalleryHeadline &&
-        <H2 id={paragraph.id} className="text-center">{paragraph.suGalleryHeadline}</H2>
-      }
+      {paragraph.suGalleryHeadline && (
+        <H2
+          id={paragraph.id}
+          className="text-center"
+        >
+          {paragraph.suGalleryHeadline}
+        </H2>
+      )}
 
-      <Wysiwyg html={paragraph.suGalleryDescription?.processed}/>
+      <Wysiwyg html={paragraph.suGalleryDescription?.processed} />
 
-      {(paragraph.suGalleryImages && paragraph.suGalleryImages?.length > 0) &&
-        <ul className="list-unstyled grid @3xl:grid-cols-2 @6xl:grid-cols-3 gap-20">
-          {paragraph.suGalleryImages.map(image =>
-            <li key={image.id} className="m-0">
-              <GalleryImage image={image} galleryId={paragraph.id}/>
-            </li>
-          )}
-        </ul>
-      }
-
-      {paragraph.suGalleryButton &&
+      {paragraph.suGalleryButton && (
         <div>
-          <Button href={paragraph.suGalleryButton.url}>
-            {paragraph.suGalleryButton.title}
-          </Button>
+          <Button href={paragraph.suGalleryButton.url}>{paragraph.suGalleryButton.title}</Button>
         </div>
-      }
+      )}
+
+      <div className="relative left-1/2 mt-[150px] w-screen -translate-x-1/2 md:mt-[250px] lg:mt-[300px]">
+        <Image
+          className="object-cover"
+          src="/images/temp-bg.jpg"
+          alt="/"
+          fill
+        />
+
+        <div className="gutters -mt-[150px] mb-32 grid grid-cols-1-2 *:w-full *:overflow-hidden md:-mt-[250px] lg:-mt-[300px] xl:max-w-900 [&_a:focus-visible]:border-cardinal-red [&_a:hover]:border-cardinal-red [&_a]:relative [&_a]:block [&_a]:h-full [&_a]:w-full [&_a]:overflow-hidden [&_a]:border-5 [&_a]:border-white [&_a]:transition-colors">
+          {paragraph.suGalleryImages?.[0] && (
+            <>
+              <GalleryImage
+                galleryId={paragraph.id}
+                image={paragraph.suGalleryImages[1]}
+                linkClasses="rounded-l-full"
+              />
+              <GalleryImage
+                galleryId={paragraph.id}
+                image={paragraph.suGalleryImages[0]}
+                linkClasses="aspect-1 rounded-full"
+              />
+            </>
+          )}
+
+          {paragraph.suGalleryImages?.[2] && (
+            <>
+              <GalleryImage
+                galleryId={paragraph.id}
+                image={paragraph.suGalleryImages[3]}
+                linkClasses="aspect-1 rounded-bl-full"
+              />
+              <GalleryImage
+                galleryId={paragraph.id}
+                image={paragraph.suGalleryImages[2]}
+                linkClasses="rounded-b-full"
+              />
+            </>
+          )}
+
+          {paragraph.suGalleryImages?.[4] && (
+            <>
+              <GalleryImage
+                galleryId={paragraph.id}
+                image={paragraph.suGalleryImages[5]}
+                linkClasses="aspect-1 w-full rounded-bl-full"
+              />
+              <GalleryImage
+                galleryId={paragraph.id}
+                image={paragraph.suGalleryImages[4]}
+                linkClasses="rounded-b-full"
+              >
+                {paragraph.suGalleryImages.length > 6 && (
+                  <div className="absolute left-0 top-0 flex h-full w-full items-center justify-around bg-black-true bg-opacity-55">
+                    <div className="font-roboto text-m4 text-white">+ {paragraph.suGalleryImages.length - 6}</div>
+                  </div>
+                )}
+              </GalleryImage>
+            </>
+          )}
+        </div>
+      </div>
     </GalleryWrapper>
   )
 }
 
-const GalleryImage = ({image, galleryId}: {
-  image: MediaStanfordGalleryImage,
-  galleryId: ParagraphStanfordGallery["id"]
-}) => {
-  const imageUrl = image.suGalleryImage?.url
-  if (!imageUrl) return;
-
+const GalleryImage = ({
+  galleryId,
+  image,
+  linkClasses,
+  children,
+  ...props
+}: {
+  galleryId: string
+  image?: MediaStanfordGalleryImage
+  linkClasses?: string
+} & HTMLAttributes<HTMLElement>) => {
+  if (!image?.suGalleryImage?.url) return <div />
   return (
-    <figure>
-      <div className="relative aspect-[4/3] w-full">
-        <Link href={`/gallery/${galleryId}/${image.id}`} className="block relative w-full h-full" rel="nofollow" scroll={false} prefetch={false}>
-          <Image
-            className="object-cover"
-            src={imageUrl}
-            alt={image.suGalleryImage?.alt || ""}
-            fill
-            sizes="(max-width: 768px) 100vw, 500px"
-          />
-          <span className="sr-only">Opens a dialog of this image.</span>
-        </Link>
-      </div>
-
-      {image.suGalleryCaption &&
-        <figcaption className="text-right basefont-19">
-          {image.suGalleryCaption}
-        </figcaption>
-      }
+    <figure {...props}>
+      <Link
+        href={`/gallery/${galleryId}/${image.id}`}
+        className={linkClasses}
+      >
+        <Image
+          className="object-cover"
+          src={image.suGalleryImage.url}
+          alt={(!image.suGalleryCaption && image.suGalleryImage.alt) || ""}
+          fill
+        />
+        {image.suGalleryCaption && <figcaption className="sr-only">{image.suGalleryCaption}</figcaption>}
+        {children}
+      </Link>
     </figure>
   )
 }
+
 export default GalleryParagraph

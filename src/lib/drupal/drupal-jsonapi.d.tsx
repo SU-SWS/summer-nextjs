@@ -45,6 +45,10 @@ export type TestimonialBannerBehaviors = {
   sum_testimonial_banner_overlay_bkg?: "olive" | "spirited" | "spirited_dark" | "white"
 }
 
+export type AtAGlanceBehaviors = {
+  sum_at_a_glance_alignment?: boolean
+}
+
 export type ParagraphBehaviors = {
   layout_paragraphs?: LayoutParagraphBehaviors
   list_paragraph?: ListParagraphBehaviors
@@ -53,4 +57,5 @@ export type ParagraphBehaviors = {
   stanford_teaser?: TeaserParagraphBehaviors
   sum_pill_banner_behaviors?: PillBannerBehaviors
   sum_testimonial_banner?: TestimonialBannerBehaviors
+  sum_at_a_glance_behavior: AtAGlanceBehaviors
 }

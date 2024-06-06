@@ -18,6 +18,7 @@ import SumSlideTeaserParagraph from "@components/paragraphs/sum-slide-teaser/sum
 import SumVideoParagraph from "@components/paragraphs/sum-video/video-paragraph"
 import SumAtAGlanceParagraph from "@components/paragraphs/sum-at-a-glance/at-a-glance-paragraph"
 import SumPillBannerParagraph from "@components/paragraphs/sum-pill-banner/sum-pill-banner-paragraph"
+import SumTestimonialBannerParagraph from "@components/paragraphs/sum-testimonial-banner/sum-testimonial-banner-paragraph"
 
 type Props = {
   /**
@@ -148,6 +149,13 @@ const Paragraph = async ({paragraph}: Props) => {
     case "ParagraphSumPillBanner":
       return (
         <SumPillBannerParagraph
+          paragraph={paragraph}
+          {...itemProps}
+        />
+      )
+    case "ParagraphSumTestimonial":
+      return (
+        <SumTestimonialBannerParagraph
           paragraph={paragraph}
           {...itemProps}
         />

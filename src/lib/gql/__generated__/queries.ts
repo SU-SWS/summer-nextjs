@@ -716,6 +716,33 @@ ${FragmentMediaImageFragmentDoc}
 ${FragmentParagraphStanfordCardFragmentDoc}
 ${FragmentTextFragmentDoc}
 ${FragmentLinkFragmentDoc}`;
+export const FragmentParagraphSumTestimonialFragmentDoc = gql`
+    fragment FragmentParagraphSumTestimonial on ParagraphSumTestimonial {
+  ...FragmentParagraphInterface
+  sumTestimonialAffi
+  sumTestimonialBkgImg {
+    ...FragmentMediaImage
+  }
+  sumTestimonialButton {
+    ...FragmentLink
+  }
+  sumTestimonialDescrip {
+    ...FragmentText
+  }
+  sumTestimonialHeading
+  sumTestimonialHsVideo {
+    ...FragmentMediaImage
+    ...FragmentMediaVideo
+  }
+  sumTestimonialName
+  sumTestimonialType
+  sumTestimonialUniv
+}
+    ${FragmentParagraphInterfaceFragmentDoc}
+${FragmentMediaImageFragmentDoc}
+${FragmentLinkFragmentDoc}
+${FragmentTextFragmentDoc}
+${FragmentMediaVideoFragmentDoc}`;
 export const FragmentParagraphUnionFragmentDoc = gql`
     fragment FragmentParagraphUnion on ParagraphUnion {
   ...FragmentParagraphInterface
@@ -739,6 +766,7 @@ export const FragmentParagraphUnionFragmentDoc = gql`
   ...FragmentParagraphSumVideo
   ...FragmentParagraphSumAtAGlance
   ...FragmentParagraphSumPillBanner
+  ...FragmentParagraphSumTestimonial
 }
     ${FragmentParagraphInterfaceFragmentDoc}
 ${FragmentParagraphStanfordAccordionFragmentDoc}
@@ -760,7 +788,8 @@ ${FragmentParagraphSumTopBannerFragmentDoc}
 ${FragmentParagraphSumUserFavoriteFragmentDoc}
 ${FragmentParagraphSumVideoFragmentDoc}
 ${FragmentParagraphSumAtAGlanceFragmentDoc}
-${FragmentParagraphSumPillBannerFragmentDoc}`;
+${FragmentParagraphSumPillBannerFragmentDoc}
+${FragmentParagraphSumTestimonialFragmentDoc}`;
 export const FragmentParagraphStanfordPersonCtumFragmentDoc = gql`
     fragment FragmentParagraphStanfordPersonCtum on ParagraphStanfordPersonCtum {
   ...FragmentParagraphInterface

@@ -39,6 +39,12 @@ export type PillBannerBehaviors = {
   sum_pill_banner_copy_size?: boolean
 }
 
+export type TestimonialBannerBehaviors = {
+  sum_testimonial_banner_align?: boolean
+  sum_testimonial_banner_heading?: "type_4"
+  sum_testimonial_banner_overlay_bkg?: "olive" | "spirited" | "spirited_dark" | "white"
+}
+
 export type ParagraphBehaviors = {
   layout_paragraphs?: LayoutParagraphBehaviors
   list_paragraph?: ListParagraphBehaviors
@@ -46,4 +52,5 @@ export type ParagraphBehaviors = {
   hero_pattern?: BannerParagraphBehaviors
   stanford_teaser?: TeaserParagraphBehaviors
   sum_pill_banner_behaviors?: PillBannerBehaviors
+  sum_testimonial_banner?: TestimonialBannerBehaviors
 }

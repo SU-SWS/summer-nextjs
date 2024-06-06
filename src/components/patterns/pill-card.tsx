@@ -43,6 +43,7 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, .
           "bg-olive-light bg-opacity-80 outline-olive-light/[80%]": bgColor === "semitransparent_olive",
           "bg-spirited-light outline-spirited-light": bgColor === "spirited",
           "bg-spirited-light bg-opacity-80 outline-spirited-light/[80%]": bgColor === "semitransparent_spirited",
+          "bg-transparent": bgColor === "transparent",
         })
       )}
     >

@@ -18,6 +18,25 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const leftText = !!behaviors.sum_testimonial_banner?.sum_testimonial_banner_align
 
+  let studentType
+  switch (paragraph.sumTestimonialType) {
+    case "sum_undergraduate_student":
+      studentType = "Undergraduate Student"
+      break
+    case "sum_high_school":
+      studentType = "High School"
+      break
+    case "sum_graduate":
+      studentType = "Graduate"
+      break
+    case "sum_gap_year":
+      studentType = "Gap Year"
+      break
+    case "sum_current_stanford_students":
+      studentType = "Current Stanford Students"
+      break
+  }
+
   return (
     <article
       {...props}
@@ -117,7 +136,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
 
           {paragraph.sumTestimonialName && <div>{paragraph.sumTestimonialName}</div>}
 
-          {(paragraph.sumTestimonialUniv || paragraph.sumTestimonialType) && <div>{`${paragraph.sumTestimonialUniv || ""} ${paragraph.sumTestimonialType || ""}`.trim()}</div>}
+          {(paragraph.sumTestimonialUniv || studentType) && <div>{`${paragraph.sumTestimonialUniv || ""} ${studentType || ""}`.trim()}</div>}
           {paragraph.sumTestimonialAffi && <div>{paragraph.sumTestimonialAffi}</div>}
 
           {paragraph.sumTestimonialButton?.url && <Button href={paragraph.sumTestimonialButton.url}>{paragraph.sumTestimonialButton.title}</Button>}

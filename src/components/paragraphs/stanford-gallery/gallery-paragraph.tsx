@@ -48,6 +48,7 @@ const GalleryParagraph = ({paragraph, ...props}: Props) => {
           src="/images/temp-bg.jpg"
           alt="/"
           fill
+          sizes="100vw"
         />
 
         <div className="gutters -mt-[150px] mb-32 grid grid-cols-1-2 *:w-full *:overflow-hidden md:-mt-[250px] lg:-mt-[300px] xl:max-w-900 [&_a:focus-visible]:border-cardinal-red [&_a:hover]:border-cardinal-red [&_a]:relative [&_a]:block [&_a]:h-full [&_a]:w-full [&_a]:overflow-hidden [&_a]:border-5 [&_a]:border-white [&_a]:transition-colors">
@@ -130,6 +131,7 @@ const GalleryImage = ({
           src={image.suGalleryImage.url}
           alt={(!image.suGalleryCaption && image.suGalleryImage.alt) || ""}
           fill
+          sizes="400px"
         />
         {image.suGalleryCaption && <figcaption className="sr-only">{image.suGalleryCaption}</figcaption>}
         {children}

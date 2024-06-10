@@ -57,5 +57,5 @@ export type ParagraphBehaviors = {
   stanford_teaser?: TeaserParagraphBehaviors
   sum_pill_banner_behaviors?: PillBannerBehaviors
   sum_testimonial_banner?: TestimonialBannerBehaviors
-  sum_at_a_glance_behavior: AtAGlanceBehaviors
+  sum_at_a_glance_behavior?: AtAGlanceBehaviors
 }

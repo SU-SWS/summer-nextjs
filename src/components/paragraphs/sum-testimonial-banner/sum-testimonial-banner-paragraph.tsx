@@ -57,7 +57,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
           src={paragraph.sumTestimonialBkgImg.mediaImage.url}
           alt={paragraph.sumTestimonialBkgImg.mediaImage.alt || ""}
           fill
-          sizes="50vw"
+          sizes="(max-width: 768px) 100vw, 50vw"
         />
 
         {paragraph.sumTestimonialHsVideo.__typename === "MediaImage" && (
@@ -84,10 +84,10 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
           <YoutubeVideoPill
             videoUrl={paragraph.sumTestimonialHsVideo.mediaOembedVideo}
             className={twMerge(
-              "absolute h-[608px] w-[308px] rounded-full border-4 border-white",
+              "absolute h-[538px] w-[308px] rounded-full border-4 border-white",
               clsx({
-                "-top-[304px] right-[calc(50%-150px)] xl:-left-[150px] xl:top-[calc(50%-304px)]": leftText,
-                "-bottom-[304px] right-[calc(50%-150px)] xl:-right-[150px] xl:bottom-[calc(50%-304px)]": !leftText,
+                "-top-[269px] right-[calc(50%-150px)] xl:-left-[150px] xl:top-[calc(50%-269px)]": leftText,
+                "-bottom-[269px] right-[calc(50%-150px)] xl:-right-[150px] xl:bottom-[calc(50%-269px)]": !leftText,
               })
             )}
           />

@@ -14,7 +14,7 @@ type Props = HTMLAttributes<HTMLElement> & {
 const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
 
-  const headingOnLeft = !!behaviors.sum_at_a_glance_behavior.sum_at_a_glance_alignment
+  const headingOnLeft = !!behaviors.sum_at_a_glance_behavior?.sum_at_a_glance_alignment
 
   return (
     <div

@@ -37,11 +37,11 @@ const ArchBanner = ({imageUrl, imageAlt, isSection, children, ...props}: Props) 
               sizes="100vw"
             />
           }
-          <div className="w-full h-full bg-white clip-arc"/>
+          <div className="mt-10 md:mt-28 w-full h-full bg-white clip-arc"/>
       </div>
 
       {children &&
-        <div className="items-center pt-72">
+        <div className="items-center pt-72 md:pt-96">
           {children}
         </div>
       }

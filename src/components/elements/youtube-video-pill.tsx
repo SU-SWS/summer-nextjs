@@ -81,7 +81,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
     >
       <YouTube
         videoId={videoId || shortId}
-        className={"mx-auto w-fit overflow-hidden transition-all duration-300 ease-in-out " + (isPlaying && !isInitialPlay ? "" : "rounded-full")}
+        className={"*:w-full *:aspect-[1/2] *:h-full overflow-hidden transition-all duration-300 ease-in-out " + (isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-white outline-offset-[-10px]")}
         opts={options}
         onReady={e => {
           videoRef.current = e.target

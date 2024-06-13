@@ -24,9 +24,11 @@ export type CardParagraphBehaviors = {
 }
 
 export type BannerParagraphBehaviors = {
-  overlay_position?: "left" | "right"
   heading?: "h2" | "h3" | "h4" | "div.su-splash-font"
   hide_heading?: string
+  overlay_position?: "left" | "right"
+  sum_banner_overlay_bkg?: "olive" | "spirited" | "spirited_dark"
+  sum_banner_button?: boolean
 }
 
 export type TeaserParagraphBehaviors = {

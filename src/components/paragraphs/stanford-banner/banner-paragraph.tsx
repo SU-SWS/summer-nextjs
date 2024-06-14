@@ -74,7 +74,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
             </div>
           }
           {paragraph.suBannerButton?.url && semiCircleButton &&
-            <Link className="absolute bottom-0 right-0 bg-spirited-dark rounded-tl-full rounded-tr-full border-4 border-white border-b-0 font-normal text-white hocus:text-white rs-pb-0 rs-pt-2 rs-px-5 no-underline hocus:underline" href={paragraph.suBannerButton.url}>
+            <Link className="absolute bottom-0 right-0 bg-spirited-dark rounded-bl-full rounded-br-full md:rounded-b-none md:rounded-tl-full md:rounded-tr-full border-4 border-white border-b-0 font-normal text-white hocus:text-white rs-pb-0 rs-pt-2 rs-px-5 no-underline hocus:underline" href={paragraph.suBannerButton.url}>
               <span className="sr-only">{paragraph.suBannerButton.title}</span>
               <ArrowRightIcon width={60} className="inline-block" />
             </Link>

@@ -27,8 +27,12 @@ export type BannerParagraphBehaviors = {
   heading?: "h2" | "h3" | "h4" | "div.su-splash-font"
   hide_heading?: string
   overlay_position?: "left" | "right"
-  sum_banner_overlay_bkg?: "olive" | "spirited" | "spirited_dark"
+}
+
+export type SumBannerParagraphBehaviors = {
+  sum_banner_alignment?: "left" | "right"
   sum_banner_button?: boolean
+  sum_banner_overlay_bkg?: "olive" | "spirited" | "spirited_dark"
 }
 
 export type TeaserParagraphBehaviors = {
@@ -60,4 +64,5 @@ export type ParagraphBehaviors = {
   sum_pill_banner_behaviors?: PillBannerBehaviors
   sum_testimonial_banner?: TestimonialBannerBehaviors
   sum_at_a_glance_behavior?: AtAGlanceBehaviors
+  sum_banner_behaviors?:SumBannerParagraphBehaviors
 }

@@ -17,7 +17,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 
 const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
-  const bgColor = behaviors.hero_pattern?.sum_banner_overlay_bkg || "olive"
+  const bgColor = behaviors.sum_banner_behaviors?.sum_banner_overlay_bkg || "olive"
 
   return (
     <div

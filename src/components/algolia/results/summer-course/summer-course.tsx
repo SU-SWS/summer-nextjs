@@ -127,7 +127,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
       <div className="order-first flex flex-row justify-between items-center rs-mb-2">
         {hit.sum_course_availability && <CourseAvailability availabilityStatus={hit.sum_course_availability[0]}/>}
         {hit && hit.sum_course_units &&
-          <div className="ml-auto">
+          <div className="ml-auto flex flex-row justify-center gap-5">
             <ShareCourses />
             <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units}/>
           </div>

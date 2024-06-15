@@ -7,6 +7,7 @@ import {H3, H4} from "@components/elements/headers";
 import {formatCurrency} from "@lib/utils/format-currency";
 import {CheckCircleIcon, ChevronDownIcon, ExclamationCircleIcon, ExclamationTriangleIcon} from "@heroicons/react/24/solid";
 import FavoriteButton from "@components/elements/favorite-button";
+import ShareCourses from "@components/elements/shareCourses";
 
 type CourseHit = AlgoliaHit & {
   sum_course_availability?: string
@@ -127,6 +128,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
         {hit.sum_course_availability && <CourseAvailability availabilityStatus={hit.sum_course_availability[0]}/>}
         {hit && hit.sum_course_units &&
           <div className="ml-auto">
+            <ShareCourses />
             <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units}/>
           </div>
         }

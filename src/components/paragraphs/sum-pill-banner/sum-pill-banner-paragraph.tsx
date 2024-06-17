@@ -29,7 +29,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
             "absolute left-0 top-0 -z-10 h-full w-full bg-poppy-light",
             clsx({
               "bg-olive": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "olive",
-              "bg-spirited": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
+              "bg-spirited text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
               "bg-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "white",
               "bg-spirited-dark": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
             })
@@ -49,9 +49,14 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
       <div className="centered flex flex-col gap-20">
         <div
           className={twMerge(
-            "text-center",
+            "bg-poppy-light text-center",
             clsx({
-              "text-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited" || behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
+              "bg-olive": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "olive",
+              "bg-spirited text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
+              "bg-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "white",
+              "bg-spirited-dark": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
+              "text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
+              "text-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
             })
           )}
         >
@@ -80,7 +85,8 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
                 className={twMerge(
                   "text-archway-dark no-underline hocus:text-archway-dark hocus:underline",
                   clsx({
-                    "text-white hocus:text-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited" || behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
+                    "text-black-true hocus:text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
+                    "text-white hocus:text-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
                   })
                 )}
               >

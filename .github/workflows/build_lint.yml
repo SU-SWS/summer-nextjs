@@ -27,6 +27,7 @@ jobs:
       - name: Lint
         run: |
           yarn
+          yarn next telemetry disable
           yarn lint
       - name: Build
         run: |

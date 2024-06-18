@@ -23,7 +23,7 @@ const icons: Icon[] = [16, 32, 96, 128, 192, 196].map(size => ({
  * Metadata that does not change often.
  */
 export const metadata = {
-  metadataBase: new URL("https://somesite.stanford.edu"),
+  metadataBase: new URL("https://summer.stanford.edu"),
   title: "Stanford University",
   openGraph: {
     type: "website",

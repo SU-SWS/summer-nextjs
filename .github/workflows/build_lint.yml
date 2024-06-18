@@ -9,6 +9,7 @@ jobs:
       image: node:20
       env:
         NEXT_PUBLIC_DRUPAL_BASE_URL: ${{ secrets.NEXT_PUBLIC_DRUPAL_BASE_URL }}
+        DRUPAL_BASIC_AUTH: ${{ secrets.DRUPAL_BASIC_AUTH }}
     steps:
       - uses: actions/checkout@v4
       - name: Lint

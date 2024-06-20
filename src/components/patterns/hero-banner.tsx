@@ -47,11 +47,11 @@ const HeroBanner = ({
     <BannerWrapper
       {...props}
       className={twMerge(
-        "flex flex-col md:block rs-mb-5 @container md:min-h-[400px] relative left-1/2 w-screen -translate-x-1/2",
+        "flex flex-col lg:block rs-mb-5 @container lg:min-h-[400px] relative left-1/2 w-screen -translate-x-1/2",
         props.className,
       )}
     >
-      <div className="order-2 @6xl:aspect-auto relative aspect-[16/9] w-full bg-cool-grey @6xl:absolute @6xl:h-full">
+      <div className="order-2 lg:aspect-auto relative aspect-[16/9] w-full bg-cool-grey lg:absolute lg:h-full">
         {imageUrl && (
           <Image
             className="object-cover"
@@ -67,10 +67,10 @@ const HeroBanner = ({
       {children && (
         <div
           className={twMerge(
-            "order-1 rs-p-2 relative flex w-full flex-col shadow-lg bg-white @6xl:z-10 @6xl:w-1/2",
+            "order-1 rs-py-8 rs-px-5 relative flex w-full flex-col shadow-lg bg-white lg:z-10 lg:w-1/2",
             clsx({
-              "@6xl:ml-auto @6xl:mr-20": overlayPosition === "right",
-              "@6xl:ml-20 @6xl:mr-auto": overlayPosition !== "right",
+              "lg:ml-auto lg:mr-20": overlayPosition === "right",
+              "lg:ml-20 lg:mr-auto": overlayPosition !== "right",
             }),
             cardColorClasses
           )}

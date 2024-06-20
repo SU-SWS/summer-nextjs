@@ -45,9 +45,9 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
         />
         <div className="absolute w-screen z-50 top-0 lg:top-auto lg:bottom-0 flex rs-pr-1 lg:pr-0 lg:pl-32 justify-end lg:justify-center">
           {paragraph.suBannerButton?.url && semiCircleButton &&
-            <Link className="h-fit bg-spirited-dark rounded-bl-full rounded-br-full lg:rounded-b-none lg:rounded-tl-full lg:rounded-tr-full border-white border-4 border-t-0 lg:border-t-4 border-b-4 lg:border-b-0 font-normal text-white hocus:text-white rs-pb-2 lg:rs-pb-0 rs-pt-0 lg:rs-pt-2 rs-px-5 no-underline hocus:underline" href={paragraph.suBannerButton.url}>
+            <Link className="group h-fit bg-spirited-dark rounded-bl-full rounded-br-full lg:rounded-b-none lg:rounded-tl-full lg:rounded-tr-full border-white border-4 border-t-0 lg:border-t-4 border-b-4 lg:border-b-0 text-white hocus:text-white rs-pb-2 lg:rs-pb-0 rs-pt-0 lg:rs-pt-2 rs-px-5" href={paragraph.suBannerButton.url}>
               <span className="sr-only">{paragraph.suBannerButton.title}</span>
-              <ArrowRightIcon width={60} className="inline-block" />
+              <ArrowRightIcon width={60} className="border-b-2 border-transparent group-hocus:border-white inline-block" />
             </Link>
           }
         </div>
@@ -87,9 +87,9 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
             <Wysiwyg html={paragraph.suBannerBody?.processed} className="order-3 text-m0" />
 
             {paragraph.suBannerButton?.url && !semiCircleButton &&
-            <div className="order-4">
+            <div className="order-4 rs-pt-2">
               <ActionLink
-                  className="block w-fit btn bg-digital-red font-normal text-white hocus:text-white py-4 px-8 no-underline hocus:underline transition rounded-full"
+                  className="block w-fit btn bg-digital-red font-normal text-5xl text-white hocus:text-white py-6 px-12 no-underline hocus:underline transition rounded-full"
                   href={paragraph.suBannerButton.url}
                 >
                   {paragraph.suBannerButton.title}

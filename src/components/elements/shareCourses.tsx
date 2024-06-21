@@ -23,8 +23,6 @@ const shareCourses = ({courseName, courseUrl, courseNum}: Props) => {
   const smsCopy = `sms:&body=Check out this course from Stanford Summer Session: ${courseName} ${copyUrl}`
   const emailCopy = `mailto:?body=Check out this course from Stanford Summer Session: ${courseName} ${copyUrl} &subject=Someone shared a Stanford Summer Session course with you`
 
-  const linkStyles = "block font-normal text-black hocus:text-black no-underline py-5 px-6 border-b-2 border-transparent hocus:border-spirited-light"
-
   return (
     <div
       className="relative flex"
@@ -48,7 +46,7 @@ const shareCourses = ({courseName, courseUrl, courseNum}: Props) => {
           <li className="relative m-0 text-nowrap py-0">
             <a
               href={emailCopy}
-              className={linkStyles}
+              className="block border-b-2 border-transparent px-6 py-5 font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
               data-course-shared={courseNum}
             >
               Share via email
@@ -57,7 +55,7 @@ const shareCourses = ({courseName, courseUrl, courseNum}: Props) => {
           <li className="relative m-0 text-nowrap py-0">
             <a
               href={smsCopy}
-              className={linkStyles}
+              className="block border-b-2 border-transparent px-6 py-5 font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
               data-course-shared={courseNum}
             >
               Share via text
@@ -66,7 +64,7 @@ const shareCourses = ({courseName, courseUrl, courseNum}: Props) => {
           <li className="relative m-0 text-nowrap py-0">
             <button
               onClick={() => copy(copyUrl)}
-              className={linkStyles}
+              className="block border-b-2 border-transparent px-6 py-5 font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
               data-course-shared={courseNum}
             >
               Copy share link

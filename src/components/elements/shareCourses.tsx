@@ -42,7 +42,7 @@ const shareCourses = ({courseUrl}: shareCoursesProps) => {
       </button>
       <ul
         id={elementId}
-        className={twMerge('list-unstyled absolute right-0 top-full z-10 -mr-[30px] mt-5 w-fit rounded-[25px] border border-white bg-white px-12 py-4 after:absolute after:-top-3 after:left-3/4 after:h-10 after:w-10 after:rotate-45 after:bg-white after:content-[""] children:border-b children:border-spirited-light last:children:border-transparent', expandedShare ? "block" : "hidden")}
+        className={twMerge("list-unstyled absolute right-0 top-full z-10 -mr-[30px] mt-5 w-fit rounded-[25px] border border-white bg-white px-12 py-4 after:absolute after:-top-3 after:left-3/4 after:h-10 after:w-10 after:rotate-45 after:bg-white after:content-[``] children:border-b children:border-spirited-light last:children:border-transparent", expandedShare ? "block" : "hidden")}
       >
         <li className="relative m-0 text-nowrap py-0">
           <a

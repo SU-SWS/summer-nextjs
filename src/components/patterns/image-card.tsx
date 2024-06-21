@@ -33,7 +33,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, 
   return (
     <CardWrapper
       {...props}
-      className={twMerge("centered lg:max-w-[980px] w-full rounded-[25px]", bgColor ? 'bg-transparent' : 'bg-fog-light', props.className)}
+      className={twMerge("centered lg:max-w-[980px] w-full rounded-[25px]", bgColor ? "bg-transparent" : "bg-fog-light", props.className)}
     >
       {imageUrl &&
         <div className="relative aspect-[16/9] w-full">

@@ -87,6 +87,7 @@ export const FragmentParagraphInterfaceFragmentDoc = gql`
   __typename
   id
   behaviors
+  status
 }
     `;
 export const FragmentTextFragmentDoc = gql`

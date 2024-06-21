@@ -147,7 +147,11 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
         {hit.sum_course_availability && <CourseAvailability availabilityStatus={hit.sum_course_availability[0]} />}
         {hit && hit.sum_course_units && (
           <div className="ml-auto flex flex-row justify-center gap-5">
-            <ShareCourses courseUrl={hit.url} />
+            <ShareCourses
+              courseUrl={hit.url}
+              courseNum={hit.sum_course_catalog_number || ""}
+              courseName={hit.title}
+            />
             <FavoriteButton
               title={hit.title}
               uuid={hit.objectID}

@@ -71,7 +71,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
             <CardParagraph
               key={card.id}
               paragraph={card}
-              className={behaviors.su_card_styles?.sum_card_bg_color_variant ? "mt-96" : ""}
+              className={behaviors.su_card_styles?.sum_card_bg_color_variant ? "lg:mt-96" : ""}
             />
           )})}
         </div>

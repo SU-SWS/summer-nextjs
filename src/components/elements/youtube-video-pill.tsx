@@ -81,7 +81,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
     >
       <YouTube
         videoId={videoId || shortId}
-        className={"*:w-full *:aspect-[1/2] *:h-full overflow-hidden transition-all duration-300 ease-in-out " + (isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-white outline-offset-[-10px]")}
+        className={"overflow-hidden transition-all duration-300 ease-in-out " + (isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white")}
         opts={options}
         onReady={e => {
           videoRef.current = e.target
@@ -90,6 +90,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
         onEnd={() => setIsPlaying(false)}
+        iframeClassName="w-full aspect-[9/16] h-full"
       />
     </div>
   )

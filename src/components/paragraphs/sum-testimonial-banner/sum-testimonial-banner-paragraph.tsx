@@ -105,9 +105,9 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
             "pb-[300px] pt-32 xl:py-32": leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
             "pb-32 pt-[300px] xl:py-32": !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
             "bg-olive": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "olive",
-            "bg-spirited": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited",
+            "bg-spirited text-black-true": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited",
             "bg-white": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "white",
-            "bg-spirited-dark": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited_dark",
+            "bg-spirited-dark text-white": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited_dark",
           })
         )}
       >

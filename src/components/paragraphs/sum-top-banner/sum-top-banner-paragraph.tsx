@@ -17,7 +17,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 
 const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
-  const bgColor = behaviors.sum_banner_behaviors?.sum_banner_overlay_bkg || "olive"
+  const bgColor = behaviors.sum_banner_behaviors?.sum_banner_overlay_bkg
 
   return (
     <div
@@ -25,26 +25,24 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
       className={twMerge("mb-32", props.className)}
     >
       <HeroBanner
-        cardColorClasses={clsx("mb-0 border border-white border-b-0 border-x-0 border-b-4 lg:border-x-4 lg:border-y-0 bg-poppy-light",
-          {
+        cardColorClasses={clsx("mb-0 border border-white border-b-0 border-x-0 border-b-4 lg:border-x-4 lg:border-y-0 bg-poppy-light", {
           "bg-olive-light": bgColor === "olive",
           "bg-spirited-light": bgColor === "spirited",
-          "bg-spirited-dark": bgColor === "spirited_dark",
-          }
-        )}
+          "bg-spirited-dark text-white": bgColor === "spirited_dark",
+        })}
         imageUrl={paragraph.sumTopBannerImage?.mediaImage.url}
         imageAlt={paragraph.sumTopBannerImage?.mediaImage.alt}
-        overlayPosition={behaviors.hero_pattern?.overlay_position}
+        overlayPosition={behaviors?.sum_top_banner_behaviors?.sum_top_banner_alignment || "right"}
         eagerLoadImage
       >
-        <div className={twMerge("flex flex-col lg:min-h-[400px]", clsx({ "lg:pb-96": !!paragraph.sumTopBannerCards }))}>
+        <div className={twMerge("flex flex-col lg:min-h-[400px]", clsx({"lg:pb-96": !!paragraph.sumTopBannerCards}))}>
           {pageTitle && (
             <div className="order-2">
-              <H1 className="type-5 lg:type-4 rs-mb-3 font-normal">{pageTitle}</H1>
+              <H1 className="rs-mb-3 type-5 font-normal lg:type-4">{pageTitle}</H1>
             </div>
           )}
 
-          {paragraph.sumTopBannerSuperhead && <div className="order-1 text-09em font-normal uppercase rs-mb-1">{paragraph.sumTopBannerSuperhead}</div>}
+          {paragraph.sumTopBannerSuperhead && <div className="rs-mb-1 order-1 text-09em font-normal uppercase">{paragraph.sumTopBannerSuperhead}</div>}
 
           <Wysiwyg
             html={paragraph.sumTopBannerDescrip?.processed}
@@ -52,20 +50,20 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
           />
 
           {paragraph.sumTopBannerLink?.url && (
-            <div className="order-4 rs-pt-2">
-            <ActionLink
-                className="block w-fit btn bg-digital-red font-normal text-5xl text-white hocus:text-white py-6 px-12 no-underline hocus:underline transition rounded-full"
+            <div className="rs-pt-2 order-4">
+              <ActionLink
+                className="btn block w-fit rounded-full bg-digital-red px-12 py-6 text-5xl font-normal text-white no-underline transition hocus:text-white hocus:underline"
                 href={paragraph.sumTopBannerLink.url}
               >
                 {paragraph.sumTopBannerLink.title}
-              </ActionLink> 
+              </ActionLink>
             </div>
           )}
         </div>
       </HeroBanner>
 
       {paragraph.sumTopBannerCards && (
-        <div className="centered relative z-10 lg:-mt-96 flex flex-col gap-32 xl:flex-row children:w-2/3 children:lg:w-full">
+        <div className="centered relative z-10 flex flex-col gap-32 children:w-2/3 lg:-mt-96 children:lg:w-full xl:flex-row">
           {paragraph.sumTopBannerCards.map(card => (
             <CardParagraph
               key={card.id}

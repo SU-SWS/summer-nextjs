@@ -35,6 +35,12 @@ export type SumBannerParagraphBehaviors = {
   sum_banner_overlay_bkg?: "olive" | "spirited" | "spirited_dark"
 }
 
+export type SumTopBannerParagraphBehaviors = {
+  sum_top_banner_alignment?: "left" | "right"
+  sum_top_banner_button?: boolean
+  sum_top_banner_overlay_bkg?: "olive" | "spirited" | "spirited_dark"
+}
+
 export type TeaserParagraphBehaviors = {
   heading_behavior?: "show" | "hide" | "remove"
 }
@@ -64,5 +70,6 @@ export type ParagraphBehaviors = {
   sum_pill_banner_behaviors?: PillBannerBehaviors
   sum_testimonial_banner?: TestimonialBannerBehaviors
   sum_at_a_glance_behavior?: AtAGlanceBehaviors
-  sum_banner_behaviors?:SumBannerParagraphBehaviors
+  sum_banner_behaviors?: SumBannerParagraphBehaviors
+  sum_top_banner_behaviors?: SumTopBannerParagraphBehaviors
 }

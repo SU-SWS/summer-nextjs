@@ -61,7 +61,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
 
       <div
         className={twMerge(
-          "rs-px-5 rs-py-8 relative order-1 mb-0 flex h-full min-h-[400px] w-full flex-col border-b-4 border-white bg-poppy-light bg-white shadow-lg lg:z-10 lg:w-1/2 lg:border-4 lg:border-y-0",
+          "rs-px-5 rs-py-8 relative order-1 mb-0 flex h-full min-h-[400px] w-full flex-col border-b-4 border-white bg-poppy-light shadow-lg lg:z-10 lg:w-1/2 lg:border-4 lg:border-y-0",
           clsx({
             "lg:ml-auto lg:mr-20": overlayPosition === "right",
             "lg:ml-20 lg:mr-auto": overlayPosition !== "right",

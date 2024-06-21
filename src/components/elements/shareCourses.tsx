@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client"
 
 import { ShareIcon } from "@heroicons/react/24/outline"
@@ -15,6 +16,8 @@ const shareCourses = () => {
   const smsCopy = `sms:&body=I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl}`
   const emailCopy = `mailto:?body=I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl} &subject=Someone wants you to see their list of favorite courses from Stanford Summer Session`
 
+  const linkStyles = "block font-normal text-black hocus:text-black no-underline py-5 px-6 border-b-2 border-transparent hocus:border-spirited-light"
+
   return (
     <div 
       className="relative flex"
@@ -26,13 +29,11 @@ const shareCourses = () => {
       </button>
       <ul 
         id={elementId}
-        className={twMerge("list-unstyled absolute z-10 top-full right-0 w-full min-w-[350px] bg-fog-light border border-white rounded-[25px] px-12 py-4 mt-3 after:content-[\"\"] after:absolute after:w-0 after:h-0 after:border-8 after:border-fog-light after:-top-3 after:left-1/2 after:rotate-45 after:outline after:outline-t-3 after:outline-l-3 after:outline-white", expandedShare ? "block" : "hidden")}
+        className={twMerge("list-unstyled absolute z-10 top-full right-0 -mr-[30px] w-fit bg-white border border-white rounded-[25px] px-12 py-4 mt-5 after:content-[\"\"] after:absolute after:w-10 after:h-10 after:bg-white after:-top-3 after:left-3/4 after:rotate-45 children:border-b last:children:border-transparent children:border-spirited-light", expandedShare ? "block" : "hidden")}
       >
-        <li className="m-0 py-0 relative">
-          <a href={emailCopy} className="ml-5 lg:ml-0 lg:pl-5 w-full relative inline-block font-normal text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-spirited-light">Share via email</a>
-        </li>
-        <li className="m-0 py-0 relative"><a href={smsCopy} className="ml-5 lg:ml-0 lg:pl-5 w-full relative inline-block font-normal text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-spirited-light">Share via text</a></li>
-        <li className="m-0 py-0 relative"><a onClick={() => copy(copyUrl)} className="ml-5 lg:ml-0 lg:pl-5 w-full relative inline-block font-normal text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-spirited-light">Copy share link</a></li>
+        <li className="m-0 py-0 text-nowrap"><a href={emailCopy} className={linkStyles}>Share via email</a></li>
+        <li className="m-0 py-0 text-nowrap"><a href={smsCopy} className={linkStyles}>Share via text</a></li>
+        <li className="m-0 py-0 text-nowrap"><a onClick={() => copy(copyUrl)} className={linkStyles}>Copy share link</a></li>
       </ul>
     </div>
   )

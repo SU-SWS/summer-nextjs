@@ -21,15 +21,19 @@ type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
    * If the wrapper should be an article or a div, use an article if an appropriate heading is within the card.
    */
   isArticle?: Maybe<boolean>
+  /**
+   * Color variants
+   */
+  bgColor?: Maybe<boolean | string>
 }
 
-const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, ...props}: Props) => {
+const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, ...props}: Props) => {
   const CardWrapper: ElementType = isArticle ? "article" : "div";
 
   return (
     <CardWrapper
       {...props}
-      className={twMerge("centered lg:max-w-[980px] w-full bg-fog-light rounded-[25px]", props.className)}
+      className={twMerge("centered lg:max-w-[980px] w-full rounded-[25px]", bgColor ? 'bg-transparent' : 'bg-fog-light', props.className)}
     >
       {imageUrl &&
         <div className="relative aspect-[16/9] w-full">

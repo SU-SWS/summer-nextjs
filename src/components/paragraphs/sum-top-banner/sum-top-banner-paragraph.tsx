@@ -64,14 +64,16 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
 
       {paragraph.sumTopBannerCards && (
         <div className="centered relative z-10 flex flex-col gap-32 children:w-2/3 lg:-mt-96 children:lg:w-full xl:flex-row">
-          {paragraph.sumTopBannerCards.map(card => (
+          {paragraph.sumTopBannerCards.map(card => {
+            const behaviors = getParagraphBehaviors(card)
+
+            return (
             <CardParagraph
               key={card.id}
               paragraph={card}
-              // @TODO If transparnt card type, add mt-96
-              // className={}
+              className={behaviors.su_card_styles?.sum_card_bg_color_variant ? "mt-96" : ""}
             />
-          ))}
+          )})}
         </div>
       )}
     </div>

@@ -24,7 +24,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
   const headerTag = headerTagChoice[0]
   const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "text-m2 font-normal mb-12") || "font-normal mb-12"
   const cardVariant = behaviors.su_card_styles?.sum_card_variant;
-  const pillCardBgColor = cardVariant === "pill" ? behaviors.su_card_styles?.sum_card_bg_color_variant : undefined;
+  const cardBgColor = cardVariant === "pill" ? behaviors.su_card_styles?.sum_card_pill_bg_color_variant : behaviors.su_card_styles?.sum_card_bg_color_variant;
   const hideHeader = behaviors.su_card_styles?.hide_heading;
 
   const Element = cardVariant === "pill" ? PillCard : ImageCard
@@ -37,7 +37,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
       imageAlt={image?.alt}
       videoUrl={videoUrl}
       isArticle={!!paragraph.suCardHeader}
-      bgColor={pillCardBgColor}
+      bgColor={cardBgColor}
     >
       {paragraph.suCardHeader &&
         <div id={paragraph.id} className={twMerge("order-2", hideHeader && "sr-only")}>

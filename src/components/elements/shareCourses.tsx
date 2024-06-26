@@ -14,10 +14,8 @@ type Props = {
 }
 
 const shareCourses = ({courseName, courseUrl, courseNum}: Props) => {
-  const shareRef = useRef<HTMLDivElement>(null)
-  const id = useId()
   const [_copiedText, copy] = useCopyToClipboard()
-  const {buttonProps, panelProps, expanded} = useAccordion({buttonId: `${id}-button`})
+  const {buttonProps, panelProps, expanded} = useAccordion()
 
   const copyUrl = courseUrl
   const smsCopy = `sms:&body=Check out this course from Stanford Summer Session: ${courseName} ${copyUrl}`

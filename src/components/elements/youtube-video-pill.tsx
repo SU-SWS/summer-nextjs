@@ -1,6 +1,6 @@
 "use client"
 
-import YouTube, {YouTubePlayer} from "react-youtube"
+import YouTube, {YouTubePlayer, YouTubeEvent} from "react-youtube"
 import {useBoolean, useIntersectionObserver} from "usehooks-ts"
 import {HTMLAttributes, useCallback, useEffect, useRef} from "react"
 import {ErrorBoundary} from "react-error-boundary"
@@ -81,15 +81,16 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
     >
       <YouTube
         videoId={videoId || shortId}
-        className={"mx-auto w-fit overflow-hidden transition-all duration-300 ease-in-out " + (isPlaying && !isInitialPlay ? "" : "rounded-full")}
+        className={"overflow-hidden transition-all duration-300 ease-in-out " + (isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white")}
         opts={options}
-        onReady={e => {
+        onReady={(e: YouTubeEvent) => {
           videoRef.current = e.target
           if (isIntersecting) playVideoIntro(e.target)
         }}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
         onEnd={() => setIsPlaying(false)}
+        iframeClassName="w-full aspect-[9/16] h-full"
       />
     </div>
   )

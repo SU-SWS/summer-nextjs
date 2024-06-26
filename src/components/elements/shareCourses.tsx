@@ -24,11 +24,7 @@ const shareCourses = ({courseName, courseUrl, courseNum}: Props) => {
   const emailCopy = `mailto:?body=Check out this course from Stanford Summer Session: ${courseName} ${copyUrl} &subject=Someone shared a Stanford Summer Session course with you`
 
   return (
-    <div
-      className="relative flex"
-      ref={shareRef}
-      aria-labelledby={`${id}-button`}
-    >
+    <div className="relative flex">
       <button {...buttonProps}>
         <ShareIcon
           width={25}
@@ -38,11 +34,10 @@ const shareCourses = ({courseName, courseUrl, courseNum}: Props) => {
       </button>
       <div
         {...panelProps}
-        id={id}
-        className={twMerge("absolute right-0 top-full z-10 -mr-[30px] mt-5 w-fit rounded-[25px] border border-white bg-white px-12 py-4", expanded ? "block" : "hidden")}
+        className={twMerge("absolute right-0 top-full z-10 -mr-[30px] mt-5 w-fit rounded-[25px] border border-white bg-white px-12 py-4", expanded ? "block" : "hidden", panelProps.className)}
       >
         <div className="absolute -top-3 left-3/4 z-0 h-10 w-10 rotate-45 bg-white" />
-        <ul className="list-unstyled children:border-b children:border-spirited-light last:children:border-transparent">
+        <ul className="list-unstyled bg-white children:border-b children:border-spirited-light last:children:border-transparent">
           <li className="relative m-0 text-nowrap py-0">
             <a
               href={emailCopy}

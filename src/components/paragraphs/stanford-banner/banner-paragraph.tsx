@@ -34,34 +34,9 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
       aria-labelledby={paragraph.suBannerHeader ? paragraph.id : undefined}
       className="rs-mb-5 relative left-1/2 flex w-screen -translate-x-1/2 flex-col @container md:min-h-[400px] lg:block"
     >
-      <div className="lg:aspect-auto relative order-2 aspect-[16/9] w-full bg-cool-grey lg:absolute lg:h-full">
-        <Image
-          className="object-cover"
-          src={paragraph.suBannerImage?.mediaImage.url || ""}
-          alt={paragraph.suBannerImage?.mediaImage.alt || ""}
-          loading={eagerLoadImage ? "eager" : "lazy"}
-          fill
-          sizes="100vw"
-        />
-        <div className="rs-pr-1 absolute top-0 z-50 flex w-screen justify-end lg:bottom-0 lg:top-auto lg:justify-center lg:pl-32 lg:pr-0">
-          {paragraph.suBannerButton?.url && semiCircleButton && (
-            <Link
-              className="group rs-pt-0 rs-pb-2 rs-px-5 h-fit rounded-bl-full rounded-br-full border-4 border-b-4 border-t-0 border-white bg-spirited-dark text-white lg:rs-pb-0 lg:rs-pt-2 hocus:text-white lg:rounded-b-none lg:rounded-tl-full lg:rounded-tr-full lg:border-b-0 lg:border-t-4"
-              href={paragraph.suBannerButton.url}
-            >
-              <span className="sr-only">{paragraph.suBannerButton.title}</span>
-              <ArrowRightIcon
-                width={60}
-                className="inline-block border-b-2 border-transparent group-hocus:border-white"
-              />
-            </Link>
-          )}
-        </div>
-      </div>
-
       <div
         className={twMerge(
-          "rs-px-5 rs-py-8 relative order-1 mb-0 flex h-full min-h-[400px] w-full flex-col border-b-4 border-white bg-poppy-light shadow-lg lg:z-10 lg:w-1/2 lg:border-4 lg:border-y-0",
+          "rs-px-5 rs-py-8 relative mb-0 flex h-full min-h-[400px] w-full flex-col border-b-4 border-white bg-poppy-light shadow-lg lg:z-10 lg:w-1/2 lg:border-4 lg:border-y-0",
           clsx({
             "lg:ml-auto lg:mr-20": overlayPosition === "right",
             "lg:ml-20 lg:mr-auto": overlayPosition !== "right",
@@ -104,6 +79,32 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
             )}
           </>
         )}
+      </div>
+      <div className="lg:aspect-auto relative aspect-[16/9] w-full bg-cool-grey lg:absolute lg:top-0 lg:h-full">
+        {paragraph.suBannerImage?.mediaImage && (
+          <Image
+            className="object-cover"
+            src={paragraph.suBannerImage?.mediaImage.url}
+            alt={paragraph.suBannerImage?.mediaImage.alt || ""}
+            loading={eagerLoadImage ? "eager" : "lazy"}
+            fill
+            sizes="100vw"
+          />
+        )}
+        <div className="rs-pr-1 absolute top-0 z-50 flex w-screen justify-end lg:bottom-0 lg:top-auto lg:justify-center lg:pl-32 lg:pr-0">
+          {paragraph.suBannerButton?.url && semiCircleButton && (
+            <Link
+              className="group rs-pt-0 rs-pb-2 rs-px-5 h-fit rounded-bl-full rounded-br-full border-4 border-b-4 border-t-0 border-white bg-spirited-dark text-white lg:rs-pb-0 lg:rs-pt-2 hocus:text-white lg:rounded-b-none lg:rounded-tl-full lg:rounded-tr-full lg:border-b-0 lg:border-t-4"
+              href={paragraph.suBannerButton.url}
+            >
+              <span className="sr-only">{paragraph.suBannerButton.title}</span>
+              <ArrowRightIcon
+                width={60}
+                className="inline-block border-b-2 border-transparent group-hocus:border-white"
+              />
+            </Link>
+          )}
+        </div>
       </div>
     </BannerWrapper>
   )

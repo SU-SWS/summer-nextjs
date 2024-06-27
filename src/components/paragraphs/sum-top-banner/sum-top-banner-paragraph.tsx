@@ -25,7 +25,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
       className={twMerge("mb-32", props.className)}
     >
       <HeroBanner
-        cardColorClasses={clsx("mb-0 border border-white border-b-0 border-x-0 border-b-4 lg:border-x-4 lg:border-y-0 bg-poppy-light", {
+        cardClassName={clsx("mb-0 border border-white border-b-0 border-x-0 border-b-4 lg:border-x-4 lg:border-y-0 bg-poppy-light", {
           "bg-olive-light": bgColor === "olive",
           "bg-spirited-light": bgColor === "spirited",
           "bg-spirited-dark text-white": bgColor === "spirited_dark",
@@ -68,12 +68,13 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
             const behaviors = getParagraphBehaviors(card)
 
             return (
-            <CardParagraph
-              key={card.id}
-              paragraph={card}
-              className={behaviors.su_card_styles?.sum_card_bg_color_variant ? "lg:mt-96" : ""}
-            />
-          )})}
+              <CardParagraph
+                key={card.id}
+                paragraph={card}
+                className={behaviors.su_card_styles?.sum_card_bg_color_variant ? "lg:mt-96" : ""}
+              />
+            )
+          })}
         </div>
       )}
     </div>

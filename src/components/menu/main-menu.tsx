@@ -232,7 +232,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
           {level !== 0 && (
             <ArrowRightIcon
               width={20}
-              className="ml-2 hidden group-hover:inline-block group-focus:inline-block"
+              className="ml-2 text-transparent group-hover:text-black group-focus:text-black"
             />
           )}
         </Link>

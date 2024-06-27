@@ -178,7 +178,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
   const inTrail = activeTrail.includes(id) && !isCurrent
 
   const linkStyles = clsx(
-    "group w-full relative inline-block font-normal text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-spirited-light",
+    "group w-full relative flex flex-row font-normal text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-spirited-light",
     leftPadding[level],
     // Top menu item styles.
     {
@@ -197,7 +197,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
   )
 
   const chevronBtnStyles = clsx(
-    "shrink-0 relative pr-10 lg:right-0 text-black bg-transparent lg:bg-transparent lg:pr-5 lg:pb-6 lg:pl-2 hocus:border-b-[4px] lg:group-hover:border-b-[4px] hocus:border-spirited-light lg:group-hover:border-spirited-light",
+    "shrink-0 relative px-10 lg:right-0 text-black bg-transparent lg:bg-transparent lg:pr-5 lg:pb-6 lg:pl-2 hocus:border-b-[4px] lg:group-hover:border-b-[4px] hocus:border-spirited-light lg:group-hover:border-spirited-light",
     // Top menu item styles.
     {
       "border-b-[4px]": level === 0,

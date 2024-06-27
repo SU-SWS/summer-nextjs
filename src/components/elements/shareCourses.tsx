@@ -1,11 +1,11 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client"
 
 import {ShareIcon} from "@heroicons/react/24/outline"
 import useAccordion from "@lib/hooks/useAccordion"
-import React, {useId, useRef} from "react"
+import React, {useRef} from "react"
 import {twMerge} from "tailwind-merge"
 import {useCopyToClipboard} from "usehooks-ts"
+import useOutsideClick from "@lib/hooks/useOutsideClick"
 
 type Props = {
   courseName: string
@@ -13,16 +13,21 @@ type Props = {
   courseNum: string
 }
 
-const shareCourses = ({courseName, courseUrl, courseNum}: Props) => {
+const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
   const [_copiedText, copy] = useCopyToClipboard()
-  const {buttonProps, panelProps, expanded} = useAccordion()
+  const {buttonProps, panelProps, expanded, toggleExpanded} = useAccordion()
+  const ref = useRef(null)
+  useOutsideClick(ref, () => expanded && toggleExpanded())
 
   const copyUrl = courseUrl
   const smsCopy = `sms:&body=Check out this course from Stanford Summer Session: ${courseName} ${copyUrl}`
   const emailCopy = `mailto:?body=Check out this course from Stanford Summer Session: ${courseName} ${copyUrl} &subject=Someone shared a Stanford Summer Session course with you`
 
   return (
-    <div className="relative flex">
+    <div
+      ref={ref}
+      className="relative flex"
+    >
       <button {...buttonProps}>
         <ShareIcon
           width={25}
@@ -69,4 +74,4 @@ const shareCourses = ({courseName, courseUrl, courseNum}: Props) => {
   )
 }
 
-export default shareCourses
+export default ShareCourses

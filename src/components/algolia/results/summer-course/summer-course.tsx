@@ -35,36 +35,34 @@ const CourseAvailability = ({availabilityStatus}: Props) => {
   switch (availabilityStatus) {
     case "Available":
       return (
-        <>
+        <div className="flex items-center">
           <CheckCircleIcon
             width={20}
             className="mr-3 text-digital-green"
           />
           {availabilityStatus.toUpperCase()}
-        </>
+        </div>
       )
     case "Almost Full":
       return (
-        <>
+        <div className="flex items-center">
           <ExclamationTriangleIcon
             width={20}
             className="mr-3 text-poppy"
           />
           {availabilityStatus.toUpperCase()}
-        </>
+        </div>
       )
     case "Full":
       return (
-        <>
+        <div className="flex items-center">
           <ExclamationCircleIcon
             width={20}
             className="mr-3 text-digital-red"
           />
           {availabilityStatus.toUpperCase()}
-        </>
+        </div>
       )
-    default:
-      return
   }
 }
 
@@ -104,7 +102,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
         </div>
 
         {hit.photo && (
-          <div className="relative order-first aspect-1 w-1/4">
+          <div className="relative order-first aspect-1 w-1/4 shrink-0">
             <Image
               className="rounded-[25px] object-cover"
               src={hit.photo}

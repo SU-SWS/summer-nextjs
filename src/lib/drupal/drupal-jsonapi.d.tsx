@@ -19,14 +19,27 @@ export type CardParagraphBehaviors = {
   heading?: "h2" | "h3" | "h4" | "div.su-splash-font"
   hide_heading?: boolean
   link_style?: "action" | "button"
+  sum_card_bg_color_variant: boolean
   sum_card_variant?: "pill"
-  sum_card_bg_color_variant?: "semitransparent_poppy" | "olive" | "semitransparent_olive" | "spirited" | "semitransparent_spirited"
+  sum_card_pill_bg_color_variant?: "semitransparent_poppy" | "olive" | "semitransparent_olive" | "spirited" | "semitransparent_spirited"
 }
 
 export type BannerParagraphBehaviors = {
-  overlay_position?: "left" | "right"
   heading?: "h2" | "h3" | "h4" | "div.su-splash-font"
   hide_heading?: string
+  overlay_position?: "left" | "right"
+}
+
+export type SumBannerParagraphBehaviors = {
+  sum_banner_alignment?: "left" | "right"
+  sum_banner_button?: boolean
+  sum_banner_overlay_bkg?: "olive" | "spirited" | "spirited_dark"
+}
+
+export type SumTopBannerParagraphBehaviors = {
+  sum_top_banner_alignment?: "left" | "right"
+  sum_top_banner_button?: boolean
+  sum_top_banner_overlay_bkg?: "olive" | "spirited" | "spirited_dark"
 }
 
 export type TeaserParagraphBehaviors = {
@@ -58,4 +71,6 @@ export type ParagraphBehaviors = {
   sum_pill_banner_behaviors?: PillBannerBehaviors
   sum_testimonial_banner?: TestimonialBannerBehaviors
   sum_at_a_glance_behavior?: AtAGlanceBehaviors
+  sum_banner_behaviors?: SumBannerParagraphBehaviors
+  sum_top_banner_behaviors?: SumTopBannerParagraphBehaviors
 }

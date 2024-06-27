@@ -1,52 +1,45 @@
-import React, { ElementType, HtmlHTMLAttributes } from "react";
-import Image from "next/image";
-import { twMerge } from "tailwind-merge";
-import { Maybe } from "@lib/gql/__generated__/drupal";
-import { clsx } from "clsx";
+import React, {ElementType, HtmlHTMLAttributes} from "react"
+import Image from "next/image"
+import {twMerge} from "tailwind-merge"
+import {Maybe} from "@lib/gql/__generated__/drupal"
+import {clsx} from "clsx"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
    * Absolute image url path.
    */
-  imageUrl?: Maybe<string>;
+  imageUrl?: Maybe<string>
   /**
    * Image alt string.
    */
-  imageAlt?: Maybe<string>;
+  imageAlt?: Maybe<string>
   /**
    * Is the banner supposed to be a section or a div.
    */
-  isSection?: Maybe<boolean>;
+  isSection?: Maybe<boolean>
   /**
    * Eagerly load the banner image.
    */
-  eagerLoadImage?: Maybe<boolean>;
+  eagerLoadImage?: Maybe<boolean>
   /**
    * Position of the text over the image.
    */
-  overlayPosition?: Maybe<"left" | "right">;
-};
+  overlayPosition?: Maybe<"left" | "right">
+  /**
+   * Additional card overlap classes
+   */
+  cardClassName?: Maybe<string>
+}
 
-const HeroBanner = ({
-  imageUrl,
-  imageAlt,
-  eagerLoadImage,
-  isSection,
-  overlayPosition,
-  children,
-  ...props
-}: Props) => {
-  const BannerWrapper: ElementType = isSection ? "section" : "div";
+const HeroBanner = ({imageUrl, imageAlt, eagerLoadImage, isSection, overlayPosition, children, cardClassName, ...props}: Props) => {
+  const BannerWrapper: ElementType = isSection ? "section" : "div"
 
   return (
     <BannerWrapper
       {...props}
-      className={twMerge(
-        "rs-mb-5 @container md:min-h-[400px]",
-        props.className,
-      )}
+      className={twMerge("rs-mb-5 relative left-1/2 flex w-screen -translate-x-1/2 flex-col @container lg:block lg:min-h-[400px]", props.className)}
     >
-      <div className="@6xl:aspect-auto relative aspect-[16/9] w-full bg-cool-grey @6xl:absolute @6xl:h-full">
+      <div className="lg:aspect-auto relative order-2 aspect-[16/9] w-full bg-cool-grey lg:absolute lg:h-full">
         {imageUrl && (
           <Image
             className="object-cover"
@@ -62,17 +55,18 @@ const HeroBanner = ({
       {children && (
         <div
           className={twMerge(
-            "rs-p-2 relative flex w-full flex-col gap-10 shadow-lg @6xl:z-10 @6xl:w-1/2 @6xl:bg-white",
+            "rs-px-5 rs-py-8 relative order-1 flex w-full flex-col bg-white shadow-lg lg:z-10 lg:w-1/2",
             clsx({
-              "@6xl:ml-auto @6xl:mr-20": overlayPosition === "right",
-              "@6xl:ml-20 @6xl:mr-auto": overlayPosition !== "right",
+              "lg:ml-auto lg:mr-20": overlayPosition === "right",
+              "lg:ml-20 lg:mr-auto": overlayPosition !== "right",
             }),
+            cardClassName
           )}
         >
           {children}
         </div>
       )}
     </BannerWrapper>
-  );
-};
-export default HeroBanner;
+  )
+}
+export default HeroBanner

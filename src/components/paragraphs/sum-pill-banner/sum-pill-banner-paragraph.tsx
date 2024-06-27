@@ -104,6 +104,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
                 ...(cardBehaviors.su_card_styles || {}),
                 heading: Element === "div" ? "h2" : "h3",
                 sum_card_variant: "pill",
+                sum_card_bg_color_variant: false,
               }
               card.behaviors = JSON.stringify(cardBehaviors)
               return (

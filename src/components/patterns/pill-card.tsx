@@ -25,7 +25,7 @@ type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
   /**
    * Color variants
    */
-  bgColor?: Maybe<string>
+  bgColor?: Maybe<boolean | string>
 }
 
 const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, ...props}: Props) => {

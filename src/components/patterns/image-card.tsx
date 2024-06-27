@@ -22,16 +22,12 @@ type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
    */
   isArticle?: Maybe<boolean>
   /**
-   * Color variants
-   */
-  bgColor?: Maybe<string>
-  /**
    * If checked, the card content should have a background color
    */
   hasBgColor?: Maybe<boolean>
 }
 
-const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, hasBgColor, ...props}: Props) => {
+const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColor, ...props}: Props) => {
   const CardWrapper: ElementType = isArticle ? "article" : "div"
 
   return (

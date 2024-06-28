@@ -7,7 +7,6 @@ import {clsx} from "clsx"
 import Image from "next/image"
 import {H2} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
-import Button from "@components/elements/button"
 import YoutubeVideoPill from "@components/elements/youtube-video-pill"
 import ActionLink from "@components/elements/action-link"
 

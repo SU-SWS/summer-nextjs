@@ -202,10 +202,10 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
           className="relative left-1/2 w-screen -translate-x-1/2 bg-fog-light"
         >
           <div className="pb-12 pt-20">
-            <div className="mx-auto flex max-w-7xl flex-col">
+            <div className="centered flex flex-col md:mx-auto md:max-w-7xl">
               <div className="order-1">
                 <H2
-                  className="flex justify-between"
+                  className="flex justify-between md:font-normal"
                   aria-live="polite"
                   aria-atomic
                 >
@@ -217,12 +217,12 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
 
               <div
                 {...panelProps}
-                className={clsx("order-3", {hidden: !expanded})}
+                className={clsx("order-3 children:mt-12", {hidden: !expanded})}
               >
                 {!!units && (
                   <div>
                     <div className="flex items-baseline gap-5">
-                      <H3>Tuition</H3>(Based on the total number of units)
+                      <H3 className="text-m0">Tuition</H3>(Based on the total number of units)
                     </div>
                     <SummaryCost
                       label={`${units} Units`}
@@ -233,7 +233,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
 
                 {studentType && (
                   <div>
-                    <H3>General Fees</H3>
+                    <H3 className="text-m0">General Fees</H3>
                     <SummaryCost
                       label="Application Fee"
                       cost={appFee}
@@ -257,7 +257,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
 
                 {onCampus && (
                   <div>
-                    <H3>On-campus Fees</H3>
+                    <H3 className="text-m0">On-campus Fees</H3>
                     <SummaryCost
                       label="Housing Fee"
                       cost={housingFee}
@@ -278,7 +278,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
                 )}
 
                 <div>
-                  <H3>Extra Fees</H3>
+                  <H3 className="text-m0">Extra Fees</H3>
                   <SummaryCost
                     label="Books and Supplies (optional)"
                     cost={booksSuppliesCost}
@@ -295,7 +295,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
                   )}
                 </div>
 
-                <div>
+                <div className="block md:hidden">
                   <p className="flex justify-between text-m4">
                     <span>Estimated total cost</span> <span>{formatCurrency(totalCost)}</span>
                   </p>
@@ -312,7 +312,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
                   <span className="flex items-center">
                     {expanded ? "Close" : "See"} details
                     <ChevronDownIcon
-                      width={20}
+                      width={33}
                       className={clsx("transition duration-150", {"rotate-180": expanded})}
                     />
                   </span>
@@ -328,7 +328,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
 
 const SummaryCost = ({label, cost}: {label: string; cost: number}) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="mb-4 flex items-center justify-between">
       <span>{label}</span>
       <span>{formatCurrency(cost)}</span>
     </div>

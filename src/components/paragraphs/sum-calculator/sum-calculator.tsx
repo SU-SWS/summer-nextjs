@@ -196,7 +196,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
       </div>
 
-      <div className="absolute sticky bottom-0">
+      <div className="sticky bottom-0">
         <div
           ref={summaryRef}
           className="relative left-1/2 w-screen -translate-x-1/2 bg-fog-light"

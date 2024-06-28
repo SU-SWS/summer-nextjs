@@ -197,26 +197,27 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
       </div>
 
       <div className="absolute sticky bottom-0">
-        {/* w-screen h-full bg-fog-light left-1/2 -translate-x-1/2 */}
         <div
           ref={summaryRef}
-          className=""
+          className="relative left-1/2 w-screen -translate-x-1/2 bg-fog-light"
         >
-          <div className="mt-20">
-            <div className="mx-auto mb-12 mt-20 max-w-7xl">
-              <H2
-                className="flex justify-between"
-                aria-live="polite"
-                aria-atomic
-              >
-                <span>Estimated total cost</span>
-                <span>{formatCurrency(totalCost)}</span>
-              </H2>
-              <p className="text-left">* Disclaimer: this is only an estimate. Actual fees are subject to change.</p>
+          <div className="pb-12 pt-20">
+            <div className="mx-auto flex max-w-7xl flex-col">
+              <div className="order-1">
+                <H2
+                  className="flex justify-between"
+                  aria-live="polite"
+                  aria-atomic
+                >
+                  <span>Estimated total cost</span>
+                  <span>{formatCurrency(totalCost)}</span>
+                </H2>
+                <p className="text-left">* Disclaimer: this is only an estimate. Actual fees are subject to change.</p>
+              </div>
 
               <div
                 {...panelProps}
-                className={clsx({hidden: !expanded})}
+                className={clsx("order-3", {hidden: !expanded})}
               >
                 {!!units && (
                   <div>
@@ -303,18 +304,20 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
                 </div>
               </div>
 
-              <button
-                {...buttonProps}
-                className="ml-auto block"
-              >
-                <span className="flex items-center">
-                  {expanded ? "Close" : "See"} details
-                  <ChevronDownIcon
-                    width={20}
-                    className={clsx("transition duration-150", {"rotate-180": expanded})}
-                  />
-                </span>
-              </button>
+              <div className="order-2 border-b border-black">
+                <button
+                  {...buttonProps}
+                  className="mb-3 ml-auto block text-digital-blue"
+                >
+                  <span className="flex items-center">
+                    {expanded ? "Close" : "See"} details
+                    <ChevronDownIcon
+                      width={20}
+                      className={clsx("transition duration-150", {"rotate-180": expanded})}
+                    />
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

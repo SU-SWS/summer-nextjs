@@ -202,17 +202,17 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
           className="relative left-1/2 w-screen -translate-x-1/2 bg-fog-light"
         >
           <div className="pb-12 pt-20">
-            <div className="centered flex flex-col md:mx-auto md:max-w-7xl">
+            <div className="centered flex flex-col lg:mx-auto lg:max-w-7xl">
               <div className="order-1">
                 <H2
-                  className="flex justify-between md:font-normal"
+                  className="flex justify-between text-m1 lg:text-m3 lg:font-normal"
                   aria-live="polite"
                   aria-atomic
                 >
                   <span>Estimated total cost</span>
                   <span>{formatCurrency(totalCost)}</span>
                 </H2>
-                <p className="text-left">* Disclaimer: this is only an estimate. Actual fees are subject to change.</p>
+                <p className="mb-0 text-left">* Disclaimer: this is only an estimate. Actual fees are subject to change.</p>
               </div>
 
               <div
@@ -295,21 +295,21 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
                   )}
                 </div>
 
-                <div className="block md:hidden">
-                  <p className="flex justify-between text-m4">
+                <div className="block lg:hidden">
+                  <p className="flex justify-between text-m1 lg:text-m4">
                     <span>Estimated total cost</span> <span>{formatCurrency(totalCost)}</span>
                   </p>
 
-                  <p className="text-left">* Disclaimer: this is only an estimate. Actual fees are subject to change.</p>
+                  <p className="text-left -text-m1 lg:text-m1">* Disclaimer: this is only an estimate. Actual fees are subject to change.</p>
                 </div>
               </div>
 
-              <div className="order-2 border-b border-black">
+              <div className="order-2 mt-20 border-b border-black">
                 <button
                   {...buttonProps}
                   className="mb-3 ml-auto block text-digital-blue"
                 >
-                  <span className="flex items-center">
+                  <span className="flex items-center text-m1">
                     {expanded ? "Close" : "See"} details
                     <ChevronDownIcon
                       width={33}

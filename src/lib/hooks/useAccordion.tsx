@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import {HTMLAttributes, useId} from "react";
-import {useBoolean} from "usehooks-ts";
+import {HTMLAttributes, useId} from "react"
+import {useBoolean} from "usehooks-ts"
 
 type Props = {
   initiallyVisible?: boolean
@@ -10,8 +10,8 @@ type Props = {
 }
 
 const useAccordion = ({initiallyVisible, panelId, buttonId}: Props = {}) => {
-  const {value: expanded, toggle: toggleExpanded} = useBoolean(initiallyVisible)
-  const id = useId();
+  const {value: expanded, setTrue: expandAccordion, setFalse: collapseAccordion, toggle: toggleExpanded} = useBoolean(initiallyVisible)
+  const id = useId()
 
   const buttonProps: HTMLAttributes<HTMLButtonElement> = {
     "aria-controls": panelId || `${id}--panel`,
@@ -23,8 +23,8 @@ const useAccordion = ({initiallyVisible, panelId, buttonId}: Props = {}) => {
     "aria-labelledby": buttonId || `${id}--button`,
     id: panelId || `${id}--panel`,
     role: "region",
-    className: expanded ? "block" : "hidden"
+    className: expanded ? "block" : "hidden",
   }
-  return {buttonProps, panelProps, expanded, toggleExpanded}
+  return {buttonProps, panelProps, expanded, toggleExpanded, expandAccordion, collapseAccordion}
 }
-export default useAccordion;
+export default useAccordion

@@ -2,9 +2,9 @@
 
 import {ShareIcon} from "@heroicons/react/24/outline"
 import useAccordion from "@lib/hooks/useAccordion"
-import React, {useRef} from "react"
+import React, {useCallback, useRef} from "react"
 import {twMerge} from "tailwind-merge"
-import {useCopyToClipboard} from "usehooks-ts"
+import {useCopyToClipboard, useEventListener} from "usehooks-ts"
 import useOutsideClick from "@lib/hooks/useOutsideClick"
 
 type Props = {
@@ -15,9 +15,23 @@ type Props = {
 
 const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
   const [_copiedText, copy] = useCopyToClipboard()
-  const {buttonProps, panelProps, expanded, toggleExpanded} = useAccordion()
-  const ref = useRef(null)
-  useOutsideClick(ref, () => expanded && toggleExpanded())
+  const {buttonProps, panelProps, expanded, collapseAccordion} = useAccordion()
+  const ref = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  useOutsideClick(ref, collapseAccordion)
+
+  // If the user presses escape on the keyboard, close the submenus.
+  const handleEscape = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || !expanded) return
+
+      collapseAccordion()
+      buttonRef.current?.focus()
+    },
+    [expanded, collapseAccordion]
+  )
+
+  useEventListener("keydown", handleEscape, ref)
 
   const copyUrl = courseUrl
   const smsCopy = `sms:&body=Check out this course from Stanford Summer Session: ${courseName} ${copyUrl}`
@@ -28,12 +42,15 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
       ref={ref}
       className="relative flex"
     >
-      <button {...buttonProps}>
+      <button
+        {...buttonProps}
+        ref={buttonRef}
+      >
         <ShareIcon
           width={25}
           className="text-poppy"
         />
-        <span className="sr-only">Share</span>
+        <span className="sr-only">{`Share "${courseName}"`}</span>
       </button>
       <div
         {...panelProps}

@@ -7,8 +7,8 @@ import {clsx} from "clsx"
 import Image from "next/image"
 import {H2} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
-import Button from "@components/elements/button"
 import YoutubeVideoPill from "@components/elements/youtube-video-pill"
+import ActionLink from "@components/elements/action-link"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumTestimonial
@@ -40,12 +40,12 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
   return (
     <article
       {...props}
-      className={twMerge("relative left-1/2 grid w-screen -translate-x-1/2 auto-rows-fr @container xl:grid-cols-2", props.className)}
+      className={twMerge("relative left-1/2 grid w-screen -translate-x-1/2 @container xl:grid-cols-2", props.className)}
       aria-labelledby={paragraph.id}
     >
       <div
         className={twMerge(
-          "relative h-full w-full border-white",
+          "relative h-[257px] w-full border-white lg:h-full",
           clsx({
             "order-last border-t-2 xl:border-l-2 xl:border-t-0": leftText,
             "border-b-2 xl:border-b-0 xl:border-r-2": !leftText,
@@ -122,24 +122,29 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
         >
           <H2
             id={paragraph.id}
-            className={twMerge(
-              "font-light",
-              clsx({
-                "text-m4": behaviors.sum_testimonial_banner?.sum_testimonial_banner_heading === "type_4",
-              })
-            )}
+            className={twMerge("rs-mb-3 font-light", behaviors.sum_testimonial_banner?.sum_testimonial_banner_heading === "type_4" ? "type-4" : "type-5")}
           >
             {paragraph.sumTestimonialHeading}
           </H2>
 
-          <Wysiwyg html={paragraph.sumTestimonialDescrip.processed} />
+          <Wysiwyg
+            className="rs-mb-3"
+            html={paragraph.sumTestimonialDescrip.processed}
+          />
 
           {paragraph.sumTestimonialName && <div>{paragraph.sumTestimonialName}</div>}
 
           {(paragraph.sumTestimonialUniv || studentType) && <div>{`${paragraph.sumTestimonialUniv || ""} ${studentType || ""}`.trim()}</div>}
           {paragraph.sumTestimonialAffi && <div>{paragraph.sumTestimonialAffi}</div>}
 
-          {paragraph.sumTestimonialButton?.url && <Button href={paragraph.sumTestimonialButton.url}>{paragraph.sumTestimonialButton.title}</Button>}
+          {paragraph.sumTestimonialButton?.url && (
+            <ActionLink
+              className="btn rs-mt-5 block w-fit rounded-full bg-digital-red px-12 py-6 text-5xl font-normal text-white no-underline transition hocus:text-white hocus:underline"
+              href={paragraph.sumTestimonialButton.url}
+            >
+              {paragraph.sumTestimonialButton.title}
+            </ActionLink>
+          )}
         </div>
       </div>
     </article>

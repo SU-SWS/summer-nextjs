@@ -199,10 +199,24 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
       <div className="sticky bottom-0">
         <div
           ref={summaryRef}
-          className="relative left-1/2 w-screen -translate-x-1/2 bg-fog-light"
+          className="relative left-1/2 w-screen -translate-x-1/2 border-t-2 bg-fog-light"
         >
           <div className="pb-12 pt-20">
             <div className="centered flex flex-col lg:mx-auto lg:max-w-7xl">
+              <div className="block md:hidden">
+                <button
+                  {...buttonProps}
+                  className="m-auto mb-3 block text-archway-dark"
+                >
+                  <span className="flex items-center text-m1">
+                    <span className="sr-only">{expanded ? "Close" : "See"} details</span>
+                    <ChevronDownIcon
+                      width={33}
+                      className={clsx("rotate-180 transition duration-150", {"rotate-0": expanded})}
+                    />
+                  </span>
+                </button>
+              </div>
               <div className="order-1">
                 <H2
                   className="flex justify-between text-m1 lg:text-m3 lg:font-normal"
@@ -304,7 +318,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
                 </div>
               </div>
 
-              <div className="order-2 mt-20 border-b border-black">
+              <div className="order-2 mt-20 hidden border-b border-black md:block">
                 <button
                   {...buttonProps}
                   className="mb-3 ml-auto block text-digital-blue"

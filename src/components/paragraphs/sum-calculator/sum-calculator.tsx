@@ -201,7 +201,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
           ref={summaryRef}
           className="relative left-1/2 w-screen -translate-x-1/2 border-t-2 bg-fog-light"
         >
-          <div className="pb-12 pt-20">
+          <div className="pb-12 md:pt-20">
             <div className="centered flex flex-col lg:mx-auto lg:max-w-7xl">
               <div className="block md:hidden">
                 <button
@@ -226,13 +226,14 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
                   <span>Estimated total cost</span>
                   <span>{formatCurrency(totalCost)}</span>
                 </H2>
-                <p className="mb-0 text-left">* Disclaimer: this is only an estimate. Actual fees are subject to change.</p>
+                <p className="card-paragraph mb-0 hidden text-left md:block">* Disclaimer: this is only an estimate. Actual fees are subject to change.</p>
               </div>
 
               <div
                 {...panelProps}
                 className={clsx("order-3 children:mt-12", {hidden: !expanded})}
               >
+                <p className="card-paragraph mb-0 block border-b border-black pb-4 text-left md:hidden">* Disclaimer: this is only an estimate. Actual fees are subject to change.</p>
                 {!!units && (
                   <div>
                     <div className="flex items-baseline gap-5">
@@ -307,14 +308,6 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
                       cost={insurance}
                     />
                   )}
-                </div>
-
-                <div className="block lg:hidden">
-                  <p className="flex justify-between text-m1 lg:text-m4">
-                    <span>Estimated total cost</span> <span>{formatCurrency(totalCost)}</span>
-                  </p>
-
-                  <p className="text-left -text-m1 lg:text-m1">* Disclaimer: this is only an estimate. Actual fees are subject to change.</p>
                 </div>
               </div>
 

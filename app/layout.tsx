@@ -53,7 +53,7 @@ const RootLayout = ({children, modal}: {children: React.ReactNode; modal: React.
     >
       <UserAnalytics />
       <DrupalWindowSync />
-      {/*{isDevMode && <Editori11y />}*/}
+      {isDevMode && <Editori11y />}
 
       <body className="text-archway-dark">
         <nav aria-label="Skip Links">

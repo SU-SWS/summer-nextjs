@@ -40,7 +40,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
       <div className="flex flex-col gap-20">
         <div
           className={twMerge(
-            ":lgpb-96 rs-py-10 w-full bg-poppy-light text-center",
+            "rs-py-10 w-full bg-poppy-light text-center lg:pb-96",
             clsx({
               "bg-olive": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "olive",
               "bg-spirited text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",

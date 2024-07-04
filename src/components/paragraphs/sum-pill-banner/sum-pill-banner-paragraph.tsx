@@ -40,7 +40,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
       <div className="flex flex-col gap-20">
         <div
           className={twMerge(
-            "rs-py-10 w-full bg-poppy-light text-center lg:pb-96",
+            "rs-pt-10 w-full bg-poppy-light pb-96 text-center lg:last:*:rs-mb-5",
             clsx({
               "bg-olive": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "olive",
               "bg-spirited text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
@@ -88,7 +88,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
         </div>
 
         {paragraph.sumPillBannerCards && (
-          <div className="cc rs-mb-8 flex flex-col gap-20 lg:-mt-96 lg:flex-row">
+          <div className="cc rs-mb-8 -mt-96 flex flex-col gap-20 lg:flex-row">
             {paragraph.sumPillBannerCards.map(card => (
               <CardParagraph
                 key={card.id}

@@ -31,7 +31,6 @@ export type BannerParagraphBehaviors = {
 }
 
 export type SumBannerParagraphBehaviors = {
-  sum_banner_alignment?: "left" | "right"
   sum_banner_button?: boolean
   sum_banner_overlay_bkg?: "olive" | "spirited" | "spirited_dark"
 }

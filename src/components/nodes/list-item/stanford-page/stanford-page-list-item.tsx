@@ -1,26 +1,21 @@
-import Link from "@components/elements/link";
-import Image from "next/image";
-import { H2, H3 } from "@components/elements/headers";
-import { HtmlHTMLAttributes } from "react";
-import { NodeStanfordPage } from "@lib/gql/__generated__/drupal.d";
-import { twMerge } from "tailwind-merge";
+import Link from "@components/elements/link"
+import Image from "next/image"
+import {H2, H3} from "@components/elements/headers"
+import {HtmlHTMLAttributes} from "react"
+import {NodeStanfordPage} from "@lib/gql/__generated__/drupal.d"
+import {twMerge} from "tailwind-merge"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
-  node: NodeStanfordPage;
-  headingLevel?: "h2" | "h3";
-};
+  node: NodeStanfordPage
+  headingLevel?: "h2" | "h3"
+}
 
-const StanfordPageListItem = ({ node, headingLevel, ...props }: Props) => {
-  const pageTitleBannerImage =
-    node.suPageBanner?.__typename === "ParagraphStanfordPageTitleBanner" &&
-    node.suPageBanner.suTitleBannerImage.mediaImage;
-  const bannerImage =
-    node.suPageBanner?.__typename === "ParagraphSumTopBanner" &&
-    node.suPageBanner.sumTopBannerImage?.mediaImage;
-  const image =
-    node.suPageImage?.mediaImage || pageTitleBannerImage || bannerImage;
+const StanfordPageListItem = ({node, headingLevel, ...props}: Props) => {
+  const pageTitleBannerImage = node.suPageBanner?.__typename === "ParagraphStanfordPageTitleBanner" && node.suPageBanner.suTitleBannerImage.mediaImage
+  const bannerImage = node.suPageBanner?.__typename === "ParagraphSumTopBanner" && node.suPageBanner.sumTopBannerImage?.mediaImage
+  const image = node.suPageImage?.mediaImage || pageTitleBannerImage || bannerImage
 
-  const Heading = headingLevel === "h3" ? H3 : H2;
+  const Heading = headingLevel === "h3" ? H3 : H2
   return (
     <article
       {...props}
@@ -32,7 +27,10 @@ const StanfordPageListItem = ({ node, headingLevel, ...props }: Props) => {
         {...props}
       >
         <div className="order-2 @4xl:order-1">
-          <Heading className="text-m2" id={node.id}>
+          <Heading
+            className="text-m2"
+            id={node.id}
+          >
             <Link href={node.path}>{node.title}</Link>
           </Heading>
 
@@ -52,6 +50,6 @@ const StanfordPageListItem = ({ node, headingLevel, ...props }: Props) => {
         )}
       </div>
     </article>
-  );
-};
-export default StanfordPageListItem;
+  )
+}
+export default StanfordPageListItem

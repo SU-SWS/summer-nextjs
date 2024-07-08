@@ -1,43 +1,48 @@
-"use client";
+"use client"
 
-import {HTMLAttributes, JSX} from "react";
-import Slider, {CustomArrowProps, Settings} from "react-slick";
-import {ArrowLongRightIcon, ArrowLongLeftIcon} from "@heroicons/react/16/solid";
-import {twMerge} from "tailwind-merge";
-import {clsx} from "clsx";
-
+import {HTMLAttributes, JSX} from "react"
+import Slider, {CustomArrowProps, Settings} from "react-slick"
+import {ArrowLongRightIcon, ArrowLongLeftIcon} from "@heroicons/react/16/solid"
+import {twMerge} from "tailwind-merge"
+import {clsx} from "clsx"
 
 const NextArrow = ({className, onClick}: CustomArrowProps) => {
-  const slickDisabled = !!(className && className?.indexOf("slick-disabled") > 0);
+  const slickDisabled = !!(className && className?.indexOf("slick-disabled") > 0)
   return (
     <button
-      className="absolute top-1/2 right-5 z-50 w-20 h-20 bg-digital-red rounded-full flex justify-around border-2 border-white hocus:outline hocus:outline-3 hocus:outline-digital-red"
+      className="hocus:outline-3 absolute right-5 top-1/2 z-50 flex h-20 w-20 justify-around rounded-full border-2 border-white bg-digital-red hocus:outline hocus:outline-digital-red"
       onClick={onClick}
       aria-label="Next"
       disabled={slickDisabled}
     >
-      <ArrowLongRightIcon width={40} className={twMerge("text-white", clsx({"text-fog-dark": slickDisabled}))}/>
+      <ArrowLongRightIcon
+        width={40}
+        className={twMerge("text-white", clsx({"text-fog-dark": slickDisabled}))}
+      />
     </button>
-  );
-};
+  )
+}
 
 const PrevArrow = ({className, onClick}: CustomArrowProps) => {
-  const slickDisabled = !!(className && className?.indexOf("slick-disabled") > 0);
+  const slickDisabled = !!(className && className?.indexOf("slick-disabled") > 0)
   return (
     <button
-      className="absolute top-1/2 left-5 z-50 w-20 h-20 bg-digital-red rounded-full flex justify-around border-2 border-white hocus:outline hocus:outline-3 hocus:outline-digital-red"
+      className="hocus:outline-3 absolute left-5 top-1/2 z-50 flex h-20 w-20 justify-around rounded-full border-2 border-white bg-digital-red hocus:outline hocus:outline-digital-red"
       onClick={onClick}
       aria-label="Previous"
       disabled={slickDisabled}
     >
-      <ArrowLongLeftIcon width={40} className={twMerge("text-white", clsx({"text-fog-dark": slickDisabled}))}/>
+      <ArrowLongLeftIcon
+        width={40}
+        className={twMerge("text-white", clsx({"text-fog-dark": slickDisabled}))}
+      />
     </button>
-  );
-};
+  )
+}
 
 type SlideshowProps = HTMLAttributes<HTMLDivElement> & {
-  children: JSX.Element | JSX.Element[];
-  slideshowProps?: Omit<Settings, "children">;
+  children: JSX.Element | JSX.Element[]
+  slideshowProps?: Omit<Settings, "children">
 }
 
 // Slide padding styles are added in the tailwind index.css file.
@@ -49,8 +54,8 @@ const Slideshow = ({children, slideshowProps, ...props}: SlideshowProps) => {
     dots: false,
     infinite: false,
     initialSlide: 0,
-    nextArrow: <NextArrow/>,
-    prevArrow: <PrevArrow/>,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     slidesToScroll: 1,
     slidesToShow: 3,
     speed: 500,
@@ -73,14 +78,15 @@ const Slideshow = ({children, slideshowProps, ...props}: SlideshowProps) => {
       },
     ],
     ...slideshowProps,
-  };
+  }
   return (
-    <div {...props} className={twMerge("relative", props.className)}>
-      <Slider {...settings}>
-        {children}
-      </Slider>
+    <div
+      {...props}
+      className={twMerge("relative", props.className)}
+    >
+      <Slider {...settings}>{children}</Slider>
     </div>
-  );
-};
+  )
+}
 
-export default Slideshow;
+export default Slideshow

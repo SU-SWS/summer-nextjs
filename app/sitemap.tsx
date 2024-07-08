@@ -10,13 +10,14 @@ const Sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const nodeQuery = await graphqlClient({next: {tags: ["paths"]}}).AllNodes()
   const nodes: NodeUnion[] = []
 
-  nodeQuery.nodeStanfordCourses.nodes.map(node => nodes.push(node as NodeUnion))
-  nodeQuery.nodeStanfordEventSeriesItems.nodes.map(node => nodes.push(node as NodeUnion))
-  nodeQuery.nodeStanfordEvents.nodes.map(node => nodes.push(node as NodeUnion))
-  nodeQuery.nodeStanfordNewsItems.nodes.map(node => nodes.push(node as NodeUnion))
+  // nodeQuery.nodeStanfordCourses.nodes.map(node => nodes.push(node as NodeUnion))
+  // nodeQuery.nodeStanfordEventSeriesItems.nodes.map(node => nodes.push(node as NodeUnion))
+  // nodeQuery.nodeStanfordEvents.nodes.map(node => nodes.push(node as NodeUnion))
+  // nodeQuery.nodeStanfordNewsItems.nodes.map(node => nodes.push(node as NodeUnion))
   nodeQuery.nodeStanfordPages.nodes.map(node => nodes.push(node as NodeUnion))
-  nodeQuery.nodeStanfordPeople.nodes.map(node => nodes.push(node as NodeUnion))
-  nodeQuery.nodeStanfordPolicies.nodes.map(node => nodes.push(node as NodeUnion))
+  // nodeQuery.nodeStanfordPeople.nodes.map(node => nodes.push(node as NodeUnion))
+  // nodeQuery.nodeStanfordPolicies.nodes.map(node => nodes.push(node as NodeUnion))
+  nodeQuery.nodeSumSummerCourses.nodes.map(node => nodes.push(node as NodeUnion))
 
   const sitemap: MetadataRoute.Sitemap = []
 

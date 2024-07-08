@@ -1200,42 +1200,12 @@ export const NodeDocument = gql`
     ${FragmentNodeUnionFragmentDoc}`;
 export const AllNodesDocument = gql`
     query AllNodes($first: Int = 1000) {
-  nodeStanfordCourses(first: $first, sortKey: CREATED_AT) {
-    nodes {
-      ...FragmentNodeInterface
-    }
-  }
-  nodeStanfordEventSeriesItems(first: $first, sortKey: CREATED_AT) {
-    nodes {
-      ...FragmentNodeInterface
-    }
-  }
-  nodeStanfordEvents(first: $first, sortKey: CREATED_AT) {
-    nodes {
-      ...FragmentNodeInterface
-    }
-  }
-  nodeStanfordNewsItems(first: $first, sortKey: CREATED_AT) {
+  nodeSumSummerCourses(first: $first, sortKey: CREATED_AT) {
     nodes {
       ...FragmentNodeInterface
     }
   }
   nodeStanfordPages(first: $first, sortKey: CREATED_AT) {
-    nodes {
-      ...FragmentNodeInterface
-    }
-  }
-  nodeStanfordPeople(first: $first, sortKey: CREATED_AT) {
-    nodes {
-      ...FragmentNodeInterface
-    }
-  }
-  nodeStanfordPolicies(first: $first, sortKey: CREATED_AT) {
-    nodes {
-      ...FragmentNodeInterface
-    }
-  }
-  nodeStanfordPublications(first: $first, sortKey: CREATED_AT) {
     nodes {
       ...FragmentNodeInterface
     }

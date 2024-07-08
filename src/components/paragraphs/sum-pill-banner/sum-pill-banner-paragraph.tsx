@@ -88,7 +88,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
         </div>
 
         {paragraph.sumPillBannerCards && (
-          <div className="cc rs-mb-8 -mt-96 flex flex-col gap-20 lg:flex-row">
+          <div className="cc rs-mb-8 -mt-96 flex w-full flex-col gap-20 lg:flex-row">
             {paragraph.sumPillBannerCards.map(card => (
               <CardParagraph
                 key={card.id}

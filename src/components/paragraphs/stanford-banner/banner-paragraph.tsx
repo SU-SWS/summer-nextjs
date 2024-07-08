@@ -24,7 +24,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
   const semiCircleButton = behaviors.sum_banner_behaviors?.sum_banner_button
   const headerTag = headerTagChoice[0]
   const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "text-m2 font-bold")
-  const overlayPosition = behaviors.sum_banner_behaviors?.sum_banner_alignment
+  const overlayPosition = behaviors.hero_pattern?.overlay_position
   const isSection = !!paragraph.suBannerHeader
   const BannerWrapper: ElementType = isSection ? "section" : "div"
 

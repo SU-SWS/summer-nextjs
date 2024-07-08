@@ -88,12 +88,22 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
 
         {paragraph.sumPillBannerCards && (
           <div className="cc rs-mb-8 -mt-96 flex w-full flex-col gap-20 lg:flex-row">
-            {paragraph.sumPillBannerCards.map(card => (
-              <CardParagraph
-                key={card.id}
-                paragraph={card}
-              />
-            ))}
+            {paragraph.sumPillBannerCards.map(card => {
+              const cardBehaviors = getParagraphBehaviors(card)
+              cardBehaviors.su_card_styles = {
+                ...(cardBehaviors.su_card_styles || {}),
+                heading: Element === "div" ? "h2" : "h3",
+                sum_card_variant: "pill",
+                sum_card_bg_color_variant: false,
+              }
+              card.behaviors = JSON.stringify(cardBehaviors)
+              return (
+                <CardParagraph
+                  key={card.id}
+                  paragraph={card}
+                />
+              )
+            })}
           </div>
         )}
       </div>

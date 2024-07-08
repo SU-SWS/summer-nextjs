@@ -1,7 +1,6 @@
 import React, {HtmlHTMLAttributes} from "react"
 import {ParagraphSumPillBanner} from "@lib/gql/__generated__/drupal.d"
 import {H2} from "@components/elements/headers"
-import Link from "@components/elements/link"
 import Wysiwyg from "@components/elements/wysiwyg"
 import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
 import Image from "next/image"

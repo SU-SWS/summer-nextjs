@@ -1,7 +1,7 @@
-import React, {ElementType, HtmlHTMLAttributes} from "react";
-import Image from "next/image";
-import {twMerge} from "tailwind-merge";
-import {Maybe} from "@lib/gql/__generated__/drupal";
+import React, {ElementType, HtmlHTMLAttributes} from "react"
+import Image from "next/image"
+import {twMerge} from "tailwind-merge"
+import {Maybe} from "@lib/gql/__generated__/drupal"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
@@ -15,36 +15,32 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
    * Is the banner supposed to be a section or a div.
    */
-  isSection?:Maybe<boolean>
+  isSection?: Maybe<boolean>
 }
 
 const ArchBanner = ({imageUrl, imageAlt, isSection, children, ...props}: Props) => {
-  const BannerWrapper: ElementType = isSection ? "section" : "div";
+  const BannerWrapper: ElementType = isSection ? "section" : "div"
 
   return (
     <BannerWrapper
       {...props}
-      className={twMerge("md:min-h-[400px] relative", props.className)}
+      className={twMerge("relative md:min-h-[400px]", props.className)}
     >
-      <div className="w-full h-1/4 md:h-1/2 xl:h-3/4 2xl:h-full absolute top-0 left-0 -z-50">
-          {imageUrl &&
-            <Image
-              className="object-cover"
-              src={imageUrl}
-              alt={imageAlt || ""}
-              loading="eager"
-              fill
-              sizes="100vw"
-            />
-          }
-          <div className="mt-10 md:mt-28 w-full h-full bg-white clip-arc"/>
+      <div className="absolute left-0 top-0 -z-50 h-1/4 w-full md:h-1/2 xl:h-3/4 2xl:h-full">
+        {imageUrl && (
+          <Image
+            className="ed11y-ignore object-cover"
+            src={imageUrl}
+            alt={imageAlt || ""}
+            loading="eager"
+            fill
+            sizes="100vw"
+          />
+        )}
+        <div className="clip-arc mt-10 h-full w-full bg-white md:mt-28" />
       </div>
 
-      {children &&
-        <div className="items-center pt-72 md:pt-96">
-          {children}
-        </div>
-      }
+      {children && <div className="items-center pt-72 md:pt-96">{children}</div>}
     </BannerWrapper>
   )
 }

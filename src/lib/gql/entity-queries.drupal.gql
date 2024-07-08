@@ -6,46 +6,51 @@ query Node($uuid: ID!) {
 }
 
 query AllNodes($first: Int = 1000) {
-  nodeStanfordCourses(first: $first, sortKey: CREATED_AT) {
+  nodeSumSummerCourses(first: $first, sortKey: CREATED_AT) {
     nodes {
       ...FragmentNodeInterface
     }
   }
-  nodeStanfordEventSeriesItems(first: $first, sortKey: CREATED_AT) {
-    nodes {
-      ...FragmentNodeInterface
-    }
-  }
-  nodeStanfordEvents(first: $first, sortKey: CREATED_AT) {
-    nodes {
-      ...FragmentNodeInterface
-    }
-  }
-  nodeStanfordNewsItems(first: $first, sortKey: CREATED_AT) {
-    nodes {
-      ...FragmentNodeInterface
-    }
-  }
+#  nodeStanfordCourses(first: $first, sortKey: CREATED_AT) {
+#    nodes {
+#      ...FragmentNodeInterface
+#    }
+#  }
+#  nodeStanfordEventSeriesItems(first: $first, sortKey: CREATED_AT) {
+#    nodes {
+#      ...FragmentNodeInterface
+#    }
+#  }
+#  nodeStanfordEvents(first: $first, sortKey: CREATED_AT) {
+#    nodes {
+#      ...FragmentNodeInterface
+#    }
+#  }
+#  nodeStanfordNewsItems(first: $first, sortKey: CREATED_AT) {
+#    nodes {
+#      ...FragmentNodeInterface
+#    }
+#  }
   nodeStanfordPages(first: $first, sortKey: CREATED_AT) {
     nodes {
       ...FragmentNodeInterface
     }
   }
-  nodeStanfordPeople(first: $first, sortKey: CREATED_AT) {
-    nodes {
-      ...FragmentNodeInterface
-    }
-  }
-  nodeStanfordPolicies(first: $first, sortKey: CREATED_AT) {
-    nodes {
-      ...FragmentNodeInterface
-    }
-  }
-  nodeStanfordPublications(first: $first, sortKey: CREATED_AT) {
-    nodes {
-      ...FragmentNodeInterface
-    }
-  }
+#  nodeStanfordPeople(first: $first, sortKey: CREATED_AT) {
+#    nodes {
+#      ...FragmentNodeInterface
+#    }
+#  }
+#  nodeStanfordPolicies(first: $first, sortKey: CREATED_AT) {
+#    nodes {
+#      ...FragmentNodeInterface
+#    }
+#  }
+#  nodeStanfordPublications(first: $first, sortKey: CREATED_AT) {
+#    nodes {
+#      ...FragmentNodeInterface
+#    }
+#  }
 }
 
 query Courses($first: Int = 1000, $after: Cursor) {

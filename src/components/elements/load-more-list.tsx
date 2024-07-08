@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import {useLayoutEffect, useRef, HtmlHTMLAttributes, JSX, useId} from "react";
-import Button from "@components/elements/button";
-import {useAutoAnimate} from "@formkit/auto-animate/react";
-import {useBoolean, useCounter} from "usehooks-ts";
-import useFocusOnRender from "@lib/hooks/useFocusOnRender";
+import {useLayoutEffect, useRef, HtmlHTMLAttributes, JSX, useId} from "react"
+import Button from "@components/elements/button"
+import {useAutoAnimate} from "@formkit/auto-animate/react"
+import {useBoolean, useCounter} from "usehooks-ts"
+import useFocusOnRender from "@lib/hooks/useFocusOnRender"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
@@ -26,32 +26,34 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 }
 
 const LoadMoreList = ({buttonText, children, ulProps, liProps, itemsPerPage = 10, ...props}: Props) => {
-  const id = useId();
+  const id = useId()
   const {count: shownItems, setCount: setShownItems} = useCounter(itemsPerPage)
   const {value: focusOnElement, setTrue: enableFocusElement, setFalse: disableFocusElement} = useBoolean(false)
 
-  const focusItemRef = useRef<HTMLLIElement>(null);
-  const [animationParent] = useAutoAnimate<HTMLUListElement>();
+  const focusItemRef = useRef<HTMLLIElement>(null)
+  const [animationParent] = useAutoAnimate<HTMLUListElement>()
 
   const showMoreItems = () => {
-    enableFocusElement();
-    setShownItems(shownItems + itemsPerPage);
+    enableFocusElement()
+    setShownItems(shownItems + itemsPerPage)
   }
 
-  const setFocusOnItem = useFocusOnRender(focusItemRef, false);
+  const setFocusOnItem = useFocusOnRender(focusItemRef, false)
 
   useLayoutEffect(() => {
     if (focusOnElement) setFocusOnItem()
-  }, [focusOnElement, setFocusOnItem]);
+  }, [focusOnElement, setFocusOnItem])
 
-  const focusingItem = shownItems - itemsPerPage;
+  const focusingItem = shownItems - itemsPerPage
   const items = Array.isArray(children) ? children : [children]
-  const itemsToShow = items.slice(0, shownItems);
+  const itemsToShow = items.slice(0, shownItems)
   return (
     <div {...props}>
-      <ul {...ulProps} ref={animationParent}>
-
-        {itemsToShow.map((item, i) =>
+      <ul
+        {...ulProps}
+        ref={animationParent}
+      >
+        {itemsToShow.map((item, i) => (
           <li
             key={`${id}--${i}`}
             ref={focusingItem === i ? focusItemRef : null}
@@ -61,21 +63,28 @@ const LoadMoreList = ({buttonText, children, ulProps, liProps, itemsPerPage = 10
           >
             {item}
           </li>
-        )}
+        ))}
       </ul>
 
-      {items.length > itemsPerPage &&
-        <span className="sr-only" aria-live="polite" aria-atomic="true">
+      {items.length > itemsPerPage && (
+        <span
+          className="sr-only"
+          aria-live="polite"
+          aria-atomic="true"
+        >
           Showing {itemsToShow.length} of {items.length} total items.
         </span>
-      }
+      )}
 
-      {items.length > shownItems &&
-        <Button centered onClick={showMoreItems}>
+      {items.length > shownItems && (
+        <Button
+          centered
+          onClick={showMoreItems}
+        >
           {buttonText ? buttonText : "Load More"}
         </Button>
-      }
+      )}
     </div>
   )
 }
-export default LoadMoreList;
+export default LoadMoreList

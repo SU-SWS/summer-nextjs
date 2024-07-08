@@ -9,7 +9,6 @@ import FavoritesList from "@components/elements/favorites-list"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeSumSummerCourse
-  headingLevel?: "h2" | "h3"
 }
 
 const SummerCoursePage = ({node, ...props}: Props) => {

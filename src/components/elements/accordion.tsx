@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import {HTMLAttributes, JSX, useId} from "react";
-import {H2, H3, H4} from "@components/elements/headers";
-import { MinusIcon, PlusIcon} from "@heroicons/react/20/solid";
-import {twMerge} from "tailwind-merge";
-import useAccordion from "@lib/hooks/useAccordion";
+import {HTMLAttributes, JSX, useId} from "react"
+import {H2, H3, H4} from "@components/elements/headers"
+import {MinusIcon, PlusIcon} from "@heroicons/react/20/solid"
+import {twMerge} from "tailwind-merge"
+import useAccordion from "@lib/hooks/useAccordion"
 
 type Props = HTMLAttributes<HTMLElement> & {
   /**
@@ -37,44 +37,45 @@ type Props = HTMLAttributes<HTMLElement> & {
   panelProps?: HTMLAttributes<HTMLDivElement>
 }
 
-const Accordion = ({
-  button,
-  children,
-  headingLevel = "h2",
-  ...props
-}: Props) => {
+const Accordion = ({button, children, headingLevel = "h2", ...props}: Props) => {
   const id = useId()
-  const {buttonProps, panelProps, expanded} = useAccordion({buttonId: `${id}-button`});
+  const {buttonProps, panelProps, expanded} = useAccordion({buttonId: `${id}-button`})
 
-  const Heading = headingLevel === "h2" ? H2 : headingLevel === "h3" ? H3 : H4;
+  const Heading = headingLevel === "h2" ? H2 : headingLevel === "h3" ? H3 : H4
   return (
-    <section aria-labelledby={`${id}-button`} className="centered bg-fog-light even:bg-white rs-px-3 lg:max-w-[980px] border border-fog-light even:border-transparent" {...props}>
-      <Heading className="mb-0 rs-py-3">
+    <section
+      aria-labelledby={`${id}-button`}
+      className="rs-px-3 centered border border-fog-light bg-fog-light even:border-transparent even:bg-white lg:max-w-[980px]"
+      {...props}
+    >
+      <Heading className="rs-py-3 mb-0">
         <button
           {...buttonProps}
-          className={twMerge("group w-full flex items-center justify-between", buttonProps?.className)}
+          className={twMerge("group flex w-full items-center justify-between", buttonProps?.className)}
         >
           {button}
-          <span className="transition text-5xl text-white group-hocus:text-white bg-digital-red border-2 border-white group-hocus:outline group-hocus:outline-3 group-hocus:outline-digital-red no-underline group-hocus:underline p-6 font-normal rounded-full m-4">
-            {expanded &&
-              <MinusIcon height={30} className="shrink-0 ml-auto"/>
-            }
+          <span className="group-hocus:outline-3 m-4 rounded-full border-2 border-white bg-digital-red p-6 text-5xl font-normal text-white no-underline transition group-hocus:text-white group-hocus:underline group-hocus:outline group-hocus:outline-digital-red">
+            {expanded && (
+              <MinusIcon
+                height={30}
+                className="ml-auto shrink-0"
+              />
+            )}
 
-            {!expanded &&
-              <PlusIcon height={30} className="shrink-0 ml-auto" />
-            }
+            {!expanded && (
+              <PlusIcon
+                height={30}
+                className="ml-auto shrink-0"
+              />
+            )}
           </span>
         </button>
       </Heading>
 
-      <div
-        {...panelProps}
-      >
-        <div className="mt-10 pb-24">
-          {children}
-        </div>
+      <div {...panelProps}>
+        <div className="mt-10 pb-24">{children}</div>
       </div>
     </section>
   )
 }
-export default Accordion;
+export default Accordion

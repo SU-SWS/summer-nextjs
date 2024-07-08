@@ -7,7 +7,6 @@ import {isPreviewMode} from "@lib/drupal/is-preview-mode"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordCourse
-  headingLevel?: "h2" | "h3"
 }
 
 const StanfordCoursePage = ({node, ...props}: Props) => {

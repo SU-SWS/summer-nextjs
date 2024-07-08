@@ -95,7 +95,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
           </label>
           <SelectList
             ariaLabelledby="sum-student-type"
-            emptyLabel="Pick a level"
+            placeholder="Pick a level"
             options={[
               {value: "undergraduate", label: "I am a/an Undergraduate student"},
               {value: "highschool", label: "I am a/an High School student"},
@@ -125,6 +125,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
           </label>
           <SelectList
             ariaLabelledby="sum-international-student"
+            placeholder="Choose an option"
             options={[
               {value: "yes", label: "Yes, I am an international student requiring a Stanford Sponsored I-20"},
               {value: "no1", label: "No, I am a US citizen or permanent US resident"},
@@ -153,6 +154,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
           </label>
           <SelectList
             ariaLabelledby="sum-campus-status"
+            placeholder="Choose housing preference"
             options={[
               {value: "yes", label: "On-Campus"},
               {value: "no", label: "Living off campus and commuting"},
@@ -181,6 +183,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
           </label>
           <SelectList
             ariaLabelledby="sum-units"
+            placeholder="Select the number of units"
             options={unitOptions}
             downIcon={
               <ChevronDownIcon
@@ -207,6 +210,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
           </label>
           <SelectList
             ariaLabelledby="sum-cardinal-care"
+            placeholder="Choose an option"
             options={[
               {value: "yes", label: "Yes, I will be waiving Cardinal Care."},
               {value: "no", label: "No, I would like to stay enrolled in Cardinal Care Health Insurance"},

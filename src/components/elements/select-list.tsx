@@ -91,9 +91,10 @@ interface Props {
   downIcon?: JSX.Element
   buttonClassName?: string
   onFocus?: () => void
+  placeholder?: string
 }
 
-const SelectList = ({options = [], label, multiple, ariaLabelledby, required, defaultValue, name, emptyValue, emptyLabel = "- None -", downIcon, buttonClassName, ...props}: Props) => {
+const SelectList = ({options = [], label, multiple, ariaLabelledby, required, defaultValue, name, emptyValue, emptyLabel = "- None -", downIcon, buttonClassName, placeholder, ...props}: Props) => {
   const labelId = useId()
   const labeledBy = ariaLabelledby || labelId
 
@@ -148,7 +149,7 @@ const SelectList = ({options = [], label, multiple, ariaLabelledby, required, de
           </div>
         )}
 
-        {optionChosen && <div className="rs-p-3 type-2 max-w-[calc(100%-30px)] overflow-hidden">{renderSelectedValue(value, options)}</div>}
+        {optionChosen ? <div className="rs-p-3 type-2 max-w-[calc(100%-30px)] overflow-hidden">{renderSelectedValue(value, options)}</div> : <span className="type-2">{placeholder}</span>}
 
         <span className="rs-pr-3 absolute right-0 top-0 flex h-full items-center">{downIcon || <ChevronDownIcon width={50} />}</span>
       </button>

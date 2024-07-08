@@ -161,7 +161,7 @@ const SelectList = ({options = [], label, multiple, ariaLabelledby, required, de
           aria-labelledby={labeledBy}
         >
           <SelectProvider value={contextValue}>
-            {!required && !multiple && (
+            {emptyLabel && (
               <CustomOption
                 value={emptyValue || ""}
                 rootRef={listboxRef}

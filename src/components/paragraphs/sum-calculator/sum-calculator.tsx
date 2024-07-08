@@ -87,12 +87,19 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-20 pb-72">
         <div onFocus={onSelectFocus}>
+          <label
+            className="rs-mb-1 type-3"
+            id="sum-student-type"
+          >
+            Tell us who you are
+          </label>
           <SelectList
-            label="I am a/an _________ student"
+            ariaLabelledby="sum-student-type"
+            emptyLabel="Pick a level"
             options={[
-              {value: "undergraduate", label: "Undergraduate"},
-              {value: "highschool", label: "High School"},
-              {value: "graduate", label: "Graduate"},
+              {value: "undergraduate", label: "I am a/an Undergraduate student"},
+              {value: "highschool", label: "I am a/an High School student"},
+              {value: "graduate", label: "I am a/an Graduate student"},
             ]}
             downIcon={
               <ChevronDownIcon
@@ -110,8 +117,14 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
 
         <div onFocus={onSelectFocus}>
+          <label
+            className="rs-mb-1 type-3"
+            id="sum-international-student"
+          >
+            Are you an international student that requires a Stanford issued I-20?
+          </label>
           <SelectList
-            label="Are you an international student that requires a Stanford issued I-20?"
+            ariaLabelledby="sum-international-student"
             options={[
               {value: "yes", label: "Yes, I am an international student requiring a Stanford Sponsored I-20"},
               {value: "no1", label: "No, I am a US citizen or permanent US resident"},
@@ -132,8 +145,14 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
 
         <div onFocus={onSelectFocus}>
+          <label
+            className="rs-mb-1 type-3"
+            id="sum-campus-status"
+          >
+            Will you be living on campus?
+          </label>
           <SelectList
-            label="Will you be living on campus?"
+            ariaLabelledby="sum-campus-status"
             options={[
               {value: "yes", label: "On-Campus"},
               {value: "no", label: "Living off campus and commuting"},
@@ -154,8 +173,14 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
 
         <div onFocus={onSelectFocus}>
+          <label
+            className="rs-mb-1 type-3"
+            id="sum-units"
+          >
+            How many units will you be taking?
+          </label>
           <SelectList
-            label="How many units will you be taking?"
+            ariaLabelledby="sum-units"
             options={unitOptions}
             downIcon={
               <ChevronDownIcon
@@ -174,8 +199,14 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
 
         <div onFocus={onSelectFocus}>
+          <label
+            className="rs-mb-1 type-3"
+            id="sum-cardinal-care"
+          >
+            Will you be waiving Cardinal Care Health Insurance?
+          </label>
           <SelectList
-            label="Will you be waiving Cardinal Care Health Insurance?"
+            ariaLabelledby="sum-cardinal-care"
             options={[
               {value: "yes", label: "Yes, I will be waiving Cardinal Care."},
               {value: "no", label: "No, I would like to stay enrolled in Cardinal Care Health Insurance"},

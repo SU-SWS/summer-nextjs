@@ -32,67 +32,67 @@ const SumCalculatorParagraph = ({paragraph, ...props}: Props) => {
       documentsCost={paragraph.sumCalcDocuments}
       commuterHelp={
         <Wysiwyg
-          className="mx-12 mb-16 mt-10"
+          className="bg-fog-light px-12 pb-16 pt-10"
           html={paragraph.sumCalcCommuteHelp?.processed}
         />
       }
       graduateApplicationHelp={
         <Wysiwyg
-          className="mx-12 mb-16 mt-10"
+          className="bg-fog-light px-12 pb-16 pt-10"
           html={paragraph.sumCalcGradAppHelp?.processed}
         />
       }
       graduateUnitsHelp={
         <Wysiwyg
-          className="mx-12 mb-16 mt-10"
+          className="bg-fog-light px-12 pb-16 pt-10"
           html={paragraph.sumCalcGradUnitHelp?.processed}
         />
       }
       highSchoolAppHelp={
         <Wysiwyg
-          className="mx-12 mb-16 mt-10"
+          className="bg-fog-light px-12 pb-16 pt-10"
           html={paragraph.sumCalcHighAppHelp?.processed}
         />
       }
       highSchoolUnitHelp={
         <Wysiwyg
-          className="mx-12 mb-16 mt-10"
+          className="bg-fog-light px-12 pb-16 pt-10"
           html={paragraph.sumCalcHighUnitHelp?.processed}
         />
       }
       onCampusHousingHelp={
         <Wysiwyg
-          className="mx-12 mb-16 mt-10"
+          className="bg-fog-light px-12 pb-16 pt-10"
           html={paragraph.sumCalcHouseHelp?.processed}
         />
       }
       i20Help={
         <Wysiwyg
-          className="mx-12 mb-16 mt-10"
+          className="bg-fog-light px-12 pb-16 pt-10"
           html={paragraph.sumCalcI20Help?.processed}
         />
       }
       insuranceHelp={
         <Wysiwyg
-          className="mx-12 mb-16 mt-10"
+          className="bg-fog-light px-12 pb-16 pt-10"
           html={paragraph.sumCalcInsHelp?.processed}
         />
       }
       wavedInsuranceHelp={
         <Wysiwyg
-          className="mx-12 mb-16 mt-10"
+          className="bg-fog-light px-12 pb-16 pt-10"
           html={paragraph.sumCalcInsWaveHelp?.processed}
         />
       }
       undergradAppHelp={
         <Wysiwyg
-          className="mx-12 mb-16 mt-10"
+          className="bg-fog-light px-12 pb-16 pt-10"
           html={paragraph.sumCalcUgAppHelp?.processed}
         />
       }
       undergradUnitsHelp={
         <Wysiwyg
-          className="mx-12 mb-16 mt-10"
+          className="bg-fog-light px-12 pb-16 pt-10"
           html={paragraph.sumCalcUgUnitHelp?.processed}
         />
       }

@@ -126,10 +126,10 @@ const SelectList = ({options = [], label, multiple, ariaLabelledby, required, de
   const optionChosen = multiple && value ? value.length > 0 : !!value
 
   return (
-    <div className="relative mb-10 h-fit">
+    <div className="relative h-fit">
       <button
         {...getButtonProps()}
-        className={clsx(twMerge("w-full rounded border-2 border-black-10 text-left", buttonClassName, !optionChosen && "rs-p-3"), {"bg-black-20": props.disabled})}
+        className={clsx(twMerge("w-full rounded border-2 border-black-10 text-left", buttonClassName, !optionChosen && "rs-p-3", value && "bg-fog-light"), {"bg-black-20": props.disabled})}
         aria-labelledby={labeledBy}
       >
         {label && (

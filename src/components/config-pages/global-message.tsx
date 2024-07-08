@@ -1,54 +1,72 @@
 import {BellIcon, CheckCircleIcon, ExclamationTriangleIcon, InformationCircleIcon} from "@heroicons/react/20/solid"
-import {H2} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 import {StanfordGlobalMessage} from "@lib/gql/__generated__/drupal.d"
 import ActionLink from "@components/elements/action-link"
 import {twMerge} from "tailwind-merge"
 import clsx from "clsx"
+import {HTMLAttributes, useId} from "react"
+import {getConfigPage} from "@lib/gql/gql-queries"
+import {H2} from "@components/elements/headers"
 
-const GlobalMessage = ({suGlobalMsgEnabled, suGlobalMsgType, suGlobalMsgHeader, suGlobalMsgLabel, suGlobalMsgLink, suGlobalMsgMessage}: StanfordGlobalMessage) => {
-  if (!suGlobalMsgEnabled) return
+type Props = HTMLAttributes<HTMLElement> & {}
+
+const GlobalMessage = async ({...props}: Props) => {
+  const id = useId()
+
+  const globalMessageConfig = await getConfigPage<StanfordGlobalMessage>("StanfordGlobalMessage")
+  if (!globalMessageConfig?.suGlobalMsgEnabled) return
 
   const wrapperClasses = clsx({
-    "bg-digital-blue-dark text-white": suGlobalMsgType === "info",
-    "bg-illuminating-dark": suGlobalMsgType === "warning",
-    "bg-digital-green text-white": suGlobalMsgType === "success",
-    "bg-foggy-light": suGlobalMsgType === "plain",
-    "bg-digital-red text-white": suGlobalMsgType === "error",
+    "bg-digital-blue-dark text-white": globalMessageConfig.suGlobalMsgType === "info",
+    "bg-illuminating-dark": globalMessageConfig.suGlobalMsgType === "warning",
+    "bg-digital-green text-white": globalMessageConfig.suGlobalMsgType === "success",
+    "bg-foggy-light": globalMessageConfig.suGlobalMsgType === "plain",
+    "bg-digital-red text-white": globalMessageConfig.suGlobalMsgType === "error",
   })
 
   return (
-    <div className="bg-fog-light">
+    <article
+      {...props}
+      className={twMerge("bg-fog-light", props.className)}
+      aria-labelledby={id}
+    >
       <div className="md:centered">
         <div className={twMerge(wrapperClasses, "flex w-full flex-col items-center gap-10 rounded-b-[25px] px-16 py-10 md:flex-row lg:w-3/4")}>
-          {suGlobalMsgLabel && (
+          {globalMessageConfig.suGlobalMsgLabel && (
             <div className="flex shrink-0 items-center leading-none">
-              <MessageIcon messageType={suGlobalMsgType} />
-              {suGlobalMsgLabel}:
+              <MessageIcon messageType={globalMessageConfig.suGlobalMsgType} />
+              {globalMessageConfig.suGlobalMsgLabel}:
             </div>
           )}
           <div>
-            {suGlobalMsgHeader && <H2 className="mb-3 text-23">{suGlobalMsgHeader}</H2>}
-            <Wysiwyg html={suGlobalMsgMessage?.processed} />
+            {globalMessageConfig.suGlobalMsgHeader && (
+              <H2
+                id={id}
+                className="mb-3 text-23"
+              >
+                {globalMessageConfig.suGlobalMsgHeader}
+              </H2>
+            )}
+            <Wysiwyg html={globalMessageConfig.suGlobalMsgMessage?.processed} />
           </div>
 
-          {suGlobalMsgLink?.url && (
+          {globalMessageConfig.suGlobalMsgLink?.url && (
             <ActionLink
-              href={suGlobalMsgLink.url}
+              href={globalMessageConfig.suGlobalMsgLink.url}
               className={twMerge(
                 "w-full max-w-fit no-underline hocus:underline",
                 clsx({
-                  "text-black": suGlobalMsgType === "warning",
-                  "text-white hocus:text-white": suGlobalMsgType === "info" || suGlobalMsgType === "error" || suGlobalMsgType === "success",
+                  "text-black": globalMessageConfig.suGlobalMsgType === "warning",
+                  "text-white hocus:text-white": globalMessageConfig.suGlobalMsgType === "info" || globalMessageConfig.suGlobalMsgType === "error" || globalMessageConfig.suGlobalMsgType === "success",
                 })
               )}
             >
-              {suGlobalMsgLink.title}
+              {globalMessageConfig.suGlobalMsgLink.title}
             </ActionLink>
           )}
         </div>
       </div>
-    </div>
+    </article>
   )
 }
 

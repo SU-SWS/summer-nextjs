@@ -1,13 +1,13 @@
 import MainMenu from "@components/menu/main-menu"
-import GlobalMessage from "@components/config-pages/global-message"
 import Lockup from "@components/elements/lockup/lockup"
 import {getConfigPage, getMenu} from "@lib/gql/gql-queries"
-import {LockupSetting, MenuAvailable, StanfordBasicSiteSetting, StanfordGlobalMessage} from "@lib/gql/__generated__/drupal.d"
+import {LockupSetting, MenuAvailable, StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
 import Button from "@components/elements/button"
+import GlobalMessage from "@components/config-pages/global-message"
 
 const PageHeader = async () => {
   const menuItems = await getMenu(MenuAvailable.Main)
-  const globalMessageConfig = await getConfigPage<StanfordGlobalMessage>("StanfordGlobalMessage")
+
   const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
   const lockupSettingsConfig = await getConfigPage<LockupSetting>("LockupSetting")
 
@@ -23,7 +23,7 @@ const PageHeader = async () => {
           </a>
         </div>
       </div>
-      {globalMessageConfig && <GlobalMessage {...globalMessageConfig} />}
+      <GlobalMessage />
       <div className="relative bg-fog-light">
         <div className="w-full border-b-2 lg:border-b-0">
           <div className="min-h-50 rs-py-2 centered pr-24 lg:pr-0">

@@ -1,16 +1,10 @@
-type TimeObject = {
-  timezone: string;
-  time: string;
+import {DateTime} from "@lib/gql/__generated__/drupal"
+
+export const convertToLocalDateTime = (timeObject: DateTime): string => {
+  return new Date(timeObject.time).toLocaleString("en-US", {
+    timeZone: timeObject.timezone,
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  })
 }
-
-export const convertToLocalDateTime = (timeObject: TimeObject): string => {
-  const utcDate = new Date(timeObject.time);
-  const localDate = utcDate.toLocaleString("en-US", {
-      timeZone: timeObject.timezone,
-      month: "long",
-      day: "numeric",
-      year: "numeric"
-  });
-
-  return localDate;
-};

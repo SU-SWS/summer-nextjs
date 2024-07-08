@@ -88,7 +88,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
       <div className="mx-auto flex max-w-7xl flex-col gap-20 pb-72">
         <div onFocus={onSelectFocus}>
           <label
-            className="rs-mb-1 type-3"
+            className="rs-mb-1 type-3 block"
             id="sum-student-type"
           >
             Tell us who you are
@@ -118,7 +118,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
 
         <div onFocus={onSelectFocus}>
           <label
-            className="rs-mb-1 type-3"
+            className="rs-mb-1 type-3 block"
             id="sum-international-student"
           >
             Are you an international student that requires a Stanford issued I-20?
@@ -146,7 +146,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
 
         <div onFocus={onSelectFocus}>
           <label
-            className="rs-mb-1 type-3"
+            className="rs-mb-1 type-3 block"
             id="sum-campus-status"
           >
             Will you be living on campus?
@@ -174,7 +174,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
 
         <div onFocus={onSelectFocus}>
           <label
-            className="rs-mb-1 type-3"
+            className="rs-mb-1 type-3 block"
             id="sum-units"
           >
             How many units will you be taking?
@@ -200,7 +200,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
 
         <div onFocus={onSelectFocus}>
           <label
-            className="rs-mb-1 type-3"
+            className="rs-mb-1 type-3 block"
             id="sum-cardinal-care"
           >
             Will you be waiving Cardinal Care Health Insurance?

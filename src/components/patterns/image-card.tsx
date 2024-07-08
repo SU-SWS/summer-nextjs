@@ -33,7 +33,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
   return (
     <CardWrapper
       {...props}
-      className={twMerge("centered w-full rounded-[25px] lg:max-w-[980px]", hasBgColor ? "bg-transparent" : "bg-fog-light", props.className)}
+      className={twMerge("centered w-full rounded-[25px] lg:max-w-[980px]", hasBgColor ? "flex h-full flex-col justify-center bg-transparent" : "bg-fog-light", props.className)}
     >
       {imageUrl && (
         <div className="relative aspect-[16/9] w-full">
@@ -49,7 +49,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
 
       {videoUrl && <Oembed url={videoUrl} />}
 
-      <div className="flex flex-col px-10 py-20 lg:px-20">{children}</div>
+      <div className={twMerge("flex flex-col", !hasBgColor && "px-10 py-20 lg:px-20")}>{children}</div>
     </CardWrapper>
   )
 }

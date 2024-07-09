@@ -19,6 +19,23 @@
   .clip-arc {
     clip-path: ellipse(51% 90% at 50% 100%);
   }
+
+  .clip-arc-border {
+    position: relative;
+    clip-path: ellipse(51% 90% at 50% 100%);
+    z-index: 1;
+  }
+  
+  .clip-arc-border::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-top: 2px solid black;
+    clip-path: ellipse(51% 90% at 50% 100%);
+    z-index: 2;
+  }
 }
 
 .slick-slide {

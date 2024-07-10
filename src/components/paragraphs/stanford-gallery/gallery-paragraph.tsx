@@ -95,8 +95,14 @@ const GalleryParagraph = ({paragraph, ...props}: Props) => {
                 linkClasses="rounded-b-full"
               >
                 {paragraph.suGalleryImages.length > 6 && (
-                  <div className="absolute left-0 top-0 flex h-full w-full items-center justify-around bg-black-true bg-opacity-55">
-                    <div className="font-roboto text-m4 text-white">+ {paragraph.suGalleryImages.length - 6}</div>
+                  <div className="absolute left-0 top-0 flex h-full w-full items-center justify-around rounded-b-full bg-black-true bg-opacity-55">
+                    <div
+                      className="font-roboto text-m4 text-white"
+                      aria-hidden
+                    >
+                      + {paragraph.suGalleryImages.length - 6}
+                    </div>
+                    <div className="sr-only">{`${paragraph.suGalleryImages.length - 6} More images available`}</div>
                   </div>
                 )}
               </GalleryImage>
@@ -129,9 +135,9 @@ const GalleryImage = ({
         <Image
           className="object-cover"
           src={image.suGalleryImage.url}
-          alt={(!image.suGalleryCaption && image.suGalleryImage.alt) || ""}
+          alt={image.suGalleryImage.alt || ""}
           fill
-          sizes="400px"
+          sizes="(max-width: 768px) 100vw, 800px"
         />
         {children}
       </Link>

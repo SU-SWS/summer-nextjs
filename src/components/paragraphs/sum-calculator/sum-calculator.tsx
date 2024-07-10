@@ -97,9 +97,9 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
             ariaLabelledby="sum-student-type"
             placeholder="Pick a level"
             options={[
-              {value: "undergraduate", label: "I am a/an Undergraduate student"},
-              {value: "highschool", label: "I am a/an High School student"},
-              {value: "graduate", label: "I am a/an Graduate student"},
+              {value: "undergraduate", label: "I am an Undergraduate student"},
+              {value: "highschool", label: "I am a High School student"},
+              {value: "graduate", label: "I am a Graduate student"},
             ]}
             downIcon={
               <ChevronDownIcon

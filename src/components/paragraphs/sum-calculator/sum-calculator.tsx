@@ -87,12 +87,12 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-20 pb-72">
         <div onFocus={onSelectFocus}>
-          <label
+          <div
             className="rs-mb-1 type-3 block"
             id="sum-student-type"
           >
             Tell us who you are
-          </label>
+          </div>
           <SelectList
             ariaLabelledby="sum-student-type"
             placeholder="Pick a level"
@@ -117,12 +117,12 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
 
         <div onFocus={onSelectFocus}>
-          <label
+          <div
             className="rs-mb-1 type-3 block"
             id="sum-international-student"
           >
             Are you an international student that requires a Stanford issued I-20?
-          </label>
+          </div>
           <SelectList
             ariaLabelledby="sum-international-student"
             placeholder="Choose an option"
@@ -146,12 +146,12 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
 
         <div onFocus={onSelectFocus}>
-          <label
+          <div
             className="rs-mb-1 type-3 block"
             id="sum-campus-status"
           >
             Will you be living on campus?
-          </label>
+          </div>
           <SelectList
             ariaLabelledby="sum-campus-status"
             placeholder="Choose housing preference"
@@ -175,12 +175,12 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
 
         <div onFocus={onSelectFocus}>
-          <label
+          <div
             className="rs-mb-1 type-3 block"
             id="sum-units"
           >
             How many units will you be taking?
-          </label>
+          </div>
           <SelectList
             ariaLabelledby="sum-units"
             placeholder="Select the number of units"
@@ -202,12 +202,12 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
 
         <div onFocus={onSelectFocus}>
-          <label
+          <div
             className="rs-mb-1 type-3 block"
             id="sum-cardinal-care"
           >
             Will you be waiving Cardinal Care Health Insurance?
-          </label>
+          </div>
           <SelectList
             ariaLabelledby="sum-cardinal-care"
             placeholder="Choose an option"

@@ -1,5 +1,5 @@
 import React, {HtmlHTMLAttributes} from "react"
-import {ParagraphSumPillBanner} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphStanfordCard, ParagraphSumPillBanner} from "@lib/gql/__generated__/drupal.d"
 import {H2} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
@@ -31,7 +31,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
               src={paragraph.sumPillBannerBkgd.mediaImage.url}
               alt={paragraph.sumPillBannerBkgd.mediaImage.alt || ""}
               fill
-              sizes="100vw"
+              sizes="(max-width: 1500px) 1500px, 100vw"
             />
           </div>
         </div>
@@ -50,64 +50,70 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
             })
           )}
         >
-          <div className="flex flex-col">
-            {paragraph.sumPillBannerHeadline && (
-              <H2
-                id={paragraph.id}
-                className="mb-8 font-light"
-              >
-                {paragraph.sumPillBannerHeadline}
-              </H2>
-            )}
+          <div className="gutters">
+            <div className="flex flex-col">
+              {paragraph.sumPillBannerHeadline && (
+                <H2
+                  id={paragraph.id}
+                  className="mb-8 font-light"
+                >
+                  {paragraph.sumPillBannerHeadline}
+                </H2>
+              )}
 
-            {paragraph.sumPillBannerSuphead && <div className="order-first mb-8">{paragraph.sumPillBannerSuphead}</div>}
-          </div>
-
-          <Wysiwyg
-            html={paragraph.sumPillBannerDescrip?.processed}
-            className="mx-auto w-full max-w-full sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px]"
-          />
-
-          {paragraph.sumPillBannerLink?.url && (
-            <div className="rs-mt-3">
-              <ActionLink
-                href={paragraph.sumPillBannerLink.url}
-                className={twMerge(
-                  "text-archway-dark no-underline hocus:text-archway-dark hocus:underline",
-                  clsx({
-                    "text-black-true hocus:text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
-                    "text-white hocus:text-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
-                  })
-                )}
-              >
-                {paragraph.sumPillBannerLink.title}
-              </ActionLink>
+              {paragraph.sumPillBannerSuphead && <div className="order-first mb-8">{paragraph.sumPillBannerSuphead}</div>}
             </div>
-          )}
+
+            <Wysiwyg
+              html={paragraph.sumPillBannerDescrip?.processed}
+              className="mx-auto w-full max-w-full sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px]"
+            />
+
+            {paragraph.sumPillBannerLink?.url && (
+              <div className="rs-mt-3">
+                <ActionLink
+                  href={paragraph.sumPillBannerLink.url}
+                  className={twMerge(
+                    "text-archway-dark no-underline hocus:text-archway-dark hocus:underline",
+                    clsx({
+                      "text-black-true hocus:text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
+                      "text-white hocus:text-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
+                    })
+                  )}
+                >
+                  {paragraph.sumPillBannerLink.title}
+                </ActionLink>
+              </div>
+            )}
+          </div>
         </div>
 
         {paragraph.sumPillBannerCards && (
-          <div className="cc rs-mb-8 -mt-96 flex w-full flex-col gap-20 lg:flex-row">
-            {paragraph.sumPillBannerCards.map(card => {
-              const cardBehaviors = getParagraphBehaviors(card)
-              cardBehaviors.su_card_styles = {
-                ...(cardBehaviors.su_card_styles || {}),
-                heading: Element === "div" ? "h2" : "h3",
-                sum_card_variant: "pill",
-                sum_card_bg_color_variant: false,
-              }
-              card.behaviors = JSON.stringify(cardBehaviors)
-              return (
-                <CardParagraph
-                  key={card.id}
-                  paragraph={card}
-                />
-              )
-            })}
+          <div className="rs-mb-8 gutters -mt-96 flex w-full flex-col gap-20 lg:flex-row">
+            {paragraph.sumPillBannerCards.map(card => (
+              <PillBannerCard
+                key={card.id}
+                card={card}
+                headingLevel={Element === "div" ? "h2" : "h3"}
+              />
+            ))}
           </div>
         )}
       </div>
     </Element>
   )
 }
+
+const PillBannerCard = ({card, headingLevel}: {card: ParagraphStanfordCard; headingLevel: "h2" | "h3"}) => {
+  const cardBehaviors = getParagraphBehaviors(card)
+  cardBehaviors.su_card_styles = {
+    ...(cardBehaviors.su_card_styles || {}),
+    heading: headingLevel,
+    sum_card_variant: "pill",
+    sum_card_bg_color_variant: false,
+  }
+  card.behaviors = JSON.stringify(cardBehaviors)
+  return <CardParagraph paragraph={card} />
+}
+
 export default SumPillBannerParagraph

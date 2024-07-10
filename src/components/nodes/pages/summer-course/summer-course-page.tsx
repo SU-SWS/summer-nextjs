@@ -41,7 +41,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
           </div>
         </div>
       </ArchBanner>
-      <div className="centered relative z-10 my-32 grid grid-cols-12 gap-10">
+      <div className="centered relative z-10 my-32 grid grid-cols-12 gap-10 md:gap-32">
         <div className="order-2 col-span-12 lg:col-span-8">
           <div className="rs-mb-4 grid grid-cols-1 gap-10 lg:grid-cols-2">
             {node.sumCourseImage && (

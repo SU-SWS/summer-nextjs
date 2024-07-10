@@ -35,7 +35,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
     <CardWrapper
       {...props}
       className={clsx("centered w-full rounded-[25px] lg:max-w-[980px]", props.className, {
-        "h-full bg-transparent": hasBgColor,
+        "bg-transparent": hasBgColor,
         "bg-fog-light": !hasBgColor,
       })}
     >
@@ -53,7 +53,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
 
       {videoUrl && <Oembed url={videoUrl} />}
 
-      <div className={clsx("flex flex-col", {"px-10 py-20 lg:px-20": !hasBgColor})}>{children}</div>
+      <div className={clsx("flex flex-col", {"px-10 py-20 lg:px-20": !hasBgColor, "pt-10": hasBgColor && imageUrl, "lg:rs-pt-9": hasBgColor && !imageUrl})}>{children}</div>
     </CardWrapper>
   )
 }

@@ -149,7 +149,8 @@ const SelectList = ({options = [], label, multiple, ariaLabelledby, required, de
           </div>
         )}
 
-        {optionChosen ? <div className="rs-p-3 type-2 max-w-[calc(100%-30px)] overflow-hidden">{renderSelectedValue(value, options)}</div> : <span className="type-2">{placeholder}</span>}
+        {optionChosen && <div className="rs-p-3 type-2 max-w-[calc(100%-30px)] overflow-hidden">{renderSelectedValue(value, options)}</div>}
+        {!optionChosen && placeholder && <span className="type-2">{placeholder}</span>}
 
         <span className="rs-pr-3 absolute right-0 top-0 flex h-full items-center">{downIcon || <ChevronDownIcon width={50} />}</span>
       </button>

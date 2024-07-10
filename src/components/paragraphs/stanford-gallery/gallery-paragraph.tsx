@@ -133,9 +133,9 @@ const GalleryImage = ({
           fill
           sizes="400px"
         />
-        {image.suGalleryCaption && <figcaption className="sr-only">{image.suGalleryCaption}</figcaption>}
         {children}
       </Link>
+      {image.suGalleryCaption && <figcaption className="sr-only">{image.suGalleryCaption}</figcaption>}
     </figure>
   )
 }

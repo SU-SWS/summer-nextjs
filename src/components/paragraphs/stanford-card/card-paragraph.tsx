@@ -39,7 +39,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
       videoUrl={videoUrl}
       isArticle={!!paragraph.suCardHeader}
       bgColor={cardBgColor}
-      hasBgColor={hasBgColor}
+      hasBgColor={cardVariant !== "pill" ? hasBgColor : undefined}
     >
       {paragraph.suCardHeader && (
         <div

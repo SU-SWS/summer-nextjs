@@ -10,7 +10,7 @@ const WysiwygParagraph = ({paragraph, ...props}: Props) => {
   return (
     <Wysiwyg
       html={paragraph.suWysiwygText?.processed}
-      className="centered lg:max-w-[980px]"
+      className="centered lg:max-w-[920px] xl:max-w-[980px]"
       {...props}
     />
   )

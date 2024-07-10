@@ -34,10 +34,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
   return (
     <CardWrapper
       {...props}
-      className={clsx("centered w-full rounded-[25px] lg:max-w-[980px]", props.className, {
-        "bg-transparent": hasBgColor,
-        "bg-fog-light": !hasBgColor,
-      })}
+      className={clsx("centered w-full rounded-[25px] lg:max-w-[980px]", props.className, {"bg-transparent": hasBgColor, "bg-fog-light": !hasBgColor})}
     >
       {imageUrl && (
         <div className="relative aspect-[16/9] w-full">

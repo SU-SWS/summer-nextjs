@@ -3,6 +3,7 @@ import Image from "next/image"
 import Oembed from "@components/elements/ombed"
 import {ElementType, HTMLAttributes} from "react"
 import {Maybe} from "@lib/gql/__generated__/drupal"
+import clsx from "clsx"
 
 type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
   /**
@@ -33,7 +34,10 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
   return (
     <CardWrapper
       {...props}
-      className={twMerge("centered w-full rounded-[25px] lg:max-w-[980px]", hasBgColor ? "flex h-full flex-col justify-center bg-transparent" : "bg-fog-light", props.className)}
+      className={clsx("centered w-full rounded-[25px] lg:max-w-[980px]", props.className, {
+        "h-full bg-transparent": hasBgColor,
+        "bg-fog-light": !hasBgColor,
+      })}
     >
       {imageUrl && (
         <div className="relative aspect-[16/9] w-full">
@@ -49,7 +53,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
 
       {videoUrl && <Oembed url={videoUrl} />}
 
-      <div className={twMerge("flex flex-col", !hasBgColor && "px-10 py-20 lg:px-20")}>{children}</div>
+      <div className={clsx("flex flex-col", {"px-10 py-20 lg:px-20": !hasBgColor})}>{children}</div>
     </CardWrapper>
   )
 }

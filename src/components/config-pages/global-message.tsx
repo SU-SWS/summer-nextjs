@@ -24,11 +24,13 @@ const GlobalMessage = async ({...props}: Props) => {
     "bg-digital-red text-white": globalMessageConfig.suGlobalMsgType === "error",
   })
 
+  const ElementWrapper = globalMessageConfig.suGlobalMsgHeader ? "article" : "div"
+
   return (
-    <article
+    <ElementWrapper
       {...props}
       className={twMerge("bg-fog-light", props.className)}
-      aria-labelledby={id}
+      aria-labelledby={globalMessageConfig.suGlobalMsgHeader ? id : undefined}
     >
       <div className="md:centered">
         <div className={twMerge(wrapperClasses, "flex w-full flex-col items-center gap-10 rounded-b-[25px] px-16 py-10 md:flex-row lg:w-3/4")}>
@@ -66,7 +68,7 @@ const GlobalMessage = async ({...props}: Props) => {
           )}
         </div>
       </div>
-    </article>
+    </ElementWrapper>
   )
 }
 

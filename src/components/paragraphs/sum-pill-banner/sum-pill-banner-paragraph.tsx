@@ -1,13 +1,13 @@
 import React, {HtmlHTMLAttributes} from "react"
 import {ParagraphSumPillBanner} from "@lib/gql/__generated__/drupal.d"
 import {H2} from "@components/elements/headers"
-import Link from "@components/elements/link"
 import Wysiwyg from "@components/elements/wysiwyg"
 import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
 import Image from "next/image"
 import {twMerge} from "tailwind-merge"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {clsx} from "clsx"
+import ActionLink from "@components/elements/action-link"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumPillBanner
@@ -20,22 +20,12 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
   return (
     <Element
       {...props}
-      className={twMerge("relative left-1/2 w-screen -translate-x-1/2 py-60", props.className)}
+      className={twMerge("relative left-1/2 w-screen -translate-x-1/2", props.className)}
       aria-labelledby={paragraph.sumPillBannerHeadline ? paragraph.id : undefined}
     >
       {paragraph.sumPillBannerBkgd && (
-        <div
-          className={twMerge(
-            "absolute left-0 top-0 -z-10 h-full w-full bg-poppy-light",
-            clsx({
-              "bg-olive": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "olive",
-              "bg-spirited text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
-              "bg-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "white",
-              "bg-spirited-dark": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
-            })
-          )}
-        >
-          <div className="relative top-1/2 h-1/2 w-full">
+        <div className="absolute left-0 top-0 -z-10 h-full w-full">
+          <div className="relative h-full w-full">
             <Image
               className="object-cover"
               src={paragraph.sumPillBannerBkgd.mediaImage.url}
@@ -46,10 +36,10 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
           </div>
         </div>
       )}
-      <div className="centered flex flex-col gap-20">
+      <div className="flex flex-col gap-20">
         <div
           className={twMerge(
-            "bg-poppy-light text-center",
+            "rs-pt-10 w-full bg-poppy-light pb-96 text-center lg:last:*:rs-mb-5",
             clsx({
               "bg-olive": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "olive",
               "bg-spirited text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
@@ -64,23 +54,23 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
             {paragraph.sumPillBannerHeadline && (
               <H2
                 id={paragraph.id}
-                className="font-light"
+                className="mb-8 font-light"
               >
                 {paragraph.sumPillBannerHeadline}
               </H2>
             )}
 
-            {paragraph.sumPillBannerSuphead && <div className="order-first">{paragraph.sumPillBannerSuphead}</div>}
+            {paragraph.sumPillBannerSuphead && <div className="order-first mb-8">{paragraph.sumPillBannerSuphead}</div>}
           </div>
 
           <Wysiwyg
             html={paragraph.sumPillBannerDescrip?.processed}
-            className="mx-auto w-fit"
+            className="mx-auto w-full max-w-full sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px]"
           />
 
           {paragraph.sumPillBannerLink?.url && (
-            <div>
-              <Link
+            <div className="rs-mt-3">
+              <ActionLink
                 href={paragraph.sumPillBannerLink.url}
                 className={twMerge(
                   "text-archway-dark no-underline hocus:text-archway-dark hocus:underline",
@@ -91,13 +81,13 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
                 )}
               >
                 {paragraph.sumPillBannerLink.title}
-              </Link>
+              </ActionLink>
             </div>
           )}
         </div>
 
         {paragraph.sumPillBannerCards && (
-          <div className="flex flex-col gap-20 xl:flex-row">
+          <div className="cc rs-mb-8 -mt-96 flex w-full flex-col gap-20 lg:flex-row">
             {paragraph.sumPillBannerCards.map(card => {
               const cardBehaviors = getParagraphBehaviors(card)
               cardBehaviors.su_card_styles = {

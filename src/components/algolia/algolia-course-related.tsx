@@ -34,7 +34,7 @@ const RelatedCourseItem = ({item}: {item: RelatedCourseItemProps}) => {
         <div className="rs-mb-0 order-1 font-normal">{item.sum_course_catalog_number}</div>
         {item.url && (
           <ActionLink
-            className="order-3"
+            className="order-3 font-roboto text-18 font-medium no-underline hocus:underline"
             href={item.url}
           >
             Learn more

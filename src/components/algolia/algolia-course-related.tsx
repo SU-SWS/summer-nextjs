@@ -5,8 +5,9 @@ import algoliasearch from "algoliasearch/lite"
 import {RelatedProducts} from "react-instantsearch"
 import {InstantSearchNext} from "react-instantsearch-nextjs"
 import ImageCard from "@components/patterns/image-card"
-import {H3} from "@components/elements/headers"
+import {H2, H3} from "@components/elements/headers"
 import ActionLink from "@components/elements/action-link"
+import {CourseHit} from "./results/summer-course/summer-course"
 
 type Props = {
   objectID: string
@@ -15,31 +16,23 @@ type Props = {
   searchApiKey: string
 }
 
-type RelatedCourseItemProps = {
-  sum_course_catalog_number?: string
-  sum_course_class_number?: string
-  title?: string
-  photo?: string
-  url?: string
-}
-
-const RelatedCourseItem = ({item}: {item: RelatedCourseItemProps}) => {
+const RelatedCourseItem = ({item}: {item: CourseHit}) => {
   return (
     <ImageCard
       imageUrl={item.photo}
       imageAlt=""
     >
       <div className="flex flex-col">
-        <H3 className="rs-mb-0 order-2 max-w-[900px] font-roboto font-normal">{item.title}</H3>
-        <div className="rs-mb-0 order-1 font-normal">{item.sum_course_catalog_number}</div>
-        {item.url && (
+        <H3 className="rs-mb-0 order-2">
           <ActionLink
-            className="order-3 font-roboto text-18 font-medium no-underline hocus:underline"
+            aria-labelledby={item.objectID}
+            className="font-roboto font-normal"
             href={item.url}
           >
-            Learn more
+            {item.title}
           </ActionLink>
-        )}
+        </H3>
+        <div className="rs-mb-0 order-1 font-normal">{item.sum_course_catalog_number}</div>
       </div>
     </ImageCard>
   )
@@ -68,10 +61,21 @@ const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey}: Props) => 
         headerComponent={() => (
           <ImageCard
             hasBgColor
-            className="w-full p-0 md:w-1/3 lg:pt-0"
+            className="w-full p-0 text-center md:w-1/3 md:text-left lg:pt-0"
           >
             <div className="flex flex-col">
-              <H3 className="rs-mb-0 order-2 max-w-[900px] font-roboto font-normal">Explore more courses</H3>
+              <H2 className="rs-mb-0 order-2 font-roboto font-normal">Explore more courses</H2>
+              <div className="rs-mb-0 order-1 font-normal uppercase">Related Courses</div>
+            </div>
+          </ImageCard>
+        )}
+        emptyComponent={() => (
+          <ImageCard
+            hasBgColor
+            className="w-full p-0 lg:pt-0"
+          >
+            <div className="flex flex-col">
+              <H2 className="rs-mb-0 order-2 font-roboto font-normal">We couldn't find any related courses at the moment. Please explore other courses or check back later for updates.</H2>
               <div className="rs-mb-0 order-1 font-normal uppercase">Related Courses</div>
             </div>
           </ImageCard>

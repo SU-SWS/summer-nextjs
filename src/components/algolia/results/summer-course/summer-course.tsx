@@ -9,7 +9,7 @@ import {CheckCircleIcon, ChevronDownIcon, ExclamationCircleIcon, ExclamationTria
 import FavoriteButton from "@components/elements/favorite-button"
 import ShareCourses from "@components/elements/shareCourses"
 
-type CourseHit = AlgoliaHit & {
+export type CourseHit = AlgoliaHit & {
   sum_course_availability?: string
   sum_course_catalog_number?: string
   sum_course_class_number?: string

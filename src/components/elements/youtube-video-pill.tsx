@@ -2,7 +2,7 @@
 
 import YouTube, {YouTubePlayer, YouTubeEvent} from "react-youtube"
 import {useBoolean, useIntersectionObserver} from "usehooks-ts"
-import {HTMLAttributes, useCallback, useEffect, useRef} from "react"
+import {HTMLAttributes, useCallback, useEffect, useId, useRef} from "react"
 import {ErrorBoundary} from "react-error-boundary"
 import {PlayIcon} from "@heroicons/react/24/outline"
 
@@ -31,6 +31,7 @@ const YoutubeVideoPill = ({videoUrl, ...props}: Props) => {
   )
 }
 const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
+  const id = useId()
   const {value: isInitialPlay, setFalse: endInitialPlay} = useBoolean(true)
   const videoRef = useRef<YouTubePlayer>(null)
   const {isIntersecting, ref} = useIntersectionObserver({
@@ -80,6 +81,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
       ref={ref}
     >
       <YouTube
+        id={id}
         videoId={videoId || shortId}
         className={"overflow-hidden transition-all duration-300 ease-in-out " + (isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white")}
         opts={options}

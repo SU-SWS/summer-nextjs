@@ -53,7 +53,7 @@ const getConfigPagesData = cache(async (): Promise<ConfigPagesQuery> => {
 export const getMenu = cache(async (name?: MenuAvailable): Promise<MenuItem[]> => {
   "use server"
 
-  const menu = await graphqlClient({next: {tags: ["menus", `menu:${name || "main"}`]}}).Menu({name})
+  const menu = await graphqlClient({next: {tags: ["menus", `menu:${name?.toLowerCase() || "main"}`]}}).Menu({name})
   const menuItems = (menu.menu?.items || []) as MenuItem[]
 
   const filterInaccessible = (items: MenuItem[]): MenuItem[] => {

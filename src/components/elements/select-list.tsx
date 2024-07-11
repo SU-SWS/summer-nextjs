@@ -31,7 +31,7 @@ const renderSelectedValue = (value: SelectValue<string, boolean>, options: Selec
   return selectedOption ? selectedOption.label : null
 }
 
-function CustomOption(props: OptionProps) {
+const CustomOption = (props: OptionProps) => {
   const {children, value, rootRef, disabled = false} = props
   const {getRootProps, highlighted, selected} = useOption({
     rootRef: rootRef,
@@ -91,9 +91,10 @@ interface Props {
   downIcon?: JSX.Element
   buttonClassName?: string
   onFocus?: () => void
+  placeholder?: string
 }
 
-const SelectList = ({options = [], label, multiple, ariaLabelledby, required, defaultValue, name, emptyValue, emptyLabel = "- None -", downIcon, buttonClassName, ...props}: Props) => {
+const SelectList = ({options = [], label, multiple, ariaLabelledby, required, defaultValue, name, emptyValue, emptyLabel = "- None -", downIcon, buttonClassName, placeholder, ...props}: Props) => {
   const labelId = useId()
   const labeledBy = ariaLabelledby || labelId
 
@@ -126,29 +127,30 @@ const SelectList = ({options = [], label, multiple, ariaLabelledby, required, de
   const optionChosen = multiple && value ? value.length > 0 : !!value
 
   return (
-    <div className="relative mb-10 h-fit">
+    <div className="relative h-fit">
       <button
         {...getButtonProps()}
-        className={clsx(twMerge("w-full rounded border-2 border-black-10 text-left", buttonClassName, !optionChosen && "rs-p-3"), {"bg-black-20": props.disabled})}
+        className={twMerge("w-full rounded border-2 border-fog-light text-left", buttonClassName, !optionChosen && "rs-p-3", props.disabled ? "bg-black-20" : "bg-fog-light")}
         aria-labelledby={labeledBy}
       >
         {label && (
-          <div
-            className={clsx("relative max-w-[calc(100%-30px)]", {
+          <span
+            className={clsx("relative block max-w-[calc(100%-30px)]", {
               "top-[-15px] w-full text-m0": optionChosen,
               "text-m1": !optionChosen,
             })}
           >
-            <div
+            <span
               id={labelId}
-              className={twMerge("w-fit bg-white px-5", clsx({"bg-black-20": props.disabled}))}
+              className={twMerge("block w-fit bg-white px-5", clsx({"bg-black-20": props.disabled}))}
             >
               {label}
-            </div>
-          </div>
+            </span>
+          </span>
         )}
 
-        {optionChosen && <div className="rs-p-3 type-2 max-w-[calc(100%-30px)] overflow-hidden">{renderSelectedValue(value, options)}</div>}
+        {optionChosen && <div className="rs-p-3 type-2 block max-w-[calc(100%-30px)] overflow-hidden">{renderSelectedValue(value, options)}</div>}
+        {!optionChosen && placeholder && <span className="type-2">{placeholder}</span>}
 
         <span className="rs-pr-3 absolute right-0 top-0 flex h-full items-center">{downIcon || <ChevronDownIcon width={50} />}</span>
       </button>

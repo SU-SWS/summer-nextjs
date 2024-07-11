@@ -24,7 +24,7 @@ const EntityParagraph = async ({paragraph, ...props}: Props) => {
   return (
     <EntityWrapper
       {...props}
-      className={twMerge("centered mb-20 flex flex-col gap-10 lg:max-w-[980px]", props.className)}
+      className={twMerge("centered mb-20 flex flex-col gap-10 lg:max-w-[920px] xl:max-w-[980px]", props.className)}
       aria-labelledby={EntityWrapper === "section" ? paragraph.id : undefined}
     >
       {EntityWrapper === "section" && (

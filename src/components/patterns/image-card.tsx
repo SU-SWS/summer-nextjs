@@ -33,7 +33,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
   return (
     <CardWrapper
       {...props}
-      className={twMerge("centered w-full rounded-[25px] lg:max-w-[980px]", hasBgColor ? "bg-transparent" : "bg-fog-light", props.className)}
+      className={twMerge("centered w-full rounded-[25px] lg:max-w-[920px] xl:max-w-[980px]", hasBgColor ? "bg-transparent" : "bg-fog-light", props.className)}
     >
       {imageUrl && (
         <div className="relative aspect-[16/9] w-full">
@@ -56,7 +56,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
 
 export const ImageCardSkeleton = () => {
   return (
-    <div className="centered w-full border border-black-10 pb-20 shadow-lg lg:max-w-[980px]">
+    <div className="centered w-full border border-black-10 pb-20 shadow-lg lg:max-w-[920px] xl:max-w-[980px]">
       <div className="aspect-[16/9] w-full bg-black-10"></div>
     </div>
   )

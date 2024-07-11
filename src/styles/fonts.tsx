@@ -4,6 +4,7 @@ export const sourceSans3 = Source_Sans_3({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
+  adjustFontFallback: false,
 })
 
 export const roboto = Roboto({
@@ -11,4 +12,5 @@ export const roboto = Roboto({
   display: "swap",
   variable: "--font-roboto",
   weight: ["300", "400", "500", "700"],
+  adjustFontFallback: false,
 })

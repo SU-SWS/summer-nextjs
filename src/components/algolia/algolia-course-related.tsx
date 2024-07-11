@@ -12,7 +12,7 @@ type Props = {
   searchApiKey: string
 }
 
-const RelatedCourseItem: React.FC<{item}> = ({item}) => (
+const RelatedCourseItem = ({item}) => (
   <div className="course-card">
     <h3>{item.title}</h3>
     <p>{item.description}</p>
@@ -20,7 +20,7 @@ const RelatedCourseItem: React.FC<{item}> = ({item}) => (
   </div>
 )
 
-const RelatedCourses: React.FC<Props> = ({objectID, appId, searchIndex, searchApiKey}) => {
+const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey}: Props) => {
   const searchClient = useMemo(() => algoliasearch(appId, searchApiKey), [appId, searchApiKey])
 
   return (

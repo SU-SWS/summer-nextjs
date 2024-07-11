@@ -68,7 +68,7 @@ const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey}: Props) => 
         headerComponent={() => (
           <ImageCard
             hasBgColor
-            className="w-full md:w-1/3"
+            className="w-full p-0 md:w-1/3 lg:pt-0"
           >
             <div className="flex flex-col">
               <H3 className="rs-mb-0 order-2 max-w-[900px] font-roboto font-normal">Explore more courses</H3>

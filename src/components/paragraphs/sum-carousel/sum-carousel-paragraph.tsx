@@ -22,7 +22,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
 
   return (
     <div {...props}>
-      <BannerWrapper isBorder={isArchBanner}>
+      <BannerWrapper {...(isArchBanner && {isBorder: true})}>
         <div className="mb-20 text-center">
           <div className="flex flex-col">
             {paragraph.sumCarouselHeader && <H2 className={clsx("mb-8 font-light", headingSize)}>{paragraph.sumCarouselHeader}</H2>}

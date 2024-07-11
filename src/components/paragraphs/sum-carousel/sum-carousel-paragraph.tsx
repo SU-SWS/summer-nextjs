@@ -6,7 +6,7 @@ import Link from "@components/elements/link"
 import Paragraph from "@components/paragraphs/paragraph"
 import Slideshow from "@components/elements/slideshow"
 import ActionLink from "@components/elements/action-link"
-import ArchBanner from "@components/patterns/arch-banner"
+import ArcBanner from "@components/patterns/arc-banner"
 import {getParagraphBehaviors} from "../get-paragraph-behaviors"
 import clsx from "clsx"
 
@@ -18,7 +18,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const isArchBanner = behaviors.sum_carousel?.sum_carousel_arc
   const headingSize = behaviors.sum_carousel?.sum_carousel_text_size ? "type-3" : "type-4"
-  const BannerWrapper: ElementType = isArchBanner ? ArchBanner : "div"
+  const BannerWrapper: ElementType = isArchBanner ? ArcBanner : "div"
 
   return (
     <div {...props}>

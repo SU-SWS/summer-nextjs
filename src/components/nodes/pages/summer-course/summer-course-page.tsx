@@ -3,7 +3,7 @@ import {H1, H2, H3} from "@components/elements/headers"
 import {HtmlHTMLAttributes} from "react"
 import Image from "next/image"
 import {NodeSumSummerCourse} from "@lib/gql/__generated__/drupal.d"
-import ArchBanner from "@components/patterns/arch-banner"
+import ArcBanner from "@components/patterns/arc-banner"
 import {convertToLocalDateTime} from "@lib/utils/convert-date"
 import FavoritesList from "@components/elements/favorites-list"
 

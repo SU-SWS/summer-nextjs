@@ -75,7 +75,7 @@ const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey}: Props) => 
             className="w-full p-0 lg:pt-0"
           >
             <div className="flex flex-col">
-              <H2 className="rs-mb-0 order-2 font-roboto font-normal">We couldn't find any related courses at the moment. Please explore other courses or check back later for updates.</H2>
+              <H2 className="rs-mb-0 order-2 font-roboto font-normal">We couldn&apos;t find any related courses at the moment. Please explore other courses or check back later for updates.</H2>
               <div className="rs-mb-0 order-1 font-normal uppercase">Related Courses</div>
             </div>
           </ImageCard>

@@ -45,7 +45,7 @@ const Accordion = ({button, children, headingLevel = "h2", ...props}: Props) => 
   return (
     <section
       aria-labelledby={`${id}-button`}
-      className="rs-px-3 centered border border-fog-light bg-fog-light even:border-transparent even:bg-white lg:max-w-[980px]"
+      className="rs-px-3 centered border border-fog-light bg-fog-light even:border-transparent even:bg-white lg:max-w-[920px] xl:max-w-[980px]"
       {...props}
     >
       <Heading className="rs-py-3 mb-0">

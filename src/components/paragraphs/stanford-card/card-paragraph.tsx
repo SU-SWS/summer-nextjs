@@ -37,9 +37,9 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
       imageUrl={image?.url}
       imageAlt={image?.alt}
       videoUrl={videoUrl}
-      isArticle={!!paragraph.suCardHeader}
+      isArticle={!!paragraph.suCardHeader && headerTag !== "div"}
       bgColor={cardBgColor}
-      hasBgColor={hasBgColor}
+      hasBgColor={cardVariant !== "pill" ? hasBgColor : undefined}
     >
       {paragraph.suCardHeader && (
         <div

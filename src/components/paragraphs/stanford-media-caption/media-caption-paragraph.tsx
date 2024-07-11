@@ -17,7 +17,7 @@ const MediaCaptionParagraph = ({paragraph, ...props}: Props) => {
   return (
     <figure
       {...props}
-      className={twMerge("centered lg:max-w-[980px]", props.className)}
+      className={twMerge("centered lg:max-w-[920px] xl:max-w-[980px]", props.className)}
     >
       {image?.url && (
         <div className="relative aspect-[16/9] w-full">

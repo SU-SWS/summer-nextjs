@@ -134,22 +134,22 @@ const SelectList = ({options = [], label, multiple, ariaLabelledby, required, de
         aria-labelledby={labeledBy}
       >
         {label && (
-          <div
-            className={clsx("relative max-w-[calc(100%-30px)]", {
+          <span
+            className={clsx("relative block max-w-[calc(100%-30px)]", {
               "top-[-15px] w-full text-m0": optionChosen,
               "text-m1": !optionChosen,
             })}
           >
-            <div
+            <span
               id={labelId}
-              className={twMerge("w-fit bg-white px-5", clsx({"bg-black-20": props.disabled}))}
+              className={twMerge("block w-fit bg-white px-5", clsx({"bg-black-20": props.disabled}))}
             >
               {label}
-            </div>
-          </div>
+            </span>
+          </span>
         )}
 
-        {optionChosen && <div className="rs-p-3 type-2 max-w-[calc(100%-30px)] overflow-hidden">{renderSelectedValue(value, options)}</div>}
+        {optionChosen && <div className="rs-p-3 type-2 block max-w-[calc(100%-30px)] overflow-hidden">{renderSelectedValue(value, options)}</div>}
         {!optionChosen && placeholder && <span className="type-2">{placeholder}</span>}
 
         <span className="rs-pr-3 absolute right-0 top-0 flex h-full items-center">{downIcon || <ChevronDownIcon width={50} />}</span>

@@ -16,12 +16,20 @@ type Props = {
   relatedTopic?: string
 }
 
-const RelatedCourseItem = ({item}) => (
+type RelatedCourseItemProps = {
+  sum_course_catalog_number?: string
+  sum_course_class_number?: string
+  title?: string
+  photo?: string
+  url?: string
+}
+
+const RelatedCourseItem = ({item}: {item: RelatedCourseItemProps}) => (
   <ImageCard imageUrl={item.photo} imageAlt="" className="space-y-16 @container">
     <div className="flex flex-col">
       <H3 className="order-2 rs-mb-0 max-w-[900px] text-center font-roboto font-normal">{item.title}</H3>
-      <div className="order-1 font-normal">{item.sumCourseCatalogNumber}</div>
-      <ActionLink className="order-3" href={item.url}>Learn more</ActionLink>
+      <div className="order-1 font-normal">{item.sum_course_catalog_number}</div>
+      {item.url && <ActionLink className="order-3" href={item.url}>Learn more</ActionLink>}
     </div>
   </ImageCard>
 )

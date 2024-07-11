@@ -46,10 +46,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
         <div className="relative left-1/2 w-screen -translate-x-1/2">
           <Slideshow className="mx-auto w-[calc(100%-50px)] xl:w-[calc(100%-150px)]">
             {paragraph.sumCarouselSlides.map(slide => (
-              <Paragraph
-                key={slide.id}
-                paragraph={slide}
-              />
+              <Paragraph key={slide.id} paragraph={slide} />
             ))}
           </Slideshow>
         </div>
@@ -80,10 +77,7 @@ const CarouselTop = ({header, superHeader, headingSize, description, link}: TopP
       />
 
       {link?.url && (
-        <ActionLink
-          className="rs-mt-3"
-          href={link.url}
-        >
+        <ActionLink className="rs-mt-3" href={link.url}>
           {link.title}
         </ActionLink>
       )}

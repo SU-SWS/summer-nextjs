@@ -14,10 +14,7 @@ const PreviewPage = async ({params}: PageProps) => {
   if (!entity) notFound()
 
   return (
-    <UnpublishedBanner
-      status={entity.status}
-      message="Unpublished Page"
-    >
+    <UnpublishedBanner status={entity.status} message="Unpublished Page">
       <NodePage node={entity} />
     </UnpublishedBanner>
   )

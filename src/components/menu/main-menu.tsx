@@ -48,12 +48,7 @@ const MainMenu = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props) => {
   useEventListener("keydown", handleEscape, menuRef)
 
   return (
-    <nav
-      id={navId}
-      aria-label="Main Navigation"
-      className="lg:centered"
-      ref={menuRef}
-    >
+    <nav id={navId} aria-label="Main Navigation" className="lg:centered" ref={menuRef}>
       <button
         ref={buttonRef}
         className="group rs-py-2 absolute right-10 top-5 flex flex-col items-center lg:hidden"
@@ -68,7 +63,12 @@ const MainMenu = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props) => {
               "-translate-y-0.5": !menuOpen,
             })}
           />
-          <span className={clsx("my-3 block h-[3px] w-full rounded-sm bg-black-true transition-all duration-300 ease-out", {"opacity-0": menuOpen, "opacity-100": !menuOpen})} />
+          <span
+            className={clsx("my-3 block h-[3px] w-full rounded-sm bg-black-true transition-all duration-300 ease-out", {
+              "opacity-0": menuOpen,
+              "opacity-100": !menuOpen,
+            })}
+          />
           <span
             className={clsx("block h-[3px] w-full rounded-sm bg-black-true transition-all duration-300 ease-out", {
               "-translate-y-4 -rotate-45": menuOpen,
@@ -76,22 +76,21 @@ const MainMenu = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props) => {
             })}
           />
         </span>
-        <span
-          className="group-hocus:underline"
-          aria-hidden
-        >
+        <span className="group-hocus:underline" aria-hidden>
           {menuOpen ? "Close" : "Menu"}
         </span>
       </button>
 
-      <div className={clsx(menuOpen ? "block" : "hidden", "top-100 absolute z-10 w-full bg-fog-light lg:relative lg:flex lg:items-center lg:justify-end lg:bg-transparent")}>
+      <div
+        className={clsx(
+          menuOpen ? "block" : "hidden",
+          "top-100 absolute z-10 w-full bg-fog-light lg:relative lg:flex lg:items-center lg:justify-end lg:bg-transparent"
+        )}
+      >
         <SiteSearchForm className="px-10 lg:hidden" />
         <div className="mt-10 flex flex-col items-center border-b border-spirited-light children:centered children:w-full lg:hidden">
           {sumSiteHeaderSec && (
-            <Button
-              href={sumSiteHeaderSec.url}
-              secondary
-            >
+            <Button href={sumSiteHeaderSec.url} secondary>
               {sumSiteHeaderSec.title}
             </Button>
           )}
@@ -99,12 +98,7 @@ const MainMenu = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props) => {
         </div>
         <ul className="list-unstyled m-0 flex-wrap p-0 lg:flex lg:justify-end">
           {menuItems.map(item => (
-            <MenuItem
-              key={item.id}
-              {...item}
-              activeTrail={activeTrail}
-              level={0}
-            />
+            <MenuItem key={item.id} {...item} activeTrail={activeTrail} level={0} />
           ))}
 
           <li className="mb-0 hidden pb-0 lg:block">
@@ -115,10 +109,7 @@ const MainMenu = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props) => {
               className="inline-block h-full border-b-[4px] border-transparent px-5 pb-10 pt-5 no-underline hocus:border-spirited-light"
               aria-label="Search Summer Session"
             >
-              <MagnifyingGlassIcon
-                width={25}
-                className="text-archway-dark"
-              />
+              <MagnifyingGlassIcon width={25} className="text-archway-dark" />
             </Link>
           </li>
         </ul>
@@ -207,27 +198,28 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
     }
   )
 
-  const subMenuStyles = clsx("list-unstyled w-full min-w-[350px] lg:bg-fog-light lg:border lg:border-white lg:shadow-2xl lg:absolute lg:rounded-[25px] lg:px-12 lg:py-4 lg:mt-3", zIndexes[level], {
-    "lg:top-full lg:right-0": level === 0,
-    "lg:top-0": level !== 0,
-    "lg:left-full": level !== 0 && positionRight,
-    "lg:right-full": level !== 0 && !positionRight,
-    block: submenuOpen,
-    hidden: !submenuOpen,
-  })
+  const subMenuStyles = clsx(
+    "list-unstyled w-full min-w-[350px] lg:bg-fog-light lg:border lg:border-white lg:shadow-2xl lg:absolute lg:rounded-[25px] lg:px-12 lg:py-4 lg:mt-3",
+    zIndexes[level],
+    {
+      "lg:top-full lg:right-0": level === 0,
+      "lg:top-0": level !== 0,
+      "lg:left-full": level !== 0 && positionRight,
+      "lg:right-full": level !== 0 && !positionRight,
+      block: submenuOpen,
+      hidden: !submenuOpen,
+    }
+  )
 
   return (
     <li
       ref={menuItemRef}
-      className={clsx("relative m-0 border-b border-spirited-light last:border-0 lg:relative lg:py-0", {"first:border-t-0 lg:mr-10 lg:border-b-0 lg:last:mr-0": level === 0})}
+      className={clsx("relative m-0 border-b border-spirited-light last:border-0 lg:relative lg:py-0", {
+        "first:border-t-0 lg:mr-10 lg:border-b-0 lg:last:mr-0": level === 0,
+      })}
     >
       <div className="group flex lg:justify-end">
-        <Link
-          id={linkId}
-          href={url || "#"}
-          className={linkStyles}
-          aria-current={isCurrent ? "true" : undefined}
-        >
+        <Link id={linkId} href={url || "#"} className={linkStyles} aria-current={isCurrent ? "true" : undefined}>
           {title}
           {level !== 0 && (
             <ArrowRightIcon
@@ -247,24 +239,18 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
           >
             <ChevronDownIcon
               height={25}
-              className={clsx("transition duration-150 ease-in-out group-hocus:scale-125 group-hocus:text-black", {"rotate-180": submenuOpen})}
+              className={clsx("transition duration-150 ease-in-out group-hocus:scale-125 group-hocus:text-black", {
+                "rotate-180": submenuOpen,
+              })}
             />
           </button>
         )}
       </div>
 
       {children.length > 0 && level < menuLevelsToShow && (
-        <ul
-          className={subMenuStyles}
-          ref={belowListRef}
-        >
+        <ul className={subMenuStyles} ref={belowListRef}>
           {children.map(item => (
-            <MenuItem
-              key={item.id}
-              {...item}
-              level={level + 1}
-              activeTrail={activeTrail}
-            />
+            <MenuItem key={item.id} {...item} level={level + 1} activeTrail={activeTrail} />
           ))}
         </ul>
       )}

@@ -17,10 +17,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
   const headingOnLeft = !!behaviors.sum_at_a_glance_behavior?.sum_at_a_glance_alignment
 
   return (
-    <div
-      {...props}
-      className={twMerge("centered flex flex-col gap-20 @container", props.className)}
-    >
+    <div {...props} className={twMerge("centered flex flex-col gap-20 @container", props.className)}>
       <div className="grid @6xl:grid-cols-2">
         <div
           className={twMerge(
@@ -94,10 +91,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
 
       {paragraph.sumAtAGlanceLink?.url && (
         <div>
-          <Button
-            href={paragraph.sumAtAGlanceLink.url}
-            centered
-          >
+          <Button href={paragraph.sumAtAGlanceLink.url} centered>
             {paragraph.sumAtAGlanceLink.title}
           </Button>
         </div>

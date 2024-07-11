@@ -105,9 +105,11 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
             "pb-[300px] pt-32 xl:py-32": leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
             "pb-32 pt-[300px] xl:py-32": !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
             "bg-olive": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "olive",
-            "bg-spirited text-black-true": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited",
+            "bg-spirited text-black-true":
+              behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited",
             "bg-white": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "white",
-            "bg-spirited-dark text-white": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited_dark",
+            "bg-spirited-dark text-white":
+              behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited_dark",
           })
         )}
       >
@@ -122,19 +124,21 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
         >
           <H2
             id={paragraph.id}
-            className={twMerge("rs-mb-3 font-light", behaviors.sum_testimonial_banner?.sum_testimonial_banner_heading === "type_4" ? "type-4" : "type-5")}
+            className={twMerge(
+              "rs-mb-3 font-light",
+              behaviors.sum_testimonial_banner?.sum_testimonial_banner_heading === "type_4" ? "type-4" : "type-5"
+            )}
           >
             {paragraph.sumTestimonialHeading}
           </H2>
 
-          <Wysiwyg
-            className="rs-mb-3"
-            html={paragraph.sumTestimonialDescrip.processed}
-          />
+          <Wysiwyg className="rs-mb-3" html={paragraph.sumTestimonialDescrip.processed} />
 
           {paragraph.sumTestimonialName && <div>{paragraph.sumTestimonialName}</div>}
 
-          {(paragraph.sumTestimonialUniv || studentType) && <div>{`${paragraph.sumTestimonialUniv || ""} ${studentType || ""}`.trim()}</div>}
+          {(paragraph.sumTestimonialUniv || studentType) && (
+            <div>{`${paragraph.sumTestimonialUniv || ""} ${studentType || ""}`.trim()}</div>
+          )}
           {paragraph.sumTestimonialAffi && <div>{paragraph.sumTestimonialAffi}</div>}
 
           {paragraph.sumTestimonialButton?.url && (

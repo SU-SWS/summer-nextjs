@@ -1,4 +1,13 @@
-import {ConfigPagesQuery, ConfigPagesUnion, MenuAvailable, MenuItem, NodeUnion, RouteQuery, RouteRedirect, TermUnion} from "@lib/gql/__generated__/drupal.d"
+import {
+  ConfigPagesQuery,
+  ConfigPagesUnion,
+  MenuAvailable,
+  MenuItem,
+  NodeUnion,
+  RouteQuery,
+  RouteRedirect,
+  TermUnion,
+} from "@lib/gql/__generated__/drupal.d"
 import {cache} from "react"
 import {graphqlClient} from "@lib/gql/gql-client"
 
@@ -27,7 +36,9 @@ export const getEntityFromPath = cache(
   }
 )
 
-export const getConfigPage = async <T extends ConfigPagesUnion>(configPageType: ConfigPagesUnion["__typename"]): Promise<T | undefined> => {
+export const getConfigPage = async <T extends ConfigPagesUnion>(
+  configPageType: ConfigPagesUnion["__typename"]
+): Promise<T | undefined> => {
   "use server"
 
   let query: ConfigPagesQuery
@@ -38,10 +49,14 @@ export const getConfigPage = async <T extends ConfigPagesUnion>(configPageType: 
     return
   }
 
-  if (query.stanfordBasicSiteSettings.nodes[0]?.__typename === configPageType) return query.stanfordBasicSiteSettings.nodes[0] as T
-  if (query.stanfordGlobalMessages.nodes[0]?.__typename === configPageType) return query.stanfordGlobalMessages.nodes[0] as T
-  if (query.stanfordLocalFooters.nodes[0]?.__typename === configPageType) return query.stanfordLocalFooters.nodes[0] as T
-  if (query.stanfordSuperFooters.nodes[0]?.__typename === configPageType) return query.stanfordSuperFooters.nodes[0] as T
+  if (query.stanfordBasicSiteSettings.nodes[0]?.__typename === configPageType)
+    return query.stanfordBasicSiteSettings.nodes[0] as T
+  if (query.stanfordGlobalMessages.nodes[0]?.__typename === configPageType)
+    return query.stanfordGlobalMessages.nodes[0] as T
+  if (query.stanfordLocalFooters.nodes[0]?.__typename === configPageType)
+    return query.stanfordLocalFooters.nodes[0] as T
+  if (query.stanfordSuperFooters.nodes[0]?.__typename === configPageType)
+    return query.stanfordSuperFooters.nodes[0] as T
   if (query.lockupSettings.nodes[0]?.__typename === configPageType) return query.lockupSettings.nodes[0] as T
 }
 

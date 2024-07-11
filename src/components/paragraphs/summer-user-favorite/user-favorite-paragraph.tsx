@@ -12,15 +12,16 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 const UserFavoriteParagraph = async ({...props}: Props) => {
   const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
 
-  if (!siteSettingsConfig?.suSiteAlgoliaId || !siteSettingsConfig.suSiteAlgoliaSearch || !siteSettingsConfig.suSiteAlgoliaIndex) {
+  if (
+    !siteSettingsConfig?.suSiteAlgoliaId ||
+    !siteSettingsConfig.suSiteAlgoliaSearch ||
+    !siteSettingsConfig.suSiteAlgoliaIndex
+  ) {
     return
   }
 
   return (
-    <div
-      {...props}
-      className={twMerge("grid grid-cols-12 gap-12", props.className)}
-    >
+    <div {...props} className={twMerge("grid grid-cols-12 gap-12", props.className)}>
       <div className="col-span-12 md:col-span-4 xl:col-span-3">
         <FavoritesList isDisplayOnly />
       </div>

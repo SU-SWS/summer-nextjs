@@ -10,7 +10,12 @@ type Props = {
 }
 
 const useAccordion = ({initiallyVisible, panelId, buttonId}: Props = {}) => {
-  const {value: expanded, setTrue: expandAccordion, setFalse: collapseAccordion, toggle: toggleExpanded} = useBoolean(initiallyVisible)
+  const {
+    value: expanded,
+    setTrue: expandAccordion,
+    setFalse: collapseAccordion,
+    toggle: toggleExpanded,
+  } = useBoolean(initiallyVisible)
   const id = useId()
 
   const buttonProps: HTMLAttributes<HTMLButtonElement> = {

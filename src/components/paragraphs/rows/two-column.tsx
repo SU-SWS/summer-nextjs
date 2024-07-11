@@ -21,10 +21,7 @@ const TwoColumn = ({items, config}: {items: ParagraphUnion[]; config?: Record<st
   }
 
   return (
-    <div
-      className={twMerge("gutters grid gap-10 @6xl:gap-20", gridCols)}
-      {...draftProps}
-    >
+    <div className={twMerge("gutters grid gap-10 @6xl:gap-20", gridCols)} {...draftProps}>
       <OneColumn items={leftItems} />
       <OneColumn items={rightItems} />
     </div>

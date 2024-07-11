@@ -14,19 +14,13 @@ const YoutubeVideoPill = ({videoUrl, ...props}: Props) => {
   return (
     <ErrorBoundary
       fallback={
-        <a
-          href={videoUrl}
-          className="block text-center"
-        >
+        <a href={videoUrl} className="block text-center">
           <PlayIcon className="mx-auto aspect-1 w-full max-w-100" />
           Play the video.
         </a>
       }
     >
-      <YoutubeVideoPillBounded
-        videoUrl={videoUrl}
-        {...props}
-      />
+      <YoutubeVideoPillBounded videoUrl={videoUrl} {...props} />
     </ErrorBoundary>
   )
 }
@@ -76,14 +70,14 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
   if (!videoId && !shortId) return null
 
   return (
-    <div
-      {...props}
-      ref={ref}
-    >
+    <div {...props} ref={ref}>
       <YouTube
         id={id}
         videoId={videoId || shortId}
-        className={"overflow-hidden transition-all duration-300 ease-in-out " + (isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white")}
+        className={
+          "overflow-hidden transition-all duration-300 ease-in-out " +
+          (isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white")
+        }
         opts={options}
         onReady={(e: YouTubeEvent) => {
           videoRef.current = e.target

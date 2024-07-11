@@ -12,18 +12,10 @@ type Props = HTMLAttributes<HTMLElement> & {
 const SumAccordionParagraph = ({paragraph, ...props}: Props) => {
   const Element = paragraph.sumAccordionsHeading ? "article" : "div"
   return (
-    <Element
-      {...props}
-      className={twMerge("centered", props.className)}
-    >
+    <Element {...props} className={twMerge("centered", props.className)}>
       {paragraph.sumAccordionsHeading && <H2 className="text-center">{paragraph.sumAccordionsHeading}</H2>}
 
-      {paragraph.sumAccordionsDesc && (
-        <Wysiwyg
-          html={paragraph.sumAccordionsDesc.processed}
-          className="mb-20"
-        />
-      )}
+      {paragraph.sumAccordionsDesc && <Wysiwyg html={paragraph.sumAccordionsDesc.processed} className="mb-20" />}
 
       {paragraph.sumAccordionsAccords.map(accordion => (
         <Accordion

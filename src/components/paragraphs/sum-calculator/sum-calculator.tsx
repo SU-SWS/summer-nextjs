@@ -36,7 +36,32 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   undergradUnitsHelp?: JSX.Element | string
 }
 
-const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cost, housingCosts, mealPlanCost, techCost, mailCost, insuranceCost, booksSuppliesCost, healthServiceCost, documentsCost, commuterHelp, graduateApplicationHelp, graduateUnitsHelp, highSchoolAppHelp, highSchoolUnitHelp, onCampusHousingHelp, i20Help, insuranceHelp, wavedInsuranceHelp, undergradAppHelp, undergradUnitsHelp, ...props}: Props) => {
+const SumCalculatorParagraph = ({
+  costPerStudentTypes,
+  appCost,
+  progCosts,
+  i20Cost,
+  housingCosts,
+  mealPlanCost,
+  techCost,
+  mailCost,
+  insuranceCost,
+  booksSuppliesCost,
+  healthServiceCost,
+  documentsCost,
+  commuterHelp,
+  graduateApplicationHelp,
+  graduateUnitsHelp,
+  highSchoolAppHelp,
+  highSchoolUnitHelp,
+  onCampusHousingHelp,
+  i20Help,
+  insuranceHelp,
+  wavedInsuranceHelp,
+  undergradAppHelp,
+  undergradUnitsHelp,
+  ...props
+}: Props) => {
   const [studentType, setStudentType] = useState<"highschool" | "graduate" | "undergraduate" | "">("")
   const [needsI20, setNeedsI20] = useState<boolean | undefined>()
   const [onCampus, setOnCampus] = useState<boolean | undefined>()
@@ -59,7 +84,20 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
 
   const unitsCost = costPerStudentTypes.get(studentType)?.get(units) || 0
 
-  const totalCost = !studentType ? 0 : appFee + progFee + i20Fee + housingFee + mealPlan + techFee + mailFee + insurance + unitsCost + booksSuppliesCost + healthServiceCost + documentsCost
+  const totalCost = !studentType
+    ? 0
+    : appFee +
+      progFee +
+      i20Fee +
+      housingFee +
+      mealPlan +
+      techFee +
+      mailFee +
+      insurance +
+      unitsCost +
+      booksSuppliesCost +
+      healthServiceCost +
+      documentsCost
   const unitOptions: {value: string; label: string}[] = []
 
   for (let i = 3; i <= 20; i++) {
@@ -81,16 +119,10 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
   }
 
   return (
-    <div
-      {...props}
-      className={twMerge("centered", props.className)}
-    >
+    <div {...props} className={twMerge("centered", props.className)}>
       <div className="mx-auto flex max-w-7xl flex-col gap-20 pb-72">
         <div onFocus={onSelectFocus}>
-          <div
-            className="rs-mb-1 type-3 block"
-            id="sum-student-type"
-          >
+          <div className="rs-mb-1 type-3 block" id="sum-student-type">
             Tell us who you are
           </div>
           <SelectList
@@ -101,12 +133,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
               {value: "highschool", label: "I am a High School student"},
               {value: "graduate", label: "I am a Graduate student"},
             ]}
-            downIcon={
-              <ChevronDownIcon
-                width={50}
-                className="rounded-full bg-digital-red text-white"
-              />
-            }
+            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
             onChange={(_e, value) => setStudentType(value as "highschool" | "graduate" | "undergraduate")}
             required
           />
@@ -117,10 +144,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
 
         <div onFocus={onSelectFocus}>
-          <div
-            className="rs-mb-1 type-3 block"
-            id="sum-international-student"
-          >
+          <div className="rs-mb-1 type-3 block" id="sum-international-student">
             Are you an international student that requires a Stanford issued I-20?
           </div>
           <SelectList
@@ -132,10 +156,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
               {value: "no2", label: "No, I am an international student with an I-20 sponsored by another institution"},
             ]}
             downIcon={
-              <ChevronDownIcon
-                width={50}
-                className="ml-auto flex-shrink-0 rounded-full bg-digital-red text-white"
-              />
+              <ChevronDownIcon width={50} className="ml-auto flex-shrink-0 rounded-full bg-digital-red text-white" />
             }
             onChange={(_e, value) => setNeedsI20(value === "yes")}
             disabled={!studentType}
@@ -146,10 +167,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
 
         <div onFocus={onSelectFocus}>
-          <div
-            className="rs-mb-1 type-3 block"
-            id="sum-campus-status"
-          >
+          <div className="rs-mb-1 type-3 block" id="sum-campus-status">
             Will you be living on campus?
           </div>
           <SelectList
@@ -159,12 +177,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
               {value: "yes", label: "On-Campus"},
               {value: "no", label: "Living off campus and commuting"},
             ]}
-            downIcon={
-              <ChevronDownIcon
-                width={50}
-                className="rounded-full bg-digital-red text-white"
-              />
-            }
+            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
             onChange={(_e, value) => setOnCampus(value === "yes")}
             disabled={needsI20 === undefined}
             required
@@ -175,22 +188,14 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
 
         <div onFocus={onSelectFocus}>
-          <div
-            className="rs-mb-1 type-3 block"
-            id="sum-units"
-          >
+          <div className="rs-mb-1 type-3 block" id="sum-units">
             How many units will you be taking?
           </div>
           <SelectList
             ariaLabelledby="sum-units"
             placeholder="Select the number of units"
             options={unitOptions}
-            downIcon={
-              <ChevronDownIcon
-                width={50}
-                className="rounded-full bg-digital-red text-white"
-              />
-            }
+            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
             onChange={(_e, value) => setUnits(parseInt(value as string))}
             disabled={onCampus === undefined}
             required
@@ -202,10 +207,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
         </div>
 
         <div onFocus={onSelectFocus}>
-          <div
-            className="rs-mb-1 type-3 block"
-            id="sum-cardinal-care"
-          >
+          <div className="rs-mb-1 type-3 block" id="sum-cardinal-care">
             Will you be waiving Cardinal Care Health Insurance?
           </div>
           <SelectList
@@ -215,12 +217,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
               {value: "yes", label: "Yes, I will be waiving Cardinal Care."},
               {value: "no", label: "No, I would like to stay enrolled in Cardinal Care Health Insurance"},
             ]}
-            downIcon={
-              <ChevronDownIcon
-                width={50}
-                className="rounded-full bg-digital-red text-white"
-              />
-            }
+            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
             onChange={(_e, value) => setWaivingInsurance(value === "yes")}
             disabled={units < 3}
             required
@@ -239,10 +236,7 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
           <div className="pb-12 md:pt-20">
             <div className="centered flex flex-col lg:mx-auto lg:max-w-7xl">
               <div className="block md:hidden">
-                <button
-                  {...buttonProps}
-                  className="m-auto mb-3 block text-archway-dark"
-                >
+                <button {...buttonProps} className="m-auto mb-3 block text-archway-dark">
                   <span className="flex items-center text-m1">
                     <span className="sr-only">{expanded ? "Close" : "See"} details</span>
                     <ChevronDownIcon
@@ -253,110 +247,63 @@ const SumCalculatorParagraph = ({costPerStudentTypes, appCost, progCosts, i20Cos
                 </button>
               </div>
               <div className="order-1">
-                <H2
-                  className="flex justify-between text-m1 lg:text-m3 lg:font-normal"
-                  aria-live="polite"
-                  aria-atomic
-                >
+                <H2 className="flex justify-between text-m1 lg:text-m3 lg:font-normal" aria-live="polite" aria-atomic>
                   <span>Estimated total cost</span>
                   <span>{formatCurrency(totalCost)}</span>
                 </H2>
-                <p className="card-paragraph mb-0 hidden text-left md:block">* Disclaimer: this is only an estimate. Actual fees are subject to change.</p>
+                <p className="card-paragraph mb-0 hidden text-left md:block">
+                  * Disclaimer: this is only an estimate. Actual fees are subject to change.
+                </p>
               </div>
 
-              <div
-                {...panelProps}
-                className={clsx("order-3 children:mt-12", {hidden: !expanded})}
-              >
-                <p className="card-paragraph mb-0 block border-b border-black pb-4 text-left md:hidden">* Disclaimer: this is only an estimate. Actual fees are subject to change.</p>
+              <div {...panelProps} className={clsx("order-3 children:mt-12", {hidden: !expanded})}>
+                <p className="card-paragraph mb-0 block border-b border-black pb-4 text-left md:hidden">
+                  * Disclaimer: this is only an estimate. Actual fees are subject to change.
+                </p>
                 {!!units && (
                   <div>
                     <div className="flex items-baseline gap-5">
                       <H3 className="text-m0">Tuition</H3>(Based on the total number of units)
                     </div>
-                    <SummaryCost
-                      label={`${units} Units`}
-                      cost={unitsCost}
-                    />
+                    <SummaryCost label={`${units} Units`} cost={unitsCost} />
                   </div>
                 )}
 
                 {studentType && (
                   <div>
                     <H3 className="text-m0">General Fees</H3>
-                    <SummaryCost
-                      label="Application Fee"
-                      cost={appFee}
-                    />
-                    <SummaryCost
-                      label="Program Fee"
-                      cost={progFee}
-                    />
-                    <SummaryCost
-                      label="Campus Health Services Fee"
-                      cost={healthServiceCost}
-                    />
-                    {needsI20 && (
-                      <SummaryCost
-                        label="I-20 Processing Fee"
-                        cost={i20Fee}
-                      />
-                    )}
+                    <SummaryCost label="Application Fee" cost={appFee} />
+                    <SummaryCost label="Program Fee" cost={progFee} />
+                    <SummaryCost label="Campus Health Services Fee" cost={healthServiceCost} />
+                    {needsI20 && <SummaryCost label="I-20 Processing Fee" cost={i20Fee} />}
                   </div>
                 )}
 
                 {onCampus && (
                   <div>
                     <H3 className="text-m0">On-campus Fees</H3>
-                    <SummaryCost
-                      label="Housing Fee"
-                      cost={housingFee}
-                    />
-                    <SummaryCost
-                      label="Meal Plan"
-                      cost={mealPlan}
-                    />
-                    <SummaryCost
-                      label="Mail Service Fee"
-                      cost={mailFee}
-                    />
-                    <SummaryCost
-                      label="Technology Fee "
-                      cost={techFee}
-                    />
+                    <SummaryCost label="Housing Fee" cost={housingFee} />
+                    <SummaryCost label="Meal Plan" cost={mealPlan} />
+                    <SummaryCost label="Mail Service Fee" cost={mailFee} />
+                    <SummaryCost label="Technology Fee " cost={techFee} />
                   </div>
                 )}
 
                 <div>
                   <H3 className="text-m0">Extra Fees</H3>
-                  <SummaryCost
-                    label="Books and Supplies (optional)"
-                    cost={booksSuppliesCost}
-                  />
-                  <SummaryCost
-                    label="Document Fee"
-                    cost={documentsCost}
-                  />
+                  <SummaryCost label="Books and Supplies (optional)" cost={booksSuppliesCost} />
+                  <SummaryCost label="Document Fee" cost={documentsCost} />
                   {!waivingInsurance && (
-                    <SummaryCost
-                      label="Cardinal Care Health Insurance optional"
-                      cost={insurance}
-                    />
+                    <SummaryCost label="Cardinal Care Health Insurance optional" cost={insurance} />
                   )}
                 </div>
               </div>
 
               <div className="order-2 mt-20 hidden border-b border-black md:block">
-                <button
-                  {...buttonProps}
-                  className="mb-3 ml-auto block text-digital-blue"
-                >
+                <button {...buttonProps} className="mb-3 ml-auto block text-digital-blue">
                   <span className="flex items-center text-m1">
                     {expanded ? "Close" : "See"} details
-                    <ChevronDownIcon
-                      width={33}
-                      className={clsx("transition duration-150", {"rotate-180": expanded})}
-                    />
+                    <ChevronDownIcon width={33} className={clsx("transition duration-150", {"rotate-180": expanded})} />
                   </span>
                 </button>
               </div>

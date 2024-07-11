@@ -53,16 +53,9 @@ const SearchForm = () => {
 
   return (
     <div>
-      <form
-        role="search"
-        aria-labelledby="page-title"
-        onSubmit={e => e.preventDefault()}
-      >
+      <form role="search" aria-labelledby="page-title" onSubmit={e => e.preventDefault()}>
         <div className="mx-auto mb-20 flex max-w-6xl items-center gap-5">
-          <label
-            className="sr-only"
-            htmlFor="search-input"
-          >
+          <label className="sr-only" htmlFor="search-input">
             Keywords Search
           </label>
           <input
@@ -78,15 +71,9 @@ const SearchForm = () => {
             defaultValue={query}
           />
 
-          <button
-            type="submit"
-            onClick={() => refine(inputRef.current?.value || "")}
-          >
+          <button type="submit" onClick={() => refine(inputRef.current?.value || "")}>
             <span className="sr-only">Submit Search</span>
-            <MagnifyingGlassIcon
-              width={40}
-              className="block rounded-full bg-cardinal-red p-3 text-white"
-            />
+            <MagnifyingGlassIcon width={40} className="block rounded-full bg-cardinal-red p-3 text-white" />
           </button>
 
           <Button
@@ -124,10 +111,7 @@ const HitList = () => {
 
       <ul className="list-unstyled">
         {hits.map(hit => (
-          <li
-            key={hit.objectID}
-            className="border-b border-gray-300 last:border-0"
-          >
+          <li key={hit.objectID} className="border-b border-gray-300 last:border-0">
             <DefaultResult hit={hit} />
           </li>
         ))}
@@ -143,10 +127,7 @@ const HitList = () => {
             )}
 
             {pages.map(pageNum => (
-              <li
-                key={`page-${pageNum}`}
-                aria-current={currentPage === pageNum}
-              >
+              <li key={`page-${pageNum}`} aria-current={currentPage === pageNum}>
                 <button onClick={() => goToPage(pageNum)}>{pageNum + 1}</button>
               </li>
             ))}

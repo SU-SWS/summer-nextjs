@@ -43,10 +43,7 @@ const SuperFooter = async () => {
                 className="flex items-center text-digital-red no-underline hocus:text-black hocus:underline"
               >
                 {superFooterConfig.suSuperFootIntranet.title}
-                <LockClosedIcon
-                  width={20}
-                  className="ml-2"
-                />
+                <LockClosedIcon width={20} className="ml-2" />
               </Link>
             )}
           </div>

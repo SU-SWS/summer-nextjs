@@ -30,10 +30,7 @@ type Props = {
 
 const Paragraph = async ({paragraph}: Props) => {
   return (
-    <UnpublishedBanner
-      status={paragraph.status}
-      message="Unpublished Content"
-    >
+    <UnpublishedBanner status={paragraph.status} message="Unpublished Content">
       <ParagraphComponent paragraph={paragraph} />
     </UnpublishedBanner>
   )
@@ -49,128 +46,45 @@ const ParagraphComponent = async ({paragraph}: Props) => {
 
   switch (paragraph.__typename) {
     case "ParagraphStanfordBanner":
-      return (
-        <BannerParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <BannerParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphStanfordCard":
-      return (
-        <CardParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <CardParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphStanfordEntity":
-      return (
-        <EntityParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <EntityParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphStanfordGallery":
-      return (
-        <GalleryParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <GalleryParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphStanfordMediaCaption":
-      return (
-        <MediaCaptionParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <MediaCaptionParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphStanfordSpacer":
-      return (
-        <SpacerParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <SpacerParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphStanfordWysiwyg":
-      return (
-        <WysiwygParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <WysiwygParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphStanfordList":
       return (
         <Suspense>
-          <ListParagraph
-            paragraph={paragraph}
-            {...itemProps}
-          />
+          <ListParagraph paragraph={paragraph} {...itemProps} />
         </Suspense>
       )
     case "ParagraphSumCalculator":
-      return (
-        <SumCalculatorParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <SumCalculatorParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumCourseFilter":
       return <SumCourseFilterParagraph {...itemProps} />
     case "ParagraphSumUserFavorite":
-      return (
-        <UserFavoriteParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <UserFavoriteParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumAccordion":
-      return (
-        <SumAccordionParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <SumAccordionParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumCarousel":
-      return (
-        <SumCarouselParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <SumCarouselParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumSlideTeaser":
-      return (
-        <SumSlideTeaserParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <SumSlideTeaserParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumVideo":
-      return (
-        <SumVideoParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <SumVideoParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumAtAGlance":
-      return (
-        <SumAtAGlanceParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <SumAtAGlanceParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumPillBanner":
-      return (
-        <SumPillBannerParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <SumPillBannerParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumTestimonial":
-      return (
-        <SumTestimonialBannerParagraph
-          paragraph={paragraph}
-          {...itemProps}
-        />
-      )
+      return <SumTestimonialBannerParagraph paragraph={paragraph} {...itemProps} />
   }
   console.warn(`Unknown paragraph ${paragraph.__typename}. Item ${paragraph.id}.`)
 }

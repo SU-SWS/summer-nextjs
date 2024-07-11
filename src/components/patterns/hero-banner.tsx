@@ -31,13 +31,25 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   cardClassName?: Maybe<string>
 }
 
-const HeroBanner = ({imageUrl, imageAlt, eagerLoadImage, isSection, overlayPosition, children, cardClassName, ...props}: Props) => {
+const HeroBanner = ({
+  imageUrl,
+  imageAlt,
+  eagerLoadImage,
+  isSection,
+  overlayPosition,
+  children,
+  cardClassName,
+  ...props
+}: Props) => {
   const BannerWrapper: ElementType = isSection ? "section" : "div"
 
   return (
     <BannerWrapper
       {...props}
-      className={twMerge("rs-mb-5 relative left-1/2 flex w-screen -translate-x-1/2 flex-col @container lg:block lg:min-h-[400px]", props.className)}
+      className={twMerge(
+        "rs-mb-5 relative left-1/2 flex w-screen -translate-x-1/2 flex-col @container lg:block lg:min-h-[400px]",
+        props.className
+      )}
     >
       <div className="lg:aspect-auto relative order-2 aspect-[16/9] w-full bg-cool-grey lg:absolute lg:h-full">
         {imageUrl && (

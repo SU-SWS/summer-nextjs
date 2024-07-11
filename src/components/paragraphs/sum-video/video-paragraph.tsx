@@ -12,12 +12,13 @@ const SumVideoParagraph = ({paragraph, ...props}: Props) => {
   if (!paragraph.sumVideoVideo?.mediaOembedVideo) return null
 
   return (
-    <div
-      {...props}
-      className={twMerge("centered", props.className)}
-    >
-      {paragraph.sumVideoVideo.mediaOembedVideo && <YoutubeVideoPill videoUrl={paragraph.sumVideoVideo.mediaOembedVideo} />}
-      {!paragraph.sumVideoVideo?.mediaOembedVideo.match(/you/) && <Oembed url={paragraph.sumVideoVideo.mediaOembedVideo} />}
+    <div {...props} className={twMerge("centered", props.className)}>
+      {paragraph.sumVideoVideo.mediaOembedVideo && (
+        <YoutubeVideoPill videoUrl={paragraph.sumVideoVideo.mediaOembedVideo} />
+      )}
+      {!paragraph.sumVideoVideo?.mediaOembedVideo.match(/you/) && (
+        <Oembed url={paragraph.sumVideoVideo.mediaOembedVideo} />
+      )}
     </div>
   )
 }

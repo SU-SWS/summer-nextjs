@@ -21,6 +21,7 @@ const RelatedCourseItem = ({item}: {item: CourseHit}) => {
     <ImageCard
       imageUrl={item.photo}
       imageAlt=""
+      id={item.objectID}
     >
       <div className="flex flex-col">
         <H3 className="rs-mb-0 order-2">
@@ -64,8 +65,8 @@ const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey}: Props) => 
             className="w-full p-0 text-center md:w-1/3 md:text-left lg:pt-0"
           >
             <div className="flex flex-col">
-              <H2 className="rs-mb-0 order-2 font-roboto font-normal">Explore more courses</H2>
-              <div className="rs-mb-0 order-1 font-normal uppercase">Related Courses</div>
+              <H2 className="rs-mb-0 type-0 font-roboto font-normal uppercase">Related Courses</H2>
+              <p className="rs-mb-0 type-2 font-normal">Explore more courses</p>
             </div>
           </ImageCard>
         )}
@@ -75,8 +76,8 @@ const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey}: Props) => 
             className="w-full p-0 lg:pt-0"
           >
             <div className="flex flex-col">
-              <H2 className="rs-mb-0 order-2 font-roboto font-normal">We couldn&apos;t find any related courses at the moment. Please explore other courses or check back later for updates.</H2>
-              <div className="rs-mb-0 order-1 font-normal uppercase">Related Courses</div>
+              <H2 className="rs-mb-0 type-0 font-roboto font-normal uppercase">Related Courses</H2>
+              <p className="rs-mb-0 type-2 font-normal">We couldn&apos;t find any related courses at the moment. Please explore other courses or check back later for updates.</p>
             </div>
           </ImageCard>
         )}

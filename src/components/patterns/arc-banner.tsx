@@ -31,7 +31,7 @@ const ArcBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}
       {...props}
       className={twMerge("relative md:min-h-[400px]", props.className)}
     >
-      <div className="absolute left-0 top-0 -z-50 h-1/4 w-full md:h-1/2 xl:h-3/4 2xl:h-full">
+      <div className="absolute left-0 top-0 -z-50 h-1/4 w-[calc(100vw+4px)] -translate-x-[2px] md:h-1/2 xl:h-3/4 2xl:h-full">
         {imageUrl && (
           <Image
             className="ed11y-ignore object-cover"

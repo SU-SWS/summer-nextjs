@@ -24,26 +24,28 @@ type RelatedCourseItemProps = {
   url?: string
 }
 
-const RelatedCourseItem = ({item}: {item: RelatedCourseItemProps}) => (
-  <ImageCard
-    imageUrl={item.photo}
-    imageAlt=""
-    className="space-y-16 @container"
-  >
-    <div className="flex flex-col">
-      <H3 className="rs-mb-0 order-2 max-w-[900px] text-center font-roboto font-normal">{item.title}</H3>
-      <div className="order-1 font-normal">{item.sum_course_catalog_number}</div>
-      {item.url && (
-        <ActionLink
-          className="order-3"
-          href={item.url}
-        >
-          Learn more
-        </ActionLink>
-      )}
-    </div>
-  </ImageCard>
-)
+const RelatedCourseItem = ({item}: {item: RelatedCourseItemProps}) => {
+  return (
+    <ImageCard
+      imageUrl={item.photo}
+      imageAlt=""
+      className="space-y-16 @container"
+    >
+      <div className="flex flex-col">
+        <H3 className="rs-mb-0 order-2 max-w-[900px] text-center font-roboto font-normal">{item.title}</H3>
+        <div className="order-1 font-normal">{item.sum_course_catalog_number}</div>
+        {item.url && (
+          <ActionLink
+            className="order-3"
+            href={item.url}
+          >
+            Learn more
+          </ActionLink>
+        )}
+      </div>
+    </ImageCard>
+  )
+}
 
 const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey, interestArea}: Props) => {
   const searchClient = useMemo(() => algoliasearch(appId, searchApiKey), [appId, searchApiKey])
@@ -67,7 +69,13 @@ const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey, interestAre
         <RelatedProducts
           objectIDs={[objectID]}
           itemComponent={RelatedCourseItem}
-          limit={2}
+          limit={3}
+          classNames={{
+            list: "list-unstyled grid grid-cols-3",
+          }}
+          queryParameters={{
+            filters: "type:'Summer Courses'",
+          }}
         />
       </div>
     </InstantSearchNext>

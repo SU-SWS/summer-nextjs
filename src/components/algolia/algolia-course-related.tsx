@@ -13,7 +13,7 @@ type Props = {
   appId: string
   searchIndex: string
   searchApiKey: string
-  relatedTopic?: string
+  interestArea?: string
 }
 
 type RelatedCourseItemProps = {
@@ -45,7 +45,7 @@ const RelatedCourseItem = ({item}: {item: RelatedCourseItemProps}) => (
   </ImageCard>
 )
 
-const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey, relatedTopic}: Props) => {
+const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey, interestArea}: Props) => {
   const searchClient = useMemo(() => algoliasearch(appId, searchApiKey), [appId, searchApiKey])
 
   return (
@@ -60,7 +60,7 @@ const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey, relatedTopi
           className="space-y-16 @container"
         >
           <div className="flex flex-col">
-            <H3 className="rs-mb-0 order-2 max-w-[900px] text-center font-roboto font-normal">Explore more courses {relatedTopic}</H3>
+            <H3 className="rs-mb-0 order-2 max-w-[900px] text-center font-roboto font-normal">Explore more courses {interestArea}</H3>
             <div className="order-1 font-normal uppercase">Related Courses</div>
           </div>
         </ImageCard>

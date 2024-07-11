@@ -136,7 +136,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
           appId={siteSettingsConfig.suSiteAlgoliaId}
           searchIndex={siteSettingsConfig.suSiteAlgoliaIndex}
           searchApiKey={siteSettingsConfig.suSiteAlgoliaSearch}
-          relatedTopic={node.sumCourseInterestArea}
+          interestArea={node.sumCourseInterestArea?.name}
         />
       </div>
       <div>{/* Apply Now Link */}</div>

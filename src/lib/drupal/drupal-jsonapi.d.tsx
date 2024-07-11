@@ -24,6 +24,11 @@ export type CardParagraphBehaviors = {
   sum_card_pill_bg_color_variant?: "semitransparent_poppy" | "olive" | "semitransparent_olive" | "spirited" | "semitransparent_spirited"
 }
 
+export type SummerCarouselBehaviors = {
+  sum_carousel_arc?: boolean
+  sum_carousel_text_size?: "large" | "small"
+}
+
 export type BannerParagraphBehaviors = {
   heading?: "h2" | "h3" | "h4" | "div.su-splash-font"
   hide_heading?: string
@@ -65,6 +70,7 @@ export type ParagraphBehaviors = {
   layout_paragraphs?: LayoutParagraphBehaviors
   list_paragraph?: ListParagraphBehaviors
   su_card_styles?: CardParagraphBehaviors
+  sum_carousel?: SummerCarouselBehaviors
   hero_pattern?: BannerParagraphBehaviors
   stanford_teaser?: TeaserParagraphBehaviors
   sum_pill_banner_behaviors?: PillBannerBehaviors

@@ -20,7 +20,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
    * Is the banner supposed to have a border outline.
    */
-  isBorder?: Maybe<boolean>
+  isBorder?: Maybe<boolean | undefined>
 }
 
 const ArchBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}: Props) => {

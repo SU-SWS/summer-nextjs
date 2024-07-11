@@ -17,7 +17,7 @@ const SummerCoursePage = ({node, ...props}: Props) => {
 
   return (
     <article {...props}>
-      <ArchBanner
+      <ArcBanner
         {...props}
         imageUrl="/images/temp-bg.jpg"
         imageAlt=""
@@ -34,7 +34,7 @@ const SummerCoursePage = ({node, ...props}: Props) => {
             {node.sumCourseCatalogNumber && <div className="font-normal">{node.sumCourseCatalogNumber}</div>}
           </div>
         </div>
-      </ArchBanner>
+      </ArcBanner>
       <div className="centered relative z-10 my-32 grid grid-cols-12 gap-10">
         <div className="order-2 col-span-12 lg:col-span-8">
           <div className="rs-mb-4 grid grid-cols-1 gap-10 lg:grid-cols-2">

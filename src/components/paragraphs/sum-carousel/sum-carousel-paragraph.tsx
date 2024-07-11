@@ -2,7 +2,6 @@ import {ParagraphSumCarousel} from "@lib/gql/__generated__/drupal.d"
 import {ElementType, HTMLAttributes} from "react"
 import Wysiwyg from "@components/elements/wysiwyg"
 import {H2} from "@components/elements/headers"
-import Link from "@components/elements/link"
 import Paragraph from "@components/paragraphs/paragraph"
 import Slideshow from "@components/elements/slideshow"
 import ActionLink from "@components/elements/action-link"
@@ -16,13 +15,13 @@ type Props = HTMLAttributes<HTMLElement> & {
 
 const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
-  const isArchBanner = behaviors.sum_carousel?.sum_carousel_arc
+  const isArcBanner = behaviors.sum_carousel?.sum_carousel_arc
   const headingSize = behaviors.sum_carousel?.sum_carousel_text_size ? "type-3" : "type-4"
-  const BannerWrapper: ElementType = isArchBanner ? ArcBanner : "div"
+  const BannerWrapper: ElementType = isArcBanner ? ArcBanner : "div"
 
   return (
     <div {...props}>
-      <BannerWrapper {...(isArchBanner && {isBorder: true})}>
+      <BannerWrapper {...(isArcBanner && {isBorder: true})}>
         <div className="mb-20 text-center">
           <div className="flex flex-col">
             {paragraph.sumCarouselHeader && <H2 className={clsx("mb-8 font-light", headingSize)}>{paragraph.sumCarouselHeader}</H2>}

@@ -25,14 +25,16 @@ const Page = async ({searchParams}: {searchParams?: {[_key: string]: string}}) =
     <div className="centered mt-32">
       <H1>Search</H1>
 
-      {siteSettingsConfig?.suSiteAlgoliaId && siteSettingsConfig?.suSiteAlgoliaIndex && siteSettingsConfig?.suSiteAlgoliaSearch && (
-        <AlgoliaSiteSearch
-          appId={siteSettingsConfig.suSiteAlgoliaId}
-          searchIndex={siteSettingsConfig.suSiteAlgoliaIndex}
-          searchApiKey={siteSettingsConfig.suSiteAlgoliaSearch}
-          initialUiState={initialState}
-        />
-      )}
+      {siteSettingsConfig?.suSiteAlgoliaId &&
+        siteSettingsConfig?.suSiteAlgoliaIndex &&
+        siteSettingsConfig?.suSiteAlgoliaSearch && (
+          <AlgoliaSiteSearch
+            appId={siteSettingsConfig.suSiteAlgoliaId}
+            searchIndex={siteSettingsConfig.suSiteAlgoliaIndex}
+            searchApiKey={siteSettingsConfig.suSiteAlgoliaSearch}
+            initialUiState={initialState}
+          />
+        )}
     </div>
   )
 }

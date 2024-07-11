@@ -24,10 +24,7 @@ const DrupalLink = ({href, children, ...props}: Props) => {
 
   if (props.className?.includes("link--action")) {
     return (
-      <ActionLink
-        href={href}
-        {...props}
-      >
+      <ActionLink href={href} {...props}>
         {children}
       </ActionLink>
     )
@@ -47,18 +44,9 @@ const DrupalLink = ({href, children, ...props}: Props) => {
   }
 
   return (
-    <Link
-      href={href}
-      className={props.className}
-      {...props}
-    >
+    <Link href={href} className={props.className} {...props}>
       {children}
-      {href.startsWith("mailto") && (
-        <EnvelopeIcon
-          width={20}
-          className="ml-4 inline-block"
-        />
-      )}
+      {href.startsWith("mailto") && <EnvelopeIcon width={20} className="ml-4 inline-block" />}
     </Link>
   )
 }

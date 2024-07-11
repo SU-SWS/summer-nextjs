@@ -17,7 +17,8 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 
 const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
-  const hasCard = paragraph.suBannerHeader || paragraph.suBannerButton || paragraph.suBannerBody || paragraph.suBannerSupHeader
+  const hasCard =
+    paragraph.suBannerHeader || paragraph.suBannerButton || paragraph.suBannerBody || paragraph.suBannerSupHeader
 
   const headerTagChoice = (behaviors.hero_pattern?.heading || "h2").split(".", 2)
   const bgColor = behaviors.sum_banner_behaviors?.sum_banner_overlay_bkg
@@ -48,23 +49,27 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
           )}
         >
           {paragraph.suBannerHeader && (
-            <div
-              id={paragraph.id}
-              className={behaviors.hero_pattern?.hide_heading ? "sr-only" : undefined}
-            >
-              {headerTag === "h2" && <H2 className={twMerge(headerClasses, "rs-mb-3 font-normal")}>{paragraph.suBannerHeader}</H2>}
-              {headerTag === "h3" && <H3 className={twMerge(headerClasses, "rs-mb-3 font-normal")}>{paragraph.suBannerHeader}</H3>}
-              {headerTag === "h4" && <H4 className={twMerge(headerClasses, "rs-mb-3 font-normal")}>{paragraph.suBannerHeader}</H4>}
-              {headerTag === "div" && <div className={twMerge(headerClasses, "rs-mb-3 font-normal")}>{paragraph.suBannerHeader}</div>}
+            <div id={paragraph.id} className={behaviors.hero_pattern?.hide_heading ? "sr-only" : undefined}>
+              {headerTag === "h2" && (
+                <H2 className={twMerge(headerClasses, "rs-mb-3 font-normal")}>{paragraph.suBannerHeader}</H2>
+              )}
+              {headerTag === "h3" && (
+                <H3 className={twMerge(headerClasses, "rs-mb-3 font-normal")}>{paragraph.suBannerHeader}</H3>
+              )}
+              {headerTag === "h4" && (
+                <H4 className={twMerge(headerClasses, "rs-mb-3 font-normal")}>{paragraph.suBannerHeader}</H4>
+              )}
+              {headerTag === "div" && (
+                <div className={twMerge(headerClasses, "rs-mb-3 font-normal")}>{paragraph.suBannerHeader}</div>
+              )}
             </div>
           )}
 
-          {paragraph.suBannerSupHeader && <div className="rs-mb-1 order-first text-09em font-normal uppercase">{paragraph.suBannerSupHeader}</div>}
+          {paragraph.suBannerSupHeader && (
+            <div className="rs-mb-1 order-first text-09em font-normal uppercase">{paragraph.suBannerSupHeader}</div>
+          )}
 
-          <Wysiwyg
-            html={paragraph.suBannerBody?.processed}
-            className="text-m0"
-          />
+          <Wysiwyg html={paragraph.suBannerBody?.processed} className="text-m0" />
 
           {paragraph.suBannerButton?.url && !semiCircleButton && (
             <div className="rs-pt-2">

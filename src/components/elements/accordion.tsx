@@ -55,19 +55,9 @@ const Accordion = ({button, children, headingLevel = "h2", ...props}: Props) => 
         >
           {button}
           <span className="group-hocus:outline-3 m-4 rounded-full border-2 border-white bg-digital-red p-6 text-5xl font-normal text-white no-underline transition group-hocus:text-white group-hocus:underline group-hocus:outline group-hocus:outline-digital-red">
-            {expanded && (
-              <MinusIcon
-                height={30}
-                className="ml-auto shrink-0"
-              />
-            )}
+            {expanded && <MinusIcon height={30} className="ml-auto shrink-0" />}
 
-            {!expanded && (
-              <PlusIcon
-                height={30}
-                className="ml-auto shrink-0"
-              />
-            )}
+            {!expanded && <PlusIcon height={30} className="ml-auto shrink-0" />}
           </span>
         </button>
       </Heading>

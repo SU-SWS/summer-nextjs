@@ -34,7 +34,10 @@ const InterceptionModal = ({children, ...props}: HtmlHTMLAttributes<HTMLDialogEl
   return (
     <dialog
       ref={overlay}
-      className={twMerge("modal fixed left-0 top-0 z-[10000] m-0 flex h-full w-screen items-center justify-center overflow-x-hidden overflow-y-scroll overscroll-contain bg-black-true bg-opacity-90 p-0", props.className)}
+      className={twMerge(
+        "modal fixed left-0 top-0 z-[10000] m-0 flex h-full w-screen items-center justify-center overflow-x-hidden overflow-y-scroll overscroll-contain bg-black-true bg-opacity-90 p-0",
+        props.className
+      )}
       onClick={onClick}
       {...props}
     >
@@ -52,10 +55,7 @@ const InterceptionModal = ({children, ...props}: HtmlHTMLAttributes<HTMLDialogEl
           className="absolute right-16 top-20 flex text-white hocus:underline lg:right-60 lg:top-60"
         >
           Close<span className="sr-only"> Overlay</span>
-          <XMarkIcon
-            className="ml-5"
-            width={25}
-          />
+          <XMarkIcon className="ml-5" width={25} />
         </button>
       </ReactFocusLock>
     </dialog>

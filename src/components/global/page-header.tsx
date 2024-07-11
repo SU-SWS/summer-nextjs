@@ -28,20 +28,18 @@ const PageHeader = async () => {
         <div className="w-full border-b-2 lg:border-b-0">
           <div className="min-h-50 rs-py-2 centered pr-24 lg:pr-0">
             <div className="flex w-full justify-between">
-              <Lockup
-                {...siteSettingsConfig}
-                {...lockupSettingsConfig}
-              />
+              <Lockup {...siteSettingsConfig} {...lockupSettingsConfig} />
               <div className="hidden lg:block">
                 {siteSettingsConfig && siteSettingsConfig.sumSiteHeaderPrim && (
-                  <Button
-                    href={siteSettingsConfig.sumSiteHeaderPrim.url}
-                    secondary
-                  >
+                  <Button href={siteSettingsConfig.sumSiteHeaderPrim.url} secondary>
                     {siteSettingsConfig.sumSiteHeaderPrim.title}
                   </Button>
                 )}
-                {siteSettingsConfig && siteSettingsConfig.sumSiteHeaderSec && <Button href={siteSettingsConfig.sumSiteHeaderSec.url}>{siteSettingsConfig.sumSiteHeaderSec.title}</Button>}
+                {siteSettingsConfig && siteSettingsConfig.sumSiteHeaderSec && (
+                  <Button href={siteSettingsConfig.sumSiteHeaderSec.url}>
+                    {siteSettingsConfig.sumSiteHeaderSec.title}
+                  </Button>
+                )}
               </div>
             </div>
           </div>

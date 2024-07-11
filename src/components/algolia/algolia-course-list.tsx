@@ -67,10 +67,7 @@ const HitList = () => {
             )}
 
             {pages.map(pageNum => (
-              <li
-                key={`page-${pageNum}`}
-                aria-current={currentPage === pageNum}
-              >
+              <li key={`page-${pageNum}`} aria-current={currentPage === pageNum}>
                 <button onClick={() => goToPage(pageNum)}>{pageNum + 1}</button>
               </li>
             ))}

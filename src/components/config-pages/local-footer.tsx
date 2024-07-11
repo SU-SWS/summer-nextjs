@@ -37,7 +37,10 @@ const LocalFooter = async () => {
     line3: localFooterConfig.suLocalFootLine3,
     line4: localFooterConfig.suLocalFootLine4,
     line5: localFooterConfig.suLocalFootLine5,
-    logoUrl: !localFooterConfig.suLocalFootUseLogo && localFooterConfig.suLocalFootLocImg?.url ? buildUrl(localFooterConfig.suLocalFootLocImg?.url).toString() : undefined,
+    logoUrl:
+      !localFooterConfig.suLocalFootUseLogo && localFooterConfig.suLocalFootLocImg?.url
+        ? buildUrl(localFooterConfig.suLocalFootLocImg?.url).toString()
+        : undefined,
   }
 
   return (
@@ -63,10 +66,7 @@ const LocalFooter = async () => {
               </ul>
             )}
 
-            <Wysiwyg
-              html={localFooterConfig.suLocalFootPrCo?.processed}
-              className="text-archway"
-            />
+            <Wysiwyg html={localFooterConfig.suLocalFootPrCo?.processed} className="text-archway" />
 
             {localFooterConfig.suLocalFootSocial && (
               <ul className="list-unstyled rs-mt-4 flex items-center gap-11 children:mb-0">
@@ -74,10 +74,7 @@ const LocalFooter = async () => {
                   if (!link.url) return
                   return (
                     <li key={`footer-action-link-${index}`}>
-                      <Link
-                        href={link.url}
-                        className="text-archway"
-                      >
+                      <Link href={link.url} className="text-archway">
                         <SocialIcon url={link.url} />
                         <span className="sr-only">{link.title}</span>
                       </Link>
@@ -89,17 +86,16 @@ const LocalFooter = async () => {
           </div>
 
           <div className="font-roboto lg:w-1/4">
-            {localFooterConfig.suLocalFootPrimeH && <H2 className="text-m1 font-normal">{localFooterConfig.suLocalFootPrimeH}</H2>}
+            {localFooterConfig.suLocalFootPrimeH && (
+              <H2 className="text-m1 font-normal">{localFooterConfig.suLocalFootPrimeH}</H2>
+            )}
             {localFooterConfig.suLocalFootPrimary && (
               <ul className="list-unstyled">
                 {localFooterConfig.suLocalFootPrimary.map((link, index) => {
                   if (!link.url) return
                   return (
                     <li key={`footer-primary-link-${index}`}>
-                      <Link
-                        href={link.url}
-                        className="link--action"
-                      >
+                      <Link href={link.url} className="link--action">
                         {link.title}
                       </Link>
                     </li>
@@ -111,7 +107,9 @@ const LocalFooter = async () => {
           </div>
 
           <div className="font-roboto lg:w-1/4">
-            {localFooterConfig.suLocalFootSecondH && <H2 className="text-m1 font-normal">{localFooterConfig.suLocalFootSecondH}</H2>}
+            {localFooterConfig.suLocalFootSecondH && (
+              <H2 className="text-m1 font-normal">{localFooterConfig.suLocalFootSecondH}</H2>
+            )}
 
             {localFooterConfig.suLocalFootSecond && (
               <ul className="list-unstyled flex-1">
@@ -119,10 +117,7 @@ const LocalFooter = async () => {
                   if (!link.url) return
                   return (
                     <li key={`footer-second-link-${index}`}>
-                      <Link
-                        href={link.url}
-                        className="link--action"
-                      >
+                      <Link href={link.url} className="link--action">
                         {link.title}
                       </Link>
                     </li>
@@ -134,10 +129,7 @@ const LocalFooter = async () => {
             <Wysiwyg html={localFooterConfig.suLocalFootTr2Co?.processed} />
           </div>
 
-          <Wysiwyg
-            html={localFooterConfig.suLocalFootTrCo?.processed}
-            className="font-roboto lg:w-1/4"
-          />
+          <Wysiwyg html={localFooterConfig.suLocalFootTrCo?.processed} className="font-roboto lg:w-1/4" />
         </div>
       </div>
     </div>
@@ -176,10 +168,7 @@ const FooterLockup = ({useDefault = true, siteName, lockupOption, ...props}: Foo
     case "none":
       return (
         <div className="py-10">
-          <Link
-            href="/"
-            className="flex flex-row gap-4 font-roboto no-underline"
-          >
+          <Link href="/" className="flex flex-row gap-4 font-roboto no-underline">
             <LockupLogo {...lockupProps} />
           </Link>
         </div>
@@ -224,10 +213,7 @@ const FooterLockup = ({useDefault = true, siteName, lockupOption, ...props}: Foo
 
   return (
     <div className="py-10">
-      <Link
-        href="/"
-        className="flex flex-row gap-4 no-underline"
-      >
+      <Link href="/" className="flex flex-row gap-4 no-underline">
         <LockupLogo {...lockupProps} />
 
         <div className="w-[1px] shrink-0 bg-black" />

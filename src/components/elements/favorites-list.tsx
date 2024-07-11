@@ -22,10 +22,7 @@ const ShareButtons = () => {
         data-course-shared="Favorites"
       >
         <span className="mb-4 rounded-full bg-spirited-dark p-5">
-          <ChatBubbleLeftEllipsisIcon
-            width={30}
-            className="text-white"
-          />
+          <ChatBubbleLeftEllipsisIcon width={30} className="text-white" />
         </span>
         Text
       </a>
@@ -35,10 +32,7 @@ const ShareButtons = () => {
         data-course-shared="Favorites"
       >
         <span className="mb-4 rounded-full bg-spirited-dark p-5">
-          <EnvelopeIcon
-            width={30}
-            className="text-white"
-          />
+          <EnvelopeIcon width={30} className="text-white" />
         </span>
         Email
       </a>
@@ -48,10 +42,7 @@ const ShareButtons = () => {
         data-course-shared="Favorites"
       >
         <span className="mb-4 rounded-full bg-spirited-dark p-5">
-          <ClipboardDocumentIcon
-            width={30}
-            className="text-white"
-          />
+          <ClipboardDocumentIcon width={30} className="text-white" />
         </span>
         Copy
       </button>
@@ -71,20 +62,10 @@ const FavoritesList = ({isDisplayOnly = false}) => {
         <>
           <ul className="list-none pl-0">
             {favs.map(fav => (
-              <li
-                key={fav.uuid}
-                className="flex flex-row items-start gap-5"
-              >
+              <li key={fav.uuid} className="flex flex-row items-start gap-5">
                 {!isDisplayOnly && (
-                  <button
-                    type="button"
-                    onClick={() => removeFavorite(fav.uuid)}
-                    className="group"
-                  >
-                    <XMarkIcon
-                      width={24}
-                      className="mt-2 group-hocus:text-spirited-dark"
-                    />
+                  <button type="button" onClick={() => removeFavorite(fav.uuid)} className="group">
+                    <XMarkIcon width={24} className="mt-2 group-hocus:text-spirited-dark" />
                     <span className="sr-only">Remove &quot;{fav.title}&quot; from favorites</span>
                   </button>
                 )}
@@ -100,12 +81,8 @@ const FavoritesList = ({isDisplayOnly = false}) => {
       ) : (
         <div className="border-b border-archway-dark pb-20">
           Your favorites list is empty. Tap the{" "}
-          <HeartIcon
-            width={30}
-            className="inline-block text-spirited-dark"
-            title="Favorite Heart"
-          />{" "}
-          icon on courses you’re interested in to see them here. And share them with family and friends.
+          <HeartIcon width={30} className="inline-block text-spirited-dark" title="Favorite Heart" /> icon on courses
+          you’re interested in to see them here. And share them with family and friends.
         </div>
       )}
       <div className="mt-12 flex flex-row justify-between">

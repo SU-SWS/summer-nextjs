@@ -11,10 +11,7 @@ const UserAnalytics = async () => {
 
   return (
     <>
-      <Script
-        async
-        src="//siteimproveanalytics.com/js/siteanalyze_80352.js"
-      />
+      <Script async src="//siteimproveanalytics.com/js/siteanalyze_80352.js" />
       <GoogleAnalytics gaId={siteSettingsConfig?.suGoogleAnalytics} />
     </>
   )

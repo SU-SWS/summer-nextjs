@@ -22,22 +22,13 @@ const Home = async () => {
   return (
     <article>
       {entity.suPageBanner?.__typename === "ParagraphStanfordPageTitleBanner" && (
-        <PageTitleBannerParagraph
-          paragraph={entity.suPageBanner}
-          pageTitle=""
-        />
+        <PageTitleBannerParagraph paragraph={entity.suPageBanner} pageTitle="" />
       )}
       {entity.suPageBanner?.__typename === "ParagraphSumArcBanner" && (
-        <SumArcBannerParagraph
-          paragraph={entity.suPageBanner}
-          pageTitle=""
-        />
+        <SumArcBannerParagraph paragraph={entity.suPageBanner} pageTitle="" />
       )}
       {entity.suPageBanner?.__typename === "ParagraphSumTopBanner" && (
-        <SumTopBannerParagraph
-          paragraph={entity.suPageBanner}
-          pageTitle=""
-        />
+        <SumTopBannerParagraph paragraph={entity.suPageBanner} pageTitle="" />
       )}
       {entity.suPageComponents && <Rows components={entity.suPageComponents} />}
     </article>

@@ -18,10 +18,7 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
   const imageUrl = node.suPersonPhoto?.mediaImage.url
 
   return (
-    <article
-      className="centered mt-32"
-      {...props}
-    >
+    <article className="centered mt-32" {...props}>
       <div className="mb-32 flex flex-col gap-20 lg:flex-row">
         {imageUrl && (
           <div className="relative mx-auto aspect-[1/1] w-[250px] shrink-0 lg:mx-0">
@@ -64,10 +61,7 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
               <H2 className="text-m1">Research</H2>
               <div className="grid grid-cols-2 gap-10">
                 {node.suPersonResearch.map((research, i) => (
-                  <Wysiwyg
-                    key={`${node.id}-research-${i}`}
-                    html={research.processed}
-                  />
+                  <Wysiwyg key={`${node.id}-research-${i}`} html={research.processed} />
                 ))}
               </div>
             </div>
@@ -87,12 +81,13 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
           )}
         </div>
         <aside className="w-1/3 shrink-0">
-          {(node.suPersonTelephone || node.suPersonMobilePhone || node.suPersonFax || node.suPersonEmail || node.suPersonMailCode) && (
+          {(node.suPersonTelephone ||
+            node.suPersonMobilePhone ||
+            node.suPersonFax ||
+            node.suPersonEmail ||
+            node.suPersonMailCode) && (
             <div className="mb-20 flex items-start gap-10">
-              <PhoneIcon
-                width={30}
-                className="shrink-0"
-              />
+              <PhoneIcon width={30} className="shrink-0" />
               <div>
                 <H2 className="text-m1">Contact</H2>
 
@@ -126,10 +121,7 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
 
           {(node.suPersonLocationAddress || node.suPersonMapUrl) && (
             <div className="mb-20 flex items-start gap-10">
-              <MapPinIcon
-                width={30}
-                className="shrink-0"
-              />
+              <MapPinIcon width={30} className="shrink-0" />
               <div>
                 <H2 className="text-m1">Location</H2>
 
@@ -137,7 +129,8 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
 
                 {node.suPersonMapUrl?.url && (
                   <div>
-                    Map URL: <Link href={node.suPersonMapUrl.url}>{node.suPersonMapUrl.title || node.suPersonMapUrl.url}</Link>
+                    Map URL:{" "}
+                    <Link href={node.suPersonMapUrl.url}>{node.suPersonMapUrl.title || node.suPersonMapUrl.url}</Link>
                   </div>
                 )}
               </div>
@@ -146,19 +139,13 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
 
           {node.suPersonLinks && (
             <div className="mb-20 flex items-start gap-10">
-              <LinkIcon
-                width={30}
-                className="shrink-0"
-              />
+              <LinkIcon width={30} className="shrink-0" />
               <div>
                 <H2 className="text-m1">Links</H2>
                 {node.suPersonLinks.map((link, i) => {
                   if (!link.url) return
                   return (
-                    <Link
-                      key={`${node.id}-link-${i}`}
-                      href={link.url}
-                    >
+                    <Link key={`${node.id}-link-${i}`} href={link.url}>
                       {link.title}
                     </Link>
                   )
@@ -167,7 +154,9 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
             </div>
           )}
 
-          {node.suPersonProfileLink?.url && <Button href={node.suPersonProfileLink.url}>{node.suPersonProfileLink.title}</Button>}
+          {node.suPersonProfileLink?.url && (
+            <Button href={node.suPersonProfileLink.url}>{node.suPersonProfileLink.title}</Button>
+          )}
         </aside>
       </section>
     </article>

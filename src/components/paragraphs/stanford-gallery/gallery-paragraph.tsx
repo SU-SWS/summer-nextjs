@@ -17,14 +17,14 @@ const GalleryParagraph = ({paragraph, ...props}: Props) => {
   return (
     <GalleryWrapper
       {...props}
-      className={twMerge("centered mb-20 flex flex-col gap-10 @container lg:max-w-[920px] xl:max-w-[980px]", props.className)}
+      className={twMerge(
+        "centered mb-20 flex flex-col gap-10 @container lg:max-w-[920px] xl:max-w-[980px]",
+        props.className
+      )}
       aria-labelledby={paragraph.suGalleryHeadline ? paragraph.id : undefined}
     >
       {paragraph.suGalleryHeadline && (
-        <H2
-          id={paragraph.id}
-          className="text-center"
-        >
+        <H2 id={paragraph.id} className="text-center">
           {paragraph.suGalleryHeadline}
         </H2>
       )}
@@ -33,23 +33,14 @@ const GalleryParagraph = ({paragraph, ...props}: Props) => {
 
       {paragraph.suGalleryButton && (
         <div>
-          <Button
-            centered
-            href={paragraph.suGalleryButton.url}
-          >
+          <Button centered href={paragraph.suGalleryButton.url}>
             {paragraph.suGalleryButton.title}
           </Button>
         </div>
       )}
 
       <div className="relative left-1/2 mt-[150px] w-screen -translate-x-1/2 md:mt-[250px] lg:mt-[300px]">
-        <Image
-          className="object-cover"
-          src="/images/temp-bg.jpg"
-          alt="/"
-          fill
-          sizes="100vw"
-        />
+        <Image className="object-cover" src="/images/temp-bg.jpg" alt="/" fill sizes="100vw" />
 
         <div className="gutters -mt-[150px] mb-32 grid grid-cols-1-2 *:w-full *:overflow-hidden md:-mt-[250px] lg:-mt-[300px] xl:max-w-900 [&_a:focus-visible]:border-cardinal-red [&_a:hover]:border-cardinal-red [&_a]:relative [&_a]:block [&_a]:h-full [&_a]:w-full [&_a]:overflow-hidden [&_a]:border-5 [&_a]:border-white [&_a]:transition-colors">
           {paragraph.suGalleryImages?.[0] && (
@@ -89,17 +80,10 @@ const GalleryParagraph = ({paragraph, ...props}: Props) => {
                 image={paragraph.suGalleryImages[5]}
                 linkClasses="aspect-1 w-full rounded-bl-full"
               />
-              <GalleryImage
-                galleryId={paragraph.id}
-                image={paragraph.suGalleryImages[4]}
-                linkClasses="rounded-b-full"
-              >
+              <GalleryImage galleryId={paragraph.id} image={paragraph.suGalleryImages[4]} linkClasses="rounded-b-full">
                 {paragraph.suGalleryImages.length > 6 && (
                   <div className="absolute left-0 top-0 flex h-full w-full items-center justify-around rounded-b-full bg-black-true bg-opacity-55">
-                    <div
-                      className="font-roboto text-m4 text-white"
-                      aria-hidden
-                    >
+                    <div className="font-roboto text-m4 text-white" aria-hidden>
                       + {paragraph.suGalleryImages.length - 6}
                     </div>
                     <div className="sr-only">{`${paragraph.suGalleryImages.length - 6} More images available`}</div>
@@ -128,10 +112,7 @@ const GalleryImage = ({
   if (!image?.suGalleryImage?.url) return <div />
   return (
     <figure {...props}>
-      <Link
-        href={`/gallery/${galleryId}/${image.id}`}
-        className={linkClasses}
-      >
+      <Link href={`/gallery/${galleryId}/${image.id}`} className={linkClasses}>
         <Image
           className="object-cover"
           src={image.suGalleryImage.url}

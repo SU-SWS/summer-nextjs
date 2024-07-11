@@ -3,7 +3,18 @@
 import {JSX} from "react"
 import {useSelect, SelectOptionDefinition, SelectProvider, SelectValue} from "@mui/base/useSelect"
 import {useOption} from "@mui/base/useOption"
-import {FocusEvent, KeyboardEvent, MouseEvent, ReactNode, RefObject, useEffect, useId, useLayoutEffect, useRef, useState} from "react"
+import {
+  FocusEvent,
+  KeyboardEvent,
+  MouseEvent,
+  ReactNode,
+  RefObject,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react"
 import {ChevronDownIcon} from "@heroicons/react/20/solid"
 import {Maybe} from "@lib/gql/__generated__/drupal.d"
 import {clsx} from "clsx"
@@ -68,7 +79,10 @@ const CustomOption = (props: OptionProps) => {
     <li
       {...otherProps}
       id={id}
-      className={"m-0 mb-2 cursor-pointer overflow-hidden px-10 py-2 hocus:underline " + (selected ? selectedStyles : highlighted ? highlightedStyles : "hocus:bg-black-10 hocus:text-black")}
+      className={
+        "m-0 mb-2 cursor-pointer overflow-hidden px-10 py-2 hocus:underline " +
+        (selected ? selectedStyles : highlighted ? highlightedStyles : "hocus:bg-black-10 hocus:text-black")
+      }
     >
       {children}
     </li>
@@ -94,7 +108,21 @@ interface Props {
   placeholder?: string
 }
 
-const SelectList = ({options = [], label, multiple, ariaLabelledby, required, defaultValue, name, emptyValue, emptyLabel = "- None -", downIcon, buttonClassName, placeholder, ...props}: Props) => {
+const SelectList = ({
+  options = [],
+  label,
+  multiple,
+  ariaLabelledby,
+  required,
+  defaultValue,
+  name,
+  emptyValue,
+  emptyLabel = "- None -",
+  downIcon,
+  buttonClassName,
+  placeholder,
+  ...props
+}: Props) => {
   const labelId = useId()
   const labeledBy = ariaLabelledby || labelId
 
@@ -130,7 +158,12 @@ const SelectList = ({options = [], label, multiple, ariaLabelledby, required, de
     <div className="relative h-fit">
       <button
         {...getButtonProps()}
-        className={twMerge("w-full rounded border-2 border-fog-light text-left", buttonClassName, !optionChosen && "rs-p-3", props.disabled ? "bg-black-20" : "bg-fog-light")}
+        className={twMerge(
+          "w-full rounded border-2 border-fog-light text-left",
+          buttonClassName,
+          !optionChosen && "rs-p-3",
+          props.disabled ? "bg-black-20" : "bg-fog-light"
+        )}
         aria-labelledby={labeledBy}
       >
         {label && (
@@ -140,22 +173,30 @@ const SelectList = ({options = [], label, multiple, ariaLabelledby, required, de
               "text-m1": !optionChosen,
             })}
           >
-            <span
-              id={labelId}
-              className={twMerge("block w-fit bg-white px-5", clsx({"bg-black-20": props.disabled}))}
-            >
+            <span id={labelId} className={twMerge("block w-fit bg-white px-5", clsx({"bg-black-20": props.disabled}))}>
               {label}
             </span>
           </span>
         )}
 
-        {optionChosen && <div className="rs-p-3 type-2 block max-w-[calc(100%-30px)] overflow-hidden">{renderSelectedValue(value, options)}</div>}
+        {optionChosen && (
+          <div className="rs-p-3 type-2 block max-w-[calc(100%-30px)] overflow-hidden">
+            {renderSelectedValue(value, options)}
+          </div>
+        )}
         {!optionChosen && placeholder && <span className="type-2">{placeholder}</span>}
 
-        <span className="rs-pr-3 absolute right-0 top-0 flex h-full items-center">{downIcon || <ChevronDownIcon width={50} />}</span>
+        <span className="rs-pr-3 absolute right-0 top-0 flex h-full items-center">
+          {downIcon || <ChevronDownIcon width={50} />}
+        </span>
       </button>
 
-      <div className={"absolute left-0 top-full z-[10] max-h-[300px] w-full overflow-y-scroll border border-black-20 bg-white pb-5 shadow-lg " + (listboxVisible ? "" : "hidden")}>
+      <div
+        className={
+          "absolute left-0 top-full z-[10] max-h-[300px] w-full overflow-y-scroll border border-black-20 bg-white pb-5 shadow-lg " +
+          (listboxVisible ? "" : "hidden")
+        }
+      >
         <ul
           {...getListboxProps()}
           className={"list-unstyled " + (listboxVisible ? "" : "hidden")}
@@ -164,21 +205,14 @@ const SelectList = ({options = [], label, multiple, ariaLabelledby, required, de
         >
           <SelectProvider value={contextValue}>
             {!required && !multiple && (
-              <CustomOption
-                value={emptyValue || ""}
-                rootRef={listboxRef}
-              >
+              <CustomOption value={emptyValue || ""} rootRef={listboxRef}>
                 {emptyLabel}
               </CustomOption>
             )}
 
             {options.map(option => {
               return (
-                <CustomOption
-                  key={option.value}
-                  value={option.value}
-                  rootRef={listboxRef}
-                >
+                <CustomOption key={option.value} value={option.value} rootRef={listboxRef}>
                   {option.label}
                 </CustomOption>
               )
@@ -186,14 +220,7 @@ const SelectList = ({options = [], label, multiple, ariaLabelledby, required, de
           </SelectProvider>
         </ul>
       </div>
-      {name && (
-        <input
-          ref={inputRef}
-          name={name}
-          type="hidden"
-          value={value || ""}
-        />
-      )}
+      {name && <input ref={inputRef} name={name} type="hidden" value={value || ""} />}
     </div>
   )
 }

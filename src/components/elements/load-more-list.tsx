@@ -49,10 +49,7 @@ const LoadMoreList = ({buttonText, children, ulProps, liProps, itemsPerPage = 10
   const itemsToShow = items.slice(0, shownItems)
   return (
     <div {...props}>
-      <ul
-        {...ulProps}
-        ref={animationParent}
-      >
+      <ul {...ulProps} ref={animationParent}>
         {itemsToShow.map((item, i) => (
           <li
             key={`${id}--${i}`}
@@ -67,20 +64,13 @@ const LoadMoreList = ({buttonText, children, ulProps, liProps, itemsPerPage = 10
       </ul>
 
       {items.length > itemsPerPage && (
-        <span
-          className="sr-only"
-          aria-live="polite"
-          aria-atomic="true"
-        >
+        <span className="sr-only" aria-live="polite" aria-atomic="true">
           Showing {itemsToShow.length} of {items.length} total items.
         </span>
       )}
 
       {items.length > shownItems && (
-        <Button
-          centered
-          onClick={showMoreItems}
-        >
+        <Button centered onClick={showMoreItems}>
           {buttonText ? buttonText : "Load More"}
         </Button>
       )}

@@ -42,7 +42,8 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
             "rs-pt-10 w-full bg-poppy-light pb-96 text-center lg:last:*:rs-mb-5",
             clsx({
               "bg-olive": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "olive",
-              "bg-spirited text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
+              "bg-spirited text-black-true":
+                behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
               "bg-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "white",
               "bg-spirited-dark": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
               "text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
@@ -53,15 +54,14 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
           <div className="gutters">
             <div className="flex flex-col">
               {paragraph.sumPillBannerHeadline && (
-                <H2
-                  id={paragraph.id}
-                  className="mb-8 font-light"
-                >
+                <H2 id={paragraph.id} className="mb-8 font-light">
                   {paragraph.sumPillBannerHeadline}
                 </H2>
               )}
 
-              {paragraph.sumPillBannerSuphead && <div className="order-first mb-8">{paragraph.sumPillBannerSuphead}</div>}
+              {paragraph.sumPillBannerSuphead && (
+                <div className="order-first mb-8">{paragraph.sumPillBannerSuphead}</div>
+              )}
             </div>
 
             <Wysiwyg
@@ -76,8 +76,10 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
                   className={twMerge(
                     "text-archway-dark no-underline hocus:text-archway-dark hocus:underline",
                     clsx({
-                      "text-black-true hocus:text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
-                      "text-white hocus:text-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
+                      "text-black-true hocus:text-black-true":
+                        behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
+                      "text-white hocus:text-white":
+                        behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
                     })
                   )}
                 >
@@ -91,11 +93,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
         {paragraph.sumPillBannerCards && (
           <div className="rs-mb-8 gutters -mt-96 flex w-full flex-col gap-20 lg:flex-row">
             {paragraph.sumPillBannerCards.map(card => (
-              <PillBannerCard
-                key={card.id}
-                card={card}
-                headingLevel={Element === "div" ? "h2" : "h3"}
-              />
+              <PillBannerCard key={card.id} card={card} headingLevel={Element === "div" ? "h2" : "h3"} />
             ))}
           </div>
         )}

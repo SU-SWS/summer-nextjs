@@ -19,10 +19,7 @@ const FavoriteButton = ({uuid, title, path, units, ...props}: Props) => {
       aria-labelledby={uuid}
       {...props}
     >
-      <HeartIcon
-        width={30}
-        className={clsx("text-spirited-dark", {"fill-spirited-dark": isFavorite})}
-      />
+      <HeartIcon width={30} className={clsx("text-spirited-dark", {"fill-spirited-dark": isFavorite})} />
     </button>
   )
 }

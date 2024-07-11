@@ -31,23 +31,14 @@ const DefaultResult = ({hit}: {hit: HitType<AlgoliaHit>}) => {
         {hit.summary && <p className="mb-10">{hit.summary}</p>}
         {hit.html && !hit.summary && (
           <p className="mb-10">
-            <Snippet
-              hit={hit}
-              attribute="html"
-            />
+            <Snippet hit={hit} attribute="html" />
           </p>
         )}
       </div>
 
       {hit.photo && (
         <div className="relative aspect-[2/3] w-[150px] shrink-0">
-          <Image
-            className="object-cover"
-            src={hit.photo}
-            alt=""
-            fill
-            sizes="300px"
-          />
+          <Image className="object-cover" src={hit.photo} alt="" fill sizes="300px" />
         </div>
       )}
     </article>

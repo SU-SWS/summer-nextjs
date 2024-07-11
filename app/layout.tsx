@@ -15,7 +15,10 @@ const appleIcons: Icon[] = [60, 72, 76, 114, 120, 144, 152, 180].map(size => ({
 }))
 
 const icons: Icon[] = [16, 32, 96, 128, 192, 196].map(size => ({
-  url: size === 128 ? `https://www-media.stanford.edu/assets/favicon/favicon-${size}.png` : `https://www-media.stanford.edu/assets/favicon/favicon-${size}x${size}.png`,
+  url:
+    size === 128
+      ? `https://www-media.stanford.edu/assets/favicon/favicon-${size}.png`
+      : `https://www-media.stanford.edu/assets/favicon/favicon-${size}x${size}.png`,
   sizes: `${size}x${size}`,
 }))
 
@@ -47,30 +50,21 @@ const RootLayout = ({children, modal}: {children: React.ReactNode; modal: React.
   const isDevMode = process.env.NODE_ENV === "development"
 
   return (
-    <html
-      lang="en"
-      className={clsx(sourceSans3.className, roboto.variable)}
-    >
+    <html lang="en" className={clsx(sourceSans3.className, roboto.variable)}>
       <UserAnalytics />
       <DrupalWindowSync />
       {isDevMode && <Editori11y />}
 
       <body className="text-archway-dark">
         <nav aria-label="Skip Links">
-          <a
-            href="#main-content"
-            className="skiplink"
-          >
+          <a href="#main-content" className="skiplink">
             Skip to main content
           </a>
         </nav>
 
         <div className="flex min-h-screen flex-col">
           <PageHeader />
-          <main
-            id="main-content"
-            className="mb-32 flex-grow"
-          >
+          <main id="main-content" className="mb-32 flex-grow">
             {children}
 
             <BackToTop />

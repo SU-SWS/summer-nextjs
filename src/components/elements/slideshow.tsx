@@ -10,15 +10,12 @@ const NextArrow = ({className, onClick}: CustomArrowProps) => {
   const slickDisabled = !!(className && className?.indexOf("slick-disabled") > 0)
   return (
     <button
-      className="hocus:outline-3 absolute right-5 top-1/2 z-50 flex h-20 w-20 justify-around rounded-full border-2 border-white bg-digital-red hocus:outline hocus:outline-digital-red"
+      className="hocus:outline-3 absolute right-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:outline hocus:outline-digital-red"
       onClick={onClick}
       aria-label="Next"
       disabled={slickDisabled}
     >
-      <ArrowLongRightIcon
-        width={40}
-        className={twMerge("text-white", clsx({"text-fog-dark": slickDisabled}))}
-      />
+      <ArrowLongRightIcon width={40} className={twMerge("text-white", clsx({"text-fog-dark": slickDisabled}))} />
     </button>
   )
 }
@@ -27,15 +24,12 @@ const PrevArrow = ({className, onClick}: CustomArrowProps) => {
   const slickDisabled = !!(className && className?.indexOf("slick-disabled") > 0)
   return (
     <button
-      className="hocus:outline-3 absolute left-5 top-1/2 z-50 flex h-20 w-20 justify-around rounded-full border-2 border-white bg-digital-red hocus:outline hocus:outline-digital-red"
+      className="hocus:outline-3 absolute left-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:outline hocus:outline-digital-red"
       onClick={onClick}
       aria-label="Previous"
       disabled={slickDisabled}
     >
-      <ArrowLongLeftIcon
-        width={40}
-        className={twMerge("text-white", clsx({"text-fog-dark": slickDisabled}))}
-      />
+      <ArrowLongLeftIcon width={40} className={twMerge("text-white", clsx({"text-fog-dark": slickDisabled}))} />
     </button>
   )
 }
@@ -50,7 +44,8 @@ const Slideshow = ({children, slideshowProps, ...props}: SlideshowProps) => {
   const settings: Settings = {
     autoplay: false,
     centerMode: false,
-    className: "[&_.slick-track]:flex [&_.slick-track] [&_.slick-slider]:relative [&_.slick-slide>div]:h-full [&_.slick-slide>div>div]:h-full",
+    className:
+      "[&_.slick-track]:flex [&_.slick-track] [&_.slick-slider]:relative [&_.slick-slide>div]:h-full [&_.slick-slide>div>div]:h-full",
     dots: false,
     infinite: false,
     initialSlide: 0,
@@ -80,10 +75,7 @@ const Slideshow = ({children, slideshowProps, ...props}: SlideshowProps) => {
     ...slideshowProps,
   }
   return (
-    <div
-      {...props}
-      className={twMerge("relative", props.className)}
-    >
+    <div {...props} className={twMerge("relative", props.className)}>
       <Slider {...settings}>{children}</Slider>
     </div>
   )

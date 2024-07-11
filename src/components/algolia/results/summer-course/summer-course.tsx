@@ -5,7 +5,12 @@ import Image from "next/image"
 import useAccordion from "@lib/hooks/useAccordion"
 import {H3, H4} from "@components/elements/headers"
 import {formatCurrency} from "@lib/utils/format-currency"
-import {CheckCircleIcon, ChevronDownIcon, ExclamationCircleIcon, ExclamationTriangleIcon} from "@heroicons/react/24/solid"
+import {
+  CheckCircleIcon,
+  ChevronDownIcon,
+  ExclamationCircleIcon,
+  ExclamationTriangleIcon,
+} from "@heroicons/react/24/solid"
 import FavoriteButton from "@components/elements/favorite-button"
 import ShareCourses from "@components/elements/shareCourses"
 
@@ -36,30 +41,21 @@ const CourseAvailability = ({availabilityStatus}: Props) => {
     case "Available":
       return (
         <div className="flex items-center">
-          <CheckCircleIcon
-            width={20}
-            className="mr-3 text-digital-green"
-          />
+          <CheckCircleIcon width={20} className="mr-3 text-digital-green" />
           {availabilityStatus.toUpperCase()}
         </div>
       )
     case "Almost Full":
       return (
         <div className="flex items-center">
-          <ExclamationTriangleIcon
-            width={20}
-            className="mr-3 text-poppy"
-          />
+          <ExclamationTriangleIcon width={20} className="mr-3 text-poppy" />
           {availabilityStatus.toUpperCase()}
         </div>
       )
     case "Full":
       return (
         <div className="flex items-center">
-          <ExclamationCircleIcon
-            width={20}
-            className="mr-3 text-digital-red"
-          />
+          <ExclamationCircleIcon width={20} className="mr-3 text-digital-red" />
           {availabilityStatus.toUpperCase()}
         </div>
       )
@@ -91,10 +87,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
       <div className="flex flex-col gap-5 md:flex-row md:gap-[48px]">
         <div className="flex flex-grow flex-col">
           <H3 id={hit.objectID}>
-            <a
-              href={hit.url.replace(hitDomain, "")}
-              className="font-normal"
-            >
+            <a href={hit.url.replace(hitDomain, "")} className="font-normal">
               {hit.title}
             </a>
           </H3>
@@ -103,13 +96,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
 
         {hit.photo && (
           <div className="relative order-first aspect-1 w-1/4 shrink-0">
-            <Image
-              className="rounded-[25px] object-cover"
-              src={hit.photo}
-              alt={""}
-              fill
-              sizes="300px"
-            />
+            <Image className="rounded-[25px] object-cover" src={hit.photo} alt={""} fill sizes="300px" />
           </div>
         )}
 
@@ -145,32 +132,17 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
         {hit.sum_course_availability && <CourseAvailability availabilityStatus={hit.sum_course_availability[0]} />}
         {hit && hit.sum_course_units && (
           <div className="ml-auto flex flex-row justify-center gap-5">
-            <ShareCourses
-              courseUrl={hit.url}
-              courseNum={hit.sum_course_catalog_number || ""}
-              courseName={hit.title}
-            />
-            <FavoriteButton
-              title={hit.title}
-              uuid={hit.objectID}
-              path={hit.url}
-              units={hit.sum_course_units}
-            />
+            <ShareCourses courseUrl={hit.url} courseNum={hit.sum_course_catalog_number || ""} courseName={hit.title} />
+            <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units} />
           </div>
         )}
       </div>
 
       <H4 className="mb-0 ml-auto p-0 text-m0 font-semibold group-hocus:underline">
-        <button
-          {...buttonProps}
-          className="group mt-12 text-digital-blue no-underline"
-        >
+        <button {...buttonProps} className="group mt-12 text-digital-blue no-underline">
           <span className="flex w-full items-center gap-5">
             {expanded ? "Collapse details" : "Show all details"}
-            <ChevronDownIcon
-              width={20}
-              className={expanded ? "rotate-180" : undefined}
-            />
+            <ChevronDownIcon width={20} className={expanded ? "rotate-180" : undefined} />
           </span>
         </button>
       </H4>

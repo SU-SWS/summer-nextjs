@@ -83,7 +83,7 @@ const GalleryParagraph = ({paragraph, ...props}: Props) => {
               <GalleryImage galleryId={paragraph.id} image={paragraph.suGalleryImages[4]} linkClasses="rounded-b-full">
                 {paragraph.suGalleryImages.length > 6 && (
                   <div className="absolute left-0 top-0 flex h-full w-full items-center justify-around rounded-b-full bg-black-true bg-opacity-55">
-                    <div className="font-roboto text-m4 text-white" aria-hidden>
+                    <div className="type-5 font-roboto text-white" aria-hidden>
                       + {paragraph.suGalleryImages.length - 6}
                     </div>
                     <div className="sr-only">{`${paragraph.suGalleryImages.length - 6} More images available`}</div>

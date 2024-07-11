@@ -50,7 +50,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
               </div>
             )}
             <div className="pt-12 children:mb-5 [&_span]:font-bold">
-              <H2 className="text-m1">Details:</H2>
+              <H2 className="type-2">Details:</H2>
 
               {node.sumCourseSchedule && (
                 <div>
@@ -112,13 +112,13 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
           <div>
             {node.sumCourseDescription && (
               <div className="rs-mb-1">
-                <H3 className="mb-5 text-m1">Summary:</H3>
+                <H3 className="type-2 mb-5">Summary:</H3>
                 <Wysiwyg html={node.sumCourseDescription.processed} />
               </div>
             )}
             {node.sumCourseNotes && (
               <>
-                <H3 className="mb-5 text-m1">Course notes:</H3>
+                <H3 className="type-2 mb-5">Course notes:</H3>
                 <Wysiwyg html={node.sumCourseNotes?.processed} />
               </>
             )}

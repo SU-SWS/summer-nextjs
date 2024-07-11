@@ -60,7 +60,7 @@ const SearchForm = () => {
           </label>
           <input
             id="search-input"
-            className="flex-grow border-0 border-b border-black-30 text-m2"
+            className="type-3 flex-grow border-0 border-b border-black-30"
             ref={inputRef}
             autoComplete="on"
             autoCapitalize="off"

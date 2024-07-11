@@ -100,7 +100,7 @@ const SearchForm = () => {
             <div className="relative mt-4">
               <input
                 id={`${id}-search-input`}
-                className="w-full flex-grow border-3 border-fog-light px-8 py-5 text-m1"
+                className="type-2 w-full flex-grow border-3 border-fog-light px-8 py-5"
                 ref={inputRef}
                 autoComplete="on"
                 autoCapitalize="off"
@@ -258,7 +258,7 @@ const HitList = () => {
 
   return (
     <div>
-      <H2 className="rs-ml-1 text-m0 font-normal" aria-live="polite" aria-atomic>
+      <H2 className="rs-ml-1 big-paragraph font-normal" aria-live="polite" aria-atomic>
         {nbHits} {nbHits > 1 ? "results" : "result"}
       </H2>
 

@@ -2,29 +2,20 @@ import Wysiwyg from "@components/elements/wysiwyg"
 import {H1, H2, H3} from "@components/elements/headers"
 import {HtmlHTMLAttributes} from "react"
 import Image from "next/image"
-import {NodeSumSummerCourse, StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
+import {NodeSumSummerCourse} from "@lib/gql/__generated__/drupal.d"
 import ArcBanner from "@components/patterns/arc-banner"
 import {convertToLocalDateTime} from "@lib/utils/convert-date"
 import FavoritesList from "@components/elements/favorites-list"
 import RelatedCourses from "@components/algolia/algolia-course-related"
-import {getConfigPage} from "@lib/gql/gql-queries"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeSumSummerCourse
 }
 
 const SummerCoursePage = async ({node, ...props}: Props) => {
-  const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
   const startDate = node.sumCourseStartDate && convertToLocalDateTime(node.sumCourseStartDate).toUpperCase()
   const endDate = node.sumCourseEndDate && convertToLocalDateTime(node.sumCourseEndDate).toUpperCase()
 
-  if (
-    !siteSettingsConfig?.suSiteAlgoliaId ||
-    !siteSettingsConfig.suSiteAlgoliaSearch ||
-    !siteSettingsConfig.suSiteAlgoliaIndex
-  ) {
-    return
-  }
   return (
     <article {...props}>
       <ArcBanner {...props} imageUrl="/images/temp-bg.jpg" imageAlt="">
@@ -135,12 +126,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
         </div>
       </div>
       <div className="centered">
-        <RelatedCourses
-          objectID={node.id}
-          appId={siteSettingsConfig.suSiteAlgoliaId}
-          searchIndex={siteSettingsConfig.suSiteAlgoliaIndex}
-          searchApiKey={siteSettingsConfig.suSiteAlgoliaSearch}
-        />
+        <RelatedCourses objectID={node.id} />
       </div>
       <div>{/* Apply Now Link */}</div>
     </article>

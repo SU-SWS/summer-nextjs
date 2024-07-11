@@ -13,7 +13,6 @@ type Props = {
   appId: string
   searchIndex: string
   searchApiKey: string
-  interestArea?: string
 }
 
 type RelatedCourseItemProps = {
@@ -29,11 +28,10 @@ const RelatedCourseItem = ({item}: {item: RelatedCourseItemProps}) => {
     <ImageCard
       imageUrl={item.photo}
       imageAlt=""
-      className="space-y-16 @container"
     >
       <div className="flex flex-col">
-        <H3 className="rs-mb-0 order-2 max-w-[900px] text-center font-roboto font-normal">{item.title}</H3>
-        <div className="order-1 font-normal">{item.sum_course_catalog_number}</div>
+        <H3 className="rs-mb-0 order-2 max-w-[900px] font-roboto font-normal">{item.title}</H3>
+        <div className="rs-mb-0 order-1 font-normal">{item.sum_course_catalog_number}</div>
         {item.url && (
           <ActionLink
             className="order-3"
@@ -47,7 +45,7 @@ const RelatedCourseItem = ({item}: {item: RelatedCourseItemProps}) => {
   )
 }
 
-const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey, interestArea}: Props) => {
+const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey}: Props) => {
   const searchClient = useMemo(() => algoliasearch(appId, searchApiKey), [appId, searchApiKey])
 
   return (
@@ -56,28 +54,29 @@ const RelatedCourses = ({objectID, appId, searchIndex, searchApiKey, interestAre
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: true}}
     >
-      <div className="gutters grid gap-10 @9xl:grid-cols-3 md:gap-20">
-        <ImageCard
-          hasBgColor
-          className="space-y-16 @container"
-        >
-          <div className="flex flex-col">
-            <H3 className="rs-mb-0 order-2 max-w-[900px] text-center font-roboto font-normal">Explore more courses {interestArea}</H3>
-            <div className="order-1 font-normal uppercase">Related Courses</div>
-          </div>
-        </ImageCard>
-        <RelatedProducts
-          objectIDs={[objectID]}
-          itemComponent={RelatedCourseItem}
-          limit={3}
-          classNames={{
-            list: "list-unstyled grid grid-cols-3",
-          }}
-          queryParameters={{
-            filters: "type:'Summer Courses'",
-          }}
-        />
-      </div>
+      <RelatedProducts
+        objectIDs={[objectID]}
+        itemComponent={RelatedCourseItem}
+        limit={2}
+        classNames={{
+          root: "flex flex-col md:flex-row justify-between gap-10 items-center",
+          list: "list-unstyled grid gap-10 grid-cols-1 md:grid-cols-2",
+        }}
+        queryParameters={{
+          filters: "type:'Summer Courses'",
+        }}
+        headerComponent={() => (
+          <ImageCard
+            hasBgColor
+            className="w-full md:w-1/3"
+          >
+            <div className="flex flex-col">
+              <H3 className="rs-mb-0 order-2 max-w-[900px] font-roboto font-normal">Explore more courses</H3>
+              <div className="rs-mb-0 order-1 font-normal uppercase">Related Courses</div>
+            </div>
+          </ImageCard>
+        )}
+      />
     </InstantSearchNext>
   )
 }

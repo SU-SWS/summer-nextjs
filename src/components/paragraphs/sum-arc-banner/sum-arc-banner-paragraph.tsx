@@ -12,7 +12,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 const SumArcBannerParagraph = async ({paragraph, pageTitle, ...props}: Props) => {
   return (
     <div {...props}>
-      <ArchBanner
+      <ArcBanner
         imageUrl={paragraph.sumArcImage?.mediaImage.url}
         imageAlt={paragraph.sumArcImage?.mediaImage.alt}
       >
@@ -26,7 +26,7 @@ const SumArcBannerParagraph = async ({paragraph, pageTitle, ...props}: Props) =>
             />
           </div>
         </div>
-      </ArchBanner>
+      </ArcBanner>
     </div>
   )
 }

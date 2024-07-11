@@ -1,5 +1,5 @@
-import {ParagraphSumCarousel} from "@lib/gql/__generated__/drupal.d"
-import {ElementType, HTMLAttributes} from "react"
+import {Link, Maybe, ParagraphSumCarousel} from "@lib/gql/__generated__/drupal.d"
+import {HTMLAttributes} from "react"
 import Wysiwyg from "@components/elements/wysiwyg"
 import {H2} from "@components/elements/headers"
 import Paragraph from "@components/paragraphs/paragraph"
@@ -17,32 +17,30 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const isArcBanner = behaviors.sum_carousel?.sum_carousel_arc
   const headingSize = behaviors.sum_carousel?.sum_carousel_text_size ? "type-3" : "type-4"
-  const BannerWrapper: ElementType = isArcBanner ? ArcBanner : "div"
 
   return (
     <div {...props}>
-      <BannerWrapper {...(isArcBanner && {isBorder: true})}>
-        <div className="mb-20 text-center">
-          <div className="flex flex-col">
-            {paragraph.sumCarouselHeader && <H2 className={clsx("mb-8 font-light", headingSize)}>{paragraph.sumCarouselHeader}</H2>}
-            {paragraph.sumCarouselSuperheader && <div className="order-first mb-8">{paragraph.sumCarouselSuperheader}</div>}
-          </div>
-
-          <Wysiwyg
-            html={paragraph.sumCarouselDescription?.processed}
-            className="mx-auto w-full max-w-full sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px]"
+      {isArcBanner && (
+        <ArcBanner isBorder>
+          <CarouselTop
+            header={paragraph.sumCarouselHeader}
+            superHeader={paragraph.sumCarouselSuperheader}
+            headingSize={headingSize}
+            description={paragraph.sumCarouselDescription?.processed}
+            link={paragraph.sumCarouselLink}
           />
+        </ArcBanner>
+      )}
 
-          {paragraph.sumCarouselLink?.url && (
-            <ActionLink
-              className="rs-mt-3"
-              href={paragraph.sumCarouselLink.url}
-            >
-              {paragraph.sumCarouselLink.title}
-            </ActionLink>
-          )}
-        </div>
-      </BannerWrapper>
+      {!isArcBanner && (
+        <CarouselTop
+          header={paragraph.sumCarouselHeader}
+          superHeader={paragraph.sumCarouselSuperheader}
+          headingSize={headingSize}
+          description={paragraph.sumCarouselDescription?.processed}
+          link={paragraph.sumCarouselLink}
+        />
+      )}
 
       {paragraph.sumCarouselSlides && (
         <div className="relative left-1/2 w-screen -translate-x-1/2">
@@ -55,6 +53,39 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
             ))}
           </Slideshow>
         </div>
+      )}
+    </div>
+  )
+}
+
+type TopProps = {
+  header?: Maybe<string>
+  superHeader?: Maybe<string>
+  headingSize?: Maybe<string>
+  description?: Maybe<string>
+  link?: Maybe<Link>
+}
+
+const CarouselTop = ({header, superHeader, headingSize, description, link}: TopProps) => {
+  return (
+    <div className="mb-20 text-center">
+      <div className="flex flex-col">
+        {header && <H2 className={clsx("mb-8 font-light", headingSize)}>{header}</H2>}
+        {superHeader && <div className="order-first mb-8">{superHeader}</div>}
+      </div>
+
+      <Wysiwyg
+        html={description}
+        className="mx-auto w-full max-w-full sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px]"
+      />
+
+      {link?.url && (
+        <ActionLink
+          className="rs-mt-3"
+          href={link.url}
+        >
+          {link.title}
+        </ActionLink>
       )}
     </div>
   )

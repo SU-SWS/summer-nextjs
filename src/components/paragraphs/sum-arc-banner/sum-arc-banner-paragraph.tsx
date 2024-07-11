@@ -1,6 +1,6 @@
 import {HtmlHTMLAttributes} from "react"
 import {ParagraphSumArcBanner} from "@lib/gql/__generated__/drupal"
-import ArchBanner from "@components/patterns/arch-banner"
+import ArcBanner from "@components/patterns/arc-banner"
 import {H1} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 
@@ -12,7 +12,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 const SumArcBannerParagraph = async ({paragraph, pageTitle, ...props}: Props) => {
   return (
     <div {...props}>
-      <ArchBanner
+      <ArcBanner
         imageUrl={paragraph.sumArcImage?.mediaImage.url}
         imageAlt={paragraph.sumArcImage?.mediaImage.alt}
       >
@@ -26,7 +26,7 @@ const SumArcBannerParagraph = async ({paragraph, pageTitle, ...props}: Props) =>
             />
           </div>
         </div>
-      </ArchBanner>
+      </ArcBanner>
     </div>
   )
 }

@@ -69,7 +69,7 @@ tasks:
       gp ports await 3000 &&
       gp url 3000 | xargs gp preview --external
   - name: SSH Keys
-    command: |
+    before: |
       code --add /workspace/back &&
       mkdir -p ~/.ssh
       if [[ ! -z $SSH_PUBLIC_KEY  ]]; then
@@ -83,6 +83,7 @@ tasks:
           echo $GITCONFIG | base64 -d > ~/.gitconfig && chmod 644 ~/.gitconfig
       fi
       git remote set-url origin $(echo $GITPOD_WORKSPACE_CONTEXT | jq -r .repository.cloneUrl | sed -E 's|^.*.com/(.*)$|git@github.com:\1|')
+      cd /workspace/back && git remote set-url origin git@github.com:SU-SWS/ace-stanfordlagunita.git
 
 vscode:
   extensions:

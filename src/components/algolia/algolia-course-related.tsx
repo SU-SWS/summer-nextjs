@@ -1,23 +1,32 @@
+"use client"
+
 import algoliasearch from "algoliasearch/lite"
 import {RelatedProducts} from "react-instantsearch"
 import {InstantSearchNext} from "react-instantsearch-nextjs"
 import ImageCard from "@components/patterns/image-card"
 import {H2, H3} from "@components/elements/headers"
 import ActionLink from "@components/elements/action-link"
-import {CourseHit} from "./results/summer-course/summer-course"
-import {StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal"
-import {getConfigPage} from "@lib/gql/gql-queries"
+import {CourseHit} from "@components/algolia/results/summer-course/summer-course"
+import {Maybe} from "@lib/gql/__generated__/drupal"
 
 type Props = {
-  objectID: string
+  objectId: string
+  appId?: Maybe<string>
+  searchIndex?: Maybe<string>
+  searchApiKey?: Maybe<string>
 }
 
 const RelatedCourseItem = ({item}: {item: CourseHit}) => {
+  const url = new URL(item.url)
   return (
     <ImageCard imageUrl={item.photo} imageAlt="" id={item.objectID}>
       <div className="flex flex-col">
         <H3 className="rs-mb-0 order-2">
-          <ActionLink aria-labelledby={item.objectID} className="font-roboto font-normal" href={item.url}>
+          <ActionLink
+            aria-labelledby={item.objectID}
+            className="font-roboto font-normal"
+            href={item.url.replace(url.origin, "")}
+          >
             {item.title}
           </ActionLink>
         </H3>
@@ -27,13 +36,8 @@ const RelatedCourseItem = ({item}: {item: CourseHit}) => {
   )
 }
 
-const RelatedCourses = async ({objectID}: Props) => {
-  const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
-  const appId = siteSettingsConfig?.suSiteAlgoliaId
-  const searchIndex = siteSettingsConfig?.suSiteAlgoliaIndex
-  const searchApiKey = siteSettingsConfig?.suSiteAlgoliaSearch
-
-  if (!appId || !searchApiKey || !searchIndex) return
+const RelatedCourses = ({objectId, appId, searchIndex, searchApiKey}: Props) => {
+  if (!objectId || !appId || !searchIndex || !searchApiKey) return
 
   const searchClient = algoliasearch(appId, searchApiKey)
 
@@ -44,7 +48,7 @@ const RelatedCourses = async ({objectID}: Props) => {
       future={{preserveSharedStateOnUnmount: true}}
     >
       <RelatedProducts
-        objectIDs={[objectID]}
+        objectIDs={[objectId]}
         itemComponent={RelatedCourseItem}
         limit={2}
         classNames={{
@@ -56,21 +60,17 @@ const RelatedCourses = async ({objectID}: Props) => {
         }}
         headerComponent={() => (
           <ImageCard hasBgColor className="w-full p-0 text-center md:w-1/3 md:text-left lg:pt-0">
-            <div className="flex flex-col">
-              <H2 className="rs-mb-0 type-0 font-roboto font-normal uppercase">Related Courses</H2>
-              <p className="rs-mb-0 type-2 font-normal">Explore more courses</p>
-            </div>
+            <H2 className="rs-mb-0 type-0 font-roboto font-normal uppercase">Related Courses</H2>
+            <p className="rs-mb-0 type-2 font-normal">Explore more courses</p>
           </ImageCard>
         )}
         emptyComponent={() => (
           <ImageCard hasBgColor className="w-full p-0 lg:pt-0">
-            <div className="flex flex-col">
-              <H2 className="rs-mb-0 type-0 font-roboto font-normal uppercase">Related Courses</H2>
-              <p className="rs-mb-0 type-2 font-normal">
-                We couldn&apos;t find any related courses at the moment. Please explore other courses or check back
-                later for updates.
-              </p>
-            </div>
+            <H2 className="rs-mb-0 type-0 font-roboto font-normal uppercase">Related Courses</H2>
+            <p className="rs-mb-0 type-2 font-normal">
+              We couldn&apos;t find any related courses at the moment. Please explore other courses or check back later
+              for updates.
+            </p>
           </ImageCard>
         )}
       />

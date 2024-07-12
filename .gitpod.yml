@@ -42,7 +42,7 @@ tasks:
       blt drupal:install --site=summer -n &&
       drush @summer.local cset system.theme default stanford_profile_admin_theme -y &&
       cd /workspace/front &&
-      yarn install
+      yarn
     command: |
       cp .env.example .env.local &&
       gp ports await 3306 &&
@@ -69,7 +69,8 @@ tasks:
       gp ports await 3000 &&
       gp url 3000 | xargs gp preview --external
   - name: SSH Keys
-    before: |
+    command: |
+      code --add /workspace/back &&
       mkdir -p ~/.ssh
       if [[ ! -z $SSH_PUBLIC_KEY  ]]; then
           echo $SSH_PUBLIC_KEY | base64 -d > ~/.ssh/id_rsa.pub && chmod 644 ~/.ssh/id_rsa.pub
@@ -81,7 +82,9 @@ tasks:
       if [[ ! -z $GITCONFIG ]]; then
           echo $GITCONFIG | base64 -d > ~/.gitconfig && chmod 644 ~/.gitconfig
       fi
+      git remote set-url origin $(echo $GITPOD_WORKSPACE_CONTEXT | jq -r .repository.cloneUrl | sed -E 's|^.*.com/(.*)$|git@github.com:\1|')
 
 vscode:
   extensions:
     - bradlc.vscode-tailwindcss
+    - esbenp.prettier-vscode

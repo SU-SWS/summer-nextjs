@@ -27,9 +27,10 @@ export const generateMetadata = async ({params}: PageProps): Promise<Metadata> =
 }
 
 export const generateStaticParams = async (): Promise<PageProps["params"][]> => {
-  if (process.env.BUILD_COMPLETE !== "true") return []
-  const nodePaths = await getAllNodePaths()
-  return nodePaths.map(path => ({slug: path.split("/").filter(part => !!part)}))
+  const pagesToBuild = parseInt(process.env.BUILD_PAGES || "0")
+  if (pagesToBuild === 0) return []
+  const nodePaths = (await getAllNodePaths()).map(path => ({slug: path.split("/").filter(part => !!part)}))
+  return pagesToBuild < 0 ? nodePaths : nodePaths.slice(0, pagesToBuild)
 }
 
 export default Page

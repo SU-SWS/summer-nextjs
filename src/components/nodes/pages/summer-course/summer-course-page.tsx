@@ -2,26 +2,26 @@ import Wysiwyg from "@components/elements/wysiwyg"
 import {H1, H2, H3} from "@components/elements/headers"
 import {HtmlHTMLAttributes} from "react"
 import Image from "next/image"
-import {NodeSumSummerCourse} from "@lib/gql/__generated__/drupal.d"
+import {NodeSumSummerCourse, StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
 import ArcBanner from "@components/patterns/arc-banner"
 import {convertToLocalDateTime} from "@lib/utils/convert-date"
 import FavoritesList from "@components/elements/favorites-list"
+import RelatedCourses from "@components/algolia/algolia-course-related"
+import {getConfigPage} from "@lib/gql/gql-queries"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeSumSummerCourse
 }
 
-const SummerCoursePage = ({node, ...props}: Props) => {
+const SummerCoursePage = async ({node, ...props}: Props) => {
   const startDate = node.sumCourseStartDate && convertToLocalDateTime(node.sumCourseStartDate).toUpperCase()
   const endDate = node.sumCourseEndDate && convertToLocalDateTime(node.sumCourseEndDate).toUpperCase()
 
+  const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
+
   return (
     <article {...props}>
-      <ArcBanner
-        {...props}
-        imageUrl="/images/temp-bg.jpg"
-        imageAlt=""
-      >
+      <ArcBanner {...props} imageUrl="/images/temp-bg.jpg" imageAlt="">
         <div className="w-screen">
           <div className="rs-pb-4 rs-mx-6 flex flex-col items-center justify-center border-b border-archway-dark">
             {startDate && (
@@ -35,7 +35,7 @@ const SummerCoursePage = ({node, ...props}: Props) => {
           </div>
         </div>
       </ArcBanner>
-      <div className="centered relative z-10 my-32 grid grid-cols-12 gap-10">
+      <div className="centered relative z-10 my-32 grid grid-cols-12 gap-10 md:gap-32">
         <div className="order-2 col-span-12 lg:col-span-8">
           <div className="rs-mb-4 grid grid-cols-1 gap-10 lg:grid-cols-2">
             {node.sumCourseImage && (
@@ -72,7 +72,9 @@ const SummerCoursePage = ({node, ...props}: Props) => {
               {node.sumCourseInstructors && (
                 <div>
                   <span>Instructor: </span>
-                  {node.sumCourseInstructors && node.sumCourseInstructors.length > 1 && node.sumCourseInstructors.join(", ")}
+                  {node.sumCourseInstructors &&
+                    node.sumCourseInstructors.length > 1 &&
+                    node.sumCourseInstructors.join(", ")}
                 </div>
               )}
 
@@ -100,7 +102,9 @@ const SummerCoursePage = ({node, ...props}: Props) => {
               {node.sumCourseCrossListing && (
                 <div>
                   <span>Cross Listings: </span>
-                  {node.sumCourseCrossListing && node.sumCourseCrossListing.length > 1 && node.sumCourseCrossListing.join(", ")}
+                  {node.sumCourseCrossListing &&
+                    node.sumCourseCrossListing.length > 1 &&
+                    node.sumCourseCrossListing.join(", ")}
                 </div>
               )}
             </div>
@@ -124,7 +128,14 @@ const SummerCoursePage = ({node, ...props}: Props) => {
           <FavoritesList isDisplayOnly />
         </div>
       </div>
-      <div>{/* Related Courses Cards */}</div>
+      <div className="centered">
+        <RelatedCourses
+          objectId={node.id}
+          appId={siteSettingsConfig?.suSiteAlgoliaId}
+          searchIndex={siteSettingsConfig?.suSiteAlgoliaIndex}
+          searchApiKey={siteSettingsConfig?.suSiteAlgoliaSearch}
+        />
+      </div>
       <div>{/* Apply Now Link */}</div>
     </article>
   )

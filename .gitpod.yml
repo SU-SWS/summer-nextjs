@@ -59,7 +59,7 @@ tasks:
       drush @summer.local uli --uri=$NEXT_PUBLIC_DRUPAL_BASE_URL | xargs gp preview --external &&
       git config core.fileMode false &&
       echo 'Connecting Drupal to Frontend' &&
-      drush @summer.local su-next-connect "$(gp url 3000)" --preview-secret=DRUPAL_PREVIEW_SECRET --revalidation-secret=DRUPAL_REVALIDATION_SECRET >> /workspace/front/.env.local &&
+      drush @summer.local su-next-connect "$(gp url 3000)" >> /workspace/front/.env.local &&
       cd /workspace/front &&
       yarn install &&
       yarn config set --home enableTelemetry 0 &&

@@ -26,7 +26,7 @@ const StanfordEventCard = ({node, headingLevel, ...props}: Props) => {
   return (
     <ImageCard {...props} aria-labelledby={node.id} isArticle>
       <div aria-hidden className="flex w-fit flex-col items-start">
-        <div className="mb-4 w-full text-center text-m0 font-semibold">{startMonth.toUpperCase()}</div>
+        <div className="type-0 mb-4 w-full text-center font-semibold">{startMonth.toUpperCase()}</div>
         <div className="type-5 w-full text-center font-bold">{startDay}</div>
       </div>
 

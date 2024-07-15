@@ -56,7 +56,7 @@ const StanfordPolicyPage = async ({node, ...props}: Props) => {
 
             {changeLog.map(change => (
               <div key={change.id}>
-                <H3 className="flex gap-2 text-m0">
+                <H3 className="type-0 flex gap-2">
                   <div>
                     {new Date(change.suPolicyDate.time).toLocaleDateString("en-us", {
                       month: "long",

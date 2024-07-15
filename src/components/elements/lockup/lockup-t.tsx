@@ -11,7 +11,7 @@ const LockupT = ({line1, line2, line3, line4, siteName, logoUrl}: FooterLockupPr
         <div className="font-normal">
           <div className="type-2">{line1 || siteName}</div>
           <div className="type-2">{line2}</div>
-          <div className="text-m0 italic">{line3}</div>
+          <div className="type-0 italic">{line3}</div>
         </div>
       </Link>
     </div>

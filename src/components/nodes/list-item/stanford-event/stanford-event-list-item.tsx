@@ -31,7 +31,7 @@ const StanfordEventListItem = ({node, headingLevel, ...props}: Props) => {
       className={twMerge("mx-auto flex w-full gap-10 py-10", props.className)}
     >
       <div aria-hidden className="flex w-fit flex-col items-start">
-        <div className="mb-4 w-full text-center text-m0 font-semibold">{startMonth.toUpperCase()}</div>
+        <div className="type-0 mb-4 w-full text-center font-semibold">{startMonth.toUpperCase()}</div>
         <div className="type-5 w-full text-center font-bold">{startDay}</div>
       </div>
       <div>

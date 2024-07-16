@@ -4,7 +4,8 @@
 }
 
 .embeddable-content legend,
-.embeddable-content label[for] {
+.embeddable-content label,
+.embeddable-content .form_label {
   font-weight: 600;
   font-size: 2.3rem;
   display: block;
@@ -34,6 +35,46 @@
 .embeddable-content div.form_page input:not([type]),
 .embeddable-content div.form_page select {
   height: 45px;
+}
+
+.embeddable-content div.form_page input[type="checkbox"],
+.embeddable-content div.form_page input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.embeddable-content div.form_page .form_radio .form_response {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.embeddable-content div.form_page .form_radio .form_response input[type="radio"] {
+  height: 2.4rem;
+  width: 2.4rem;
+  border: 2px solid rgb(151 150 148 / 50%);
+  cursor: pointer;
+  outline: none;
+}
+
+.embeddable-content div.form_page .form_radio .form_response input[type="radio"]:checked {
+  border: 2px solid #fec51d;
+  color: #fec51d;
+  background-color: #fec51d;
+}
+
+.embeddable-content div.form_page .form_radio .form_response input[type="radio"]:hover,
+.embeddable-content div.form_page .form_radio .form_response input[type="radio"]:focus {
+  outline: 2px solid #fec51d;
+  outline-offset: 3px;
+  border: 2px solid #fec51d;
+  background-color: #fec51d;
+}
+
+.embeddable-content div.form_page .form_radio .form_response label {
+  font-weight: 400;
+  text-transform: none;
 }
 
 .embeddable-content .form_responses select + select {

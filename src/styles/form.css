@@ -53,7 +53,7 @@
 .embeddable-content div.form_page .form_radio .form_response input[type="radio"] {
   height: 2.4rem;
   width: 2.4rem;
-  border: 2px solid rgb(151 150 148 / 50%);
+  border: 2px solid rgba(151, 150, 148, 0.5);
   cursor: pointer;
   outline: none;
 }
@@ -69,7 +69,7 @@
   outline: 2px solid #fec51d;
   outline-offset: 3px;
   border: 2px solid #fec51d;
-  background-color: #fec51d;
+  background-color: rgba(254, 197, 29, 0.5);
 }
 
 .embeddable-content div.form_page .form_radio .form_response label {

@@ -24,7 +24,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
   const bgColor = behaviors.sum_banner_behaviors?.sum_banner_overlay_bkg
   const semiCircleButton = behaviors.sum_banner_behaviors?.sum_banner_button
   const headerTag = headerTagChoice[0]
-  const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "text-m2 font-bold")
+  const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "type-3 font-bold")
   const overlayPosition = behaviors.hero_pattern?.overlay_position
   const isSection = !!paragraph.suBannerHeader
   const BannerWrapper: ElementType = isSection ? "section" : "div"
@@ -69,7 +69,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
             <div className="rs-mb-1 order-first text-09em font-normal uppercase">{paragraph.suBannerSupHeader}</div>
           )}
 
-          <Wysiwyg html={paragraph.suBannerBody?.processed} className="text-m0" />
+          <Wysiwyg html={paragraph.suBannerBody?.processed} className="big-paragraph" />
 
           {paragraph.suBannerButton?.url && !semiCircleButton && (
             <div className="rs-pt-2">

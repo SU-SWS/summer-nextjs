@@ -46,7 +46,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
             <div className="rs-mb-1 order-1 text-09em font-normal uppercase">{paragraph.sumTopBannerSuperhead}</div>
           )}
 
-          <Wysiwyg html={paragraph.sumTopBannerDescrip?.processed} className="order-3 text-m0" />
+          <Wysiwyg html={paragraph.sumTopBannerDescrip?.processed} className="big-paragraph order-3" />
 
           {paragraph.sumTopBannerLink?.url && (
             <div className="rs-pt-2 order-4">

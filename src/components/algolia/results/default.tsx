@@ -24,7 +24,7 @@ const DefaultResult = ({hit}: {hit: HitType<AlgoliaHit>}) => {
   return (
     <article className="flex justify-between gap-20 py-12 @container">
       <div>
-        <H3 className="text-m2">
+        <H3 className="type-3">
           <Link href={hit.url.replace(hitDomain, "")}>{hit.title}</Link>
         </H3>
 

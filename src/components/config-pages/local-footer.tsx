@@ -87,7 +87,7 @@ const LocalFooter = async () => {
 
           <div className="font-roboto lg:w-1/4">
             {localFooterConfig.suLocalFootPrimeH && (
-              <H2 className="text-m1 font-normal">{localFooterConfig.suLocalFootPrimeH}</H2>
+              <H2 className="type-2 font-normal">{localFooterConfig.suLocalFootPrimeH}</H2>
             )}
             {localFooterConfig.suLocalFootPrimary && (
               <ul className="list-unstyled">
@@ -108,7 +108,7 @@ const LocalFooter = async () => {
 
           <div className="font-roboto lg:w-1/4">
             {localFooterConfig.suLocalFootSecondH && (
-              <H2 className="text-m1 font-normal">{localFooterConfig.suLocalFootSecondH}</H2>
+              <H2 className="type-2 font-normal">{localFooterConfig.suLocalFootSecondH}</H2>
             )}
 
             {localFooterConfig.suLocalFootSecond && (
@@ -217,7 +217,7 @@ const FooterLockup = ({useDefault = true, siteName, lockupOption, ...props}: Foo
         <LockupLogo {...lockupProps} />
 
         <div className="w-[1px] shrink-0 bg-black" />
-        <div className="text-m2 font-normal leading-none text-black">{siteName || "University"}</div>
+        <div className="type-3 font-normal leading-none text-black">{siteName || "University"}</div>
       </Link>
     </div>
   )

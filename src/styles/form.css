@@ -1,5 +1,6 @@
 .embeddable-content div.form_question {
   margin-bottom: 2.3rem;
+  font-family: Roboto, sans-serif;
 }
 
 .embeddable-content legend,
@@ -11,14 +12,33 @@
   margin-bottom: 0.3rem;
 }
 
-.embeddable-content div.form_page input,
-.embeddable-content div.form_page select {
-  padding: 0.5rem 0.9rem;
-  font-size: 2.3rem;
-  line-height: 1.5rem;
-  width: 100%;
+.embeddable-content div.form_page input[type="password"],
+.embeddable-content div.form_page input[type="text"],
+.embeddable-content div.form_page input[type="email"],
+.embeddable-content div.form_page input[type="tel"],
+.embeddable-content div.form_page input:not([type]),
+.embeddable-content div.form_page select,
+.embeddable-content div.form_page textarea {
+  padding: 0.9rem 1rem;
+  font-size: 1.8rem;
+  line-height: 2.1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
   border: 1px solid #e8e8e8;
+  width: 100%;
+}
+
+.embeddable-content div.form_page input[type="password"],
+.embeddable-content div.form_page input[type="text"],
+.embeddable-content div.form_page input[type="email"],
+.embeddable-content div.form_page input[type="tel"],
+.embeddable-content div.form_page input:not([type]),
+.embeddable-content div.form_page select {
+  height: 45px;
+}
+
+.embeddable-content .form_responses select + select {
+  margin-left: 0 !important;
+  margin-top: 1rem;
 }
 
 .embeddable-content div.form_page select {
@@ -35,4 +55,25 @@
     1px 0 0 #e8e8e8 inset,
     0 -1px 0 #e8e8e8 inset;
   cursor: pointer;
+}
+
+.embeddable-content div.form_action button {
+  font-family: Roboto, sans-serif;
+  margin-top: 3.2rem;
+  background: #b1040e;
+  padding: 1.3rem 3.8rem;
+  border: 2px solid transparent;
+  text-decoration: none;
+  border-radius: 10rem;
+  color: #fff;
+  font-size: 2.1rem;
+  font-weight: 400;
+}
+
+.embeddable-content div.form_action button:hover,
+.embeddable-content div.form_action button:focus {
+  background: #8c1515;
+  border: 2px solid #fff;
+  outline: 2px solid #8c1515;
+  text-decoration: underline;
 }

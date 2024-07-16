@@ -17,15 +17,10 @@
     "plugins": [{"name": "next"}],
     "paths": {
       "@components/*": ["./src/components/*"],
-      "@lib/*": ["./src/lib/*"]
+      "@lib/*": ["./src/lib/*"],
+      "@styles/*": ["./src/styles/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "src/**/*.tsx",
-    "app/**/*.tsx",
-    ".storybook/stories/**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["next-env.d.ts", "src/**/*.tsx", "app/**/*.tsx", ".storybook/stories/**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

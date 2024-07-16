@@ -5,6 +5,7 @@ import Embed from "react-tiny-oembed"
 import {HtmlHTMLAttributes} from "react"
 import {useIntersectionObserver} from "usehooks-ts"
 import {twMerge} from "tailwind-merge"
+import "../../styles/form.css"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**

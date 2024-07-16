@@ -169,8 +169,8 @@ const SelectList = ({
         {label && (
           <span
             className={clsx("relative block max-w-[calc(100%-30px)]", {
-              "top-[-15px] w-full text-m0": optionChosen,
-              "text-m1": !optionChosen,
+              "type-0 top-[-15px] w-full": optionChosen,
+              "type-2": !optionChosen,
             })}
           >
             <span id={labelId} className={twMerge("block w-fit bg-white px-5", clsx({"bg-black-20": props.disabled}))}>

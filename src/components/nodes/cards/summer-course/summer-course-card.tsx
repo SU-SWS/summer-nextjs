@@ -19,7 +19,7 @@ const SummerCourseCard = ({node, headingLevel, ...props}: Props) => {
       imageUrl={node.sumCourseImage?.mediaImage.url}
       imageAlt={node.sumCourseImage?.mediaImage.alt}
     >
-      <Heading className="text-m2" id={node.id}>
+      <Heading className="type-3" id={node.id}>
         <Link href={node.path}>{node.title}</Link>
       </Heading>
     </ImageCard>

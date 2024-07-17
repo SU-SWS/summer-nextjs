@@ -140,4 +140,18 @@
       }
     }
   }
+
+  .form_birthdate .form_responses {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @media (min-width: 992px) {
+      flex-direction: row;
+    }
+
+    select {
+      margin: 0;
+    }
+  }
 }

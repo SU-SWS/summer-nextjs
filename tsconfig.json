@@ -17,8 +17,7 @@
     "plugins": [{"name": "next"}],
     "paths": {
       "@components/*": ["./src/components/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@styles/*": ["./src/styles/*"]
+      "@lib/*": ["./src/lib/*"]
     }
   },
   "include": ["next-env.d.ts", "src/**/*.tsx", "app/**/*.tsx", ".storybook/stories/**/*.tsx", ".next/types/**/*.ts"],

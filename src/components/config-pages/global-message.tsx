@@ -1,4 +1,3 @@
-import {BellIcon, CheckCircleIcon, ExclamationTriangleIcon, InformationCircleIcon} from "@heroicons/react/20/solid"
 import Wysiwyg from "@components/elements/wysiwyg"
 import {StanfordGlobalMessage} from "@lib/gql/__generated__/drupal.d"
 import ActionLink from "@components/elements/action-link"
@@ -16,12 +15,15 @@ const GlobalMessage = async ({...props}: Props) => {
   const globalMessageConfig = await getConfigPage<StanfordGlobalMessage>("StanfordGlobalMessage")
   if (!globalMessageConfig?.suGlobalMsgEnabled) return
 
+  let messageType = "globalMessageConfig.suGlobalMsgType"
+  messageType = "warning"
+
   const wrapperClasses = clsx({
-    "bg-digital-blue-dark text-white": globalMessageConfig.suGlobalMsgType === "info",
-    "bg-illuminating-dark": globalMessageConfig.suGlobalMsgType === "warning",
-    "bg-digital-green text-white": globalMessageConfig.suGlobalMsgType === "success",
-    "bg-foggy-light": globalMessageConfig.suGlobalMsgType === "plain",
-    "bg-digital-red text-white": globalMessageConfig.suGlobalMsgType === "error",
+    "bg-digital-blue-dark text-white": messageType === "info",
+    "bg-illuminating-dark": messageType === "warning",
+    "bg-digital-green text-white": messageType === "success",
+    "bg-foggy-light": messageType === "plain",
+    "bg-digital-red text-white": messageType === "error",
   })
 
   const ElementWrapper = globalMessageConfig.suGlobalMsgHeader ? "article" : "div"
@@ -40,10 +42,7 @@ const GlobalMessage = async ({...props}: Props) => {
           )}
         >
           {globalMessageConfig.suGlobalMsgLabel && (
-            <div className="flex shrink-0 items-center leading-none">
-              <MessageIcon messageType={globalMessageConfig.suGlobalMsgType} />
-              {globalMessageConfig.suGlobalMsgLabel}:
-            </div>
+            <div className="flex shrink-0 items-center leading-none">{globalMessageConfig.suGlobalMsgLabel}:</div>
           )}
           <div>
             {globalMessageConfig.suGlobalMsgHeader && (
@@ -60,11 +59,9 @@ const GlobalMessage = async ({...props}: Props) => {
               className={twMerge(
                 "w-full max-w-fit no-underline hocus:underline",
                 clsx({
-                  "text-black": globalMessageConfig.suGlobalMsgType === "warning",
+                  "text-black": messageType === "warning",
                   "text-white hocus:text-white":
-                    globalMessageConfig.suGlobalMsgType === "info" ||
-                    globalMessageConfig.suGlobalMsgType === "error" ||
-                    globalMessageConfig.suGlobalMsgType === "success",
+                    messageType === "info" || messageType === "error" || messageType === "success",
                 })
               )}
             >
@@ -75,18 +72,6 @@ const GlobalMessage = async ({...props}: Props) => {
       </div>
     </ElementWrapper>
   )
-}
-
-const MessageIcon = ({messageType}: {messageType: StanfordGlobalMessage["suGlobalMsgType"]}) => {
-  switch (messageType) {
-    case "info":
-      return <InformationCircleIcon width={40} />
-    case "success":
-      return <CheckCircleIcon width={40} />
-    case "plain":
-      return <BellIcon width={40} />
-  }
-  return <ExclamationTriangleIcon width={40} />
 }
 
 export default GlobalMessage

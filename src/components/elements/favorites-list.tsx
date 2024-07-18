@@ -2,15 +2,16 @@
 
 import useFavorites from "@lib/hooks/useFavorites"
 import {ChatBubbleLeftEllipsisIcon, ClipboardDocumentIcon, EnvelopeIcon, HeartIcon} from "@heroicons/react/24/outline"
-import {useCopyToClipboard} from "usehooks-ts"
+import {useCopyToClipboard, useIsClient} from "usehooks-ts"
 import {XMarkIcon} from "@heroicons/react/20/solid"
 import {H2} from "./headers"
 
 const ShareButtons = () => {
   const [_copiedText, copy] = useCopyToClipboard()
   const {favs} = useFavorites()
-  const urlParams = `/favorites?fav=${favs.map(fav => `${fav.uuid}`).join(",")}`
-  const copyUrl = "https://summer.stanford.edu" + urlParams
+  const isClient = useIsClient()
+  const urlParams = `/courses/favorites?favs=${favs.map(fav => `${fav.uuid}`).join(",")}`
+  const copyUrl = isClient ? window.location.origin + urlParams : urlParams
   const smsCopy = `sms:&body=I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl}`
   const emailCopy = `mailto:?body=I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl} &subject=Someone wants you to see their list of favorite courses from Stanford Summer Session`
 

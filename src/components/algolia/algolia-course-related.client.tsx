@@ -19,9 +19,9 @@ type Props = {
 const RelatedCourseItem = ({item}: {item: CourseHit}) => {
   const url = new URL(item.url)
   return (
-    <ImageCard imageUrl={item.photo} imageAlt="" id={item.objectID}>
+    <ImageCard imageUrl={item.photo} isArticle aria-labelledby={item.objectID}>
       <div className="flex flex-col">
-        <H3 className="rs-mb-0 order-2">
+        <H3 id={item.objectID} className="rs-mb-0 order-2">
           <ActionLink
             aria-labelledby={item.objectID}
             className="font-roboto font-normal"

@@ -31,7 +31,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
             className={twMerge(
               "mt-auto border-archway-dark border-opacity-50",
               clsx({
-                "border-l-3 first:odd:h-40 md:h-80": !headingOnLeft,
+                "border-l-3 md:h-80": !headingOnLeft,
                 "h-40 border-r-3": headingOnLeft,
               })
             )}
@@ -41,7 +41,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
               "mt-auto border-archway-dark border-opacity-50",
               clsx({
                 "h-40 border-l-3": !headingOnLeft,
-                "border-r-3 first:odd:h-40 md:h-80": headingOnLeft,
+                "border-r-3 md:h-80": headingOnLeft,
               })
             )}
           />

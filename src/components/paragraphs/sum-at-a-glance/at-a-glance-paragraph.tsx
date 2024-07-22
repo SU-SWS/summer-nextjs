@@ -21,6 +21,18 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
       <div className="grid gap-y-10 @6xl:grid-cols-2">
         <div
           className={twMerge(
+            "mt-auto h-fit border-archway-dark border-opacity-50 p-20",
+            clsx({
+              "border-l-3": !headingOnLeft,
+              "border-r-3": headingOnLeft,
+            })
+          )}
+        >
+          {paragraph.sumAtAGlanceHeadline && <H2 className="font-light">{paragraph.sumAtAGlanceHeadline}</H2>}
+          <Wysiwyg html={paragraph.sumAtAGlanceDescrip?.processed} />
+        </div>
+        <div
+          className={twMerge(
             "items-ba grid grid-cols-1 md:grid-cols-2",
             clsx({
               "@6xl:order-first": !headingOnLeft,
@@ -73,19 +85,6 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
               )}
             />
           )}
-        </div>
-
-        <div
-          className={twMerge(
-            "mt-auto h-fit border-archway-dark border-opacity-50 p-20",
-            clsx({
-              "border-l-3": !headingOnLeft,
-              "border-r-3 @6xl:order-first": headingOnLeft,
-            })
-          )}
-        >
-          {paragraph.sumAtAGlanceHeadline && <H2 className="font-light">{paragraph.sumAtAGlanceHeadline}</H2>}
-          <Wysiwyg html={paragraph.sumAtAGlanceDescrip?.processed} />
         </div>
       </div>
 

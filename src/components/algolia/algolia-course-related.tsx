@@ -4,10 +4,7 @@ import RelatedCoursesClient from "@components/algolia/algolia-course-related.cli
 
 const RelatedCourses = async ({objectId}: {objectId: string}) => {
   const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
-  console.error("siteSettingsConfig?.suSiteAlgoliaId", siteSettingsConfig?.suSiteAlgoliaId)
   if (!siteSettingsConfig?.suSiteAlgoliaId || true) return
-
-  console.error("This should not happen")
 
   return (
     <RelatedCoursesClient

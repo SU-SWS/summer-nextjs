@@ -1,11 +1,11 @@
-import {Hit as HitType} from "instantsearch.js/es/types/results"
+import {Hit as HitType, AlgoliaHit as BaseAlgoliaHit} from "instantsearch.js/es/types/results"
 import {H3} from "@components/elements/headers"
 import Link from "@components/elements/link"
 import {Snippet} from "react-instantsearch"
 import Image from "next/image"
 import SummerCourse from "@components/algolia/results/summer-course/summer-course"
 
-export type AlgoliaHit = {
+export type AlgoliaHit = BaseAlgoliaHit & {
   url: string
   title: string
   summary?: string

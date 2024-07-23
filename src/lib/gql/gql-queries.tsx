@@ -45,7 +45,7 @@ export const getConfigPage = async <T extends ConfigPagesUnion>(
   try {
     query = await getConfigPagesData()
   } catch (e) {
-    console.warn("Unable to fetch config pages")
+    console.warn("Unable to fetch config pages: " + (e instanceof Error && e.stack))
     return
   }
 

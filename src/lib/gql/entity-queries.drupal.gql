@@ -197,7 +197,6 @@ query ConfigPages {
       __typename
       suGlobalMsgEnabled
       suGlobalMsgHeader
-      suGlobalMsgLabel
       suGlobalMsgLink {
         title
         url
@@ -205,7 +204,6 @@ query ConfigPages {
       suGlobalMsgMessage {
         ...FragmentText
       }
-      suGlobalMsgType
     }
   }
   stanfordLocalFooters(first: 1) {

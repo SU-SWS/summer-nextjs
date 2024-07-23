@@ -1364,7 +1364,6 @@ export const ConfigPagesDocument = gql`
       __typename
       suGlobalMsgEnabled
       suGlobalMsgHeader
-      suGlobalMsgLabel
       suGlobalMsgLink {
         title
         url
@@ -1372,7 +1371,6 @@ export const ConfigPagesDocument = gql`
       suGlobalMsgMessage {
         ...FragmentText
       }
-      suGlobalMsgType
     }
   }
   stanfordLocalFooters(first: 1) {

@@ -7,6 +7,7 @@ import ArcBanner from "@components/patterns/arc-banner"
 import {convertToLocalDateTime} from "@lib/utils/convert-date"
 import FavoritesList from "@components/elements/favorites-list"
 import RelatedCourses from "@components/algolia/algolia-course-related"
+import FavoriteButton from "@components/elements/favorite-button"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeSumSummerCourse
@@ -34,22 +35,33 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
           </div>
         </div>
       </ArcBanner>
-      <div className="centered relative z-10 my-32 grid grid-cols-12 gap-10 md:gap-32">
-        <div className="order-2 col-span-12 lg:col-span-8">
-          <div className="rs-mb-4 grid grid-cols-1 gap-10 lg:grid-cols-2">
+
+      <div className="centered relative z-10 my-32 flex flex-col justify-between gap-10 md:gap-32 lg:flex-row">
+        <FavoriteButton
+          className="absolute -top-20 right-5 md:right-16 xl:right-0"
+          title={node.title}
+          uuid={node.id}
+          path={node.path}
+          units={node.sumCourseUnits || 0}
+        />
+
+        <div className="lg:w-7/12 2xl:w-8/12">
+          <div className="rs-mb-4 flex flex-col gap-10 lg:flex-row">
             {node.sumCourseImage && (
-              <div className="aspect-h-1 aspect-w-1 relative">
-                <Image
-                  className="rounded-[25px] object-cover"
-                  src={node.sumCourseImage.mediaImage.url}
-                  alt={node.sumCourseImage.mediaImage.alt || ""}
-                  fill
-                  sizes="(max-width: 768px) 300px, 500px"
-                />
+              <div className="lg:w-1/2">
+                <div className="relative aspect-1">
+                  <Image
+                    className="rounded-[25px] object-cover"
+                    src={node.sumCourseImage.mediaImage.url}
+                    alt={node.sumCourseImage.mediaImage.alt || ""}
+                    fill
+                    sizes="(max-width: 992px) 100vw, 700px"
+                  />
+                </div>
               </div>
             )}
             <div className="pt-12 children:mb-5 [&_span]:font-bold">
-              <H2 className="type-2">Details:</H2>
+              <H2 className="type-1">Details:</H2>
 
               {node.sumCourseSchedule && (
                 <div>
@@ -111,19 +123,19 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
           <div>
             {node.sumCourseDescription && (
               <div className="rs-mb-1">
-                <H3 className="type-2 mb-5">Summary:</H3>
+                <H3 className="type-1 mb-5">Summary:</H3>
                 <Wysiwyg html={node.sumCourseDescription.processed} />
               </div>
             )}
             {node.sumCourseNotes && (
-              <>
-                <H3 className="type-2 mb-5">Course notes:</H3>
+              <div className="rs-mb-1">
+                <H3 className="type-1 mb-5">Course notes:</H3>
                 <Wysiwyg html={node.sumCourseNotes?.processed} />
-              </>
+              </div>
             )}
           </div>
         </div>
-        <div className="order-1 col-span-12 lg:col-span-4">
+        <div className="order-first lg:w-5/12 2xl:w-4/12">
           <FavoritesList isDisplayOnly />
         </div>
       </div>

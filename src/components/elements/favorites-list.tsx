@@ -5,6 +5,7 @@ import {ChatBubbleLeftEllipsisIcon, ClipboardDocumentIcon, EnvelopeIcon, HeartIc
 import {useCopyToClipboard, useIsClient} from "usehooks-ts"
 import {XMarkIcon} from "@heroicons/react/20/solid"
 import {H2} from "./headers"
+import {clsx} from "clsx"
 
 const ShareButtons = () => {
   const [_copiedText, copy] = useCopyToClipboard()
@@ -12,37 +13,51 @@ const ShareButtons = () => {
   const isClient = useIsClient()
   const urlParams = `/courses/favorites?favs=${favs.map(fav => `${fav.uuid}`).join(",")}`
   const copyUrl = isClient ? window.location.origin + urlParams : urlParams
-  const smsCopy = `sms:&body=I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl}`
-  const emailCopy = `mailto:?body=I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl} &subject=Someone wants you to see their list of favorite courses from Stanford Summer Session`
+
+  const smsCopy =
+    "sms:&body=" +
+    encodeURIComponent(
+      `I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl}`
+    )
+  const emailCopy =
+    "mailto:?subject=" +
+    decodeURIComponent("Someone wants you to see their list of favorite courses from Stanford Summer Session") +
+    "&body=" +
+    encodeURIComponent(
+      `I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl}`
+    )
 
   return (
     <>
-      <a
+      <button
         className="flex flex-col items-center font-semibold text-archway-dark no-underline hocus:underline"
-        href={smsCopy}
+        onClick={() => (location.href = smsCopy)}
         data-course-shared="Favorites"
+        disabled={!favs.length}
       >
-        <span className="mb-4 rounded-full bg-spirited-dark p-5">
+        <span className={clsx("mb-4 rounded-full bg-spirited-dark p-5", {"bg-black-60": !favs.length})}>
           <ChatBubbleLeftEllipsisIcon width={30} className="text-white" />
         </span>
         Text
-      </a>
-      <a
+      </button>
+      <button
         className="flex flex-col items-center font-semibold text-archway-dark no-underline hocus:underline"
-        href={emailCopy}
+        onClick={() => (location.href = emailCopy)}
         data-course-shared="Favorites"
+        disabled={!favs.length}
       >
-        <span className="mb-4 rounded-full bg-spirited-dark p-5">
+        <span className={clsx("mb-4 rounded-full bg-spirited-dark p-5", {"bg-black-60": !favs.length})}>
           <EnvelopeIcon width={30} className="text-white" />
         </span>
         Email
-      </a>
+      </button>
       <button
         className="flex flex-col items-center font-semibold hocus:underline"
         onClick={() => copy(copyUrl)}
         data-course-shared="Favorites"
+        disabled={!favs.length}
       >
-        <span className="mb-4 rounded-full bg-spirited-dark p-5">
+        <span className={clsx("mb-4 rounded-full bg-spirited-dark p-5", {"bg-black-60": !favs.length})}>
           <ClipboardDocumentIcon width={30} className="text-white" />
         </span>
         Copy
@@ -80,11 +95,11 @@ const FavoritesList = ({isDisplayOnly = false}) => {
           </div>
         </>
       ) : (
-        <div className="border-b border-archway-dark pb-20">
+        <p className="border-b border-archway-dark pb-20 leading-relaxed">
           Your favorites list is empty. Tap the{" "}
           <HeartIcon width={30} className="inline-block text-spirited-dark" title="Favorite Heart" /> icon on courses
           you’re interested in to see them here. And share them with family and friends.
-        </div>
+        </p>
       )}
       <div className="mt-12 flex flex-row justify-between">
         <ShareButtons />

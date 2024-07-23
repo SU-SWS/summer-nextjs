@@ -8,6 +8,7 @@ import {twMerge} from "tailwind-merge"
 import {Maybe} from "@lib/gql/__generated__/drupal.d"
 import Mathjax from "@components/tools/mathjax"
 import Script from "next/script"
+import "../../styles/form.css"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**

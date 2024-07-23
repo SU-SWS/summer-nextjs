@@ -88,16 +88,14 @@ jobs:
           apachectl stop && apachectl start &&
           composer install -n &&
           blt drupal:sync --site=summer -n &&
-          drush @summer.local cget search_api.index.algolia_search options.algolia_index_name --include-overridden &&
-          drush sqlq 'truncate config_pages__su_site_algolia_index' &&
-          drush @summer.local cget search_api.index.algolia_search options.algolia_index_name --include-overridden
-#      - name: Build Frontend
-#        run: |
-#          cd $GITHUB_WORKSPACE/frontend &&
-#          cp .env.example .env.local &&
-#          sed -i -r "s|NEXT_PUBLIC_DRUPAL_BASE_URL.*|NEXT_PUBLIC_DRUPAL_BASE_URL=http://localhost|g" .env.local &&
-#          cd $GITHUB_WORKSPACE &&
-#          drush su-next-connect >> $GITHUB_WORKSPACE/frontend/.env.local &&
-#          cd $GITHUB_WORKSPACE/frontend &&
-#          yarn &&
-#          yarn build
+          drush sqlq 'truncate config_pages__su_site_algolia_index; truncate config_pages__su_site_algolia_key; truncate config_pages__su_site_algolia_id'
+      - name: Build Frontend
+        run: |
+          cd $GITHUB_WORKSPACE/frontend &&
+          cp .env.example .env.local &&
+          sed -i -r "s|NEXT_PUBLIC_DRUPAL_BASE_URL.*|NEXT_PUBLIC_DRUPAL_BASE_URL=http://localhost|g" .env.local &&
+          cd $GITHUB_WORKSPACE &&
+          drush su-next-connect >> $GITHUB_WORKSPACE/frontend/.env.local &&
+          cd $GITHUB_WORKSPACE/frontend &&
+          yarn &&
+          yarn build

@@ -1,6 +1,9 @@
 
 name: Build & Lint
 on: [push]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   lint:
     name: Lint & TS Check
@@ -86,7 +89,7 @@ jobs:
           composer install -n &&
           blt drupal:sync --site=summer -n &&
           drush @summer.local cget search_api.index.algolia_search options.algolia_index_name --include-overridden &&
-          drush @summer.local sqlq 'truncate config_pages__su_site_algolia_index' &&
+          drush sqlq 'truncate config_pages__su_site_algolia_index' &&
           drush @summer.local cget search_api.index.algolia_search options.algolia_index_name --include-overridden
 #      - name: Build Frontend
 #        run: |

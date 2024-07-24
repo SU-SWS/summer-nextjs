@@ -10,29 +10,41 @@ import {
 } from "@lib/gql/__generated__/drupal.d"
 import {cache} from "react"
 import {graphqlClient} from "@lib/gql/gql-client"
+import {unstable_cache as nextCache} from "next/cache"
 
 export const getEntityFromPath = cache(
   async <T extends NodeUnion | TermUnion>(
     path: string,
-    isPreviewMode?: boolean
+    previewMode?: boolean
   ): Promise<{
     entity?: T
     redirect?: RouteRedirect
-    error?: Error
+    error?: string
   }> => {
     "use server"
-    let entity: T | undefined
-    let query: RouteQuery
 
-    try {
-      query = await graphqlClient({next: {tags: [`paths:${path}`]}}, isPreviewMode).Route({path})
-    } catch (e) {
-      return {entity: undefined, redirect: undefined, error: e as Error}
-    }
+    const getData = nextCache(
+      async () => {
+        let entity: T | undefined
+        let query: RouteQuery
 
-    if (query.route?.__typename === "RouteRedirect") return {redirect: query.route, entity: undefined}
-    entity = query.route?.__typename === "RouteInternal" && query.route.entity ? (query.route.entity as T) : undefined
-    return {entity, redirect: undefined, error: undefined}
+        try {
+          query = await graphqlClient({next: {tags: ["all-entities", `paths:${path}`]}}, previewMode).Route({path})
+        } catch (e) {
+          console.warn(e instanceof Error ? e.message : "An error occurred")
+          return {entity: undefined, redirect: undefined, error: e instanceof Error ? e.message : "An error occurred"}
+        }
+
+        if (query.route?.__typename === "RouteRedirect") return {redirect: query.route, entity: undefined}
+        entity =
+          query.route?.__typename === "RouteInternal" && query.route.entity ? (query.route.entity as T) : undefined
+        return {entity, redirect: undefined, error: undefined}
+      },
+      ["entities", path],
+      {tags: ["all-entities", `paths:${path}`]}
+    )
+
+    return getData()
   }
 )
 
@@ -41,56 +53,69 @@ export const getConfigPage = async <T extends ConfigPagesUnion>(
 ): Promise<T | undefined> => {
   "use server"
 
-  let query: ConfigPagesQuery
-  try {
-    query = await getConfigPagesData()
-  } catch (e) {
-    console.warn("Unable to fetch config pages: " + (e instanceof Error && e.stack))
-    return
-  }
+  const getData = nextCache(
+    async () => {
+      let query: ConfigPagesQuery
+      try {
+        query = await graphqlClient({next: {tags: ["config-pages"]}}).ConfigPages()
+      } catch (e) {
+        console.warn("Unable to fetch config pages: " + (e instanceof Error && e.stack))
+        return
+      }
 
-  if (query.stanfordBasicSiteSettings.nodes[0]?.__typename === configPageType)
-    return query.stanfordBasicSiteSettings.nodes[0] as T
-  if (query.stanfordGlobalMessages.nodes[0]?.__typename === configPageType)
-    return query.stanfordGlobalMessages.nodes[0] as T
-  if (query.stanfordLocalFooters.nodes[0]?.__typename === configPageType)
-    return query.stanfordLocalFooters.nodes[0] as T
-  if (query.stanfordSuperFooters.nodes[0]?.__typename === configPageType)
-    return query.stanfordSuperFooters.nodes[0] as T
-  if (query.lockupSettings.nodes[0]?.__typename === configPageType) return query.lockupSettings.nodes[0] as T
+      const queryKeys = Object.keys(query) as (keyof ConfigPagesQuery)[]
+      for (let i = 0; i < queryKeys.length; i++) {
+        const queryKey = queryKeys[i]
+        if (queryKey !== "__typename" && query[queryKey]?.nodes[0]?.__typename === configPageType) {
+          return query[queryKey].nodes[0] as T
+        }
+      }
+    },
+    [configPageType || "config-pages"],
+    {tags: ["config-pages"]}
+  )
+  return getData()
 }
-
-const getConfigPagesData = cache(async (): Promise<ConfigPagesQuery> => {
-  "use server"
-  return graphqlClient({next: {tags: ["config-pages"]}}).ConfigPages()
-})
 
 export const getMenu = cache(async (name?: MenuAvailable): Promise<MenuItem[]> => {
   "use server"
+  const menuName = name?.toLowerCase() || "main"
 
-  const menu = await graphqlClient({next: {tags: ["menus", `menu:${name?.toLowerCase() || "main"}`]}}).Menu({name})
-  const menuItems = (menu.menu?.items || []) as MenuItem[]
+  const getData = nextCache(
+    async () => {
+      const menu = await graphqlClient({cache: "no-store"}).Menu({name})
+      const menuItems = (menu.menu?.items || []) as MenuItem[]
 
-  const filterInaccessible = (items: MenuItem[]): MenuItem[] => {
-    items = items.filter(item => item.title !== "Inaccessible")
-    items.map(item => (item.children = filterInaccessible(item.children)))
-    return items
-  }
-  return filterInaccessible(menuItems)
+      const filterInaccessible = (items: MenuItem[]): MenuItem[] => {
+        items = items.filter(item => item.title !== "Inaccessible")
+        items.map(item => (item.children = filterInaccessible(item.children)))
+        return items
+      }
+      return filterInaccessible(menuItems)
+    },
+    ["menus", menuName],
+    {tags: ["menus", `menu:${menuName}`]}
+  )
+
+  return getData()
 })
 
-export const getAllNodePaths = cache(async () => {
-  "use server"
+export const getAllNodePaths = nextCache(
+  cache(async () => {
+    "use server"
 
-  const nodeQuery = await graphqlClient({next: {tags: ["paths"]}}).AllNodes({first: 1000})
-  const nodePaths: string[] = []
-  // nodeQuery.nodeStanfordCourses.nodes.map(node => nodePaths.push(node.path))
-  // nodeQuery.nodeStanfordEventSeriesItems.nodes.map(node => nodePaths.push(node.path))
-  // nodeQuery.nodeStanfordEvents.nodes.map(node => nodePaths.push(node.path))
-  // nodeQuery.nodeStanfordNewsItems.nodes.map(node => nodePaths.push(node.path))
-  nodeQuery.nodeStanfordPages.nodes.map(node => nodePaths.push(node.path))
-  // nodeQuery.nodeStanfordPeople.nodes.map(node => nodePaths.push(node.path))
-  // nodeQuery.nodeStanfordPolicies.nodes.map(node => nodePaths.push(node.path))
-  nodeQuery.nodeSumSummerCourses.nodes.map(node => nodePaths.push(node.path))
-  return nodePaths
-})
+    const nodeQuery = await graphqlClient({next: {tags: ["paths"]}}).AllNodes({first: 1000})
+    const nodePaths: string[] = []
+    // nodeQuery.nodeStanfordCourses.nodes.map(node => nodePaths.push(node.path))
+    // nodeQuery.nodeStanfordEventSeriesItems.nodes.map(node => nodePaths.push(node.path))
+    // nodeQuery.nodeStanfordEvents.nodes.map(node => nodePaths.push(node.path))
+    // nodeQuery.nodeStanfordNewsItems.nodes.map(node => nodePaths.push(node.path))
+    nodeQuery.nodeStanfordPages.nodes.map(node => nodePaths.push(node.path))
+    // nodeQuery.nodeStanfordPeople.nodes.map(node => nodePaths.push(node.path))
+    // nodeQuery.nodeStanfordPolicies.nodes.map(node => nodePaths.push(node.path))
+    nodeQuery.nodeSumSummerCourses.nodes.map(node => nodePaths.push(node.path))
+    return nodePaths
+  }),
+  ["node-paths"],
+  {revalidate: 60 * 60 * 7, tags: ["all-entities"]}
+)

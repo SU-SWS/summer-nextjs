@@ -4,6 +4,15 @@ import * as DrupalTypes from './drupal.d';
 import { GraphQLClient, RequestOptions } from 'graphql-request';
 import gql from 'graphql-tag';
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders'];
+export const AllNodeInterfaceFragmentDoc = gql`
+    fragment AllNodeInterface on NodeInterface {
+  id
+  path
+  changed {
+    time
+  }
+}
+    `;
 export const FragmentNameTypeFragmentDoc = gql`
     fragment FragmentNameType on NameType {
   title
@@ -1202,16 +1211,16 @@ export const AllNodesDocument = gql`
     query AllNodes($first: Int = 1000) {
   nodeSumSummerCourses(first: $first, sortKey: CREATED_AT) {
     nodes {
-      ...FragmentNodeInterface
+      ...AllNodeInterface
     }
   }
   nodeStanfordPages(first: $first, sortKey: CREATED_AT) {
     nodes {
-      ...FragmentNodeInterface
+      ...AllNodeInterface
     }
   }
 }
-    ${FragmentNodeInterfaceFragmentDoc}`;
+    ${AllNodeInterfaceFragmentDoc}`;
 export const CoursesDocument = gql`
     query Courses($first: Int = 1000, $after: Cursor) {
   nodeStanfordCourses(first: $first, after: $after, sortKey: CREATED_AT) {

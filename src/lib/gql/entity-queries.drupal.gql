@@ -5,10 +5,18 @@ query Node($uuid: ID!) {
   }
 }
 
+fragment AllNodeInterface on NodeInterface {
+  id
+  path
+  changed {
+    time
+  }
+}
+
 query AllNodes($first: Int = 1000) {
   nodeSumSummerCourses(first: $first, sortKey: CREATED_AT) {
     nodes {
-      ...FragmentNodeInterface
+      ...AllNodeInterface
     }
   }
 #  nodeStanfordCourses(first: $first, sortKey: CREATED_AT) {
@@ -33,7 +41,7 @@ query AllNodes($first: Int = 1000) {
 #  }
   nodeStanfordPages(first: $first, sortKey: CREATED_AT) {
     nodes {
-      ...FragmentNodeInterface
+      ...AllNodeInterface
     }
   }
 #  nodeStanfordPeople(first: $first, sortKey: CREATED_AT) {

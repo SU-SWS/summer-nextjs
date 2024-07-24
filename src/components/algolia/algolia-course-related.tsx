@@ -53,7 +53,7 @@ const getRelatedContent = nextCache(
 )
 
 const RelatedCourses = async ({objectId}: {objectId: string}) => {
-  const recommendations = await getRelatedContent(objectId)
+  const recommendations = process.env.ALGOLIA_RECOMMENDATIONS === "true" ? await getRelatedContent(objectId) : []
   if (recommendations.length === 0) return
   return (
     <section

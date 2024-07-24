@@ -1,6 +1,5 @@
 import {H1} from "@components/elements/headers"
-import {getConfigPage} from "@lib/gql/gql-queries"
-import {StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
+import {getAlgoliaCredential} from "@lib/gql/gql-queries"
 import AlgoliaSiteSearch from "@components/algolia/algolia-site-search"
 import {IndexUiState} from "instantsearch.js/es/types/ui-state"
 
@@ -17,7 +16,7 @@ export const metadata = {
   },
 }
 const Page = async ({searchParams}: {searchParams?: {[_key: string]: string}}) => {
-  const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
+  const [appId, indexName, apiKey] = await getAlgoliaCredential()
   const initialState: IndexUiState = {}
   if (searchParams?.q) initialState.query = searchParams.q as string
 
@@ -25,16 +24,10 @@ const Page = async ({searchParams}: {searchParams?: {[_key: string]: string}}) =
     <div className="centered mt-32">
       <H1>Search</H1>
 
-      {siteSettingsConfig?.suSiteAlgoliaId &&
-        siteSettingsConfig?.suSiteAlgoliaIndex &&
-        siteSettingsConfig?.suSiteAlgoliaSearch && (
-          <AlgoliaSiteSearch
-            appId={siteSettingsConfig.suSiteAlgoliaId}
-            searchIndex={siteSettingsConfig.suSiteAlgoliaIndex}
-            searchApiKey={siteSettingsConfig.suSiteAlgoliaSearch}
-            initialUiState={initialState}
-          />
-        )}
+      {appId && (
+        <AlgoliaSiteSearch appId={appId} searchIndex={indexName} searchApiKey={apiKey} initialUiState={initialState} />
+      )}
+      <noscript>Please enable Javascript in your browser to view search results.</noscript>
     </div>
   )
 }

@@ -6,6 +6,7 @@ import {
   NodeUnion,
   RouteQuery,
   RouteRedirect,
+  StanfordBasicSiteSetting,
   TermUnion,
 } from "@lib/gql/__generated__/drupal.d"
 import {cache} from "react"
@@ -118,4 +119,22 @@ export const getAllNodePaths = nextCache(
   }),
   ["node-paths"],
   {revalidate: 60 * 60 * 7, tags: ["all-entities"]}
+)
+
+/**
+ * If environment variables are available, return those. If not, fetch from the config page.
+ */
+export const getAlgoliaCredential = nextCache(
+  async () => {
+    if (process.env.ALGOLIA_ID && process.env.ALGOLIA_INDEX && process.env.ALGOLIA_KEY) {
+      return [process.env.ALGOLIA_ID, process.env.ALGOLIA_INDEX, process.env.ALGOLIA_KEY]
+    }
+    const configPage = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
+    if (configPage?.suSiteAlgoliaId && configPage.suSiteAlgoliaIndex && configPage.suSiteAlgoliaSearch) {
+      return [configPage.suSiteAlgoliaId, configPage.suSiteAlgoliaIndex, configPage.suSiteAlgoliaSearch]
+    }
+    return []
+  },
+  ["algolia"],
+  {tags: ["algolia"]}
 )

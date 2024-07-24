@@ -1,6 +1,6 @@
 import {HtmlHTMLAttributes} from "react"
-import {getConfigPage} from "@lib/gql/gql-queries"
-import {StanfordBasicSiteSetting, ParagraphSumUserFavorite} from "@lib/gql/__generated__/drupal.d"
+import {getAlgoliaCredential} from "@lib/gql/gql-queries"
+import {ParagraphSumUserFavorite} from "@lib/gql/__generated__/drupal.d"
 import AlgoliaCourseList from "@components/algolia/algolia-course-list"
 import FavoritesList from "@components/elements/favorites-list"
 import {twMerge} from "tailwind-merge"
@@ -10,15 +10,9 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 }
 
 const UserFavoriteParagraph = async ({...props}: Props) => {
-  const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
+  const [appId, indexName, apiKey] = await getAlgoliaCredential()
 
-  if (
-    !siteSettingsConfig?.suSiteAlgoliaId ||
-    !siteSettingsConfig.suSiteAlgoliaSearch ||
-    !siteSettingsConfig.suSiteAlgoliaIndex
-  ) {
-    return
-  }
+  if (!appId || !indexName || !apiKey) return
 
   return (
     <div {...props} className={twMerge("grid grid-cols-12 gap-12", props.className)}>
@@ -26,11 +20,7 @@ const UserFavoriteParagraph = async ({...props}: Props) => {
         <FavoritesList isDisplayOnly />
       </div>
       <div className="col-span-12 md:col-span-8 xl:col-span-9">
-        <AlgoliaCourseList
-          appId={siteSettingsConfig.suSiteAlgoliaId}
-          searchIndex={siteSettingsConfig.suSiteAlgoliaIndex}
-          searchApiKey={siteSettingsConfig.suSiteAlgoliaSearch}
-        />
+        <AlgoliaCourseList appId={appId} searchIndex={indexName} searchApiKey={apiKey} />
       </div>
     </div>
   )

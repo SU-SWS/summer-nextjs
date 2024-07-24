@@ -6,7 +6,7 @@ import Button from "@components/elements/button"
 import GlobalMessage from "@components/config-pages/global-message"
 
 const PageHeader = async () => {
-  const menuItems = await getMenu(MenuAvailable.Main)
+  const menuItems = await getMenu(MenuAvailable.Main, 3)
 
   const siteSettingsConfig = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
   const lockupSettingsConfig = await getConfigPage<LockupSetting>("LockupSetting")

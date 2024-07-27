@@ -62,6 +62,14 @@ const options: HTMLReactParserOptions = {
 
         case "div":
         case "article":
+          if (nodeProps.className && nodeProps.className.includes("left-bar")) {
+            nodeProps.className = twMerge(
+              nodeProps.className,
+              "max-w-[725px] rs-pb-5 rs-pt-7 border-3  border-archway-dark border-opacity-50"
+            )
+            return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
+          }
+
           delete nodeProps.role
           if (nodeProps.className && !!nodeProps.className.indexOf("media-entity-wrapper")) {
             return cleanMediaMarkup(domNode)

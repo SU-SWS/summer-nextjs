@@ -146,7 +146,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
       <div className="centered flex flex-col items-end">
         <div className="w-full md:w-1/2">
           <ApplyNowLink href="/courses">
-            Ready to dive in? Kick off your application today – let's make things happen!
+            Ready to dive in? Kick off your application today – let&apos;s make things happen!
           </ApplyNowLink>
         </div>
       </div>

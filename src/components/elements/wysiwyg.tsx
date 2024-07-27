@@ -8,9 +8,8 @@ import {twMerge} from "tailwind-merge"
 import {Maybe} from "@lib/gql/__generated__/drupal.d"
 import Mathjax from "@components/tools/mathjax"
 import Script from "next/script"
-import "../../styles/form.css"
-import {ArrowRightIcon} from "@heroicons/react/20/solid"
 import {ApplyNowLink} from "./apply-now-link"
+import "../../styles/form.css"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
@@ -46,7 +45,7 @@ const options: HTMLReactParserOptions = {
           delete nodeProps["data-entity-substitution"]
           delete nodeProps["data-entity-type"]
 
-          if (nodeProps.className && nodeProps.className.includes("apply-now")) {
+          if (nodeProps.className && nodeProps.className.includes("apply-now-link")) {
             return (
               <ApplyNowLink className={nodeProps.className} href={nodeProps.href as string}>
                 {domToReact(children, options)}

@@ -148,7 +148,7 @@ const SearchForm = () => {
       </div>
       <div className="rs-mt-8 col-span-12 md:col-span-6 md:col-start-7">
         <ApplyNowLink href="/courses">
-          Ready to dive in? Kick off your application today – let's make things happen!
+          Ready to dive in? Kick off your application today – let&apos;s make things happen!
         </ApplyNowLink>
       </div>
     </div>

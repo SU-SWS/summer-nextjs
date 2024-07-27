@@ -22,7 +22,7 @@
 }
 
 .slick-slide {
-  transition: .2s padding ease-out;
+  transition: 0.2s padding ease-out;
 
   > * {
     max-width: 700px;
@@ -42,7 +42,7 @@
 
 .slick-active + .slick-slide:not(.slick-active) {
   padding-left: 0;
-  padding-right: 90px
+  padding-right: 90px;
 }
 
 /* 2 items shown. */
@@ -62,7 +62,7 @@
 
   .slick-active + .slick-slide:not(.slick-active) {
     padding-left: 0;
-    padding-right: 66px
+    padding-right: 66px;
   }
 }
 
@@ -87,6 +87,6 @@
 
   .slick-active + .slick-slide:not(.slick-active) {
     padding-left: 0;
-    padding-right: 59px
+    padding-right: 59px;
   }
 }

@@ -9,6 +9,8 @@ import {Maybe} from "@lib/gql/__generated__/drupal.d"
 import Mathjax from "@components/tools/mathjax"
 import Script from "next/script"
 import "../../styles/form.css"
+import {ArrowRightIcon} from "@heroicons/react/20/solid"
+import {ApplyNowLink} from "./apply-now-link"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
@@ -43,7 +45,14 @@ const options: HTMLReactParserOptions = {
         case "a":
           delete nodeProps["data-entity-substitution"]
           delete nodeProps["data-entity-type"]
-          delete nodeProps["data-entity-uuid"]
+
+          if (nodeProps.className && nodeProps.className.includes("apply-now")) {
+            return (
+              <ApplyNowLink className={nodeProps.className} href={nodeProps.href as string}>
+                {domToReact(children, options)}
+              </ApplyNowLink>
+            )
+          }
 
           return (
             <Link href={nodeProps.href as string} prefetch={false} {...nodeProps}>
@@ -108,6 +117,12 @@ const options: HTMLReactParserOptions = {
         case "tfoot":
         case "caption":
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
+        case "left-vertical":
+          return (
+            <div {...nodeProps} className="">
+              {domToReact(children, options)}
+            </div>
+          )
 
         // Void element tags like <br>, <hr>, <source>, etc.
         // @see https://developer.mozilla.org/en-US/docs/Glossary/Void_element

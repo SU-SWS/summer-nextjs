@@ -4,6 +4,7 @@ import {ParagraphSumUserFavorite} from "@lib/gql/__generated__/drupal.d"
 import AlgoliaCourseList from "@components/algolia/algolia-course-list"
 import FavoritesList from "@components/elements/favorites-list"
 import {twMerge} from "tailwind-merge"
+import {ApplyNowLink} from "@components/elements/apply-now-link"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumUserFavorite
@@ -21,6 +22,11 @@ const UserFavoriteParagraph = async ({...props}: Props) => {
       </div>
       <div className="col-span-12 md:col-span-8 xl:col-span-9">
         <AlgoliaCourseList appId={appId} searchIndex={indexName} searchApiKey={apiKey} />
+      </div>
+      <div className="rs-mt-6 col-span-12 md:col-span-6 md:col-start-7">
+        <ApplyNowLink href="/courses">
+          Ready to dive in? Kick off your application today – let's make things happen!
+        </ApplyNowLink>
       </div>
     </div>
   )

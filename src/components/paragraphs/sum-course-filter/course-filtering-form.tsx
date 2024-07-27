@@ -26,6 +26,7 @@ import {
   type RefinementListConnectorParams,
   RefinementListItem,
 } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList"
+import {ApplyNowLink} from "@components/elements/apply-now-link"
 
 type Props = {
   appId: string
@@ -144,6 +145,11 @@ const SearchForm = () => {
       </div>
       <div className="col-span-12 md:col-span-8 xl:col-span-9">
         <HitList />
+      </div>
+      <div className="rs-mt-8 col-span-12 md:col-span-6 md:col-start-7">
+        <ApplyNowLink href="/courses">
+          Ready to dive in? Kick off your application today – let's make things happen!
+        </ApplyNowLink>
       </div>
     </div>
   )

@@ -15,6 +15,7 @@ const FavoriteButton = ({uuid, title, path, units, ...props}: Props) => {
     <button
       onClick={() => toggleFav(uuid, title, path, units)}
       role="switch"
+      aria-label={`Favorite ${title}`}
       aria-checked={isFavorite}
       aria-labelledby={uuid}
       {...props}

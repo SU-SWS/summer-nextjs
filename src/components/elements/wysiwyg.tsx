@@ -72,7 +72,6 @@ const options: HTMLReactParserOptions = {
           if (nodeProps.className && !!nodeProps.className.indexOf("media-entity-wrapper")) {
             return cleanMediaMarkup(domNode)
           }
-          return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
         case "article":
           delete nodeProps.role

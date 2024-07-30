@@ -15,17 +15,6 @@ const GlobalMessage = async ({...props}: Props) => {
   const globalMessageConfig = await getConfigPage<StanfordGlobalMessage>("StanfordGlobalMessage")
   if (!globalMessageConfig?.suGlobalMsgEnabled) return
 
-  let messageType = "globalMessageConfig.suGlobalMsgType"
-  messageType = "warning"
-
-  const wrapperClasses = clsx({
-    "bg-digital-blue-dark text-white": messageType === "info",
-    "bg-illuminating-dark": messageType === "warning",
-    "bg-digital-green text-white": messageType === "success",
-    "bg-foggy-light": messageType === "plain",
-    "bg-digital-red text-white": messageType === "error",
-  })
-
   const ElementWrapper = globalMessageConfig.suGlobalMsgHeader ? "article" : "div"
 
   return (
@@ -35,15 +24,7 @@ const GlobalMessage = async ({...props}: Props) => {
       aria-labelledby={globalMessageConfig.suGlobalMsgHeader ? id : undefined}
     >
       <div className="md:centered">
-        <div
-          className={twMerge(
-            wrapperClasses,
-            "flex w-full flex-col items-center gap-10 rounded-b-[25px] px-16 py-10 md:flex-row lg:w-3/4"
-          )}
-        >
-          {globalMessageConfig.suGlobalMsgLabel && (
-            <div className="flex shrink-0 items-center leading-none">{globalMessageConfig.suGlobalMsgLabel}:</div>
-          )}
+        <div className="flex w-full flex-col items-center gap-10 rounded-b-[25px] bg-illuminating-dark px-16 py-10 md:flex-row lg:w-3/4">
           <div>
             {globalMessageConfig.suGlobalMsgHeader && (
               <H2 id={id} className="mb-3 text-23">
@@ -56,14 +37,7 @@ const GlobalMessage = async ({...props}: Props) => {
           {globalMessageConfig.suGlobalMsgLink?.url && (
             <ActionLink
               href={globalMessageConfig.suGlobalMsgLink.url}
-              className={twMerge(
-                "w-full max-w-fit no-underline hocus:underline",
-                clsx({
-                  "text-black": messageType === "warning",
-                  "text-white hocus:text-white":
-                    messageType === "info" || messageType === "error" || messageType === "success",
-                })
-              )}
+              className="w-full max-w-fit text-black no-underline hocus:underline"
             >
               {globalMessageConfig.suGlobalMsgLink.title}
             </ActionLink>

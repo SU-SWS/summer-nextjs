@@ -63,7 +63,7 @@ const options: HTMLReactParserOptions = {
           if (nodeProps.className && nodeProps.className.includes("left-bar")) {
             nodeProps.className = twMerge(
               nodeProps.className,
-              "max-w-[725px] rs-pb-5 rs-pt-7 rs-pl-1 border-l-3 border-archway-dark border-opacity-50"
+              "max-w-[725px] mx-auto rs-pb-5 rs-pt-7 rs-pl-1 border-l-3 border-archway-dark border-opacity-50"
             )
             return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
           }

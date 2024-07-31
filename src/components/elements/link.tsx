@@ -18,6 +18,10 @@ const DrupalLink = ({href, children, ...props}: Props) => {
   href = href || "#"
   const drupalBase: string = (process.env.NEXT_PUBLIC_DRUPAL_BASE_URL || "").replace(/\/$/, "")
 
+  if (href.startsWith("/") && href.indexOf("/files/")) {
+    href = `${drupalBase}${href}`
+  }
+
   if (!href.indexOf("/files/")) {
     href = href.replace(drupalBase, "").replace("<front>", "/")
   }

@@ -24,7 +24,7 @@ const Page = async ({searchParams}: {searchParams?: {[_key: string]: string}}) =
     <div className="centered mt-32">
       <H1>Search</H1>
 
-      {appId && (
+      {appId && indexName && apiKey && (
         <AlgoliaSiteSearch appId={appId} searchIndex={indexName} searchApiKey={apiKey} initialUiState={initialState} />
       )}
       <noscript>Please enable Javascript in your browser to view search results.</noscript>

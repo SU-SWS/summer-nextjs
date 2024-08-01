@@ -144,9 +144,14 @@ export const getAllNodePaths = nextCache(
  * If environment variables are available, return those. If not, fetch from the config page.
  */
 export const getAlgoliaCredential = nextCache(
-  async () => {
+  async (): Promise<[string, string, string, boolean] | []> => {
     if (process.env.ALGOLIA_ID && process.env.ALGOLIA_INDEX && process.env.ALGOLIA_KEY) {
-      return [process.env.ALGOLIA_ID, process.env.ALGOLIA_INDEX, process.env.ALGOLIA_KEY]
+      return [
+        process.env.ALGOLIA_ID,
+        process.env.ALGOLIA_INDEX,
+        process.env.ALGOLIA_KEY,
+        process.env.ALGOLIA_RECOMMENDATIONS === "true",
+      ]
     }
     const appId = await getConfigPageField<StanfordBasicSiteSetting, StanfordBasicSiteSetting["suSiteAlgoliaId"]>(
       "StanfordBasicSiteSetting",
@@ -160,7 +165,9 @@ export const getAlgoliaCredential = nextCache(
       "StanfordBasicSiteSetting",
       "suSiteAlgoliaSearch"
     )
-    return appId && indexName && apiKey ? [appId, indexName, apiKey] : []
+    return appId && indexName && apiKey
+      ? [appId, indexName, apiKey, process.env.ALGOLIA_RECOMMENDATIONS === "true"]
+      : []
   },
   ["algolia"],
   {tags: ["algolia"]}

@@ -4,20 +4,20 @@ import ImageCard from "@components/patterns/image-card"
 import {H2, H3} from "@components/elements/headers"
 import ActionLink from "@components/elements/action-link"
 import type {RecommendResults} from "algoliasearch-helper"
+import {getAlgoliaCredential} from "@lib/gql/gql-queries"
 
 const getRelatedContent = nextCache(
   async (objectID: string): Promise<CourseHit[]> => {
-    const appID = process.env.ALGOLIA_ID
-    const indexName = process.env.ALGOLIA_INDEX
-    const apiKey = process.env.ALGOLIA_KEY
-    if (!appID || !indexName || !apiKey) return []
+    const [appId, indexName, apiKey, useRelatedContent] = await getAlgoliaCredential()
+
+    if (!appId || !indexName || !apiKey || !useRelatedContent) return []
 
     const options: RequestInit = {
       method: "POST",
       cache: "no-store",
       headers: {
         "Content-Type": "application/json",
-        "X-Algolia-Application-Id": appID,
+        "X-Algolia-Application-Id": appId,
         "X-Algolia-API-Key": apiKey,
       },
       body: JSON.stringify({
@@ -37,7 +37,7 @@ const getRelatedContent = nextCache(
     }
 
     const recommendations: {results: RecommendResults<CourseHit>["_rawResults"]} = await fetch(
-      `https://${appID}-dsn.algolia.net/1/indexes/*/recommendations`,
+      `https://${appId}-dsn.algolia.net/1/indexes/*/recommendations`,
       options
     ).then(res => res.json())
 

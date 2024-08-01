@@ -44,6 +44,7 @@ const options: HTMLReactParserOptions = {
         case "a":
           delete nodeProps["data-entity-substitution"]
           delete nodeProps["data-entity-type"]
+          nodeProps.href = nodeProps.href || "#"
 
           if (nodeProps.className && nodeProps.className.includes("apply-now-link")) {
             return (

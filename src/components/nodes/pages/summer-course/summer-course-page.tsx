@@ -8,6 +8,7 @@ import {convertToLocalDateTime} from "@lib/utils/convert-date"
 import FavoritesList from "@components/elements/favorites-list"
 import RelatedCourses from "@components/algolia/algolia-course-related"
 import FavoriteButton from "@components/elements/favorite-button"
+import {ApplyNowLink} from "@components/elements/apply-now-link"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeSumSummerCourse
@@ -142,7 +143,13 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
       <div className="centered">
         <RelatedCourses objectId={node.id} />
       </div>
-      <div>{/* Apply Now Link */}</div>
+      <div className="centered flex flex-col items-end">
+        <div className="w-full md:w-1/2">
+          <ApplyNowLink href="/apply-now">
+            Ready to dive in? Kick off your application today – let&apos;s make things happen!
+          </ApplyNowLink>
+        </div>
+      </div>
     </article>
   )
 }

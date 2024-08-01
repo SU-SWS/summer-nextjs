@@ -8,6 +8,7 @@ import {twMerge} from "tailwind-merge"
 import {Maybe} from "@lib/gql/__generated__/drupal.d"
 import Mathjax from "@components/tools/mathjax"
 import Script from "next/script"
+import {ApplyNowLink} from "./apply-now-link"
 import "../../styles/form.css"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -43,7 +44,15 @@ const options: HTMLReactParserOptions = {
         case "a":
           delete nodeProps["data-entity-substitution"]
           delete nodeProps["data-entity-type"]
-          delete nodeProps["data-entity-uuid"]
+          nodeProps.href = nodeProps.href || "#"
+
+          if (nodeProps.className && nodeProps.className.includes("apply-now-link")) {
+            return (
+              <ApplyNowLink className={nodeProps.className} href={nodeProps.href as string}>
+                {domToReact(children, options)}
+              </ApplyNowLink>
+            )
+          }
 
           return (
             <Link href={nodeProps.href as string} prefetch={false} {...nodeProps}>
@@ -52,6 +61,19 @@ const options: HTMLReactParserOptions = {
           )
 
         case "div":
+          if (nodeProps.className && nodeProps.className.includes("left-bar")) {
+            nodeProps.className = twMerge(
+              nodeProps.className,
+              "max-w-[725px] mx-auto rs-pb-5 rs-pt-7 rs-pl-1 border-l-3 border-archway-dark border-opacity-50"
+            )
+            return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
+          }
+
+          delete nodeProps.role
+          if (nodeProps.className && !!nodeProps.className.indexOf("media-entity-wrapper")) {
+            return cleanMediaMarkup(domNode)
+          }
+
         case "article":
           delete nodeProps.role
           if (nodeProps.className && !!nodeProps.className.indexOf("media-entity-wrapper")) {

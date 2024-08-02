@@ -101,7 +101,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
         )}
 
         <div className="w-1/4 shrink-0 *:mb-4">
-          {hit.sum_course_units && (
+          {!!hit.sum_course_units && (
             <div>
               <span className="font-semibold">Units: </span>
               {hit.sum_course_units}
@@ -113,7 +113,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
               {`${start} - ${end}`}
             </div>
           )}
-          {hit.sum_course_course_cost && (
+          {!!hit.sum_course_course_cost && (
             <div>
               <span className="font-semibold">Course Cost: </span>
               {formatCurrency(hit.sum_course_course_cost)}
@@ -130,12 +130,10 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
 
       <div className="rs-mb-2 order-first flex flex-row items-center justify-between">
         {hit.sum_course_availability && <CourseAvailability availabilityStatus={hit.sum_course_availability[0]} />}
-        {hit && hit.sum_course_units && (
-          <div className="ml-auto flex flex-row justify-center gap-5">
-            <ShareCourses courseUrl={hit.url} courseNum={hit.sum_course_catalog_number || ""} courseName={hit.title} />
-            <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units} />
-          </div>
-        )}
+        <div className="ml-auto flex flex-row justify-center gap-5">
+          <ShareCourses courseUrl={hit.url} courseNum={hit.sum_course_catalog_number || ""} courseName={hit.title} />
+          <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units || 0} />
+        </div>
       </div>
 
       <H4 className="type-0 mb-0 ml-auto p-0 font-semibold group-hocus:underline">

@@ -19,11 +19,13 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
   const endDate = node.sumCourseEndDate && convertToLocalDateTime(node.sumCourseEndDate).toUpperCase()
 
   return (
-    <article {...props}>
+    <article {...props} aria-labelledby={node.id}>
       <ArcBanner {...props} imageUrl="/images/temp-bg.jpg" imageAlt="">
         <div className="w-screen">
           <div className="rs-pb-4 rs-mx-6 flex flex-col items-center justify-center border-b border-archway-dark">
-            <H1 className="rs-mb-0 max-w-[900px] text-center font-roboto font-normal">{node.title}</H1>
+            <H1 id={node.id} className="rs-mb-0 max-w-[900px] text-center font-roboto font-normal">
+              {node.title}
+            </H1>
 
             {startDate && (
               <div className="rs-mb-0 order-first font-sans font-normal">
@@ -69,7 +71,8 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
                   <span>Time:</span> {node.sumCourseSchedule}
                 </div>
               )}
-              {node.sumCourseUnits && (
+
+              {!!node.sumCourseUnits && (
                 <div>
                   <span>Units:</span> {node.sumCourseUnits}
                 </div>

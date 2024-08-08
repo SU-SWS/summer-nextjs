@@ -87,15 +87,35 @@ const options: HTMLReactParserOptions = {
           return <Script {...nodeProps} strategy="lazyOnload"></Script>
 
         case "h2":
-          return <H2 {...nodeProps}>{domToReact(children, options)}</H2>
+          return (
+            <H2 {...nodeProps} className="font-light">
+              {domToReact(children, options)}
+            </H2>
+          )
         case "h3":
-          return <H3 {...nodeProps}>{domToReact(children, options)}</H3>
+          return (
+            <H3 {...nodeProps} className="font-light">
+              {domToReact(children, options)}
+            </H3>
+          )
         case "h4":
-          return <H4 {...nodeProps}>{domToReact(children, options)}</H4>
+          return (
+            <H4 {...nodeProps} className="font-light">
+              {domToReact(children, options)}
+            </H4>
+          )
         case "h5":
-          return <H5 {...nodeProps}>{domToReact(children, options)}</H5>
+          return (
+            <H5 {...nodeProps} className="font-light">
+              {domToReact(children, options)}
+            </H5>
+          )
         case "h6":
-          return <H6 {...nodeProps}>{domToReact(children, options)}</H6>
+          return (
+            <H6 {...nodeProps} className="font-light">
+              {domToReact(children, options)}
+            </H6>
+          )
         case "b":
         case "cite":
         case "dt":

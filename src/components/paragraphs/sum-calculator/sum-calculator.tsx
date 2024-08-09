@@ -158,8 +158,9 @@ const SumCalculatorParagraph = ({
             downIcon={
               <ChevronDownIcon
                 width={50}
-                className={clsx("ml-auto flex-shrink-0 rounded-full bg-digital-red text-white", {
+                className={clsx("ml-auto flex-shrink-0 rounded-full text-white", {
                   "bg-black-40": !studentType,
+                  "bg-digital-red": studentType,
                 })}
               />
             }
@@ -185,8 +186,9 @@ const SumCalculatorParagraph = ({
             downIcon={
               <ChevronDownIcon
                 width={50}
-                className={clsx("rounded-full bg-digital-red text-white", {
+                className={clsx("rounded-full text-white", {
                   "bg-black-40": needsI20 === undefined,
+                  "bg-digital-red": needsI20 !== undefined,
                 })}
               />
             }
@@ -210,8 +212,9 @@ const SumCalculatorParagraph = ({
             downIcon={
               <ChevronDownIcon
                 width={50}
-                className={clsx("rounded-full bg-digital-red text-white", {
+                className={clsx("rounded-full text-white", {
                   "bg-black-40": onCampus === undefined,
+                  "bg-digital-red": onCampus !== undefined,
                 })}
               />
             }
@@ -241,6 +244,7 @@ const SumCalculatorParagraph = ({
                 width={50}
                 className={clsx("rounded-full bg-digital-red text-white", {
                   "bg-black-40": units < 3,
+                  "bg-digital-red": units >= 3,
                 })}
               />
             }

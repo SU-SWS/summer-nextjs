@@ -36,7 +36,7 @@ const GlobalMessage = async ({...props}: Props) => {
           {globalMessageConfig.suGlobalMsgLink?.url && (
             <ActionLink
               href={globalMessageConfig.suGlobalMsgLink.url}
-              className="w-full max-w-fit text-digital-blue no-underline *:text-digital-blue hocus:underline"
+              className="w-full max-w-fit text-digital-blue no-underline *:text-digital-blue hocus:text-digital-blue hocus:underline"
             >
               {globalMessageConfig.suGlobalMsgLink.title}
             </ActionLink>

@@ -156,7 +156,12 @@ const SumCalculatorParagraph = ({
               {value: "no2", label: "No, I am an international student with an I-20 sponsored by another institution"},
             ]}
             downIcon={
-              <ChevronDownIcon width={50} className="ml-auto flex-shrink-0 rounded-full bg-digital-red text-white" />
+              <ChevronDownIcon
+                width={50}
+                className={clsx("ml-auto flex-shrink-0 rounded-full bg-digital-red text-white", {
+                  "bg-black-40": !studentType,
+                })}
+              />
             }
             onChange={(_e, value) => setNeedsI20(value === "yes")}
             disabled={!studentType}
@@ -177,7 +182,14 @@ const SumCalculatorParagraph = ({
               {value: "yes", label: "On-Campus"},
               {value: "no", label: "Living off campus and commuting"},
             ]}
-            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
+            downIcon={
+              <ChevronDownIcon
+                width={50}
+                className={clsx("rounded-full bg-digital-red text-white", {
+                  "bg-black-40": needsI20 === undefined,
+                })}
+              />
+            }
             onChange={(_e, value) => setOnCampus(value === "yes")}
             disabled={needsI20 === undefined}
             required
@@ -195,7 +207,14 @@ const SumCalculatorParagraph = ({
             ariaLabelledby="sum-units"
             placeholder="Select the number of units"
             options={unitOptions}
-            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
+            downIcon={
+              <ChevronDownIcon
+                width={50}
+                className={clsx("rounded-full bg-digital-red text-white", {
+                  "bg-black-40": onCampus === undefined,
+                })}
+              />
+            }
             onChange={(_e, value) => setUnits(parseInt(value as string))}
             disabled={onCampus === undefined}
             required
@@ -217,7 +236,14 @@ const SumCalculatorParagraph = ({
               {value: "yes", label: "Yes, I will be waiving Cardinal Care."},
               {value: "no", label: "No, I would like to stay enrolled in Cardinal Care Health Insurance"},
             ]}
-            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
+            downIcon={
+              <ChevronDownIcon
+                width={50}
+                className={clsx("rounded-full bg-digital-red text-white", {
+                  "bg-black-40": units < 3,
+                })}
+              />
+            }
             onChange={(_e, value) => setWaivingInsurance(value === "yes")}
             disabled={units < 3}
             required

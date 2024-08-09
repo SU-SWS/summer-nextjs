@@ -159,10 +159,9 @@ const SelectList = ({
       <button
         {...getButtonProps()}
         className={twMerge(
-          "w-full rounded border-2 border-fog-light text-left",
+          "w-full rounded border-2 border-fog-light bg-fog-light text-left",
           buttonClassName,
-          !optionChosen && "rs-p-3",
-          props.disabled ? "bg-black-20" : "bg-fog-light"
+          !optionChosen && "rs-p-3"
         )}
         aria-labelledby={labeledBy}
       >

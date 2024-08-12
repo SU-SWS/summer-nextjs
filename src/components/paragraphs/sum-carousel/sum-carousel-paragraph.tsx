@@ -8,6 +8,7 @@ import ActionLink from "@components/elements/action-link"
 import ArcBanner from "@components/patterns/arc-banner"
 import {getParagraphBehaviors} from "../get-paragraph-behaviors"
 import clsx from "clsx"
+import {twMerge} from "tailwind-merge"
 
 type Props = HTMLAttributes<HTMLElement> & {
   paragraph: ParagraphSumCarousel
@@ -28,6 +29,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
             headingSize={headingSize}
             description={paragraph.sumCarouselDescription?.processed}
             link={paragraph.sumCarouselLink}
+            className="md:rs-mt-7"
           />
         </ArcBanner>
       )}
@@ -56,6 +58,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
 }
 
 type TopProps = {
+  className?: Maybe<string>
   header?: Maybe<string>
   superHeader?: Maybe<string>
   headingSize?: Maybe<string>
@@ -63,9 +66,9 @@ type TopProps = {
   link?: Maybe<Link>
 }
 
-const CarouselTop = ({header, superHeader, headingSize, description, link}: TopProps) => {
+const CarouselTop = ({header, superHeader, headingSize, description, link, className}: TopProps) => {
   return (
-    <div className="mb-20 text-center md:rs-mt-7">
+    <div className={twMerge("mb-20 text-center", className)}>
       <div className="flex flex-col">
         {header && <H2 className={clsx("mb-8 font-light", headingSize)}>{header}</H2>}
         {superHeader && <div className="order-first mb-8">{superHeader}</div>}

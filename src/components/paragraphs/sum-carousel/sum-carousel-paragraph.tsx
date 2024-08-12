@@ -65,7 +65,7 @@ type TopProps = {
 
 const CarouselTop = ({header, superHeader, headingSize, description, link}: TopProps) => {
   return (
-    <div className="mb-20 text-center">
+    <div className="mb-20 text-center md:rs-mt-7">
       <div className="flex flex-col">
         {header && <H2 className={clsx("mb-8 font-light", headingSize)}>{header}</H2>}
         {superHeader && <div className="order-first mb-8">{superHeader}</div>}

@@ -56,7 +56,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
 
       {videoUrl && <Oembed url={videoUrl} />}
 
-      <div className={clsx("flex flex-col", {"px-10 py-20 lg:px-20": !hasBgColor, "pt-10": hasBgColor && imageUrl})}>
+      <div className={clsx("flex flex-col", {"px-10 pb-20 pt-10 lg:px-20": !hasBgColor || (hasBgColor && imageUrl)})}>
         {children}
       </div>
     </CardWrapper>

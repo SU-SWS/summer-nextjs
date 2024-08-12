@@ -19,17 +19,28 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
   return (
     <div {...props} className={twMerge("centered flex flex-col gap-20 @container", props.className)}>
       <div className="grid gap-y-10 @6xl:grid-cols-2">
-        <div
-          className={twMerge(
-            "mt-auto h-fit border-archway-dark border-opacity-50 p-20",
-            clsx({
-              "border-l-3": !headingOnLeft,
-              "border-r-3": headingOnLeft,
-            })
-          )}
-        >
-          {paragraph.sumAtAGlanceHeadline && <H2 className="font-light">{paragraph.sumAtAGlanceHeadline}</H2>}
-          <Wysiwyg html={paragraph.sumAtAGlanceDescrip?.processed} />
+        <div className="mt-auto h-fit">
+          <div
+            className={twMerge(
+              "h-40 border-archway-dark border-opacity-50",
+              clsx({
+                "border-l-3": !headingOnLeft,
+                "border-r-3": headingOnLeft,
+              })
+            )}
+          />
+          <div
+            className={twMerge(
+              "h-fit border-archway-dark border-opacity-50 p-20",
+              clsx({
+                "border-l-3": !headingOnLeft,
+                "border-r-3": headingOnLeft,
+              })
+            )}
+          >
+            {paragraph.sumAtAGlanceHeadline && <H2 className="font-light">{paragraph.sumAtAGlanceHeadline}</H2>}
+            <Wysiwyg html={paragraph.sumAtAGlanceDescrip?.processed} />
+          </div>
         </div>
         <div
           className={twMerge(
@@ -44,7 +55,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
               "mt-auto border-archway-dark border-opacity-50",
               clsx({
                 "border-l-3 md:h-80": !headingOnLeft,
-                "h-40 border-r-3": headingOnLeft,
+                "h-40 border-r-3 md:h-60": headingOnLeft,
               })
             )}
           />
@@ -52,7 +63,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
             className={twMerge(
               "mt-auto border-archway-dark border-opacity-50",
               clsx({
-                "h-40 border-l-3": !headingOnLeft,
+                "h-40 border-l-3 md:h-60": !headingOnLeft,
                 "border-r-3 md:h-80": headingOnLeft,
               })
             )}

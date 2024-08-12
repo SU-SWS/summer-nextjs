@@ -10,12 +10,15 @@ const NextArrow = ({className, onClick}: CustomArrowProps) => {
   const slickDisabled = className?.includes("slick-disabled")
   return (
     <button
-      className="hocus:outline-3 absolute right-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:outline hocus:outline-digital-red"
+      className={twMerge(
+        "hocus:outline-3 absolute right-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:outline hocus:outline-digital-red",
+        clsx({"bg-black-40 hocus:bg-black-40 hocus:outline-0": slickDisabled})
+      )}
       onClick={onClick}
       aria-label="Next"
       disabled={slickDisabled}
     >
-      <ArrowLongRightIcon width={40} className={twMerge("text-white", clsx({"text-fog-dark": slickDisabled}))} />
+      <ArrowLongRightIcon width={40} className="text-white" />
     </button>
   )
 }
@@ -24,12 +27,15 @@ const PrevArrow = ({className, onClick}: CustomArrowProps) => {
   const slickDisabled = className?.includes("slick-disabled")
   return (
     <button
-      className="hocus:outline-3 absolute left-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:outline hocus:outline-digital-red"
+      className={twMerge(
+        "hocus:outline-3 absolute left-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:outline hocus:outline-digital-red",
+        clsx({"bg-black-40 hocus:bg-black-40 hocus:outline-0": slickDisabled})
+      )}
       onClick={onClick}
       aria-label="Previous"
       disabled={slickDisabled}
     >
-      <ArrowLongLeftIcon width={40} className={twMerge("text-white", clsx({"text-fog-dark": slickDisabled}))} />
+      <ArrowLongLeftIcon width={40} className="text-white" />
     </button>
   )
 }

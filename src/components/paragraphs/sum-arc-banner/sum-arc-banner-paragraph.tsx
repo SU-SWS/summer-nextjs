@@ -19,7 +19,7 @@ const SumArcBannerParagraph = async ({paragraph, pageTitle, ...props}: Props) =>
               <div className="rs-mb-0 font-sans font-normal">{paragraph.sumArcSuperhead}</div>
             )}
             <H1 className="rs-mb-0 max-w-[900px] text-center font-roboto font-normal">{pageTitle}</H1>
-            <Wysiwyg html={paragraph.sumArcDescription?.processed} className="mx-auto max-w-400 text-center" />
+            <Wysiwyg html={paragraph.sumArcDescription?.processed} className="mx-auto max-w-[450px] text-center" />
           </div>
         </div>
       </ArcBanner>

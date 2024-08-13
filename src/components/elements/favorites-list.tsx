@@ -36,7 +36,7 @@ const ShareButtons = () => {
         data-course-shared="Favorites"
         disabled={!favs.length}
       >
-        <span className={twMerge("mb-4 rounded-full bg-spirited-dark p-5", clsx({"bg-black-60": !favs.length}))}>
+        <span className={twMerge("mb-4 rounded-full bg-spirited-dark p-5", clsx({"bg-black-40": !favs.length}))}>
           <ChatBubbleLeftEllipsisIcon width={30} className="text-white" />
         </span>
         Text
@@ -47,7 +47,7 @@ const ShareButtons = () => {
         data-course-shared="Favorites"
         disabled={!favs.length}
       >
-        <span className={twMerge("mb-4 rounded-full bg-spirited-dark p-5", clsx({"bg-black-60": !favs.length}))}>
+        <span className={twMerge("mb-4 rounded-full bg-spirited-dark p-5", clsx({"bg-black-40": !favs.length}))}>
           <EnvelopeIcon width={30} className="text-white" />
         </span>
         Email
@@ -58,7 +58,7 @@ const ShareButtons = () => {
         data-course-shared="Favorites"
         disabled={!favs.length}
       >
-        <span className={twMerge("mb-4 rounded-full bg-spirited-dark p-5", clsx({"bg-black-60": !favs.length}))}>
+        <span className={twMerge("mb-4 rounded-full bg-spirited-dark p-5", clsx({"bg-black-40": !favs.length}))}>
           <ClipboardDocumentIcon width={30} className="text-white" />
         </span>
         Copy

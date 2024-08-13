@@ -115,7 +115,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
       >
         <div
           className={twMerge(
-            "centered xl:max-w-7xl",
+            "xl:max-w-10xl centered",
             clsx({
               "xl:mr-0 xl:pl-32 xl:pr-[200px]": leftText,
               "xl:ml-0 xl:pl-[200px] xl:pr-32": !leftText,

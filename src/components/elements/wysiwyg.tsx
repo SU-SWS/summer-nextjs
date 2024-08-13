@@ -84,7 +84,7 @@ const options: HTMLReactParserOptions = {
           nodeProps.className = twMerge(
             nodeProps.className,
             "max-w-[100ch]",
-            clsx({"type-0": !nodeProps.className.includes("type-")})
+            clsx({"type-0": !nodeProps?.className?.includes("type-")})
           )
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 

@@ -74,7 +74,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
                 <ActionLink
                   href={paragraph.sumPillBannerLink.url}
                   className={twMerge(
-                    "text-archway-dark no-underline hocus:text-archway-dark hocus:underline",
+                    "text-digital-blue no-underline hocus:text-digital-blue hocus:underline",
                     clsx({
                       "text-black-true hocus:text-black-true":
                         behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",

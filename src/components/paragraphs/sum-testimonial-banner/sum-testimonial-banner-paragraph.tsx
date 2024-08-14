@@ -40,12 +40,12 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
   return (
     <article
       {...props}
-      className={twMerge("relative left-1/2 grid w-screen -translate-x-1/2 @container xl:grid-cols-2", props.className)}
+      className={twMerge("relative left-1/2 grid w-screen -translate-x-1/2 @container xl:grid-cols-3", props.className)}
       aria-labelledby={paragraph.id}
     >
       <div
         className={twMerge(
-          "relative h-[257px] w-full border-white lg:h-full",
+          "relative h-[257px] w-full border-white lg:h-full xl:col-span-1",
           clsx({
             "order-last border-t-2 xl:border-l-2 xl:border-t-0": leftText,
             "border-b-2 xl:border-b-0 xl:border-r-2": !leftText,
@@ -96,7 +96,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
 
       <div
         className={twMerge(
-          "border-white bg-poppy-light",
+          "border-white bg-poppy-light xl:col-span-2",
           clsx({
             "border-b-2 xl:border-b-0 xl:border-r-2": leftText,
             "border-t-2 xl:border-l-2 xl:border-t-0": !leftText,
@@ -115,7 +115,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
       >
         <div
           className={twMerge(
-            "centered xl:max-w-7xl",
+            "xl:max-w-10xl centered",
             clsx({
               "xl:mr-0 xl:pl-32 xl:pr-[200px]": leftText,
               "xl:ml-0 xl:pl-[200px] xl:pr-32": !leftText,

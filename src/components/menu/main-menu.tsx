@@ -202,7 +202,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
     "list-unstyled w-full min-w-[350px] lg:bg-fog-light lg:border lg:border-white lg:shadow-2xl lg:absolute lg:rounded-[25px] lg:px-12 lg:py-4 lg:mt-3",
     zIndexes[level],
     {
-      "lg:top-full lg:right-0": level === 0,
+      "lg:top-full lg:left-0": level === 0,
       "lg:top-0": level !== 0,
       "lg:left-full": level !== 0 && positionRight,
       "lg:right-full": level !== 0 && !positionRight,

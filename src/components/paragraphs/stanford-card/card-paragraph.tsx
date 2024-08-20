@@ -23,8 +23,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
 
   const headerTagChoice = (behaviors.su_card_styles?.heading || "h2").split(".", 2)
   const headerTag = headerTagChoice[0]
-  const headerClasses =
-    headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "type-3 font-normal mb-12") || "font-normal mb-12"
+  const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "type-3 mb-12") || "mb-12"
   const cardVariant = behaviors.su_card_styles?.sum_card_variant
   const hasBgColor = behaviors.su_card_styles?.sum_card_bg_color_variant
   const cardBgColor = cardVariant === "pill" ? behaviors.su_card_styles?.sum_card_pill_bg_color_variant : undefined

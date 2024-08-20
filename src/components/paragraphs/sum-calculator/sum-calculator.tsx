@@ -242,7 +242,7 @@ const SumCalculatorParagraph = ({
             downIcon={
               <ChevronDownIcon
                 width={50}
-                className={clsx("rounded-full bg-digital-red text-white", {
+                className={clsx("rounded-full text-white", {
                   "bg-black-40": units < 3,
                   "bg-digital-red": units >= 3,
                 })}

@@ -50,17 +50,11 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
         >
           {paragraph.suBannerHeader && (
             <div id={paragraph.id} className={behaviors.hero_pattern?.hide_heading ? "sr-only" : undefined}>
-              {headerTag === "h2" && (
-                <H2 className={twMerge(headerClasses, "rs-mb-3 font-normal")}>{paragraph.suBannerHeader}</H2>
-              )}
-              {headerTag === "h3" && (
-                <H3 className={twMerge(headerClasses, "rs-mb-3 font-normal")}>{paragraph.suBannerHeader}</H3>
-              )}
-              {headerTag === "h4" && (
-                <H4 className={twMerge(headerClasses, "rs-mb-3 font-normal")}>{paragraph.suBannerHeader}</H4>
-              )}
+              {headerTag === "h2" && <H2 className={twMerge(headerClasses, "rs-mb-3")}>{paragraph.suBannerHeader}</H2>}
+              {headerTag === "h3" && <H3 className={twMerge(headerClasses, "rs-mb-3")}>{paragraph.suBannerHeader}</H3>}
+              {headerTag === "h4" && <H4 className={twMerge(headerClasses, "rs-mb-3")}>{paragraph.suBannerHeader}</H4>}
               {headerTag === "div" && (
-                <div className={twMerge(headerClasses, "rs-mb-3 font-normal")}>{paragraph.suBannerHeader}</div>
+                <div className={twMerge(headerClasses, "rs-mb-3")}>{paragraph.suBannerHeader}</div>
               )}
             </div>
           )}

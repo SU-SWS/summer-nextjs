@@ -74,7 +74,7 @@ const FavoritesList = ({isDisplayOnly = false}) => {
 
   return (
     <div className="rs-pt-1 rs-pb-2 rs-px-2 border shadow">
-      <H2 className="rs-mb-1 type-2 text-center font-normal">Favorites List</H2>
+      <H2 className="rs-mb-1 type-2 text-center">Favorites List</H2>
       {favs.length > 0 ? (
         <>
           <ul className="list-none pl-0">

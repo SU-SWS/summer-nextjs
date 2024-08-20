@@ -147,7 +147,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
         <RelatedCourses objectId={node.id} />
       </div>
       <div className="centered flex flex-col items-end">
-        <div className="w-full md:w-1/2">
+        <div className="rs-mt-8 w-full md:w-1/2">
           <ApplyNowLink href="/apply-now">
             Ready to dive in? Kick off your application today – let&apos;s make things happen!
           </ApplyNowLink>

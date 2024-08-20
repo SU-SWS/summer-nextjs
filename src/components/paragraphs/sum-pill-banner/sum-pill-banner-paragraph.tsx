@@ -111,7 +111,7 @@ const PillBannerCard = ({card, headingLevel}: {card: ParagraphStanfordCard; head
     sum_card_bg_color_variant: false,
   }
   card.behaviors = JSON.stringify(cardBehaviors)
-  return <CardParagraph paragraph={card} />
+  return <CardParagraph paragraph={card} className="w-full sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px]" />
 }
 
 export default SumPillBannerParagraph

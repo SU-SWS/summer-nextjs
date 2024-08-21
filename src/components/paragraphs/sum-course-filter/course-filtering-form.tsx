@@ -11,7 +11,7 @@ import {
 } from "react-instantsearch"
 import {InstantSearchNext} from "react-instantsearch-nextjs"
 import {H2, H3} from "@components/elements/headers"
-import {RefObject, useEffect, useId, useMemo, useRef} from "react"
+import {useEffect, useId, useMemo, useRef} from "react"
 import Button from "@components/elements/button"
 import {useRouter, useSearchParams} from "next/navigation"
 import {ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/20/solid"

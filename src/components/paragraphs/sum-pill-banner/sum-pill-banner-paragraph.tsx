@@ -20,7 +20,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
   return (
     <Element
       {...props}
-      className={twMerge("relative left-1/2 w-screen -translate-x-1/2", props.className)}
+      className={twMerge("relative left-1/2 !mt-0 w-screen -translate-x-1/2", props.className)}
       aria-labelledby={paragraph.sumPillBannerHeadline ? paragraph.id : undefined}
     >
       {paragraph.sumPillBannerBkgd && (

@@ -103,10 +103,8 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
           clsx({
             "border-b-2 xl:border-b-0 xl:border-r-2": leftText,
             "border-t-2 xl:border-l-2 xl:border-t-0": !leftText,
-            "pb-[200px] pt-32 xl:py-32": leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
-            "pb-32 pt-[200px] xl:py-32": !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
-            "pb-[300px] pt-32 xl:py-32": leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
-            "pb-32 pt-[300px] xl:py-32": !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
+            "rs-pb-9 rs-pt-10": paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
+            "rs-pt-10 rs-pb-10": paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
             "bg-olive": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "olive",
             "bg-spirited text-black-true":
               behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited",
@@ -120,8 +118,8 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
           className={twMerge(
             "xl:max-w-10xl centered",
             clsx({
-              "xl:mr-0 xl:pl-32 xl:pr-[200px]": leftText,
-              "xl:ml-0 xl:pl-[200px] xl:pr-32": !leftText,
+              "xl:rs-pl-10 xl:mr-0 xl:pr-[200px]": leftText,
+              "xl:rs-pr-10 xl:ml-0 xl:pl-[200px]": !leftText,
             })
           )}
         >
@@ -137,12 +135,12 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
 
           <Wysiwyg className="rs-mb-3" html={paragraph.sumTestimonialDescrip.processed} />
 
-          {paragraph.sumTestimonialName && <div>{paragraph.sumTestimonialName}</div>}
+          {paragraph.sumTestimonialName && <div className="font-19">{paragraph.sumTestimonialName}</div>}
 
           {(paragraph.sumTestimonialUniv || studentType) && (
-            <div>{`${paragraph.sumTestimonialUniv || ""} ${studentType || ""}`.trim()}</div>
+            <div className="font-19">{`${paragraph.sumTestimonialUniv || ""} ${studentType || ""}`.trim()}</div>
           )}
-          {paragraph.sumTestimonialAffi && <div>{paragraph.sumTestimonialAffi}</div>}
+          {paragraph.sumTestimonialAffi && <div className="font-19">{paragraph.sumTestimonialAffi}</div>}
 
           {paragraph.sumTestimonialButton?.url && (
             <ActionLink

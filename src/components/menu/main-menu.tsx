@@ -54,7 +54,7 @@ const MainMenu = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props) => {
         className="group rs-py-2 absolute right-10 top-5 flex flex-col items-center lg:hidden"
         onClick={toggleMenu}
         aria-expanded={menuOpen}
-        aria-labelledby={navId}
+        aria-label={menuOpen ? "Close Main Navigation Menu" : "Open Main Navigation Menu"}
       >
         <span className="flex h-[30px] w-[30px] flex-col items-center justify-center">
           <span

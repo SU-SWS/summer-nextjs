@@ -1,4 +1,9 @@
-import {Link, Maybe, ParagraphSumCarousel} from "@lib/gql/__generated__/drupal.d"
+import {
+  Link,
+  Maybe,
+  ParagraphSumCarousel,
+  ParagraphSumCarouselSumCarouselSlidesUnion,
+} from "@lib/gql/__generated__/drupal.d"
 import {HTMLAttributes} from "react"
 import Wysiwyg from "@components/elements/wysiwyg"
 import {H2} from "@components/elements/headers"
@@ -47,20 +52,56 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
       {paragraph.sumCarouselSlides && (
         <div className="relative left-1/2 w-screen -translate-x-1/2">
           <Slideshow className="mx-auto w-[calc(100%-50px)] xl:w-[calc(100%-150px)]">
-            {paragraph.sumCarouselSlides.map(slide => {
-              if (slide.__typename === "ParagraphStanfordCard") {
-                const slideBehaviors = getParagraphBehaviors(slide)
-                slideBehaviors.su_card_styles = {
-                  ...slideBehaviors.su_card_styles,
-                  heading: paragraph.sumCarouselHeader ? "h3" : "h2",
-                }
-                slide.behaviors = JSON.stringify(slideBehaviors)
-              }
-              return <Paragraph key={slide.id} paragraph={slide} />
+            {paragraph.sumCarouselSlides.map((slide, slideIndex) => {
+              return (
+                <CarouselSlide
+                  key={slide.id}
+                  slide={slide}
+                  slideNumber={slideIndex + 1}
+                  totalSlides={paragraph.sumCarouselSlides?.length || 0}
+                  slideHeader={paragraph.sumCarouselHeader ? "h3" : "h2"}
+                />
+              )
             })}
           </Slideshow>
         </div>
       )}
+    </div>
+  )
+}
+
+const CarouselSlide = ({
+  slide,
+  slideNumber,
+  totalSlides,
+  slideHeader,
+}: {
+  slide: ParagraphSumCarouselSumCarouselSlidesUnion
+  slideNumber: number
+  totalSlides: number
+  slideHeader?: "h2" | "h3"
+}) => {
+  let labelId = undefined
+  if (slide.__typename === "ParagraphStanfordCard") {
+    const slideBehaviors = getParagraphBehaviors(slide)
+    slideBehaviors.su_card_styles = {
+      ...slideBehaviors.su_card_styles,
+      heading: slideHeader || "h2",
+    }
+    slide.behaviors = JSON.stringify(slideBehaviors)
+
+    if (slide.suCardHeader) labelId = slide.id
+  }
+
+  if (slide.__typename === "ParagraphSumSlideTeaser") labelId = slide.sumSlideTeaserEntity.id
+
+  return (
+    <div
+      aria-roledescription="slide"
+      aria-labelledby={labelId}
+      aria-label={labelId ? undefined : `${slideNumber} of ${totalSlides}`}
+    >
+      <Paragraph paragraph={slide} />
     </div>
   )
 }

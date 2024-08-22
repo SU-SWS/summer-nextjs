@@ -22,15 +22,18 @@ const BackToTop = () => {
         "fixed bottom-10 right-10 transition-all duration-300 " +
         (value ? "visible opacity-100" : "invisible opacity-0")
       }
-      onClick={() =>
+      onClick={() => {
+        const mainContent = document.getElementById("main-content")
+        mainContent?.setAttribute("tabindex", "-1")
+        mainContent?.focus()
         scrollTo({
           left: 0,
           top: 0,
           behavior: !!window.matchMedia("(prefers-reduced-motion: reduce)")?.matches ? "instant" : "smooth",
         })
-      }
+      }}
     >
-      <span className="block flex items-center gap-2">
+      <span className="flex items-center gap-2">
         <ChevronUpIcon width={30} />
         Return to Top
       </span>

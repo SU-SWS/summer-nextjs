@@ -4,6 +4,7 @@ import Oembed from "@components/elements/ombed"
 import {ElementType, HTMLAttributes} from "react"
 import {Maybe} from "@lib/gql/__generated__/drupal"
 import clsx from "clsx"
+import YoutubeVideoPill from "@components/elements/youtube-video-pill"
 
 type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
   /**
@@ -30,6 +31,8 @@ type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
 
 const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, ...props}: Props) => {
   const CardWrapper: ElementType = isArticle ? "article" : "div"
+
+  if (videoUrl && videoUrl.includes("youtube")) return <YoutubeVideoPill videoUrl={videoUrl} />
 
   return (
     <CardWrapper

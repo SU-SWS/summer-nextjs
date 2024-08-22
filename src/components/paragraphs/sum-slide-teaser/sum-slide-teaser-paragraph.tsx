@@ -9,7 +9,7 @@ type Props = HTMLAttributes<HTMLElement> & {
 const SumSlideTeaserParagraph = ({paragraph, ...props}: Props) => {
   return (
     <div {...props}>
-      <NodeCard node={paragraph.sumSlideTeaserEntity} />
+      <NodeCard node={paragraph.sumSlideTeaserEntity} headingLevel="h3" />
     </div>
   )
 }

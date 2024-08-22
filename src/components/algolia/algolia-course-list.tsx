@@ -1,6 +1,6 @@
 "use client"
 
-import algoliasearch from "algoliasearch/lite"
+import {liteClient} from "algoliasearch/lite"
 import {useHits, usePagination, Configure} from "react-instantsearch"
 import {InstantSearchNext} from "react-instantsearch-nextjs"
 import {useMemo} from "react"
@@ -17,7 +17,7 @@ type Props = {
 }
 
 const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
-  const searchClient = useMemo(() => algoliasearch(appId, searchApiKey), [appId, searchApiKey])
+  const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
   const {favs} = useFavorites()
   const searchParams = useSearchParams()
 

@@ -170,9 +170,6 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
 
   useEventListener("keydown", handleEscape, menuItemRef)
 
-  // List out the specific classes so tailwind will include them. Dynamic classes values don"t get compiled.
-  const zIndexes = []
-
   // The last item in the current trail would be the current item id if the user is on that page.
   const isCurrent = activeTrail.at(-1) === id
   const inTrail = activeTrail.includes(id) && !isCurrent

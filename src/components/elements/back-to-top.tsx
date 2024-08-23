@@ -4,6 +4,8 @@ import Button from "@components/elements/button"
 import {ChevronUpIcon} from "@heroicons/react/20/solid"
 import {useBoolean, useDebounceCallback, useEventListener} from "usehooks-ts"
 import {useCallback} from "react"
+import {twMerge} from "tailwind-merge"
+import {clsx} from "clsx"
 
 const BackToTop = () => {
   const {value, setFalse, setTrue} = useBoolean(false)
@@ -18,14 +20,14 @@ const BackToTop = () => {
   return (
     <Button
       buttonElem
-      className={
-        "fixed bottom-10 right-10 transition-all duration-300 " +
-        (value ? "visible opacity-100" : "invisible opacity-0")
-      }
+      className={twMerge(
+        "invisible fixed bottom-10 right-10 opacity-0 transition-all duration-300",
+        clsx({"visible opacity-100": value})
+      )}
       onClick={() => {
         const mainContent = document.getElementById("main-content")
         mainContent?.setAttribute("tabindex", "-1")
-        mainContent?.focus()
+        mainContent?.focus({preventScroll: true})
         scrollTo({
           left: 0,
           top: 0,

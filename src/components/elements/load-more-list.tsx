@@ -2,7 +2,6 @@
 
 import {useLayoutEffect, useRef, HtmlHTMLAttributes, JSX, useId} from "react"
 import Button from "@components/elements/button"
-import {useAutoAnimate} from "@formkit/auto-animate/react"
 import {useBoolean, useCounter} from "usehooks-ts"
 import useFocusOnRender from "@lib/hooks/useFocusOnRender"
 
@@ -31,7 +30,6 @@ const LoadMoreList = ({buttonText, children, ulProps, liProps, itemsPerPage = 10
   const {value: focusOnElement, setTrue: enableFocusElement, setFalse: disableFocusElement} = useBoolean(false)
 
   const focusItemRef = useRef<HTMLLIElement>(null)
-  const [animationParent] = useAutoAnimate<HTMLUListElement>()
 
   const showMoreItems = () => {
     enableFocusElement()
@@ -49,7 +47,7 @@ const LoadMoreList = ({buttonText, children, ulProps, liProps, itemsPerPage = 10
   const itemsToShow = items.slice(0, shownItems)
   return (
     <div {...props}>
-      <ul {...ulProps} ref={animationParent}>
+      <ul {...ulProps}>
         {itemsToShow.map((item, i) => (
           <li
             key={`${id}--${i}`}

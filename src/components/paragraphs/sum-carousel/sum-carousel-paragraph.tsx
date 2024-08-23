@@ -53,15 +53,6 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
         <div className="relative left-1/2 mt-0 w-screen -translate-x-1/2">
           <Slideshow className="mx-auto w-[calc(100%-50px)] xl:w-[calc(100%-150px)]">
             {paragraph.sumCarouselSlides.map((slide, slideIndex) => {
-              if (slide.__typename === "ParagraphStanfordCard") {
-                const cardBehaviors = getParagraphBehaviors(slide)
-                cardBehaviors.su_card_styles = {
-                  ...(cardBehaviors.su_card_styles || {}),
-                  heading: "h3",
-                  sum_card_bg_color_variant: false,
-                }
-                slide.behaviors = JSON.stringify(cardBehaviors)
-              }
               return (
                 <CarouselSlide
                   key={slide.id}

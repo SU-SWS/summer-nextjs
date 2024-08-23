@@ -41,17 +41,17 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
     <article
       {...props}
       className={twMerge(
-        "relative left-1/2 !mt-0 grid w-screen -translate-x-1/2 @container xl:grid-cols-3",
+        "relative left-1/2 !mt-0 grid w-screen -translate-x-1/2 @container lg:grid-cols-3",
         props.className
       )}
       aria-labelledby={paragraph.id}
     >
       <div
         className={twMerge(
-          "relative h-[257px] w-full border-white lg:h-full xl:col-span-1",
+          "relative h-[257px] w-full border-white lg:col-span-1 lg:h-full",
           clsx({
-            "order-last border-t-2 xl:border-l-2 xl:border-t-0": leftText,
-            "border-b-2 xl:border-b-0 xl:border-r-2": !leftText,
+            "order-last border-t-2 lg:border-l-2 lg:border-t-0": leftText,
+            "border-b-2 lg:border-b-0 lg:border-r-2": !leftText,
           })
         )}
       >
@@ -66,10 +66,10 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
         {paragraph.sumTestimonialHsVideo.__typename === "MediaImage" && (
           <div
             className={twMerge(
-              "absolute flex h-fit w-full justify-center xl:h-full xl:w-fit xl:items-center",
+              "absolute flex h-fit w-full justify-center lg:h-full lg:w-fit lg:items-center",
               clsx({
-                "-top-0 right-0 xl:-left-[200px] xl:top-0": leftText,
-                "-bottom-0 right-0 xl:-right-[200px] xl:bottom-0": !leftText,
+                "left-0 top-0 top-[-100px]": leftText,
+                "bottom-[100px] right-0 lg:bottom-0": !leftText,
               })
             )}
           >
@@ -88,10 +88,10 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
         {paragraph.sumTestimonialHsVideo.__typename === "MediaVideo" && (
           <div
             className={twMerge(
-              "absolute flex h-fit w-full justify-center xl:h-full xl:w-fit xl:items-center",
+              "absolute flex h-fit w-full justify-center lg:h-full lg:w-fit lg:items-center",
               clsx({
-                "-top-[269px] right-0 xl:-left-[200px] xl:top-0": leftText,
-                "-bottom-[269px] right-0 xl:-right-[200px] xl:bottom-0": !leftText,
+                "bottom-[30px] right-0 sm:bottom-[50px] lg:-left-[200px] lg:bottom-0 lg:top-0": leftText,
+                "right-0 top-[30px] sm:top-[50px] lg:-right-[200px] lg:bottom-0 lg:top-0": !leftText,
               })
             )}
           >
@@ -105,12 +105,18 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
 
       <div
         className={twMerge(
-          "border-white bg-poppy-light xl:col-span-2",
+          "border-white bg-poppy-light lg:col-span-2",
           clsx({
-            "border-b-2 xl:border-b-0 xl:border-r-2": leftText,
-            "border-t-2 xl:border-l-2 xl:border-t-0": !leftText,
-            "rs-pb-9 rs-pt-10": paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
-            "rs-pt-10 rs-pb-10": paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
+            "border-b-2 lg:border-b-0 lg:border-r-2": leftText,
+            "border-t-2 lg:border-l-2 lg:border-t-0": !leftText,
+            "rs-pt-10 pb-[150px] lg:rs-pb-9 md:pb-[200px]":
+              leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
+            "rs-pb-9 pt-[150px] lg:rs-pt-10 md:pt-[200px]":
+              !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
+            "rs-pt-9 pb-[250px] lg:rs-pb-10 sm:pb-[650px] md:pb-[520px] lg:pb-[250px]":
+              leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
+            "rs-pb-10 pt-[250px] lg:rs-pt-10 sm:pt-[650px] md:pt-[520px] lg:pt-[250px]":
+              !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
             "bg-olive": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "olive",
             "bg-spirited text-black-true":
               behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited",
@@ -122,10 +128,10 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
       >
         <div
           className={twMerge(
-            "xl:max-w-10xl centered",
+            "centered sm:max-w-[440px] lg:max-w-full",
             clsx({
-              "xl:rs-pl-10 xl:mr-0 xl:pr-[250px]": leftText,
-              "xl:rs-pr-10 xl:ml-0 xl:pl-[250px]": !leftText,
+              "2xl:rs-pl-10 lg:mr-0 lg:pl-32 lg:pr-[200px] xl:pl-40 xl:pr-[250px]": leftText,
+              "2xl:rs-pr-10 lg:ml-0 lg:pl-[200px] lg:pr-32 xl:pl-[250px] xl:pr-40": !leftText,
             })
           )}
         >

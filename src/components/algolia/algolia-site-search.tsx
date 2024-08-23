@@ -10,6 +10,7 @@ import {Hit as HitType} from "instantsearch.js"
 import {IndexUiState} from "instantsearch.js/es/types/ui-state"
 import {MagnifyingGlassIcon} from "@heroicons/react/20/solid"
 import DefaultResult, {AlgoliaHit} from "@components/algolia/results/default"
+import {H2} from "@components/elements/headers"
 
 type Props = {
   appId: string
@@ -65,8 +66,8 @@ const SearchForm = () => {
             autoComplete="on"
             autoCapitalize="off"
             spellCheck={false}
-            maxLength={512}
-            type="search"
+            maxLength={60}
+            type="textfield"
             placeholder="Search"
             defaultValue={query}
           />
@@ -89,7 +90,6 @@ const SearchForm = () => {
           </Button>
         </div>
       </form>
-      <h2 className="sr-only">Search Results</h2>
       <HitList />
     </div>
   )
@@ -105,9 +105,9 @@ const HitList = () => {
 
   return (
     <div>
-      <div aria-live="polite">
+      <H2 className="rs-ml-1 big-paragraph font-normal" aria-live="polite" aria-atomic>
         {nbHits} {nbHits > 1 ? "Results" : "Result"}
-      </div>
+      </H2>
 
       <ul className="list-unstyled">
         {hits.map(hit => (

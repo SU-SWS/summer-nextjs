@@ -37,7 +37,7 @@ const StanfordPagePage = ({node, ...props}: Props) => {
   return (
     <article {...props}>
       {node.suPageBanner && (
-        <header aria-label="Page banner">
+        <header>
           {node.suPageBanner.__typename === "ParagraphStanfordPageTitleBanner" && (
             <PageTitleBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title} />
           )}

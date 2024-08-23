@@ -69,7 +69,9 @@ const RelatedCourses = async ({objectId}: {objectId: string}) => {
 
       <ul className="list-unstyled grid grid-cols-1 gap-10 md:grid-cols-2">
         {recommendations.map(rec => (
-          <RelatedCourseItem key={rec.objectID} item={rec} />
+          <li key={rec.objectID}>
+            <RelatedCourseItem item={rec} />
+          </li>
         ))}
       </ul>
     </section>

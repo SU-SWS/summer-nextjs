@@ -7,7 +7,7 @@ export const revalidate = false
 export const dynamic = "force-static"
 
 const Sitemap = async (): Promise<MetadataRoute.Sitemap> => {
-  const nodeQuery = await graphqlClient({next: {tags: ["paths"]}}).AllNodes()
+  const nodeQuery = await graphqlClient({next: {revalidate: 60 * 60 * 7}}).AllNodes()
   const nodes: NodeUnion[] = []
 
   // nodeQuery.nodeStanfordCourses.nodes.map(node => nodes.push(node as NodeUnion))

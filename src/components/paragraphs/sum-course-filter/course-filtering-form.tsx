@@ -95,7 +95,7 @@ const SearchForm = () => {
   }, [query, inputRef])
 
   return (
-    <div className="grid grid-cols-12 gap-12">
+    <div className="grid grid-cols-12 sm:gap-12">
       <div className="col-span-12 flex flex-col lg:col-span-4 xl:col-span-3">
         <form className="flex flex-col" role="search" aria-label="Search Courses" onSubmit={e => e.preventDefault()}>
           <H2 className="sr-only">Search and filter course results</H2>

@@ -41,6 +41,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
       isArticle={!!paragraph.suCardHeader && headerTag !== "div"}
       bgColor={cardBgColor}
       hasBgColor={cardVariant !== "pill" ? hasBgColor : undefined}
+      className={twMerge("sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]", props.className)}
     >
       {paragraph.suCardHeader && (
         <div id={paragraph.id} className={twMerge("order-2", hideHeader && "sr-only")}>

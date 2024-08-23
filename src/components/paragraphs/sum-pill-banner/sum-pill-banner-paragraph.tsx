@@ -91,7 +91,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
         </div>
 
         {paragraph.sumPillBannerCards && (
-          <div className="rs-mb-8 gutters -mt-96 flex w-full flex-col gap-20 lg:flex-row">
+          <div className="rs-mb-8 centered -mt-96 flex w-full flex-col gap-20 lg:flex-row">
             {paragraph.sumPillBannerCards.map(card => (
               <PillBannerCard key={card.id} card={card} headingLevel={Element === "div" ? "h2" : "h3"} />
             ))}
@@ -111,7 +111,7 @@ const PillBannerCard = ({card, headingLevel}: {card: ParagraphStanfordCard; head
     sum_card_bg_color_variant: false,
   }
   card.behaviors = JSON.stringify(cardBehaviors)
-  return <CardParagraph paragraph={card} className="w-full sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px]" />
+  return <CardParagraph paragraph={card} />
 }
 
 export default SumPillBannerParagraph

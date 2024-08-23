@@ -86,8 +86,10 @@ const FavoritesList = ({isDisplayOnly = false}) => {
                     <span className="sr-only">Remove &quot;{fav.title}&quot; from favorites</span>
                   </button>
                 )}
-                <p className="font-roboto text-21">{fav.title}</p>
-                <p className="ml-auto shrink-0 text-21">Units {fav.units}</p>
+                <div className="flex w-full flex-col items-start *:mb-0 sm:flex-row sm:gap-5 sm:*:mb-[1em]">
+                  <p className="font-roboto text-21">{fav.title}</p>
+                  <p className="ml-auto shrink-0 text-21">Units {fav.units}</p>
+                </div>
               </li>
             ))}
           </ul>

@@ -3,8 +3,8 @@ import {CourseHit} from "@components/algolia/results/summer-course/summer-course
 import ImageCard from "@components/patterns/image-card"
 import {H2, H3} from "@components/elements/headers"
 import ActionLink from "@components/elements/action-link"
-import type {RecommendResults} from "algoliasearch-helper"
 import {getAlgoliaCredential} from "@lib/gql/gql-queries"
+import {RecommendHit} from "algoliasearch/lite"
 
 const getRelatedContent = nextCache(
   async (objectID: string): Promise<CourseHit[]> => {
@@ -36,12 +36,12 @@ const getRelatedContent = nextCache(
       }),
     }
 
-    const recommendations: {results: RecommendResults<CourseHit>["_rawResults"]} = await fetch(
+    const recommendations: {results: RecommendHit[]} = await fetch(
       `https://${appId}-dsn.algolia.net/1/indexes/*/recommendations`,
       options
     ).then(res => res.json())
 
-    const hits = recommendations?.results?.[0].hits || []
+    const hits = (recommendations?.results?.[0].hits as CourseHit[]) || []
     hits.map(hit => {
       delete hit._highlightResult
       delete hit._snippetResult

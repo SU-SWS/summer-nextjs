@@ -1,6 +1,6 @@
 "use client"
 
-import algoliasearch from "algoliasearch/lite"
+import {liteClient} from "algoliasearch/lite"
 import {
   useSearchBox,
   useRefinementList,
@@ -38,7 +38,7 @@ const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
   const searchParams = useSearchParams()
   const firstRender = useRef(true)
 
-  const searchClient = useMemo(() => algoliasearch(appId, searchApiKey), [appId, searchApiKey])
+  const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
   const initialUiState: IndexUiState = {
     refinementList: {},
   }

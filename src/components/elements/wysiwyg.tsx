@@ -26,7 +26,13 @@ const Wysiwyg = ({html, className, ...props}: Props) => {
 
   const addMathJax = html.match(/\$\$.*\$\$/) || html.match(/\\\[.*\\\]/) || html.match(/\\\(.*\\\)/)
   return (
-    <div className={twMerge("wysiwyg", className)} {...props}>
+    <div
+      className={twMerge(
+        "wysiwyg w-full md:max-w-[440px] lg:max-w-[536px] xl:max-w-[653px] 2xl:max-w-[725px]",
+        className
+      )}
+      {...props}
+    >
       {addMathJax && <Mathjax />}
       {formatHtml(html)}
     </div>
@@ -65,7 +71,7 @@ const options: HTMLReactParserOptions = {
           if (nodeProps.className && nodeProps.className.includes("left-bar")) {
             nodeProps.className = twMerge(
               nodeProps.className,
-              "max-w-[725px] mx-auto rs-pb-5 rs-pt-7 rs-px-1 border-l-3 border-archway-dark border-opacity-50"
+              "rs-pb-5 rs-pt-7 rs-px-1 border-l-3 border-archway-dark border-opacity-50"
             )
             return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
           }
@@ -81,11 +87,7 @@ const options: HTMLReactParserOptions = {
           return cleanMediaMarkup(domNode)
 
         case "p":
-          nodeProps.className = twMerge(
-            nodeProps.className,
-            "max-w-[100ch]",
-            clsx({"type-0": !nodeProps?.className?.includes("type-")})
-          )
+          nodeProps.className = twMerge(nodeProps.className, clsx({"type-0": !nodeProps?.className?.includes("type-")}))
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
         case "script":

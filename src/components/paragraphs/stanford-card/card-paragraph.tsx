@@ -23,8 +23,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
 
   const headerTagChoice = (behaviors.su_card_styles?.heading || "h2").split(".", 2)
   const headerTag = headerTagChoice[0]
-  const headerClasses =
-    headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "type-3 font-normal mb-12") || "font-normal mb-12"
+  const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "type-3 mb-12") || "mb-12"
   const cardVariant = behaviors.su_card_styles?.sum_card_variant
   const hasBgColor = behaviors.su_card_styles?.sum_card_bg_color_variant
   const cardBgColor = cardVariant === "pill" ? behaviors.su_card_styles?.sum_card_pill_bg_color_variant : undefined
@@ -42,6 +41,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
       isArticle={!!paragraph.suCardHeader && headerTag !== "div"}
       bgColor={cardBgColor}
       hasBgColor={cardVariant !== "pill" ? hasBgColor : undefined}
+      className={twMerge("sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]", props.className)}
     >
       {paragraph.suCardHeader && (
         <div id={paragraph.id} className={twMerge("order-2", hideHeader && "sr-only")}>

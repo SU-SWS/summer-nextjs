@@ -38,7 +38,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
         <div className={twMerge("flex flex-col lg:min-h-[400px]", clsx({"lg:pb-96": !!paragraph.sumTopBannerCards}))}>
           {pageTitle && (
             <div className="order-2">
-              <H1 className="rs-mb-3 type-5 font-normal lg:type-4">{pageTitle}</H1>
+              <H1 className="rs-mb-3 type-5 font-normal">{pageTitle}</H1>
             </div>
           )}
 

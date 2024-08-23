@@ -88,10 +88,15 @@ const SearchForm = () => {
 
   const inputRef = useRef<HTMLInputElement>(null)
   const {query, refine} = useSearchBox({})
+  useEffect(() => {
+    if (inputRef.current && !query) {
+      inputRef.current.value = ""
+    }
+  }, [query, inputRef])
 
   return (
     <div className="grid grid-cols-12 gap-12">
-      <div className="col-span-12 flex flex-col md:col-span-4 xl:col-span-3">
+      <div className="col-span-12 flex flex-col lg:col-span-4 xl:col-span-3">
         <form className="flex flex-col" role="search" aria-label="Search Courses" onSubmit={e => e.preventDefault()}>
           <H2 className="sr-only">Search and filter course results</H2>
           <div className="mb-10">
@@ -101,7 +106,7 @@ const SearchForm = () => {
             <div className="relative mt-4">
               <input
                 id={`${id}-search-input`}
-                className="type-2 w-full flex-grow border-3 border-fog-light px-8 py-5"
+                className="type-0 w-full flex-grow border-3 border-fog-light px-8 py-5"
                 ref={inputRef}
                 autoComplete="on"
                 autoCapitalize="off"
@@ -143,10 +148,10 @@ const SearchForm = () => {
           <FavoritesList />
         </div>
       </div>
-      <div className="col-span-12 md:col-span-8 xl:col-span-9">
+      <div className="col-span-12 lg:col-span-8 xl:col-span-9">
         <HitList />
       </div>
-      <div className="rs-mt-8 col-span-12 md:col-span-6 md:col-start-7">
+      <div className="rs-mt-8 col-span-12 lg:col-span-8 lg:col-start-5 xl:col-span-6 xl:col-start-6">
         <ApplyNowLink href="/apply-now">
           Ready to dive in? Kick off your application today – let&apos;s make things happen!
         </ApplyNowLink>

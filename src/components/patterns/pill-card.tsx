@@ -38,7 +38,7 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, .
     <CardWrapper
       {...props}
       className={twMerge(
-        "centered w-full max-w-[980px] rounded-full border-4 border-white bg-poppy-light outline outline-4 outline-poppy-light @container",
+        "centered w-full rounded-full border-4 border-white bg-poppy-light outline outline-4 outline-poppy-light @container",
         props.className,
         clsx({
           "bg-poppy-light bg-opacity-80 outline-poppy-light/[80%]": bgColor === "semitransparent_poppy",

@@ -20,7 +20,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
   return (
     <Element
       {...props}
-      className={twMerge("relative left-1/2 w-screen -translate-x-1/2", props.className)}
+      className={twMerge("relative left-1/2 !mt-0 w-screen -translate-x-1/2", props.className)}
       aria-labelledby={paragraph.sumPillBannerHeadline ? paragraph.id : undefined}
     >
       {paragraph.sumPillBannerBkgd && (
@@ -91,7 +91,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
         </div>
 
         {paragraph.sumPillBannerCards && (
-          <div className="rs-mb-8 gutters -mt-96 flex w-full flex-col gap-20 lg:flex-row">
+          <div className="rs-mb-8 centered -mt-96 flex w-full flex-col gap-20 lg:flex-row">
             {paragraph.sumPillBannerCards.map(card => (
               <PillBannerCard key={card.id} card={card} headingLevel={Element === "div" ? "h2" : "h3"} />
             ))}

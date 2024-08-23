@@ -84,7 +84,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
 
   return (
     <div className="rs-py-3 rs-mb-4 rs-px-4 flex flex-col rounded-[25px] bg-fog-light">
-      <div className="flex flex-col gap-5 md:flex-row md:gap-[48px]">
+      <div className="flex flex-col gap-5 xl:flex-row xl:gap-[48px]">
         <div className="flex flex-grow flex-col">
           <H3 id={hit.objectID}>
             <a href={hit.url.replace(hitDomain, "")} className="font-normal">
@@ -100,7 +100,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
           </div>
         )}
 
-        <div className="w-1/4 shrink-0 *:mb-4">
+        <div className="w-full shrink-0 *:mb-4 xl:w-1/4">
           {!!hit.sum_course_units && (
             <div>
               <span className="font-semibold">Units: </span>
@@ -146,7 +146,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
       </H4>
 
       <div {...panelProps}>
-        <div className="rs-mt-2 flex flex-col gap-10 md:flex-row md:gap-[90px]">
+        <div className="rs-mt-2 flex flex-col gap-10 xl:flex-row xl:gap-[90px]">
           <div className="flex-grow">
             <div>
               <div className="type-2 mb-5 font-semibold">Summary:</div>
@@ -161,7 +161,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
             )}
           </div>
 
-          <div className="w-1/4 shrink-0 *:mb-4">
+          <div className="w-full shrink-0 *:mb-4 xl:w-1/4">
             <div className="type-2 font-semibold">Details:</div>
             {hit.sum_course_interest && (
               <div>

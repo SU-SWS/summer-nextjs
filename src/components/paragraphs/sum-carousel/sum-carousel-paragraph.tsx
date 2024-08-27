@@ -130,7 +130,7 @@ const CarouselTop = ({header, superHeader, headingSize, description, link, class
       />
 
       {link?.url && (
-        <ActionLink className="rs-mt-3" href={link.url}>
+        <ActionLink className="rs-mt-3 no-underline hocus:underline" href={link.url}>
           {link.title}
         </ActionLink>
       )}

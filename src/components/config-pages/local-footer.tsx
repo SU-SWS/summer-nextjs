@@ -19,17 +19,22 @@ import {H2} from "@components/elements/headers"
 import TwitterIcon from "@components/elements/icons/TwitterIcon"
 import YoutubeIcon from "@components/elements/icons/YoutubeIcon"
 import FacebookIcon from "@components/elements/icons/FacebookIcon"
-import {Maybe, StanfordLocalFooter} from "@lib/gql/__generated__/drupal.d"
+import {Maybe, StanfordBasicSiteSetting, StanfordLocalFooter} from "@lib/gql/__generated__/drupal.d"
 import {buildUrl} from "@lib/drupal/utils"
 import InstagramIcon from "@components/elements/icons/InstagramIcon"
 import LinkedInIcon from "@components/elements/icons/LinkedInIcon"
-import {getConfigPage} from "@lib/gql/gql-queries"
+import {getConfigPage, getConfigPageField} from "@lib/gql/gql-queries"
 
 const LocalFooter = async () => {
+  const siteName = await getConfigPageField<StanfordBasicSiteSetting, StanfordBasicSiteSetting["suSiteName"]>(
+    "StanfordBasicSiteSetting",
+    "suSiteName"
+  )
   const localFooterConfig = await getConfigPage<StanfordLocalFooter>("StanfordLocalFooter")
   if (!localFooterConfig?.suFooterEnabled) return
 
   const lockupProps = {
+    siteName,
     useDefault: localFooterConfig.suLocalFootUseLoc,
     lockupOption: localFooterConfig.suLocalFootLocOp,
     line1: localFooterConfig.suLocalFootLine1,
@@ -213,11 +218,11 @@ const FooterLockup = ({useDefault = true, siteName, lockupOption, ...props}: Foo
 
   return (
     <div className="py-10">
-      <Link href="/" className="flex flex-row gap-4 no-underline">
-        <LockupLogo {...lockupProps} />
-
-        <div className="w-[1px] shrink-0 bg-black" />
-        <div className="type-3 font-normal leading-none text-black">{siteName || "University"}</div>
+      <Link href="/" className="flex flex-row items-center no-underline">
+        <div className="border-r-2 border-black py-2 pr-4">
+          <LockupLogo {...lockupProps} />
+        </div>
+        <div className="type-2 pl-4 font-normal text-black">{siteName || "University"}</div>
       </Link>
     </div>
   )

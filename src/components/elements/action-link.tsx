@@ -15,7 +15,7 @@ const ActionLink = ({children, className, ...props}: Props) => {
     <Link
       {...props}
       className={twMerge(
-        "relative flex flex-row items-center no-underline hocus:underline",
+        "relative flex w-fit flex-row items-center no-underline hocus:underline",
         className?.replace("link--action", "")
       )}
     >

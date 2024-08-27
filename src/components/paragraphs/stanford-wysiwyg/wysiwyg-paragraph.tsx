@@ -8,6 +8,8 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 }
 
 const WysiwygParagraph = ({paragraph, ...props}: Props) => {
-  return <Wysiwyg {...props} html={paragraph.suWysiwygText?.processed} />
+  return (
+    <Wysiwyg {...props} className={twMerge("centered", props.className)} html={paragraph.suWysiwygText?.processed} />
+  )
 }
 export default WysiwygParagraph

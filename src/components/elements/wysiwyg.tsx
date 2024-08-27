@@ -28,7 +28,7 @@ const Wysiwyg = ({html, className, ...props}: Props) => {
   return (
     <div
       className={twMerge(
-        "wysiwyg centered w-full md:max-w-[440px] lg:max-w-[536px] xl:max-w-[653px] 2xl:max-w-[725px]",
+        "wysiwyg w-full md:max-w-[440px] lg:max-w-[536px] xl:max-w-[653px] 2xl:max-w-[725px]",
         className
       )}
       {...props}

@@ -134,7 +134,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
             {node.sumCourseNotes && (
               <div className="rs-mb-1">
                 <H3 className="type-1 mb-5">Course notes:</H3>
-                <Wysiwyg html={node.sumCourseNotes?.processed} />
+                <Wysiwyg className="max-w-full *:max-w-full" html={node.sumCourseNotes?.processed} />
               </div>
             )}
           </div>

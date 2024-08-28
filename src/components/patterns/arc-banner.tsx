@@ -27,8 +27,14 @@ const ArcBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}
   const BannerWrapper: ElementType = isSection ? "section" : "div"
 
   return (
-    <BannerWrapper {...props} className={twMerge("relative md:min-h-[400px]", props.className)}>
-      <div className="absolute left-0 top-0 -z-50 h-1/4 w-[calc(100vw+4px)] -translate-x-[2px] md:h-1/2 xl:h-3/4 2xl:h-full">
+    <BannerWrapper
+      {...props}
+      className={twMerge(
+        "relative z-0 h-full overflow-hidden @container md:max-h-[875px] md:min-h-[400px] lg:max-h-[840px]",
+        props.className
+      )}
+    >
+      <div className="@6xl:aspect-auto absolute z-10 aspect-[16/9] w-full bg-cool-grey @6xl:absolute @6xl:h-full">
         {imageUrl && (
           <Image
             className="ed11y-ignore object-cover"
@@ -39,18 +45,11 @@ const ArcBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}
             sizes="100vw"
           />
         )}
-        <div
-          className={twMerge(
-            "clip-arc relative mt-10 h-full w-full border-black bg-white md:mt-28",
-            clsx({
-              "before:clip-arc overflow-hidden bg-black-true before:absolute before:left-[2px] before:top-[2px] before:z-[1] before:h-[calc(100%-2px)] before:w-[calc(100%-4px)] before:bg-white before:content-['']":
-                isBorder,
-            })
-          )}
-        />
       </div>
-
-      {children && <div className="items-center pt-72 md:pt-96">{children}</div>}
+      <div className="h-1/2">
+        <div className="rs-mt-8 absolute left-[-10%] z-20 box-border aspect-[2/1] min-h-[400px] w-[120%] rounded-t-full border-t border-archway-light bg-white" />
+      </div>
+      {children && <div className="rs-mt-10 relative z-50 h-full rounded-t-full border-t-0 bg-white">{children}</div>}
     </BannerWrapper>
   )
 }

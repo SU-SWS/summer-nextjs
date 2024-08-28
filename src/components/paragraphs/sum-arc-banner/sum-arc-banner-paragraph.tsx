@@ -13,7 +13,7 @@ const SumArcBannerParagraph = async ({paragraph, pageTitle, ...props}: Props) =>
   return (
     <div {...props}>
       <ArcBanner imageUrl={paragraph.sumArcImage?.mediaImage.url} imageAlt={paragraph.sumArcImage?.mediaImage.alt}>
-        <div className="mb-32 w-screen">
+        <div className="w-screen pb-32">
           <div className="rs-pb-4 rs-mx-6 flex flex-col items-center justify-center border-b border-archway-dark">
             {paragraph.sumArcSuperhead && (
               <div className="rs-mb-0 font-sans font-normal">{paragraph.sumArcSuperhead}</div>

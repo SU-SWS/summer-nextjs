@@ -49,7 +49,11 @@ const ArcBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}
       <div className="h-1/2">
         <div className="rs-mt-8 absolute left-[-10%] z-20 box-border aspect-[2/1] min-h-[400px] w-[120%] rounded-t-full border-t border-archway-light bg-white" />
       </div>
-      {children && <div className="rs-mt-10 relative z-50 h-full rounded-t-full border-t-0 bg-white">{children}</div>}
+      {children && (
+        <div className="relative z-50 mt-[150px] h-full rounded-t-full bg-white md:mt-[250px] xl:mt-[350px] 2xl:mt-[400px]">
+          {children}
+        </div>
+      )}
     </BannerWrapper>
   )
 }

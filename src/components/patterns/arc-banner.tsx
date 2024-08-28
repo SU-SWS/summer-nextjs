@@ -52,7 +52,12 @@ const ArcBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}
         />
       </div>
       {children && (
-        <div className="relative z-50 mt-[150px] h-full rounded-t-full bg-white md:mt-[250px] xl:mt-[350px] 2xl:mt-[400px]">
+        <div
+          className={clsx("relative z-50 mt-[150px] h-full rounded-t-full md:mt-[250px] xl:mt-[350px] 2xl:mt-[400px]", {
+            "bg-white": !isBorder,
+            "bg-transparent": isBorder,
+          })}
+        >
           {children}
         </div>
       )}

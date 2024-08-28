@@ -22,7 +22,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
     <article {...props} aria-labelledby={node.id}>
       <ArcBanner {...props} imageUrl="/images/temp-bg.jpg" imageAlt="">
         <div className="w-screen">
-          <div className="rs-pb-4 rs-mx-6 flex flex-col items-center justify-center border-b border-archway-dark md:rs-mt-7">
+          <div className="rs-mx-6 flex flex-col items-center justify-center">
             <H1 id={node.id} className="rs-mb-0 max-w-[900px] text-center font-roboto font-normal">
               {node.title}
             </H1>
@@ -35,6 +35,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
             )}
 
             {node.sumCourseCatalogNumber && <div className="font-normal">{node.sumCourseCatalogNumber}</div>}
+            <div className="rs-pb-4 w-full max-w-[1200px] border-b border-archway-dark" />
           </div>
         </div>
       </ArcBanner>

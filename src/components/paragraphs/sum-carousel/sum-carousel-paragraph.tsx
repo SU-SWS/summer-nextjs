@@ -97,6 +97,7 @@ const CarouselSlide = ({
 
   return (
     <div
+      role="group"
       aria-roledescription="slide"
       aria-labelledby={labelId}
       aria-label={labelId ? undefined : `${slideNumber} of ${totalSlides}`}

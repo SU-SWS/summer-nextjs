@@ -20,8 +20,7 @@ const FavoriteButton = ({uuid, title, path, units, ...props}: Props) => {
       {...props}
     >
       <span className="sr-only">
-        {isFavorite ? "Add" : "Remove"}
-        {` favorite ${title}`}
+        {isFavorite ? `Remove favorite "${title}"` : `Add favorite "${title}"`}
       </span>
       <HeartIcon width={30} className={clsx("text-spirited-dark", {"fill-spirited-dark": isFavorite})} />
     </button>

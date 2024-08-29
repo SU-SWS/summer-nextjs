@@ -40,7 +40,7 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
   return (
     <div ref={ref} className="relative flex">
       <button {...buttonProps} ref={buttonRef}>
-        <ShareIcon width={25} className="text-poppy" />
+        <ShareIcon width={25} className="text-poppy-dark" />
         <span className="sr-only">{`Share "${courseName}"`}</span>
       </button>
       <div

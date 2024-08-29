@@ -244,9 +244,9 @@ const RefinementInput = ({
       </legend>
       <div {...panelProps}>
         {refinementOptions.map(refinementOption => (
-          <label key={refinementOption.value} className="mb-5 flex items-center gap-5 last:mb-0">
+          <label key={refinementOption.value} className="mb-5 flex cursor-pointer items-center gap-5 last:mb-0">
             <input
-              className="block h-[2.4rem] w-[2.4rem] cursor-pointer rounded-full border-2 border-black-50 outline-none transition-all checked:border-lagunita-light checked:bg-[length:0px_0px] checked:text-lagunita checked:ring-4 checked:ring-inset checked:ring-white hocus:border-lagunita hocus:bg-[#99D7E1] hocus:bg-transparent hocus:outline-none hocus:ring-0 hocus:ring-offset-0 checked:hocus:border-lagunita checked:hocus:bg-lagunita-dark checked:hocus:text-lagunita-dark checked:hocus:ring-4 checked:hocus:ring-inset checked:hocus:ring-[#99D7E1] hocus-visible:outline-none group-hocus:border-lagunita group-hocus:bg-transparent checked:group-hocus:bg-lagunita-dark group-hocus:checked:bg-[#99D7E1] checked:group-hocus:text-lagunita-dark"
+              className="block h-[2.4rem] w-[2.4rem] cursor-pointer border-2 border-black-70 outline-none transition-all checked:border-lagunita-light checked:text-lagunita hocus:border-lagunita hocus:bg-[#99D7E1] hocus:text-lagunita-dark hocus:ring-4 hocus:ring-[#99D7E1]"
               type="checkbox"
               checked={refinementOption.isRefined}
               onChange={() => refineOption(refinementOption.value)}

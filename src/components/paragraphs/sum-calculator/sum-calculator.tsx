@@ -230,7 +230,7 @@ const SumCalculatorParagraph = ({
           <div className="pb-12 md:pt-20">
             <div className="centered flex flex-col lg:mx-auto lg:max-w-7xl">
               <div className="block md:hidden">
-                <button {...buttonProps} className="m-auto mb-3 block text-archway-dark no-underline hocus:underline">
+                <button {...buttonProps} className="m-auto mb-3 block text-archway-dark">
                   <span className="type-2 flex items-center">
                     <span className="sr-only">{expanded ? "Close" : "See"} details</span>
                     <ChevronDownIcon
@@ -241,7 +241,11 @@ const SumCalculatorParagraph = ({
                 </button>
               </div>
               <div className="order-1">
-                <H2 className="type-2 flex justify-between lg:type-4 lg:font-normal" aria-live="polite" aria-atomic>
+                <H2
+                  className="type-2 flex justify-between font-semibold md:type-3 md:font-normal"
+                  aria-live="polite"
+                  aria-atomic
+                >
                   <span>Estimated total cost</span>
                   <span>{formatCurrency(totalCost)}</span>
                 </H2>
@@ -257,7 +261,7 @@ const SumCalculatorParagraph = ({
                 {!!units && (
                   <div>
                     <div className="flex items-baseline gap-5">
-                      <H3 className="card-paragraph">Tuition</H3>(Based on the total number of units)
+                      <H3 className="card-paragraph font-semibold">Tuition</H3>(Based on the total number of units)
                     </div>
                     <ul className="list-none">
                       <SummaryCost label={`${units} Units`} cost={unitsCost} />
@@ -267,7 +271,7 @@ const SumCalculatorParagraph = ({
 
                 {studentType && (
                   <div>
-                    <H3 className="card-paragraph">General Fees</H3>
+                    <H3 className="card-paragraph font-semibold">General Fees</H3>
                     <ul className="list-none">
                       <SummaryCost label="Application Fee" cost={appFee} />
                       <SummaryCost label="Program Fee" cost={progFee} />
@@ -279,7 +283,7 @@ const SumCalculatorParagraph = ({
 
                 {onCampus && (
                   <div>
-                    <H3 className="card-paragraph">On-campus Fees</H3>
+                    <H3 className="card-paragraph font-semibold">On-campus Fees</H3>
                     <ul className="list-none">
                       <SummaryCost label="Housing Fee" cost={housingFee} />
                       <SummaryCost label="Meal Plan" cost={mealPlan} />
@@ -290,7 +294,7 @@ const SumCalculatorParagraph = ({
                 )}
 
                 <div>
-                  <H3 className="card-paragraph">Extra Fees</H3>
+                  <H3 className="card-paragraph font-semibold">Extra Fees</H3>
                   <ul className="list-none">
                     <SummaryCost label="Books and Supplies (optional)" cost={booksSuppliesCost} />
                     <SummaryCost label="Document Fee" cost={documentsCost} />
@@ -302,11 +306,12 @@ const SumCalculatorParagraph = ({
               </div>
 
               <div className="order-2 mt-20 hidden border-b border-black md:block">
-                <button {...buttonProps} className="mb-3 ml-auto block text-digital-blue">
-                  <span className="type-2 flex items-center">
-                    {expanded ? "Close" : "See"} details
-                    <ChevronDownIcon width={33} className={clsx("transition duration-150", {"rotate-180": expanded})} />
-                  </span>
+                <button
+                  {...buttonProps}
+                  className="card-paragraph mb-3 ml-auto flex items-center text-digital-blue no-underline hocus:underline"
+                >
+                  {expanded ? "Close" : "See"} details
+                  <ChevronDownIcon width={33} className={clsx("transition duration-150", {"rotate-180": expanded})} />
                 </button>
               </div>
             </div>

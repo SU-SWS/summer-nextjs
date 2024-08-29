@@ -118,7 +118,7 @@ const SearchForm = () => {
               />
               <button
                 type="submit"
-                className="absolute right-0 top-0 mr-[1rem] flex h-full items-center"
+                className="absolute right-5 top-5"
                 onClick={() => refine(inputRef.current?.value || "")}
               >
                 <span className="sr-only">Submit Search</span>
@@ -244,9 +244,9 @@ const RefinementInput = ({
       </legend>
       <div {...panelProps}>
         {refinementOptions.map(refinementOption => (
-          <label key={refinementOption.value} className="mb-5 flex cursor-pointer items-center gap-5 last:mb-0">
+          <label key={refinementOption.value} className="mb-5 flex items-center gap-5 last:mb-0">
             <input
-              className="block h-[2.4rem] w-[2.4rem] border-2 border-black-70 outline-none transition-all checked:border-lagunita-light checked:text-lagunita checked:ring-4 checked:ring-inset checked:hover:border-lagunita focus:border-lagunita focus:bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-lagunita checked:focus:bg-lagunita-dark checked:focus:text-lagunita-dark checked:focus:ring-4 checked:focus:ring-inset checked:focus:ring-[#99D7E1] focus-visible:outline-none group-hover:border-lagunita group-hover:bg-transparent checked:group-hover:bg-lagunita-dark checked:group-hover:text-lagunita-dark group-hover:checked:ring-[#99D7E1]"
+              className="block h-[2.4rem] w-[2.4rem] cursor-pointer rounded-full border-2 border-black-50 outline-none transition-all checked:border-lagunita-light checked:bg-[length:0px_0px] checked:text-lagunita checked:ring-4 checked:ring-inset checked:ring-white checked:hover:border-lagunita focus:border-lagunita focus:bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-lagunita checked:focus:bg-lagunita-dark checked:focus:text-lagunita-dark checked:focus:ring-4 checked:focus:ring-inset checked:focus:ring-[#99D7E1] focus-visible:outline-none group-hover:border-lagunita group-hover:bg-transparent checked:group-hover:bg-lagunita-dark checked:group-hover:text-lagunita-dark group-hover:checked:ring-[#99D7E1]"
               type="checkbox"
               checked={refinementOption.isRefined}
               onChange={() => refineOption(refinementOption.value)}

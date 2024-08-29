@@ -295,37 +295,45 @@ const SumCalculatorParagraph = ({
                     <div className="flex items-baseline gap-5">
                       <H3 className="card-paragraph">Tuition</H3>(Based on the total number of units)
                     </div>
-                    <SummaryCost label={`${units} Units`} cost={unitsCost} />
+                    <ul className="list-none">
+                      <SummaryCost label={`${units} Units`} cost={unitsCost} />
+                    </ul>
                   </div>
                 )}
 
                 {studentType && (
                   <div>
                     <H3 className="card-paragraph">General Fees</H3>
-                    <SummaryCost label="Application Fee" cost={appFee} />
-                    <SummaryCost label="Program Fee" cost={progFee} />
-                    <SummaryCost label="Campus Health Services Fee" cost={healthServiceCost} />
-                    {needsI20 && <SummaryCost label="I-20 Processing Fee" cost={i20Fee} />}
+                    <ul className="list-none">
+                      <SummaryCost label="Application Fee" cost={appFee} />
+                      <SummaryCost label="Program Fee" cost={progFee} />
+                      <SummaryCost label="Campus Health Services Fee" cost={healthServiceCost} />
+                      {needsI20 && <SummaryCost label="I-20 Processing Fee" cost={i20Fee} />}
+                    </ul>
                   </div>
                 )}
 
                 {onCampus && (
                   <div>
                     <H3 className="card-paragraph">On-campus Fees</H3>
-                    <SummaryCost label="Housing Fee" cost={housingFee} />
-                    <SummaryCost label="Meal Plan" cost={mealPlan} />
-                    <SummaryCost label="Mail Service Fee" cost={mailFee} />
-                    <SummaryCost label="Technology Fee " cost={techFee} />
+                    <ul className="list-none">
+                      <SummaryCost label="Housing Fee" cost={housingFee} />
+                      <SummaryCost label="Meal Plan" cost={mealPlan} />
+                      <SummaryCost label="Mail Service Fee" cost={mailFee} />
+                      <SummaryCost label="Technology Fee " cost={techFee} />
+                    </ul>
                   </div>
                 )}
 
                 <div>
                   <H3 className="card-paragraph">Extra Fees</H3>
-                  <SummaryCost label="Books and Supplies (optional)" cost={booksSuppliesCost} />
-                  <SummaryCost label="Document Fee" cost={documentsCost} />
-                  {!waivingInsurance && (
-                    <SummaryCost label="Cardinal Care Health Insurance optional" cost={insurance} />
-                  )}
+                  <ul className="list-none">
+                    <SummaryCost label="Books and Supplies (optional)" cost={booksSuppliesCost} />
+                    <SummaryCost label="Document Fee" cost={documentsCost} />
+                    {!waivingInsurance && (
+                      <SummaryCost label="Cardinal Care Health Insurance optional" cost={insurance} />
+                    )}
+                  </ul>
                 </div>
               </div>
 
@@ -347,10 +355,10 @@ const SumCalculatorParagraph = ({
 
 const SummaryCost = ({label, cost}: {label: string; cost: number}) => {
   return (
-    <div className="mb-4 flex items-center justify-between">
+    <li className="mb-4 flex items-center justify-between">
       <span>{label}</span>
       <span>{formatCurrency(cost)}</span>
-    </div>
+    </li>
   )
 }
 

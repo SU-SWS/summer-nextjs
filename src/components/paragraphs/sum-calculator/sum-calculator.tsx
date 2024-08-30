@@ -120,7 +120,7 @@ const SumCalculatorParagraph = ({
 
   return (
     <div {...props} className={twMerge("centered", props.className)}>
-      <div className="mx-auto max-w-7xl space-y-20 pb-72">
+      <div className="mx-auto -mb-36 max-w-7xl space-y-20">
         <div onFocus={onSelectFocus}>
           <div className="rs-mb-1 type-3" id="sum-student-type">
             Tell us who you are
@@ -230,10 +230,10 @@ const SumCalculatorParagraph = ({
         </div>
       </div>
 
-      <div className="sticky bottom-0">
+      <div className="sticky bottom-0 mt-72">
         <div
           ref={summaryRef}
-          className="relative left-1/2 max-h-screen w-screen -translate-x-1/2 overflow-x-hidden overflow-y-scroll border-t-2 bg-fog-light"
+          className="relative left-1/2 max-h-dvh w-screen -translate-x-1/2 overflow-x-hidden overflow-y-scroll border-t-2 bg-fog-light"
         >
           <div className="pb-12 md:pt-20">
             <div className="centered flex flex-col lg:mx-auto lg:max-w-7xl">

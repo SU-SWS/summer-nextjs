@@ -11,7 +11,7 @@ import {
 } from "react-instantsearch"
 import {InstantSearchNext} from "react-instantsearch-nextjs"
 import {H2, H3} from "@components/elements/headers"
-import {useEffect, useId, useMemo, useRef} from "react"
+import {useEffect, useId, useLayoutEffect, useMemo, useRef} from "react"
 import Button from "@components/elements/button"
 import {useRouter, useSearchParams} from "next/navigation"
 import {ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/20/solid"
@@ -27,6 +27,7 @@ import {
   RefinementListItem,
 } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList"
 import {ApplyNowLink} from "@components/elements/apply-now-link"
+import {useBoolean} from "usehooks-ts"
 
 type Props = {
   appId: string
@@ -109,7 +110,6 @@ const SearchForm = () => {
                 className="type-0 w-full flex-grow border-3 border-fog-light px-8 py-5"
                 ref={inputRef}
                 autoComplete="on"
-                autoCapitalize="off"
                 spellCheck={false}
                 maxLength={60}
                 type="textfield"
@@ -118,7 +118,7 @@ const SearchForm = () => {
               />
               <button
                 type="submit"
-                className="absolute right-5 top-5"
+                className="hocus:outline-3 absolute right-5 top-4 rounded-full border-2 border-white hocus:outline hocus:outline-digital-red"
                 onClick={() => refine(inputRef.current?.value || "")}
               >
                 <span className="sr-only">Submit Search</span>
@@ -260,7 +260,7 @@ const RefinementInput = ({
 }
 
 const HitList = () => {
-  const {items: hits, showMore, isLastPage} = useInfiniteHits()
+  const {items: hits, currentPageHits, showMore, isLastPage} = useInfiniteHits<AlgoliaHit>()
   const {nbHits} = usePagination({padding: 2})
 
   if (hits.length === 0) {
@@ -274,19 +274,40 @@ const HitList = () => {
       </H2>
 
       <ul className="list-unstyled">
-        {hits.map(hit => (
-          <li key={hit.objectID}>
-            <SummerCourse hit={hit as HitType<AlgoliaHit>} />
-          </li>
+        {hits.map((hit, position) => (
+          <HitItem
+            key={hit.objectID}
+            focusOnItem={hit.objectID === currentPageHits[0].objectID && position > 0}
+            hit={hit}
+          />
         ))}
       </ul>
 
-      <div className="flex flex-col items-center">
-        <Button big centered onClick={showMore} disabled={isLastPage}>
+      {!isLastPage && (
+        <Button big centered onClick={showMore}>
           Load more<span className="sr-only">results</span>
           <ChevronDownIcon className="ml-5 inline-block" width={30} />
         </Button>
-      </div>
+      )}
     </div>
+  )
+}
+
+const HitItem = ({focusOnItem, hit}: {focusOnItem?: boolean; hit: HitType<AlgoliaHit>}) => {
+  const ref = useRef<HTMLLIElement>(null)
+  const {value: focus, setFalse: disableFocus} = useBoolean(focusOnItem)
+
+  useLayoutEffect(() => {
+    if (focus) {
+      const reduceMotion = !!window.matchMedia("(prefers-reduced-motion: reduce)")?.matches
+      ref.current?.scrollIntoView({behavior: reduceMotion ? "instant" : "smooth", block: "end", inline: "nearest"})
+      ref.current?.focus({preventScroll: true})
+    }
+  }, [focus])
+
+  return (
+    <li tabIndex={focus ? 0 : undefined} ref={focus ? ref : undefined} onBlur={disableFocus}>
+      <SummerCourse hit={hit} />
+    </li>
   )
 }

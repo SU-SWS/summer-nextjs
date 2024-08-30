@@ -6,7 +6,7 @@ import {H2, H3} from "@components/elements/headers"
 import {formatCurrency} from "@lib/utils/format-currency"
 import useAccordion from "@lib/hooks/useAccordion"
 import {clsx} from "clsx"
-import {ChevronDownIcon} from "@heroicons/react/20/solid"
+import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid"
 import useOutsideClick from "@lib/hooks/useOutsideClick"
 import {twMerge} from "tailwind-merge"
 
@@ -133,7 +133,8 @@ const SumCalculatorParagraph = ({
               {value: "highschool", label: "I am a High School student"},
               {value: "graduate", label: "I am a Graduate student"},
             ]}
-            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
+            buttonClassName="group"
+            downIcon={<ComboBoxChevron />}
             onChange={(_e, value) => setStudentType(value as "highschool" | "graduate" | "undergraduate")}
             required
           />
@@ -155,7 +156,8 @@ const SumCalculatorParagraph = ({
               {value: "no1", label: "No, I am a US citizen or permanent US resident"},
               {value: "no2", label: "No, I am an international student with an I-20 sponsored by another institution"},
             ]}
-            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
+            buttonClassName="group"
+            downIcon={<ComboBoxChevron />}
             onChange={(_e, value) => setNeedsI20(value === "yes")}
             required
           />
@@ -174,7 +176,8 @@ const SumCalculatorParagraph = ({
               {value: "yes", label: "On-Campus"},
               {value: "no", label: "Living off campus and commuting"},
             ]}
-            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
+            buttonClassName="group"
+            downIcon={<ComboBoxChevron />}
             onChange={(_e, value) => setOnCampus(value === "yes")}
             required
           />
@@ -191,7 +194,8 @@ const SumCalculatorParagraph = ({
             ariaLabelledby="sum-units"
             placeholder="Select the number of units"
             options={unitOptions}
-            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
+            buttonClassName="group"
+            downIcon={<ComboBoxChevron />}
             onChange={(_e, value) => setUnits(parseInt(value as string))}
             required
           />
@@ -212,7 +216,8 @@ const SumCalculatorParagraph = ({
               {value: "yes", label: "Yes, I will be waiving Cardinal Care."},
               {value: "no", label: "No, I would like to stay enrolled in Cardinal Care Health Insurance"},
             ]}
-            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
+            buttonClassName="group"
+            downIcon={<ComboBoxChevron />}
             onChange={(_e, value) => setWaivingInsurance(value === "yes")}
             required
           />
@@ -230,12 +235,15 @@ const SumCalculatorParagraph = ({
           <div className="pb-12 md:pt-20">
             <div className="centered flex flex-col lg:mx-auto lg:max-w-7xl">
               <div className="block md:hidden">
-                <button {...buttonProps} className="m-auto mb-3 block text-archway-dark">
+                <button
+                  {...buttonProps}
+                  className="group m-auto mb-3 block border-b-2 border-transparent text-archway-dark hocus:border-black"
+                >
                   <span className="type-2 flex items-center">
-                    <span className="sr-only">{expanded ? "Close" : "See"} details</span>
-                    <ChevronDownIcon
+                    <span className="sr-only">{expanded ? "Close details" : "See details"}</span>
+                    <ChevronUpIcon
                       width={33}
-                      className={clsx("rotate-180 transition duration-150", {"rotate-0": expanded})}
+                      className={twMerge("transition duration-300 ease-in-out", clsx({"rotate-180": expanded}))}
                     />
                   </span>
                 </button>
@@ -319,6 +327,15 @@ const SumCalculatorParagraph = ({
         </div>
       </div>
     </div>
+  )
+}
+
+const ComboBoxChevron = () => {
+  return (
+    <ChevronDownIcon
+      width={50}
+      className="group-hocus:outline-3 rounded-full border-3 border-fog-light bg-digital-red text-white group-hocus:outline group-hocus:outline-digital-red"
+    />
   )
 }
 

@@ -69,7 +69,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
             )}
           />
 
-          {paragraph.sumAtAGlanceFacts.map(fact => (
+          {paragraph.sumAtAGlanceFacts.map((fact, i) => (
             <div
               key={fact.id}
               className={twMerge(
@@ -77,6 +77,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
                 clsx({
                   "border-l-3": !headingOnLeft,
                   "border-r-3": headingOnLeft,
+                  "order-last": i % 2 === 1,
                 })
               )}
             >

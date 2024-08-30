@@ -137,7 +137,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
       </div>
 
       <H4 className="type-0 mb-0 ml-auto p-0 font-semibold group-hocus:underline">
-        <button {...buttonProps} className="group mt-12 text-digital-blue no-underline">
+        <button {...buttonProps} className="group mt-12 text-digital-blue no-underline hocus:underline">
           <span className="flex w-full items-center gap-5">
             {expanded ? "Collapse details" : "Show all details"}
             <ChevronDownIcon width={20} className={expanded ? "rotate-180" : undefined} />

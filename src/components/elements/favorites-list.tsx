@@ -75,7 +75,7 @@ const FavoritesList = ({isDisplayOnly = false}) => {
   return (
     <div className="rs-pt-1 rs-pb-2 rs-px-2 border shadow">
       <H2 className="rs-mb-1 type-2 text-center">Favorites List</H2>
-      {favs.length > 0 ? (
+      {favs.length > 0 && (
         <>
           <ul className="list-none pl-0">
             {favs.map(fav => (
@@ -97,7 +97,8 @@ const FavoritesList = ({isDisplayOnly = false}) => {
             <div className="ml-auto mt-3 text-21">Total units {totalUnits}</div>
           </div>
         </>
-      ) : (
+      )}
+      {favs.length === 0 && (
         <p className="border-b border-archway-dark pb-20 leading-relaxed">
           Your favorites list is empty. Tap the{" "}
           <HeartIcon width={30} className="inline-block text-spirited-dark" title="Favorite Heart" /> icon on courses

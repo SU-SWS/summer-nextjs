@@ -77,7 +77,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
                 clsx({
                   "border-l-3": !headingOnLeft,
                   "border-r-3": headingOnLeft,
-                  "order-last": i % 2 === 1,
+                  "md:order-last": i % 2 === 1,
                 })
               )}
             >

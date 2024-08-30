@@ -120,9 +120,9 @@ const SumCalculatorParagraph = ({
 
   return (
     <div {...props} className={twMerge("centered", props.className)}>
-      <div className="mx-auto flex max-w-7xl flex-col gap-20 pb-72">
+      <div className="mx-auto max-w-7xl space-y-20 pb-72">
         <div onFocus={onSelectFocus}>
-          <div className="rs-mb-1 type-3 block" id="sum-student-type">
+          <div className="rs-mb-1 type-3" id="sum-student-type">
             Tell us who you are
           </div>
           <SelectList
@@ -145,7 +145,7 @@ const SumCalculatorParagraph = ({
         </div>
 
         <div onFocus={onSelectFocus}>
-          <div className="rs-mb-1 type-3 block" id="sum-international-student">
+          <div className="rs-mb-1 type-3" id="sum-international-student">
             Are you an international student that requires a Stanford issued I-20?
           </div>
           <SelectList
@@ -154,7 +154,10 @@ const SumCalculatorParagraph = ({
             options={[
               {value: "yes", label: "Yes, I am an international student requiring a Stanford Sponsored I-20"},
               {value: "no1", label: "No, I am a US citizen or permanent US resident"},
-              {value: "no2", label: "No, I am an international student with an I-20 sponsored by another institution"},
+              {
+                value: "no2",
+                label: "No, I am an international student with an I-20 sponsored by another institution",
+              },
             ]}
             buttonClassName="group"
             downIcon={<ComboBoxChevron />}
@@ -166,7 +169,7 @@ const SumCalculatorParagraph = ({
         </div>
 
         <div onFocus={onSelectFocus}>
-          <div className="rs-mb-1 type-3 block" id="sum-campus-status">
+          <div className="rs-mb-1 type-3" id="sum-campus-status">
             Will you be living on campus?
           </div>
           <SelectList
@@ -187,7 +190,7 @@ const SumCalculatorParagraph = ({
         </div>
 
         <div onFocus={onSelectFocus}>
-          <div className="rs-mb-1 type-3 block" id="sum-units">
+          <div className="rs-mb-1 type-3" id="sum-units">
             How many units will you be taking?
           </div>
           <SelectList
@@ -206,7 +209,7 @@ const SumCalculatorParagraph = ({
         </div>
 
         <div onFocus={onSelectFocus}>
-          <div className="rs-mb-1 type-3 block" id="sum-cardinal-care">
+          <div className="rs-mb-1 type-3" id="sum-cardinal-care">
             Will you be waiving Cardinal Care Health Insurance?
           </div>
           <SelectList
@@ -234,12 +237,12 @@ const SumCalculatorParagraph = ({
         >
           <div className="pb-12 md:pt-20">
             <div className="centered flex flex-col lg:mx-auto lg:max-w-7xl">
-              <div className="block md:hidden">
+              <div className="relative order-1 pt-20">
                 <button
                   {...buttonProps}
-                  className="group m-auto mb-3 block border-b-2 border-transparent text-archway-dark hocus:border-black"
+                  className="group absolute left-0 top-0 z-50 h-full w-full text-archway-dark md:hidden"
                 >
-                  <span className="type-2 flex items-center">
+                  <span className="type-2 relative -top-6 mx-auto block w-fit border-b-2 border-transparent group-hocus:border-black">
                     <span className="sr-only">{expanded ? "Close details" : "See details"}</span>
                     <ChevronUpIcon
                       width={33}
@@ -247,8 +250,7 @@ const SumCalculatorParagraph = ({
                     />
                   </span>
                 </button>
-              </div>
-              <div className="order-1">
+
                 <H2
                   className="type-2 flex justify-between font-semibold md:type-3 md:font-normal"
                   aria-live="polite"
@@ -263,7 +265,7 @@ const SumCalculatorParagraph = ({
               </div>
 
               <div {...panelProps} className={clsx("order-3 children:mt-12", {hidden: !expanded})}>
-                <p className="card-paragraph mb-0 block border-b border-black pb-4 text-left md:hidden">
+                <p className="card-paragraph mb-0 border-b border-black pb-4 text-left md:hidden">
                   * Disclaimer: this is only an estimate. Actual fees are subject to change.
                 </p>
                 {!!units && (

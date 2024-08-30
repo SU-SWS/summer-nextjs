@@ -3,7 +3,7 @@
 import {AlgoliaHit} from "@components/algolia/results/default"
 import Image from "next/image"
 import useAccordion from "@lib/hooks/useAccordion"
-import {H3, H4} from "@components/elements/headers"
+import {H3, H4, H5} from "@components/elements/headers"
 import {formatCurrency} from "@lib/utils/format-currency"
 import {
   CheckCircleIcon,
@@ -149,20 +149,20 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
         <div className="rs-mt-2 flex flex-col gap-10 xl:flex-row xl:gap-[90px]">
           <div className="flex-grow">
             <div>
-              <div className="type-2 mb-5 font-semibold">Summary:</div>
+              <H5 className="mb-5 font-semibold">Summary:</H5>
               {hit.html}
             </div>
 
             {hit.sum_course_notes && (
               <div className="mt-8">
-                <div className="type-2 mb-5 font-semibold">Course notes:</div>
+                <H5 className="mb-5 font-semibold">Course notes:</H5>
                 {hit.sum_course_notes}
               </div>
             )}
           </div>
 
           <div className="w-full shrink-0 *:mb-4 xl:w-1/4">
-            <div className="type-2 font-semibold">Details:</div>
+            <H5 className="font-semibold">Details:</H5>
             {hit.sum_course_interest && (
               <div>
                 <span className="font-semibold">Interest Area: </span>

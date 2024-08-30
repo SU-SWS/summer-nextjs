@@ -12,6 +12,7 @@ import {MagnifyingGlassIcon} from "@heroicons/react/20/solid"
 import DefaultResult, {AlgoliaHit} from "@components/algolia/results/default"
 import {H2} from "@components/elements/headers"
 import {useBoolean} from "usehooks-ts"
+import AlgoliaPager from "@components/algolia/algolia-pager"
 
 type Props = {
   appId: string
@@ -98,7 +99,7 @@ const SearchForm = () => {
 
 const HitList = () => {
   const {items: hits} = useHits<AlgoliaHit>({})
-  const {currentRefinement: currentPage, pages, nbPages, nbHits, refine: goToPage} = usePagination({padding: 2})
+  const {currentRefinement: currentPage, nbHits} = usePagination({padding: 2})
 
   if (hits.length === 0) {
     return <p>No results for your search. Please try another search.</p>
@@ -121,29 +122,7 @@ const HitList = () => {
         ))}
       </ul>
 
-      {pages.length > 1 && (
-        <nav aria-label="Search results pager">
-          <ul className="list-unstyled flex justify-between">
-            {pages[0] > 0 && (
-              <li>
-                <button onClick={() => goToPage(0)}>First</button>
-              </li>
-            )}
-
-            {pages.map(pageNum => (
-              <li key={`page-${pageNum}`} aria-current={currentPage === pageNum}>
-                <button onClick={() => goToPage(pageNum)}>{pageNum + 1}</button>
-              </li>
-            ))}
-
-            {pages[pages.length - 1] !== nbPages && (
-              <li>
-                <button onClick={() => goToPage(nbPages - 1)}>Last</button>
-              </li>
-            )}
-          </ul>
-        </nav>
-      )}
+      <AlgoliaPager />
     </div>
   )
 }

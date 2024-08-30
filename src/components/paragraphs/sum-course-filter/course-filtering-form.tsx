@@ -8,6 +8,7 @@ import {
   useCurrentRefinements,
   useInfiniteHits,
   usePagination,
+  Configure,
 } from "react-instantsearch"
 import {InstantSearchNext} from "react-instantsearch-nextjs"
 import {H2, H3} from "@components/elements/headers"
@@ -69,6 +70,7 @@ const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
       initialUiState={{[searchIndex]: initialUiState}}
       future={{preserveSharedStateOnUnmount: true}}
     >
+      <Configure filters="type:'Summer Courses'" />
       <SearchForm />
     </InstantSearchNext>
   )

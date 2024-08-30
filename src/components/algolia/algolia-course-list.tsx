@@ -23,6 +23,7 @@ const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
   const searchParams = useSearchParams()
 
   const itemUuids = searchParams.get("favs")?.split(",") || favs.map(item => item.uuid)
+  const filters = itemUuids.map(uuid => `objectID:'${uuid}'`).join(" OR ") || "type:'Summer Courses'"
 
   return (
     <InstantSearchNext
@@ -30,11 +31,7 @@ const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: true}}
     >
-      <Configure
-        filters={itemUuids.map(uuid => `objectID:'${uuid}'`).join(" OR ")}
-        attributesToHighlight={["html"]}
-        attributesToSnippet={["html"]}
-      />
+      <Configure filters={filters} attributesToHighlight={["html"]} attributesToSnippet={["html"]} />
       <HitList />
     </InstantSearchNext>
   )

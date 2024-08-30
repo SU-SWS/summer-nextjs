@@ -62,7 +62,7 @@ const SearchForm = () => {
           </label>
           <input
             id="search-input"
-            className="type-3 flex-grow border-0 border-b border-black-30"
+            className="type-3 flex-grow border-0 border-b border-black-30 px-8 py-5"
             ref={inputRef}
             autoComplete="on"
             spellCheck={false}
@@ -72,15 +72,13 @@ const SearchForm = () => {
             defaultValue={query}
           />
 
-          <button type="submit" className="group" onClick={() => refine(inputRef.current?.value || "")}>
+          <Button className="rounded-full p-3" type="submit" onClick={() => refine(inputRef.current?.value || "")}>
             <span className="sr-only">Submit Search</span>
-            <MagnifyingGlassIcon
-              width={40}
-              className="group-hocus:outline-3 block rounded-full border-2 border-white bg-cardinal-red p-3 text-white group-hocus:outline group-hocus:outline-cardinal-red"
-            />
-          </button>
+            <MagnifyingGlassIcon width={30} className="block text-white" />
+          </Button>
 
           <Button
+            secondary
             className="my-16"
             centered
             buttonElem

@@ -90,8 +90,8 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
             className={twMerge(
               "absolute flex h-fit w-full justify-center lg:h-full lg:w-fit lg:items-center",
               clsx({
-                "bottom-[30px] right-0 sm:bottom-[50px] lg:-left-[200px] lg:bottom-0 lg:top-0": leftText,
-                "right-0 top-[30px] sm:top-[50px] lg:-right-[200px] lg:bottom-0 lg:top-0": !leftText,
+                "bottom-[30px] right-0 sm:bottom-[50px] lg:-left-[125px] lg:bottom-0 lg:top-0": leftText,
+                "right-0 top-[30px] sm:top-[50px] lg:-right-[125px] lg:bottom-0 lg:top-0": !leftText,
               })
             )}
           >

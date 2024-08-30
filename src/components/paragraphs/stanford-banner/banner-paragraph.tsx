@@ -38,7 +38,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
       {hasCard && (
         <div
           className={twMerge(
-            "rs-px-5 rs-py-8 relative mb-0 flex h-full min-h-[400px] w-full flex-col border-b-4 border-white bg-poppy-light shadow-lg lg:z-10 lg:w-[calc(50%_-_5rem)] lg:border-4 lg:border-y-0",
+            "rs-px-5 rs-pb-8 rs-pt-10 relative mb-0 flex h-full min-h-[400px] w-full flex-col border-b-4 border-white bg-poppy-light shadow-lg lg:z-10 lg:w-[calc(50%_-_5rem)] lg:border-4 lg:border-y-0",
             clsx({
               "lg:ml-auto lg:mr-20": overlayPosition === "right",
               "lg:ml-20 lg:mr-auto": overlayPosition !== "right",
@@ -91,7 +91,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
         <div className="rs-pr-1 absolute top-0 z-50 flex w-screen justify-end lg:bottom-0 lg:left-0 lg:top-auto lg:justify-center lg:p-0">
           {paragraph.suBannerButton?.url && semiCircleButton && (
             <Link
-              className="group rs-pt-0 rs-pb-2 rs-px-5 h-fit rounded-bl-full rounded-br-full border-4 border-b-4 border-t-0 border-white bg-spirited-dark text-white lg:rs-pb-0 lg:rs-pt-2 hocus:text-white lg:rounded-b-none lg:rounded-tl-full lg:rounded-tr-full lg:border-b-0 lg:border-t-4"
+              className="group rs-pt-0 rs-pb-1 rs-px-5 h-fit rounded-bl-full rounded-br-full border-4 border-b-4 border-t-0 border-white bg-spirited-dark text-white md:rs-pb-2 lg:rs-pb-0 lg:rs-pt-2 hocus:text-white lg:rounded-b-none lg:rounded-tl-full lg:rounded-tr-full lg:border-b-0 lg:border-t-4"
               href={paragraph.suBannerButton.url}
             >
               <span className="sr-only">{paragraph.suBannerButton.title}</span>

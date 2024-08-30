@@ -107,7 +107,7 @@ const SearchForm = () => {
             <div className="relative mt-4">
               <input
                 id={`${id}-search-input`}
-                className="type-0 w-full flex-grow border-3 border-fog-light px-8 py-5"
+                className="type-0 w-full flex-grow border-3 border-fog px-8 py-5"
                 ref={inputRef}
                 autoComplete="on"
                 spellCheck={false}
@@ -244,14 +244,14 @@ const RefinementInput = ({
       </legend>
       <div {...panelProps}>
         {refinementOptions.map(refinementOption => (
-          <label key={refinementOption.value} className="mb-5 flex items-center gap-5 last:mb-0">
+          <label key={refinementOption.value} className="group mb-5 flex cursor-pointer items-center gap-5 last:mb-0">
             <input
-              className="block h-[2.4rem] w-[2.4rem] cursor-pointer rounded-full border-2 border-black-50 outline-none transition-all checked:border-lagunita-light checked:bg-[length:0px_0px] checked:text-lagunita checked:ring-4 checked:ring-inset checked:ring-white checked:hover:border-lagunita focus:border-lagunita focus:bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-lagunita checked:focus:bg-lagunita-dark checked:focus:text-lagunita-dark checked:focus:ring-4 checked:focus:ring-inset checked:focus:ring-[#99D7E1] focus-visible:outline-none group-hover:border-lagunita group-hover:bg-transparent checked:group-hover:bg-lagunita-dark checked:group-hover:text-lagunita-dark group-hover:checked:ring-[#99D7E1]"
+              className="peer block h-[2.4rem] w-[2.4rem] cursor-pointer border-2 border-black-70 outline-none transition-all checked:border-lagunita-light checked:text-lagunita hocus:border-lagunita hocus:bg-[#99D7E1] hocus:text-lagunita-dark hocus:ring-4 hocus:ring-[#99D7E1]"
               type="checkbox"
               checked={refinementOption.isRefined}
               onChange={() => refineOption(refinementOption.value)}
             />
-            {refinementOption.label}
+            <span className="peer-focus:underline group-hocus:underline">{refinementOption.label}</span>
           </label>
         ))}
       </div>

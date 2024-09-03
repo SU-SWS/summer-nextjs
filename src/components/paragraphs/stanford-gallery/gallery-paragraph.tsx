@@ -42,7 +42,7 @@ const GalleryParagraph = ({paragraph, ...props}: Props) => {
       <div className="relative left-1/2 mt-[150px] w-screen -translate-x-1/2 md:mt-[250px] lg:mt-[300px]">
         <Image className="object-cover" src="/images/temp-bg.jpg" alt="/" fill sizes="100vw" />
 
-        <div className="gutters -mt-[150px] mb-32 grid grid-cols-1-2 *:w-full *:overflow-hidden md:-mt-[250px] lg:-mt-[300px] xl:max-w-900 [&_a:focus-visible]:border-cardinal-red [&_a:hover]:border-cardinal-red [&_a]:relative [&_a]:block [&_a]:h-full [&_a]:w-full [&_a]:overflow-hidden [&_a]:border-5 [&_a]:border-white [&_a]:transition-colors">
+        <ul className="list-unstyled gutters -mt-[150px] mb-32 grid grid-cols-1-2 *:w-full *:overflow-hidden md:-mt-[250px] lg:-mt-[300px] xl:max-w-900">
           {paragraph.suGalleryImages?.[0] && (
             <>
               <GalleryImage
@@ -92,7 +92,7 @@ const GalleryParagraph = ({paragraph, ...props}: Props) => {
               </GalleryImage>
             </>
           )}
-        </div>
+        </ul>
       </div>
     </GalleryWrapper>
   )
@@ -111,19 +111,27 @@ const GalleryImage = ({
 } & HTMLAttributes<HTMLElement>) => {
   if (!image?.suGalleryImage?.url) return <div />
   return (
-    <figure {...props}>
-      <Link href={`/gallery/${galleryId}/${image.id}`} className={linkClasses}>
-        <Image
-          className="object-cover"
-          src={image.suGalleryImage.url}
-          alt={image.suGalleryImage.alt || ""}
-          fill
-          sizes="(max-width: 768px) 100vw, 800px"
-        />
-        {children}
-      </Link>
-      {image.suGalleryCaption && <figcaption className="sr-only">{image.suGalleryCaption}</figcaption>}
-    </figure>
+    <li {...props}>
+      <figure className="h-full w-full">
+        <Link
+          href={`/gallery/${galleryId}/${image.id}`}
+          className={twMerge(
+            "relative block h-full w-full overflow-hidden border-5 border-white transition-colors hover:border-cardinal-red focus-visible:border-cardinal-red hocus:outline-none",
+            linkClasses
+          )}
+        >
+          <Image
+            className="object-cover"
+            src={image.suGalleryImage.url}
+            alt={image.suGalleryImage.alt || ""}
+            fill
+            sizes="(max-width: 768px) 100vw, 800px"
+          />
+          {children}
+        </Link>
+        {image.suGalleryCaption && <figcaption className="sr-only">{image.suGalleryCaption}</figcaption>}
+      </figure>
+    </li>
   )
 }
 

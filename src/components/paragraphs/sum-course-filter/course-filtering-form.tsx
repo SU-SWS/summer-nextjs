@@ -8,10 +8,11 @@ import {
   useCurrentRefinements,
   useInfiniteHits,
   usePagination,
+  Configure,
 } from "react-instantsearch"
 import {InstantSearchNext} from "react-instantsearch-nextjs"
 import {H2, H3} from "@components/elements/headers"
-import {useEffect, useId, useMemo, useRef} from "react"
+import {useEffect, useId, useLayoutEffect, useMemo, useRef} from "react"
 import Button from "@components/elements/button"
 import {useRouter, useSearchParams} from "next/navigation"
 import {ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/20/solid"
@@ -27,6 +28,7 @@ import {
   RefinementListItem,
 } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList"
 import {ApplyNowLink} from "@components/elements/apply-now-link"
+import {useBoolean} from "usehooks-ts"
 
 type Props = {
   appId: string
@@ -68,6 +70,7 @@ const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
       initialUiState={{[searchIndex]: initialUiState}}
       future={{preserveSharedStateOnUnmount: true}}
     >
+      <Configure filters="type:'Summer Courses'" />
       <SearchForm />
     </InstantSearchNext>
   )
@@ -106,10 +109,9 @@ const SearchForm = () => {
             <div className="relative mt-4">
               <input
                 id={`${id}-search-input`}
-                className="type-0 w-full flex-grow border-3 border-fog-light px-8 py-5"
+                className="type-0 w-full flex-grow border-3 border-fog px-8 py-5"
                 ref={inputRef}
                 autoComplete="on"
-                autoCapitalize="off"
                 spellCheck={false}
                 maxLength={60}
                 type="textfield"
@@ -118,7 +120,7 @@ const SearchForm = () => {
               />
               <button
                 type="submit"
-                className="absolute right-5 top-5"
+                className="hocus:outline-3 absolute right-5 top-4 rounded-full border-2 border-white hocus:outline hocus:outline-digital-red"
                 onClick={() => refine(inputRef.current?.value || "")}
               >
                 <span className="sr-only">Submit Search</span>
@@ -244,14 +246,14 @@ const RefinementInput = ({
       </legend>
       <div {...panelProps}>
         {refinementOptions.map(refinementOption => (
-          <label key={refinementOption.value} className="mb-5 flex items-center gap-5 last:mb-0">
+          <label key={refinementOption.value} className="group mb-5 flex cursor-pointer items-center gap-5 last:mb-0">
             <input
-              className="block h-[2.4rem] w-[2.4rem] cursor-pointer rounded-full border-2 border-black-50 outline-none transition-all checked:border-lagunita-light checked:bg-[length:0px_0px] checked:text-lagunita checked:ring-4 checked:ring-inset checked:ring-white checked:hover:border-lagunita focus:border-lagunita focus:bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-lagunita checked:focus:bg-lagunita-dark checked:focus:text-lagunita-dark checked:focus:ring-4 checked:focus:ring-inset checked:focus:ring-[#99D7E1] focus-visible:outline-none group-hover:border-lagunita group-hover:bg-transparent checked:group-hover:bg-lagunita-dark checked:group-hover:text-lagunita-dark group-hover:checked:ring-[#99D7E1]"
+              className="peer block h-[2.4rem] w-[2.4rem] cursor-pointer border-2 border-black-70 outline-none transition-all checked:border-lagunita-light checked:text-lagunita hocus:border-lagunita hocus:bg-[#99D7E1] hocus:text-lagunita-dark hocus:ring-4 hocus:ring-[#99D7E1]"
               type="checkbox"
               checked={refinementOption.isRefined}
               onChange={() => refineOption(refinementOption.value)}
             />
-            {refinementOption.label}
+            <span className="peer-focus:underline group-hocus:underline">{refinementOption.label}</span>
           </label>
         ))}
       </div>
@@ -260,7 +262,7 @@ const RefinementInput = ({
 }
 
 const HitList = () => {
-  const {items: hits, showMore, isLastPage} = useInfiniteHits()
+  const {items: hits, currentPageHits, showMore, isLastPage} = useInfiniteHits<AlgoliaHit>()
   const {nbHits} = usePagination({padding: 2})
 
   if (hits.length === 0) {
@@ -274,19 +276,40 @@ const HitList = () => {
       </H2>
 
       <ul className="list-unstyled">
-        {hits.map(hit => (
-          <li key={hit.objectID}>
-            <SummerCourse hit={hit as HitType<AlgoliaHit>} />
-          </li>
+        {hits.map((hit, position) => (
+          <HitItem
+            key={hit.objectID}
+            focusOnItem={hit.objectID === currentPageHits[0].objectID && position > 0}
+            hit={hit}
+          />
         ))}
       </ul>
 
-      <div className="flex flex-col items-center">
-        <Button big centered onClick={showMore} disabled={isLastPage}>
+      {!isLastPage && (
+        <Button big centered onClick={showMore}>
           Load more<span className="sr-only">results</span>
           <ChevronDownIcon className="ml-5 inline-block" width={30} />
         </Button>
-      </div>
+      )}
     </div>
+  )
+}
+
+const HitItem = ({focusOnItem, hit}: {focusOnItem?: boolean; hit: HitType<AlgoliaHit>}) => {
+  const ref = useRef<HTMLLIElement>(null)
+  const {value: focus, setFalse: disableFocus} = useBoolean(focusOnItem)
+
+  useLayoutEffect(() => {
+    if (focus) {
+      const reduceMotion = !!window.matchMedia("(prefers-reduced-motion: reduce)")?.matches
+      ref.current?.scrollIntoView({behavior: reduceMotion ? "instant" : "smooth", block: "end", inline: "nearest"})
+      ref.current?.focus({preventScroll: true})
+    }
+  }, [focus])
+
+  return (
+    <li tabIndex={focus ? 0 : undefined} ref={focus ? ref : undefined} onBlur={disableFocus}>
+      <SummerCourse hit={hit} />
+    </li>
   )
 }

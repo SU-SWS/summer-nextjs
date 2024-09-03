@@ -179,11 +179,11 @@ const SelectList = ({
         )}
 
         {optionChosen && (
-          <div className="rs-p-3 type-2 block max-w-[calc(100%-30px)] overflow-hidden">
+          <div className="rs-p-3 type-2 block max-w-[calc(100%-50px)] overflow-hidden">
             {renderSelectedValue(value, options)}
           </div>
         )}
-        {!optionChosen && placeholder && <span className="type-2">{placeholder}</span>}
+        {!optionChosen && placeholder && <span className="type-2 block max-w-[calc(100%-60px)]">{placeholder}</span>}
 
         <span className="rs-pr-3 absolute right-0 top-0 flex h-full items-center">
           {downIcon || <ChevronDownIcon width={50} />}

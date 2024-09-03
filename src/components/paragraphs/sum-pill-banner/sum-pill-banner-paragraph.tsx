@@ -70,22 +70,18 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
             />
 
             {paragraph.sumPillBannerLink?.url && (
-              <div className="rs-mt-3">
-                <ActionLink
-                  href={paragraph.sumPillBannerLink.url}
-                  className={twMerge(
-                    "text-digital-blue no-underline hocus:text-digital-blue hocus:underline",
-                    clsx({
-                      "text-black-true hocus:text-black-true":
-                        behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
-                      "text-white hocus:text-white":
-                        behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
-                    })
-                  )}
-                >
-                  {paragraph.sumPillBannerLink.title}
-                </ActionLink>
-              </div>
+              <ActionLink
+                href={paragraph.sumPillBannerLink.url}
+                className={twMerge(
+                  "rs-mt-3 mx-auto text-black-true hocus:text-black-true",
+                  clsx({
+                    "text-white hocus:text-white":
+                      behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
+                  })
+                )}
+              >
+                {paragraph.sumPillBannerLink.title}
+              </ActionLink>
             )}
           </div>
         </div>

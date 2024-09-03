@@ -39,8 +39,15 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
 
   return (
     <div ref={ref} className="relative flex">
-      <button {...buttonProps} ref={buttonRef}>
-        <ShareIcon width={25} className="text-poppy" />
+      <button
+        {...buttonProps}
+        ref={buttonRef}
+        className={twMerge(
+          "hocus:outline-3 rounded-full border-2 border-transparent pr-2 hocus:outline hocus:outline-poppy-dark",
+          buttonProps.className
+        )}
+      >
+        <ShareIcon width={25} className="text-poppy-dark" />
         <span className="sr-only">{`Share "${courseName}"`}</span>
       </button>
       <div

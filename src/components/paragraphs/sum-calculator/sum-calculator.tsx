@@ -6,7 +6,7 @@ import {H2, H3} from "@components/elements/headers"
 import {formatCurrency} from "@lib/utils/format-currency"
 import useAccordion from "@lib/hooks/useAccordion"
 import {clsx} from "clsx"
-import {ChevronDownIcon} from "@heroicons/react/20/solid"
+import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid"
 import useOutsideClick from "@lib/hooks/useOutsideClick"
 import {twMerge} from "tailwind-merge"
 
@@ -62,6 +62,7 @@ const SumCalculatorParagraph = ({
   undergradUnitsHelp,
   ...props
 }: Props) => {
+  const scrollRef = useRef(true)
   const [studentType, setStudentType] = useState<"highschool" | "graduate" | "undergraduate" | "">("")
   const [needsI20, setNeedsI20] = useState<boolean | undefined>()
   const [onCampus, setOnCampus] = useState<boolean | undefined>()
@@ -104,25 +105,36 @@ const SumCalculatorParagraph = ({
     unitOptions.push({value: `${i}`, label: `${i}`})
   }
 
-  const onSelectFocus = () => {
+  const onContainerFocus = () => {
     // When tabbing through the items, if tab end up behind the sticky summary, scroll the window enough to view the
     // tabbed element.
-    if (document.activeElement && summaryRef.current) {
+    if (scrollRef.current && document.activeElement && summaryRef.current) {
+      // If a user opens up a combo box, the focus changes 3 times: button, ul,
+      // and li elements. Because opening the combo box makes the active element
+      // much larger, we don't want to determine the size of the element by that.
+      // The select list combo box has it's owns scrolling functionality. So make
+      // sure we scroll to the first element, then set a short delay, so we don't
+      // re-evaluate for the same effect. Essentially it's debouncing the focus event.
+      scrollRef.current = false
+      setTimeout(() => (scrollRef.current = true), 100)
+
       const {y: activeY, height: activeH} = document.activeElement.getBoundingClientRect()
       const {y: summaryY} = summaryRef.current.getBoundingClientRect()
 
-      const positionDifference = summaryY - activeY - activeH
+      const positionDifference = summaryY - (activeY + activeH)
+      // If the active element is covered up by the summary, scroll the window
+      // enough so that the whole active element is visible above the summary.
       if (positionDifference < 0) {
-        window.scrollTo({top: window.scrollY - positionDifference + 1})
+        window.scrollBy({top: Math.abs(positionDifference) + 5, behavior: "smooth"})
       }
     }
   }
 
   return (
     <div {...props} className={twMerge("centered", props.className)}>
-      <div className="mx-auto flex max-w-7xl flex-col gap-20 pb-72">
-        <div onFocus={onSelectFocus}>
-          <div className="rs-mb-1 type-3 block" id="sum-student-type">
+      <div className="mx-auto -mb-36 max-w-7xl space-y-20">
+        <div onFocus={onContainerFocus}>
+          <div className="rs-mb-1 type-3" id="sum-student-type">
             Tell us who you are
           </div>
           <SelectList
@@ -133,7 +145,8 @@ const SumCalculatorParagraph = ({
               {value: "highschool", label: "I am a High School student"},
               {value: "graduate", label: "I am a Graduate student"},
             ]}
-            downIcon={<ChevronDownIcon width={50} className="rounded-full bg-digital-red text-white" />}
+            buttonClassName="group"
+            downIcon={<ComboBoxChevron />}
             onChange={(_e, value) => setStudentType(value as "highschool" | "graduate" | "undergraduate")}
             required
           />
@@ -143,8 +156,8 @@ const SumCalculatorParagraph = ({
           {studentType === "highschool" && highSchoolAppHelp}
         </div>
 
-        <div onFocus={onSelectFocus}>
-          <div className="rs-mb-1 type-3 block" id="sum-international-student">
+        <div onFocus={onContainerFocus}>
+          <div className="rs-mb-1 type-3" id="sum-international-student">
             Are you an international student that requires a Stanford issued I-20?
           </div>
           <SelectList
@@ -153,27 +166,22 @@ const SumCalculatorParagraph = ({
             options={[
               {value: "yes", label: "Yes, I am an international student requiring a Stanford Sponsored I-20"},
               {value: "no1", label: "No, I am a US citizen or permanent US resident"},
-              {value: "no2", label: "No, I am an international student with an I-20 sponsored by another institution"},
+              {
+                value: "no2",
+                label: "No, I am an international student with an I-20 sponsored by another institution",
+              },
             ]}
-            downIcon={
-              <ChevronDownIcon
-                width={50}
-                className={clsx("ml-auto flex-shrink-0 rounded-full text-white", {
-                  "bg-black-40": !studentType,
-                  "bg-digital-red": studentType,
-                })}
-              />
-            }
+            buttonClassName="group"
+            downIcon={<ComboBoxChevron />}
             onChange={(_e, value) => setNeedsI20(value === "yes")}
-            disabled={!studentType}
             required
           />
 
           {needsI20 === true && i20Help}
         </div>
 
-        <div onFocus={onSelectFocus}>
-          <div className="rs-mb-1 type-3 block" id="sum-campus-status">
+        <div onFocus={onContainerFocus}>
+          <div className="rs-mb-1 type-3" id="sum-campus-status">
             Will you be living on campus?
           </div>
           <SelectList
@@ -183,17 +191,9 @@ const SumCalculatorParagraph = ({
               {value: "yes", label: "On-Campus"},
               {value: "no", label: "Living off campus and commuting"},
             ]}
-            downIcon={
-              <ChevronDownIcon
-                width={50}
-                className={clsx("rounded-full text-white", {
-                  "bg-black-40": needsI20 === undefined,
-                  "bg-digital-red": needsI20 !== undefined,
-                })}
-              />
-            }
+            buttonClassName="group"
+            downIcon={<ComboBoxChevron />}
             onChange={(_e, value) => setOnCampus(value === "yes")}
-            disabled={needsI20 === undefined}
             required
           />
 
@@ -201,25 +201,17 @@ const SumCalculatorParagraph = ({
           {onCampus === false && commuterHelp}
         </div>
 
-        <div onFocus={onSelectFocus}>
-          <div className="rs-mb-1 type-3 block" id="sum-units">
+        <div onFocus={onContainerFocus}>
+          <div className="rs-mb-1 type-3" id="sum-units">
             How many units will you be taking?
           </div>
           <SelectList
             ariaLabelledby="sum-units"
             placeholder="Select the number of units"
             options={unitOptions}
-            downIcon={
-              <ChevronDownIcon
-                width={50}
-                className={clsx("rounded-full text-white", {
-                  "bg-black-40": onCampus === undefined,
-                  "bg-digital-red": onCampus !== undefined,
-                })}
-              />
-            }
+            buttonClassName="group"
+            downIcon={<ComboBoxChevron />}
             onChange={(_e, value) => setUnits(parseInt(value as string))}
-            disabled={onCampus === undefined}
             required
           />
 
@@ -228,8 +220,8 @@ const SumCalculatorParagraph = ({
           {studentType === "highschool" && units > 0 && highSchoolUnitHelp}
         </div>
 
-        <div onFocus={onSelectFocus}>
-          <div className="rs-mb-1 type-3 block" id="sum-cardinal-care">
+        <div onFocus={onContainerFocus}>
+          <div className="rs-mb-1 type-3" id="sum-cardinal-care">
             Will you be waiving Cardinal Care Health Insurance?
           </div>
           <SelectList
@@ -239,17 +231,9 @@ const SumCalculatorParagraph = ({
               {value: "yes", label: "Yes, I will be waiving Cardinal Care."},
               {value: "no", label: "No, I would like to stay enrolled in Cardinal Care Health Insurance"},
             ]}
-            downIcon={
-              <ChevronDownIcon
-                width={50}
-                className={clsx("rounded-full text-white", {
-                  "bg-black-40": units < 3,
-                  "bg-digital-red": units >= 3,
-                })}
-              />
-            }
+            buttonClassName="group"
+            downIcon={<ComboBoxChevron />}
             onChange={(_e, value) => setWaivingInsurance(value === "yes")}
-            disabled={units < 3}
             required
           />
 
@@ -258,26 +242,32 @@ const SumCalculatorParagraph = ({
         </div>
       </div>
 
-      <div className="sticky bottom-0">
+      <div className="sticky bottom-0 mt-72">
         <div
           ref={summaryRef}
-          className="relative left-1/2 max-h-screen w-screen -translate-x-1/2 overflow-x-hidden overflow-y-scroll border-t-2 bg-fog-light"
+          className="relative left-1/2 max-h-dvh w-screen -translate-x-1/2 overflow-x-hidden overflow-y-scroll border-t-2 bg-fog-light"
         >
           <div className="pb-12 md:pt-20">
             <div className="centered flex flex-col lg:mx-auto lg:max-w-7xl">
-              <div className="block md:hidden">
-                <button {...buttonProps} className="m-auto mb-3 block text-archway-dark">
-                  <span className="type-2 flex items-center">
-                    <span className="sr-only">{expanded ? "Close" : "See"} details</span>
-                    <ChevronDownIcon
+              <div className="relative order-1 pt-20">
+                <button
+                  {...buttonProps}
+                  className="group absolute left-0 top-0 z-50 h-full w-full text-archway-dark md:hidden"
+                >
+                  <span className="type-2 relative -top-6 mx-auto block w-fit border-b-2 border-transparent group-hocus:border-black">
+                    <span className="sr-only">{expanded ? "Close details" : "See details"}</span>
+                    <ChevronUpIcon
                       width={33}
-                      className={clsx("rotate-180 transition duration-150", {"rotate-0": expanded})}
+                      className={twMerge("transition duration-300 ease-in-out", clsx({"rotate-180": expanded}))}
                     />
                   </span>
                 </button>
-              </div>
-              <div className="order-1">
-                <H2 className="type-2 flex justify-between lg:type-4 lg:font-normal" aria-live="polite" aria-atomic>
+
+                <H2
+                  className="type-2 flex justify-between font-semibold md:type-3 md:font-normal"
+                  aria-live="polite"
+                  aria-atomic
+                >
                   <span>Estimated total cost</span>
                   <span>{formatCurrency(totalCost)}</span>
                 </H2>
@@ -287,54 +277,63 @@ const SumCalculatorParagraph = ({
               </div>
 
               <div {...panelProps} className={clsx("order-3 children:mt-12", {hidden: !expanded})}>
-                <p className="card-paragraph mb-0 block border-b border-black pb-4 text-left md:hidden">
+                <p className="card-paragraph mb-0 border-b border-black pb-4 text-left md:hidden">
                   * Disclaimer: this is only an estimate. Actual fees are subject to change.
                 </p>
                 {!!units && (
                   <div>
                     <div className="flex items-baseline gap-5">
-                      <H3 className="card-paragraph">Tuition</H3>(Based on the total number of units)
+                      <H3 className="card-paragraph font-semibold">Tuition</H3>(Based on the total number of units)
                     </div>
-                    <SummaryCost label={`${units} Units`} cost={unitsCost} />
+                    <ul className="list-none">
+                      <SummaryCost label={`${units} Units`} cost={unitsCost} />
+                    </ul>
                   </div>
                 )}
 
                 {studentType && (
                   <div>
-                    <H3 className="card-paragraph">General Fees</H3>
-                    <SummaryCost label="Application Fee" cost={appFee} />
-                    <SummaryCost label="Program Fee" cost={progFee} />
-                    <SummaryCost label="Campus Health Services Fee" cost={healthServiceCost} />
-                    {needsI20 && <SummaryCost label="I-20 Processing Fee" cost={i20Fee} />}
+                    <H3 className="card-paragraph font-semibold">General Fees</H3>
+                    <ul className="list-none">
+                      <SummaryCost label="Application Fee" cost={appFee} />
+                      <SummaryCost label="Program Fee" cost={progFee} />
+                      <SummaryCost label="Campus Health Services Fee" cost={healthServiceCost} />
+                      {needsI20 && <SummaryCost label="I-20 Processing Fee" cost={i20Fee} />}
+                    </ul>
                   </div>
                 )}
 
                 {onCampus && (
                   <div>
-                    <H3 className="card-paragraph">On-campus Fees</H3>
-                    <SummaryCost label="Housing Fee" cost={housingFee} />
-                    <SummaryCost label="Meal Plan" cost={mealPlan} />
-                    <SummaryCost label="Mail Service Fee" cost={mailFee} />
-                    <SummaryCost label="Technology Fee " cost={techFee} />
+                    <H3 className="card-paragraph font-semibold">On-campus Fees</H3>
+                    <ul className="list-none">
+                      <SummaryCost label="Housing Fee" cost={housingFee} />
+                      <SummaryCost label="Meal Plan" cost={mealPlan} />
+                      <SummaryCost label="Mail Service Fee" cost={mailFee} />
+                      <SummaryCost label="Technology Fee " cost={techFee} />
+                    </ul>
                   </div>
                 )}
 
                 <div>
-                  <H3 className="card-paragraph">Extra Fees</H3>
-                  <SummaryCost label="Books and Supplies (optional)" cost={booksSuppliesCost} />
-                  <SummaryCost label="Document Fee" cost={documentsCost} />
-                  {!waivingInsurance && (
-                    <SummaryCost label="Cardinal Care Health Insurance optional" cost={insurance} />
-                  )}
+                  <H3 className="card-paragraph font-semibold">Extra Fees</H3>
+                  <ul className="list-none">
+                    <SummaryCost label="Books and Supplies (optional)" cost={booksSuppliesCost} />
+                    <SummaryCost label="Document Fee" cost={documentsCost} />
+                    {!waivingInsurance && (
+                      <SummaryCost label="Cardinal Care Health Insurance optional" cost={insurance} />
+                    )}
+                  </ul>
                 </div>
               </div>
 
               <div className="order-2 mt-20 hidden border-b border-black md:block">
-                <button {...buttonProps} className="mb-3 ml-auto block text-digital-blue">
-                  <span className="type-2 flex items-center">
-                    {expanded ? "Close" : "See"} details
-                    <ChevronDownIcon width={33} className={clsx("transition duration-150", {"rotate-180": expanded})} />
-                  </span>
+                <button
+                  {...buttonProps}
+                  className="card-paragraph mb-3 ml-auto flex items-center text-digital-blue no-underline hocus:underline"
+                >
+                  {expanded ? "Close" : "See"} details
+                  <ChevronDownIcon width={33} className={clsx("transition duration-150", {"rotate-180": expanded})} />
                 </button>
               </div>
             </div>
@@ -345,12 +344,21 @@ const SumCalculatorParagraph = ({
   )
 }
 
+const ComboBoxChevron = () => {
+  return (
+    <ChevronDownIcon
+      width={50}
+      className="group-hocus:outline-3 rounded-full border-3 border-fog-light bg-digital-red text-white group-hocus:outline group-hocus:outline-digital-red"
+    />
+  )
+}
+
 const SummaryCost = ({label, cost}: {label: string; cost: number}) => {
   return (
-    <div className="mb-4 flex items-center justify-between">
+    <li className="mb-4 flex items-center justify-between">
       <span>{label}</span>
       <span>{formatCurrency(cost)}</span>
-    </div>
+    </li>
   )
 }
 

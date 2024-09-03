@@ -98,7 +98,7 @@ const MainMenuClient = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props)
         )}
       >
         <SiteSearchForm className="px-10 lg:hidden" />
-        <div className="mt-10 flex flex-col items-center border-b border-spirited-light children:centered children:w-full lg:hidden">
+        <div className="mt-10 flex flex-col items-center border-b border-[#F26845] children:centered children:w-full lg:hidden">
           {sumSiteHeaderSec && (
             <Button href={sumSiteHeaderSec.url} secondary>
               {sumSiteHeaderSec.title}
@@ -116,7 +116,7 @@ const MainMenuClient = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props)
               id="search"
               href="/search"
               prefetch={false}
-              className="inline-block h-full border-b-[4px] border-transparent px-5 pb-10 pt-5 no-underline hocus:border-spirited-light"
+              className="inline-block h-full border-b-[4px] border-transparent px-5 pb-10 pt-5 no-underline hocus:border-[#F26845]"
               aria-label="Search Summer Session"
             >
               <MagnifyingGlassIcon width={25} className="text-archway-dark" />
@@ -175,7 +175,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
   const inTrail = activeTrail.includes(id) && !isCurrent
 
   const linkStyles = twMerge(
-    "group w-full relative flex flex-row font-normal text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-spirited-light",
+    "group w-full relative flex flex-row font-normal text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-[#F26845]",
     clsx(
       {
         "pl-10": level === 0,
@@ -186,27 +186,27 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
       // Top menu item styles.
       {
         "lg:border-l-0 lg:border-b-[4px] lg:mr-0 lg:pb-10": level === 0,
-        "border-spirited-light": level === 0 && isCurrent,
-        "border-transparent lg:border-spirited-light": level === 0 && !isCurrent && inTrail,
+        "border-[#F26845]": level === 0 && isCurrent,
+        "border-transparent lg:border-[#F26845]": level === 0 && !isCurrent && inTrail,
         "border-transparent": level === 0 && !isCurrent && !inTrail,
         "lg:pr-10": level === 0 && children.length === 0,
       },
       // Child menu item styles.
       {
         "ml-5 lg:ml-0 lg:pl-5": level !== 0,
-        "border-spirited-light": level !== 0 && isCurrent,
+        "border-[#F26845]": level !== 0 && isCurrent,
         "border-transparent": level !== 0 && !isCurrent,
       }
     )
   )
 
   const chevronBtnStyles = clsx(
-    "shrink-0 relative px-10 lg:right-0 text-black bg-transparent lg:bg-transparent lg:pr-5 lg:pb-6 lg:pl-2 hocus:border-b-[4px] lg:group-hover:border-b-[4px] hocus:border-spirited-light lg:group-hover:border-spirited-light",
+    "shrink-0 relative px-10 lg:right-0 text-black bg-transparent lg:bg-transparent lg:pr-5 lg:pb-6 lg:pl-2 hocus:border-b-[4px] lg:group-hover:border-b-[4px] hocus:border-[#F26845] lg:group-hover:border-[#F26845]",
     // Top menu item styles.
     {
       "border-b-[4px]": level === 0,
-      "border-spirited-light": level === 0 && isCurrent,
-      "border-transparent lg:border-spirited-light": level === 0 && !isCurrent && inTrail,
+      "border-[#F26845]": level === 0 && isCurrent,
+      "border-transparent lg:border-[#F26845]": level === 0 && !isCurrent && inTrail,
       "border-transparent": level === 0 && !isCurrent && !inTrail,
     }
   )
@@ -236,7 +236,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
     <li
       ref={menuItemRef}
       className={twMerge(
-        "relative m-0 border-b border-spirited-light last:border-0 lg:relative lg:py-0",
+        "relative m-0 border-b border-[#F26845] last:border-0 lg:relative lg:py-0",
         clsx({
           "first:border-t-0 lg:mr-10 lg:border-b-0 lg:last:mr-0": level === 0,
         })

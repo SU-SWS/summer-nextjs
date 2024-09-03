@@ -1,6 +1,7 @@
 import Wysiwyg from "@components/elements/wysiwyg"
 import {HtmlHTMLAttributes} from "react"
 import {ParagraphStanfordWysiwyg} from "@lib/gql/__generated__/drupal.d"
+import {twMerge} from "tailwind-merge"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordWysiwyg
@@ -8,11 +9,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 
 const WysiwygParagraph = ({paragraph, ...props}: Props) => {
   return (
-    <Wysiwyg
-      html={paragraph.suWysiwygText?.processed}
-      className="centered lg:max-w-[920px] xl:max-w-[980px]"
-      {...props}
-    />
+    <Wysiwyg {...props} className={twMerge("centered", props.className)} html={paragraph.suWysiwygText?.processed} />
   )
 }
 export default WysiwygParagraph

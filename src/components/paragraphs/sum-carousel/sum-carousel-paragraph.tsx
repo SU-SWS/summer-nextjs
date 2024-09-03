@@ -97,6 +97,7 @@ const CarouselSlide = ({
 
   return (
     <div
+      role="group"
       aria-roledescription="slide"
       aria-labelledby={labelId}
       aria-label={labelId ? undefined : `${slideNumber} of ${totalSlides}`}
@@ -129,7 +130,7 @@ const CarouselTop = ({header, superHeader, headingSize, description, link, class
       />
 
       {link?.url && (
-        <ActionLink className="rs-mt-3" href={link.url}>
+        <ActionLink className="rs-mt-3 mx-auto no-underline hocus:underline" href={link.url}>
           {link.title}
         </ActionLink>
       )}

@@ -5,6 +5,7 @@ import {useBoolean, useIntersectionObserver} from "usehooks-ts"
 import {HTMLAttributes, useCallback, useEffect, useId, useRef} from "react"
 import {ErrorBoundary} from "react-error-boundary"
 import {PlayIcon} from "@heroicons/react/24/outline"
+import {twMerge} from "tailwind-merge"
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   videoUrl: string
@@ -70,7 +71,14 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
   if (!videoId && !shortId) return null
 
   return (
-    <div {...props} ref={ref}>
+    <div
+      {...props}
+      className={twMerge(
+        "mx-auto sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
+        props.className
+      )}
+      ref={ref}
+    >
       <YouTube
         id={id}
         videoId={videoId || shortId}

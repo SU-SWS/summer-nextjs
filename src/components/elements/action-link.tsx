@@ -12,7 +12,13 @@ type Props = HtmlHTMLAttributes<HTMLAnchorElement> & {
 
 const ActionLink = ({children, className, ...props}: Props) => {
   return (
-    <Link {...props} className={twMerge("relative", className?.replace("link--action", ""))}>
+    <Link
+      {...props}
+      className={twMerge(
+        "relative flex w-fit flex-row items-center no-underline hocus:underline",
+        className?.replace("link--action", "")
+      )}
+    >
       {children}
       <ArrowRightIcon width={20} className="ml-2 inline-block" />
     </Link>

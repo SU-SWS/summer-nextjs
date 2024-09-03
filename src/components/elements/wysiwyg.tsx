@@ -73,8 +73,8 @@ const options: HTMLReactParserOptions = {
               nodeProps.className,
               "rs-pb-5 rs-pt-7 rs-px-1 border-l-3 border-archway-dark border-opacity-50"
             )
-            return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
           }
+          return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
         case "table":
           if (nodeProps.className && nodeProps.className.includes("sum-table")) {
@@ -82,8 +82,14 @@ const options: HTMLReactParserOptions = {
               nodeProps.className,
               "centered 2xl:max-w-1200 relative left-1/2 w-screen -translate-x-1/2 break-words [&_tbody>tr>th]:bg-transparent [&_tfooter>tr]:bg-transparent [&_tr]:border-t-0 [&_td]:border-r-3 [&_td]:border-r-white [&_td]:rs-px-2 [&_td]:rs-py-1 [&_tbody>tr:nth-child(odd)>td:nth-child(1)]:bg-[#F8F7F6] [&_tfooter>tr:nth-child(odd)]:bg-[#F8F7F6] [&_tbody>tr:nth-child(odd)>td:nth-child(2)]:bg-spirited [&_tbody>tr>td:nth-child(2)]:text-white [&_tbody>tr:nth-child(odd)>td:nth-child(3)]:bg-poppy-dark [&_tbody>tr>td:nth-child(3)]:text-white [&_tbody>tr:nth-child(even)>td:nth-child(2)]:bg-[#F16C4B] [&_tbody>tr:nth-child(even)>td:nth-child(3)]:bg-poppy"
             )
-            return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
           }
+          if (nodeProps.className && nodeProps.className.includes("sum-footer")) {
+            nodeProps.className = twMerge(
+              nodeProps.className,
+              "[&_tbody>tr:nth-last-child(2)>td]:bg-white [&_tbody>tr:nth-last-child(2)>td:nth-child(2)]:bg-white [&_tbody>tr:nth-last-child(2)>td:nth-child(3)]:bg-white [&_tbody>tr:nth-last-child(2)>td]:text-archway-dark [&_tbody>tr:nth-last-child(2)>td:nth-child(2)]:text-archway-dark [&_tbody>tr:nth-last-child(2)>td:nth-child(3)]:text-archway-dark [&_tbody>tr:nth-last-child(1)>td]:bg-[#F8F7F6] [&_tbody>tr:nth-last-child(1)>td:nth-child(2)]:bg-[#F8F7F6] [&_tbody>tr:nth-last-child(1)>td:nth-child(3)]:bg-[#F8F7F6] [&_tbody>tr:nth-last-child(1)>td]:text-archway-dark [&_tbody>tr:nth-last-child(1)>td:nth-child(2)]:text-archway-dark [&_tbody>tr:nth-last-child(1)>td:nth-child(3)]:text-archway-dark"
+            )
+          }
+          return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
         case "article":
           delete nodeProps.role
@@ -127,7 +133,6 @@ const options: HTMLReactParserOptions = {
         case "ul":
         case "ol":
         case "li":
-        case "table":
         case "tbody":
         case "th":
         case "td":

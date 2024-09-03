@@ -62,6 +62,7 @@ const SumCalculatorParagraph = ({
   undergradUnitsHelp,
   ...props
 }: Props) => {
+  const scrollRef = useRef(true)
   const [studentType, setStudentType] = useState<"highschool" | "graduate" | "undergraduate" | "">("")
   const [needsI20, setNeedsI20] = useState<boolean | undefined>()
   const [onCampus, setOnCampus] = useState<boolean | undefined>()
@@ -104,16 +105,27 @@ const SumCalculatorParagraph = ({
     unitOptions.push({value: `${i}`, label: `${i}`})
   }
 
-  const onSelectFocus = () => {
+  const onContainerFocus = () => {
     // When tabbing through the items, if tab end up behind the sticky summary, scroll the window enough to view the
     // tabbed element.
-    if (document.activeElement && summaryRef.current) {
+    if (scrollRef.current && document.activeElement && summaryRef.current) {
+      // If a user opens up a combo box, the focus changes 3 times: button, ul,
+      // and li elements. Because opening the combo box makes the active element
+      // much larger, we don't want to determine the size of the element by that.
+      // The select list combo box has it's owns scrolling functionality. So make
+      // sure we scroll to the first element, then set a short delay, so we don't
+      // re-evaluate for the same effect. Essentially it's debouncing the focus event.
+      scrollRef.current = false
+      setTimeout(() => (scrollRef.current = true), 100)
+
       const {y: activeY, height: activeH} = document.activeElement.getBoundingClientRect()
       const {y: summaryY} = summaryRef.current.getBoundingClientRect()
 
-      const positionDifference = summaryY - activeY - activeH
+      const positionDifference = summaryY - (activeY + activeH)
+      // If the active element is covered up by the summary, scroll the window
+      // enough so that the whole active element is visible above the summary.
       if (positionDifference < 0) {
-        window.scrollTo({top: window.scrollY - positionDifference + 1})
+        window.scrollBy({top: Math.abs(positionDifference) + 5, behavior: "smooth"})
       }
     }
   }
@@ -121,7 +133,7 @@ const SumCalculatorParagraph = ({
   return (
     <div {...props} className={twMerge("centered", props.className)}>
       <div className="mx-auto -mb-36 max-w-7xl space-y-20">
-        <div onFocus={onSelectFocus}>
+        <div onFocus={onContainerFocus}>
           <div className="rs-mb-1 type-3" id="sum-student-type">
             Tell us who you are
           </div>
@@ -144,7 +156,7 @@ const SumCalculatorParagraph = ({
           {studentType === "highschool" && highSchoolAppHelp}
         </div>
 
-        <div onFocus={onSelectFocus}>
+        <div onFocus={onContainerFocus}>
           <div className="rs-mb-1 type-3" id="sum-international-student">
             Are you an international student that requires a Stanford issued I-20?
           </div>
@@ -168,7 +180,7 @@ const SumCalculatorParagraph = ({
           {needsI20 === true && i20Help}
         </div>
 
-        <div onFocus={onSelectFocus}>
+        <div onFocus={onContainerFocus}>
           <div className="rs-mb-1 type-3" id="sum-campus-status">
             Will you be living on campus?
           </div>
@@ -189,7 +201,7 @@ const SumCalculatorParagraph = ({
           {onCampus === false && commuterHelp}
         </div>
 
-        <div onFocus={onSelectFocus}>
+        <div onFocus={onContainerFocus}>
           <div className="rs-mb-1 type-3" id="sum-units">
             How many units will you be taking?
           </div>
@@ -208,7 +220,7 @@ const SumCalculatorParagraph = ({
           {studentType === "highschool" && units > 0 && highSchoolUnitHelp}
         </div>
 
-        <div onFocus={onSelectFocus}>
+        <div onFocus={onContainerFocus}>
           <div className="rs-mb-1 type-3" id="sum-cardinal-care">
             Will you be waiving Cardinal Care Health Insurance?
           </div>

@@ -43,7 +43,8 @@ const ArcBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}
           />
         )}
       </div>
-      <div className="h-1/2">
+      <div className="clip-arc 4xl:block absolute z-20 mt-10 hidden h-full w-full border-black bg-white md:mt-28" />
+      <div className="4xl:hidden block h-1/2">
         <div
           className={clsx(
             "rs-mt-8 absolute left-[-10%] z-20 box-border aspect-[2/1] h-fit min-h-[400px] w-[120%] rounded-t-full border-t border-archway-light bg-white",
@@ -54,7 +55,7 @@ const ArcBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}
       {children && (
         <div
           className={clsx("relative z-50 mt-[150px] h-full rounded-t-full md:mt-[250px] xl:mt-[350px] 2xl:mt-[400px]", {
-            "bg-white 3xl:bg-transparent": !isBorder,
+            "bg-white 2xl:bg-transparent": !isBorder,
             "bg-transparent": isBorder,
           })}
         >

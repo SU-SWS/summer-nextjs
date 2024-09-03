@@ -76,6 +76,15 @@ const options: HTMLReactParserOptions = {
             return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
           }
 
+        case "table":
+          if (nodeProps.className && nodeProps.className.includes("sum-table")) {
+            nodeProps.className = twMerge(
+              nodeProps.className,
+              "centered relative left-1/2 w-screen -translate-x-1/2 [&_tbody>tr>th]:bg-transparent [&_tfooter>tr]:bg-transparent [&_tr]:border-t-0 [&_td]:border-r-3 [&_td]:border-r-white [&_td]:rs-px-2 [&_td]:rs-py-1 [&_tbody>tr:nth-child(odd)>td:nth-child(1)]:bg-[#F8F7F6] [&_tfooter>tr:nth-child(odd)]:bg-[#F8F7F6] [&_tbody>tr:nth-child(odd)>td:nth-child(2)]:bg-spirited [&_tbody>tr>td:nth-child(2)]:text-white [&_tbody>tr:nth-child(odd)>td:nth-child(3)]:bg-poppy [&_tbody>tr>td:nth-child(3)]:text-white [&_tbody>tr:nth-child(even)>td:nth-child(2)]:bg-spirited-light [&_tbody>tr:nth-child(even)>td:nth-child(3)]:bg-poppy-light"
+            )
+            return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
+          }
+
         case "article":
           delete nodeProps.role
           if (nodeProps.className?.includes("media-entity-wrapper")) {

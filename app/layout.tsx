@@ -3,11 +3,12 @@ import BackToTop from "@components/elements/back-to-top"
 import PageFooter from "@components/global/page-footer"
 import PageHeader from "@components/global/page-header"
 import {Icon} from "next/dist/lib/metadata/types/metadata-types"
-import {roboto, sourceSans3, stanford} from "../src/styles/fonts"
+import {roboto, sourceSans3} from "../src/styles/fonts"
 import DrupalWindowSync from "@components/elements/drupal-window-sync"
 import UserAnalytics from "@components/elements/user-analytics"
 import clsx from "clsx"
 import Editori11y from "@components/tools/editorially"
+import localFont from "next/font/local"
 
 const appleIcons: Icon[] = [60, 72, 76, 114, 120, 144, 152, 180].map(size => ({
   url: `https://www-media.stanford.edu/assets/favicon/apple-touch-icon-${size}x${size}.png`,
@@ -42,6 +43,12 @@ export const metadata = {
     apple: appleIcons,
   },
 }
+
+const stanford = localFont({
+  src: "../public/fonts/stanford.woff2",
+  weight: "300",
+  variable: "--font-stanford",
+})
 
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
 export const revalidate = false

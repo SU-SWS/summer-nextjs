@@ -120,11 +120,14 @@ const SearchForm = () => {
               />
               <button
                 type="submit"
-                className="hocus:outline-3 absolute right-5 top-4 rounded-full border-2 border-white hocus:outline hocus:outline-digital-red"
+                className="group absolute right-0 top-0 mr-[1rem] flex h-full items-center"
                 onClick={() => refine(inputRef.current?.value || "")}
               >
                 <span className="sr-only">Submit Search</span>
-                <MagnifyingGlassIcon width={40} className="block rounded-full bg-digital-red p-3 text-white" />
+                <MagnifyingGlassIcon
+                  width={40}
+                  className="group-hocus:outline-3 block rounded-full border-2 border-white bg-digital-red p-3 text-white group-hocus:outline group-hocus:outline-digital-red"
+                />
               </button>
             </div>
           </div>

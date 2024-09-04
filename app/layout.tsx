@@ -3,7 +3,7 @@ import BackToTop from "@components/elements/back-to-top"
 import PageFooter from "@components/global/page-footer"
 import PageHeader from "@components/global/page-header"
 import {Icon} from "next/dist/lib/metadata/types/metadata-types"
-import {roboto, sourceSans3} from "../src/styles/fonts"
+import {roboto, sourceSans3, stanford} from "../src/styles/fonts"
 import DrupalWindowSync from "@components/elements/drupal-window-sync"
 import UserAnalytics from "@components/elements/user-analytics"
 import clsx from "clsx"
@@ -50,7 +50,7 @@ const RootLayout = ({children, modal}: {children: React.ReactNode; modal: React.
   const isDevMode = process.env.NODE_ENV === "development"
 
   return (
-    <html lang="en" className={clsx(sourceSans3.className, roboto.variable)}>
+    <html lang="en" className={clsx(sourceSans3.className, roboto.variable, stanford.variable)}>
       <UserAnalytics />
       <DrupalWindowSync />
       {isDevMode && <Editori11y />}

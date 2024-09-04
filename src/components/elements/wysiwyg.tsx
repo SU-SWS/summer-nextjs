@@ -80,7 +80,7 @@ const options: HTMLReactParserOptions = {
           if (nodeProps.className && nodeProps.className.includes("sum-table")) {
             nodeProps.className = twMerge(
               nodeProps.className,
-              "centered 2xl:max-w-1200 relative left-1/2 w-screen -translate-x-1/2 break-words [&_tbody>tr>th]:bg-transparent [&_tfooter>tr]:bg-transparent [&_tr]:border-t-0 [&_td]:border-r-3 [&_td]:border-r-white [&_td]:rs-px-2 [&_td]:rs-py-1 [&_tbody>tr:nth-child(odd)>td:nth-child(1)]:bg-[#F8F7F6] [&_tfooter>tr:nth-child(odd)]:bg-[#F8F7F6] [&_tbody>tr:nth-child(odd)>td:nth-child(2)]:bg-spirited-dark [&_tbody>tr>td:nth-child(2)]:text-white [&_tbody>tr:nth-child(odd)>td:nth-child(3)]:bg-poppy-dark [&_tbody>tr>td:nth-child(3)]:text-white [&_tbody>tr:nth-child(even)>td:nth-child(2)]:bg-spirited [&_tbody>tr:nth-child(even)>td:nth-child(3)]:bg-poppy"
+              "centered 2xl:max-w-1200 relative left-1/2 w-screen -translate-x-1/2 break-words font-roboto [&_th]:font-normal [&_th]:type-1 [&_th]:rs-px-2 [&_th]:rs-py-1  [&_td]:type-0 [&_td]:big-paragraph [&_tbody>tr>th]:bg-transparent [&_tfooter>tr]:bg-transparent [&_tr]:border-t-0 [&_td]:border-r-3 [&_td]:border-r-white [&_td]:rs-px-2 [&_td]:rs-py-1 [&_tbody>tr:nth-child(odd)>td:nth-child(1)]:bg-[#F8F7F6] [&_tfooter>tr:nth-child(odd)]:bg-[#F8F7F6] [&_tbody>tr:nth-child(odd)>td:nth-child(2)]:bg-spirited-dark [&_tbody>tr>td:nth-child(2)]:text-white [&_tbody>tr:nth-child(odd)>td:nth-child(3)]:bg-poppy-dark [&_tbody>tr>td:nth-child(3)]:text-white [&_tbody>tr:nth-child(even)>td:nth-child(2)]:bg-spirited [&_tbody>tr:nth-child(even)>td:nth-child(3)]:bg-poppy"
             )
           }
           if (nodeProps.className && nodeProps.className.includes("sum-footer")) {

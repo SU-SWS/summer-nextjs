@@ -82,7 +82,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
         id={id}
         videoId={videoId || shortId}
         className={
-          "overflow-hidden transition-all duration-300 ease-in-out " +
+          "h-full overflow-hidden transition-all duration-300 ease-in-out " +
           (isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white")
         }
         opts={options}

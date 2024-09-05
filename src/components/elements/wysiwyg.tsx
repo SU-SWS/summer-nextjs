@@ -74,6 +74,9 @@ const options: HTMLReactParserOptions = {
               "rs-pb-5 rs-pt-7 rs-px-1 border-l-3 border-archway-dark border-opacity-50"
             )
           }
+          if (nodeProps.className?.includes("tight-spacing")) {
+            nodeProps.className = twMerge(nodeProps.className, "*:!mt-0 *:!mb-6")
+          }
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
         case "table":
@@ -102,7 +105,12 @@ const options: HTMLReactParserOptions = {
           return cleanMediaMarkup(domNode)
 
         case "p":
-          nodeProps.className = twMerge(nodeProps.className, clsx({"type-0": !nodeProps?.className?.includes("type-")}))
+          nodeProps.className = twMerge(
+            nodeProps.className,
+            clsx({
+              "type-0": !nodeProps?.className?.includes("type-"),
+            })
+          )
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
         case "script":

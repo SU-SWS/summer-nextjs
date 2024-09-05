@@ -62,7 +62,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
       </HeroBanner>
 
       {paragraph.sumTopBannerCards && (
-        <div className="centered relative z-10 flex flex-col gap-32 children:w-2/3 lg:-mt-96 children:lg:w-full xl:flex-row">
+        <div className="centered relative z-10 flex flex-col gap-10 children:w-2/3 lg:-mt-96 children:lg:w-full xl:flex-row">
           {paragraph.sumTopBannerCards.map(card => {
             const behaviors = getParagraphBehaviors(card)
 

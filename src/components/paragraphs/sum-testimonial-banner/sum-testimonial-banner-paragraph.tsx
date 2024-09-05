@@ -156,7 +156,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
 
           {paragraph.sumTestimonialButton?.url && (
             <ActionLink
-              className="btn rs-mt-5 flex w-fit items-center rounded-full bg-digital-red px-8 py-4 font-normal text-white no-underline transition hocus:text-white hocus:underline"
+              className="btn rs-mt-5 flex w-fit items-center rounded-full border-2 border-transparent bg-digital-red px-8 py-4 font-normal text-white no-underline transition hocus:border-white hocus:text-white hocus:underline"
               href={paragraph.sumTestimonialButton.url}
             >
               {paragraph.sumTestimonialButton.title}

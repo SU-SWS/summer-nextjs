@@ -74,13 +74,16 @@ const options: HTMLReactParserOptions = {
               "rs-pb-5 rs-pt-7 rs-px-1 border-l-3 border-archway-dark border-opacity-50"
             )
           }
+          if (nodeProps.className?.includes("tight-spacing")) {
+            nodeProps.className = twMerge(nodeProps.className, "*:!mt-0 *:!mb-6")
+          }
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
         case "table":
           if (nodeProps.className?.includes("sum-table")) {
             nodeProps.className = twMerge(
               nodeProps.className,
-              "centered 2xl:max-w-1200 relative left-1/2 w-screen -translate-x-1/2 break-words font-roboto [&_th]:font-normal [&_th]:type-1 [&_th]:rs-px-2 [&_th]:rs-py-1  [&_td]:type-0 [&_td]:big-paragraph [&_tbody>tr>th]:bg-transparent [&_tfooter>tr]:bg-transparent [&_tr]:border-t-0 [&_td]:border-r-3 [&_td]:border-r-white [&_td]:rs-px-2 [&_td]:rs-py-1 [&_tbody>tr:nth-child(odd)>td:nth-child(1)]:bg-[#F8F7F6] [&_tfooter>tr:nth-child(odd)]:bg-[#F8F7F6] [&_tbody>tr:nth-child(odd)>td:nth-child(2)]:bg-[#F4795B] [&_tbody>tr:nth-child(odd)>td:nth-child(3)]:bg-[#F9A44A] [&_tbody>tr:nth-child(even)>td:nth-child(2)]:bg-[#F6947C] [&_tbody>tr:nth-child(even)>td:nth-child(3)]:bg-[#FAB66E]"
+              "centered 2xl:max-w-1200 relative left-1/2 w-screen -translate-x-1/2 break-words font-roboto [&_th]:font-light [&_th>a]:type-1 md:[&_th>a]:type-2 [&_th>a]:font-light [&_th>a>svg]:w-16 [&_th]:type-1 [&_th]:rs-px-2 [&_th]:rs-py-1  [&_td]:type-0 [&_td]:big-paragraph [&_tbody>tr>th]:bg-transparent [&_tfooter>tr]:bg-transparent [&_tr]:border-t-0 [&_td]:border-r-3 [&_td]:border-r-white [&_td]:rs-px-2 [&_td]:rs-py-1 [&_tbody>tr:nth-child(odd)>td:nth-child(1)]:bg-[#F8F7F6] [&_tfooter>tr:nth-child(odd)]:bg-[#F8F7F6] [&_tbody>tr:nth-child(odd)>td:nth-child(2)]:bg-[#F4795B] [&_tbody>tr:nth-child(odd)>td:nth-child(3)]:bg-[#F9A44A] [&_tbody>tr:nth-child(even)>td:nth-child(2)]:bg-[#F6947C] [&_tbody>tr:nth-child(even)>td:nth-child(3)]:bg-[#FAB66E]"
             )
           }
           if (nodeProps.className?.includes("sum-footer")) {
@@ -102,7 +105,12 @@ const options: HTMLReactParserOptions = {
           return cleanMediaMarkup(domNode)
 
         case "p":
-          nodeProps.className = twMerge(nodeProps.className, clsx({"type-0": !nodeProps?.className?.includes("type-")}))
+          nodeProps.className = twMerge(
+            nodeProps.className,
+            clsx({
+              "type-0": !nodeProps?.className?.includes("type-"),
+            })
+          )
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
         case "script":

@@ -74,17 +74,18 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
       {...props}
       className={twMerge(
         "relative mx-auto sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
-        props.className
+        props.className,
+        isPlaying && !isInitialPlay && "border-transparent"
       )}
       ref={ref}
     >
       <YouTube
         id={id}
         videoId={videoId || shortId}
-        className={
-          "h-full overflow-hidden transition-all duration-300 ease-in-out " +
-          (isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white")
-        }
+        className={twMerge(
+          "h-full overflow-hidden transition-all duration-300 ease-in-out",
+          isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white"
+        )}
         opts={options}
         onReady={(e: YouTubeEvent) => {
           videoRef.current = e.target

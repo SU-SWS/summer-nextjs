@@ -35,12 +35,13 @@ const StanfordPagePage = ({node, ...props}: Props) => {
     node.layoutSelection?.id === "stanford_basic_page_full" ||
     !!node.suPageComponents?.find(component => fullWidthComponents.includes(component.__typename))
 
-  const lastItemBanner = node.suPageComponents?.some(
-    component => component.__typename?.includes("Banner") || component.__typename?.includes("Calculator")
-  )
+  const lastComponent = node.suPageComponents && node.suPageComponents[node.suPageComponents.length - 1]
+
+  const hasBannerOrCalculator =
+    lastComponent?.__typename?.includes("Banner") || lastComponent?.__typename?.includes("Calculator")
 
   return (
-    <article {...props} className={clsx({"mb-32": !lastItemBanner}, props.className)}>
+    <article {...props} className={clsx({"mb-32": !hasBannerOrCalculator}, props.className)}>
       {node.suPageBanner && (
         <header>
           {node.suPageBanner.__typename === "ParagraphStanfordPageTitleBanner" && (

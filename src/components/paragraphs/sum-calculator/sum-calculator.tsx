@@ -245,7 +245,7 @@ const SumCalculatorParagraph = ({
       <div className="sticky bottom-0 mt-72">
         <div
           ref={summaryRef}
-          className="relative left-1/2 max-h-dvh w-screen -translate-x-1/2 overflow-hidden border-t-2 bg-fog-light"
+          className="relative left-1/2 max-h-dvh w-screen -translate-x-1/2 overflow-x-hidden overflow-y-scroll border-t-2 bg-fog-light"
         >
           <div className="pb-12 md:pt-20">
             <div className="centered flex flex-col lg:mx-auto lg:max-w-7xl">

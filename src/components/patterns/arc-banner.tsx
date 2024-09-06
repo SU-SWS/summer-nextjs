@@ -45,14 +45,14 @@ const ArcBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}
       </div>
       <div
         className={twMerge(
-          "clip-arc 4xl:block absolute z-20 mt-10 hidden h-full w-full border-black bg-white md:mt-28",
+          "clip-arc absolute z-20 mt-10 hidden h-full w-full border-black bg-white md:mt-28 4xl:block",
           clsx({
             "before:clip-arc overflow-hidden bg-black-true before:absolute before:left-[2px] before:top-[2px] before:z-[1] before:h-[calc(100%-2px)] before:w-[calc(100%-4px)] before:bg-white before:content-['']":
               isBorder,
           })
         )}
       />
-      <div className="4xl:hidden block h-1/2">
+      <div className="block h-1/2 4xl:hidden">
         <div
           className={clsx(
             "rs-mt-8 absolute left-[-10%] z-20 box-border aspect-[2/1] h-fit min-h-[400px] w-[120%] rounded-t-full border-t border-archway-light bg-white",

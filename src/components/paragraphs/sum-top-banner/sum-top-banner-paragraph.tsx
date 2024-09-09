@@ -28,6 +28,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
             "bg-olive-light": bgColor === "olive",
             "bg-spirited-light": bgColor === "spirited",
             "bg-spirited-dark text-white": bgColor === "spirited_dark",
+            "lg:pb-96": !!paragraph.sumTopBannerCards,
           }
         )}
         imageUrl={paragraph.sumTopBannerImage?.mediaImage.url}
@@ -35,7 +36,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
         overlayPosition={behaviors?.sum_top_banner_behaviors?.sum_top_banner_alignment || "right"}
         eagerLoadImage
       >
-        <div className={twMerge("flex flex-col lg:min-h-[400px]", clsx({"lg:pb-96": !!paragraph.sumTopBannerCards}))}>
+        <div className={twMerge("flex flex-col lg:min-h-[400px]")}>
           {pageTitle && (
             <div className="order-2">
               <H1 className="rs-mb-3 type-5 font-normal">{pageTitle}</H1>

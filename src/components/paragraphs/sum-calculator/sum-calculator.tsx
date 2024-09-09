@@ -264,7 +264,7 @@ const SumCalculatorParagraph = ({
                 </button>
 
                 <H2
-                  className="type-2 flex justify-between font-semibold md:type-3 md:font-normal"
+                  className="type-2 mt-4 flex justify-between font-semibold md:type-3 md:mt-0 md:font-normal"
                   aria-live="polite"
                   aria-atomic
                 >

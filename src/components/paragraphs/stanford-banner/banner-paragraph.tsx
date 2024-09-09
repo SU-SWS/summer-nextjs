@@ -33,7 +33,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
     <BannerWrapper
       {...props}
       aria-labelledby={paragraph.suBannerHeader ? paragraph.id : undefined}
-      className="rs-mb-5 relative left-1/2 !mt-0 flex w-screen -translate-x-1/2 flex-col @container md:min-h-[400px] lg:block"
+      className="relative left-1/2 !mt-0 flex w-screen -translate-x-1/2 flex-col @container md:min-h-[400px] lg:block"
     >
       {hasCard && (
         <div
@@ -68,7 +68,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
           {paragraph.suBannerButton?.url && !semiCircleButton && (
             <div className="rs-pt-2">
               <ActionLink
-                className="btn block w-fit rounded-full bg-digital-red px-12 py-6 text-5xl font-normal text-white no-underline transition hocus:text-white hocus:underline"
+                className="btn w-fit rounded-full border-2 border-transparent bg-digital-red px-8 py-4 font-normal text-white transition hocus:border-white hocus:text-white"
                 href={paragraph.suBannerButton.url}
               >
                 {paragraph.suBannerButton.title}

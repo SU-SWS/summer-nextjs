@@ -130,7 +130,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
           className={twMerge(
             "centered sm:max-w-[440px] lg:max-w-full",
             clsx({
-              "2xl:rs-pl-10 lg:mr-0 lg:pl-32 lg:pr-[200px] xl:pl-40 xl:pr-[250px]": leftText,
+              "4xl:ml-auto 4xl:w-2/3 2xl:rs-pl-10 lg:mr-0 lg:pl-32 lg:pr-[200px] xl:pl-40 xl:pr-[250px]": leftText,
               "2xl:rs-pr-10 lg:ml-0 lg:pl-[200px] lg:pr-32 xl:pl-[250px] xl:pr-40": !leftText,
             })
           )}
@@ -156,7 +156,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
 
           {paragraph.sumTestimonialButton?.url && (
             <ActionLink
-              className="btn rs-mt-5 block w-fit rounded-full bg-digital-red px-12 py-6 text-5xl font-normal text-white no-underline transition hocus:text-white hocus:underline"
+              className="btn rs-mt-5 w-fit rounded-full border-2 border-transparent bg-digital-red px-8 py-4 font-normal text-white transition hocus:border-white hocus:text-white"
               href={paragraph.sumTestimonialButton.url}
             >
               {paragraph.sumTestimonialButton.title}

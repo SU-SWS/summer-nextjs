@@ -239,6 +239,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
         "relative m-0 border-b border-[#F26845] last:border-0 lg:relative lg:py-0",
         clsx({
           "first:border-t-0 lg:mr-10 lg:border-b-0 lg:last:mr-0": level === 0,
+          "hocus:border-transparent": level !== 0,
         })
       )}
     >

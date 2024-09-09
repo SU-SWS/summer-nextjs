@@ -74,17 +74,18 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
       {...props}
       className={twMerge(
         "relative mx-auto sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
-        props.className
+        props.className,
+        isPlaying && !isInitialPlay && "border-transparent"
       )}
       ref={ref}
     >
       <YouTube
         id={id}
         videoId={videoId || shortId}
-        className={
-          "overflow-hidden transition-all duration-300 ease-in-out " +
-          (isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white")
-        }
+        className={twMerge(
+          "h-full overflow-hidden transition-all duration-300 ease-in-out",
+          isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white"
+        )}
         opts={options}
         onReady={(e: YouTubeEvent) => {
           videoRef.current = e.target
@@ -103,9 +104,9 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
             videoRef.current?.playVideo()
             document.getElementById(id)?.focus()
           }}
-          className="hocus:outline-3 absolute left-1/2 top-1/2 -translate-x-[50px] -translate-y-[50px] rounded-full border-2 border-transparent hocus:outline hocus:outline-spirited-dark"
+          className="hocus:outline-3 absolute left-1/2 top-1/2 -translate-x-[50px] -translate-y-[50px] rounded-full border-2 border-transparent hocus:outline hocus:outline-digital-red"
         >
-          <PlayIcon width={100} className="rounded-full bg-spirited-dark p-10 text-white" />
+          <PlayIcon width={100} className="rounded-full bg-digital-red p-10 text-white" />
         </button>
       )}
     </div>

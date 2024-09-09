@@ -10,6 +10,7 @@ import {
 import PageTitleBannerParagraph from "@components/paragraphs/stanford-page-title-banner/page-title-banner-paragraph"
 import SumArcBannerParagraph from "@components/paragraphs/sum-arc-banner/sum-arc-banner-paragraph"
 import SumTopBannerParagraph from "@components/paragraphs/sum-top-banner/sum-top-banner-paragraph"
+import clsx from "clsx"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordPage
@@ -34,8 +35,13 @@ const StanfordPagePage = ({node, ...props}: Props) => {
     node.layoutSelection?.id === "stanford_basic_page_full" ||
     !!node.suPageComponents?.find(component => fullWidthComponents.includes(component.__typename))
 
+  const lastComponent = node.suPageComponents && node.suPageComponents[node.suPageComponents.length - 1]
+
+  const hasBannerOrCalculator =
+    lastComponent?.__typename?.includes("Banner") || lastComponent?.__typename?.includes("Calculator")
+
   return (
-    <article {...props}>
+    <article {...props} className={clsx({"mb-32": !hasBannerOrCalculator}, props.className)}>
       {node.suPageBanner && (
         <header>
           {node.suPageBanner.__typename === "ParagraphStanfordPageTitleBanner" && (

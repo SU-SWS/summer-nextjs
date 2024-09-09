@@ -74,7 +74,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
     <div
       {...props}
       className={twMerge(
-        "relative mx-auto sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
+        "relative mx-auto aspect-[9/16] sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
         props.className,
         isPlaying && !isInitialPlay && "border-transparent"
       )}

@@ -28,24 +28,26 @@ const PageHeader = async () => {
           </a>
         </div>
       </div>
-      <GlobalMessage />
-      <div className="relative bg-fog-light">
-        <div className="w-full border-b-2 lg:border-b-0">
-          <div className="min-h-50 rs-py-2 centered pr-24 lg:pr-0">
-            <div className="flex w-full justify-between">
-              <Lockup />
-              <div className="hidden lg:block">
-                {primaryButton?.url && (
-                  <Button href={primaryButton.url} secondary>
-                    {primaryButton.title}
-                  </Button>
-                )}
-                {secondaryButton?.url && <Button href={secondaryButton.url}>{secondaryButton.title}</Button>}
+      <div className="border-4 border-white">
+        <GlobalMessage />
+        <div className="relative bg-fog-light">
+          <div className="w-full border-b-2 lg:border-b-0">
+            <div className="min-h-50 rs-py-2 centered pr-24 lg:pr-0">
+              <div className="flex w-full justify-between">
+                <Lockup />
+                <div className="hidden lg:block">
+                  {primaryButton?.url && (
+                    <Button href={primaryButton.url} secondary>
+                      {primaryButton.title}
+                    </Button>
+                  )}
+                  {secondaryButton?.url && <Button href={secondaryButton.url}>{secondaryButton.title}</Button>}
+                </div>
               </div>
             </div>
           </div>
+          <MainMenu />
         </div>
-        <MainMenu />
       </div>
     </header>
   )

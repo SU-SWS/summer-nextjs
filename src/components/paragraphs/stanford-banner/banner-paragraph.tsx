@@ -68,7 +68,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
           {paragraph.suBannerButton?.url && !semiCircleButton && (
             <div className="rs-pt-2">
               <ActionLink
-                className="btn w-fit rounded-full border-2 border-transparent bg-digital-red px-8 py-4 font-normal text-white transition hocus:border-white hocus:text-white"
+                className="btn flex w-fit items-center rounded-full border-2 border-transparent bg-digital-red px-8 py-4 font-normal text-white transition hocus:border-white hocus:text-white"
                 href={paragraph.suBannerButton.url}
               >
                 {paragraph.suBannerButton.title}

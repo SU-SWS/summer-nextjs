@@ -54,9 +54,9 @@ export const Button = ({
   className,
   ...props
 }: Props) => {
-  const standardClasses = clsx({
-    "flex items-center w-fit mx-auto": centered,
-    "inline-block text-center w-fit m-4": !centered,
+  const standardClasses = clsx("flex items-center w-fit", {
+    "mx-auto": centered,
+    "text-center m-4": !centered,
     "btn btn--big transition text-5xl text-white hocus:text-white bg-digital-red border-2 border-white hocus:outline hocus:outline-3 hocus:outline-digital-red no-underline hocus:underline py-6 px-12 font-normal rounded-full":
       big && !secondary,
     "btn btn--secondary transition text-digital-red hocus:text-white hocus:bg-digital-red border-2 border-digital-red hocus:border-white no-underline hocus:underline hocus:outline hocus:outline-3 hocus:outline-digital-red py-4 px-16 font-normal rounded-full":

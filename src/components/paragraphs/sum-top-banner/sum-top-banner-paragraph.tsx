@@ -51,7 +51,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
           {paragraph.sumTopBannerLink?.url && (
             <div className="rs-pt-2 order-4">
               <ActionLink
-                className="btn rs-mt-5 w-fit rounded-full border-2 border-transparent bg-digital-red px-8 py-4 font-normal text-white transition hocus:border-white hocus:text-white"
+                className="btn rs-mt-5 flex w-fit items-center rounded-full border-2 border-transparent bg-digital-red px-8 py-4 font-normal text-white transition hocus:border-white hocus:text-white"
                 href={paragraph.sumTopBannerLink.url}
               >
                 {paragraph.sumTopBannerLink.title}

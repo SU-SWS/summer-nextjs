@@ -38,7 +38,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
       {hasCard && (
         <div
           className={twMerge(
-            "rs-px-5 rs-pb-8 rs-pt-10 relative mb-0 flex h-full min-h-[400px] w-full flex-col border-b-4 border-white bg-poppy-light shadow-lg lg:z-10 lg:w-[calc(50%_-_5rem)] lg:border-4 lg:border-y-0",
+            "rs-px-5 rs-pb-8 rs-pt-10 relative mb-0 flex h-full min-h-[400px] w-full flex-col border-b-4 border-white bg-poppy-light lg:z-10 lg:w-[calc(50%_-_5rem)] lg:border-4 lg:border-y-0",
             clsx({
               "lg:ml-auto lg:mr-20": overlayPosition === "right",
               "lg:ml-20 lg:mr-auto": overlayPosition !== "right",

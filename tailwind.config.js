@@ -42,6 +42,9 @@ module.exports = {
         '14xl': '140rem',
         '15xl': '150rem',
       },
+      screens: {
+        '4xl': '2000px',
+      },
       scale: {
         '-100': '-1'
       },

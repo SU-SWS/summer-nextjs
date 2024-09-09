@@ -118,7 +118,7 @@ type TopProps = {
 
 const CarouselTop = ({header, superHeader, headingSize, description, link, className}: TopProps) => {
   return (
-    <div className={twMerge("mb-20 text-center", className)}>
+    <div className={twMerge("centered mb-20 text-center", className)}>
       <div className="flex flex-col">
         {header && <H2 className={clsx("mb-8 font-light", headingSize)}>{header}</H2>}
         {superHeader && <div className="order-first mb-8">{superHeader}</div>}

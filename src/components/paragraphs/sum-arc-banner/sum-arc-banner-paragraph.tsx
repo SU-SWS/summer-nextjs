@@ -13,13 +13,14 @@ const SumArcBannerParagraph = async ({paragraph, pageTitle, ...props}: Props) =>
   return (
     <div {...props}>
       <ArcBanner imageUrl={paragraph.sumArcImage?.mediaImage.url} imageAlt={paragraph.sumArcImage?.mediaImage.alt}>
-        <div className="mb-32 w-screen">
-          <div className="rs-pb-4 rs-mx-6 flex flex-col items-center justify-center border-b border-archway-dark">
+        <div className="w-screen">
+          <div className="rs-mx-6 flex flex-col items-center justify-center">
             {paragraph.sumArcSuperhead && (
               <div className="rs-mb-0 font-sans font-normal">{paragraph.sumArcSuperhead}</div>
             )}
             <H1 className="rs-mb-0 max-w-[900px] text-center font-roboto font-normal">{pageTitle}</H1>
             <Wysiwyg html={paragraph.sumArcDescription?.processed} className="mx-auto max-w-[450px] text-center" />
+            <div className="rs-mb-4 rs-py-4 centered w-full border-b border-archway-dark" />
           </div>
         </div>
       </ArcBanner>

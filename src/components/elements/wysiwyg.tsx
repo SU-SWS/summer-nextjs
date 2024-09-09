@@ -1,3 +1,4 @@
+import {Table, Thead, Tbody, Tr, Th, Td} from "@components/elements/tables"
 import Link from "@components/elements/link"
 import parse, {HTMLReactParserOptions, Element, domToReact, attributesToProps, DOMNode} from "html-react-parser"
 import Image from "next/image"
@@ -80,19 +81,7 @@ const options: HTMLReactParserOptions = {
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
         case "table":
-          if (nodeProps.className?.includes("sum-table")) {
-            nodeProps.className = twMerge(
-              nodeProps.className,
-              "centered 2xl:max-w-1200 relative left-1/2 w-screen -translate-x-1/2 break-words font-roboto [&_th]:font-light [&_th>a]:type-1 md:[&_th>a]:type-2 [&_th>a]:font-light [&_th>a>svg]:w-16 [&_th]:type-1 [&_th]:rs-px-2 [&_th]:rs-py-1  [&_td]:type-0 [&_td]:big-paragraph [&_tbody>tr>th]:bg-transparent [&_tfooter>tr]:bg-transparent [&_tr]:border-t-0 [&_td]:border-r-3 [&_td]:border-r-white [&_td]:rs-px-2 [&_td]:rs-py-1 [&_tbody>tr:nth-child(odd)>td:nth-child(1)]:bg-[#F8F7F6] [&_tfooter>tr:nth-child(odd)]:bg-[#F8F7F6] [&_tbody>tr:nth-child(odd)>td:nth-child(2)]:bg-[#F4795B] [&_tbody>tr:nth-child(odd)>td:nth-child(3)]:bg-[#F9A44A] [&_tbody>tr:nth-child(even)>td:nth-child(2)]:bg-[#F6947C] [&_tbody>tr:nth-child(even)>td:nth-child(3)]:bg-[#FAB66E]"
-            )
-          }
-          if (nodeProps.className?.includes("sum-footer")) {
-            nodeProps.className = twMerge(
-              nodeProps.className,
-              "[&_tbody>tr:nth-last-child(2)>td]:bg-white [&_tbody>tr:nth-last-child(2)>td:nth-child(2)]:bg-white [&_tbody>tr:nth-last-child(2)>td:nth-child(3)]:bg-white [&_tbody>tr:nth-last-child(1)>td]:bg-[#F8F7F6] [&_tbody>tr:nth-last-child(1)>td:nth-child(2)]:bg-[#F8F7F6] [&_tbody>tr:nth-last-child(1)>td:nth-child(3)]:bg-[#F8F7F6]"
-            )
-          }
-          return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
+          return <Table {...nodeProps}>{domToReact(children, options)}</Table>
 
         case "article":
           delete nodeProps.role
@@ -126,6 +115,16 @@ const options: HTMLReactParserOptions = {
           return <H5 {...nodeProps}>{domToReact(children, options)}</H5>
         case "h6":
           return <H6 {...nodeProps}>{domToReact(children, options)}</H6>
+        case "thead":
+          return <Thead {...nodeProps}>{domToReact(children, options)}</Thead>
+        case "tbody":
+          return <Tbody {...nodeProps}>{domToReact(children, options)}</Tbody>
+        case "th":
+          return <Th {...nodeProps}>{domToReact(children, options)}</Th>
+        case "td":
+          return <Td {...nodeProps}>{domToReact(children, options)}</Td>
+        case "tr":
+          return <Tr {...nodeProps}>{domToReact(children, options)}</Tr>
         case "b":
         case "cite":
         case "dt":
@@ -141,17 +140,12 @@ const options: HTMLReactParserOptions = {
         case "ul":
         case "ol":
         case "li":
-        case "tbody":
-        case "th":
-        case "td":
-        case "tr":
+
         case "strong":
         case "em":
         case "s":
         case "sub":
         case "sup":
-        case "thead":
-        case "tfoot":
         case "caption":
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 

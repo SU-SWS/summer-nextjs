@@ -15118,6 +15118,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-super-responsive-table@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "react-super-responsive-table@npm:6.0.0"
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 10c0/b94884aabb067dba65da333bfcaed4a8c6f6d397fd8af2ec7f63dc25e4d401ede81f6344374234fe29f986879571d92567f5d88e21e77ce6293d3e0fcf0e6e45
+  languageName: node
+  linkType: hard
+
 "react-tiny-oembed@npm:^1.1.0":
   version: 1.1.0
   resolution: "react-tiny-oembed@npm:1.1.0"
@@ -16742,6 +16752,7 @@ __metadata:
     react-instantsearch: "npm:^7.13.0"
     react-instantsearch-nextjs: "npm:^0.3.10"
     react-slick: "npm:^0.30.2"
+    react-super-responsive-table: "npm:^6.0.0"
     react-tiny-oembed: "npm:^1.1.0"
     react-youtube: "npm:^10.1.0"
     sharp: "npm:^0.33.5"

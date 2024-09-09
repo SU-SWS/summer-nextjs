@@ -15,6 +15,12 @@
   height: 100%;
 }
 
+@layer utilities {
+  .clip-arc {
+    clip-path: ellipse(51% 90% at 50% 100%);
+  }
+}
+
 .slick-slide {
   transition: 0.2s padding ease-out;
 

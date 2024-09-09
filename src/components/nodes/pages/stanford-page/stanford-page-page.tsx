@@ -38,7 +38,9 @@ const StanfordPagePage = ({node, ...props}: Props) => {
   const lastComponent = node.suPageComponents && node.suPageComponents[node.suPageComponents.length - 1]
 
   const hasBannerOrCalculator =
-    lastComponent?.__typename?.includes("Banner") || lastComponent?.__typename?.includes("Calculator")
+    lastComponent?.__typename?.includes("Banner") ||
+    lastComponent?.__typename?.includes("Calculator") ||
+    lastComponent?.__typename?.includes("Testimonial")
 
   return (
     <article {...props} className={clsx({"mb-32": !hasBannerOrCalculator}, props.className)}>

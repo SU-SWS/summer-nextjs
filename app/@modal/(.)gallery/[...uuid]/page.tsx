@@ -36,7 +36,7 @@ const Page = async ({params: {uuid}}: Props) => {
 
         return (
           <div key={galleryImage.id}>
-            <figure>
+            <figure className="table">
               <picture className="flex justify-center">
                 <Image
                   src={galleryImage.suGalleryImage.url}

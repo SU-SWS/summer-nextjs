@@ -52,7 +52,7 @@ const InterceptionModal = ({children, ...props}: HtmlHTMLAttributes<HTMLDialogEl
         <button
           type="button"
           onClick={onDismiss}
-          className="group fixed -right-[100px] -top-[100px] flex h-[200px] w-[200px] items-center rounded-full bg-black-true bg-opacity-40 text-white lg:right-60 lg:top-60"
+          className="group fixed -right-[100px] -top-[100px] flex h-[200px] w-[200px] items-center rounded-full bg-black-true bg-opacity-40 text-white"
         >
           <span className="sr-only">Close Overlay</span>
           <XMarkIcon

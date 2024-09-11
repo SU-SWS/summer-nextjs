@@ -46,7 +46,7 @@ const ArcBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}
           className={twMerge(
             "clip-arc relative h-full w-full border-black bg-white",
             clsx({
-              "before:clip-arc overflow-hidden bg-black-true before:absolute before:left-[2px] before:top-[2px] before:z-[1] before:h-[calc(100%-2px)] before:w-[calc(100%-4px)] before:bg-white before:content-['']":
+              "before:clip-arc overflow-hidden bg-black-true before:absolute before:left-0 before:top-[4px] before:z-[1] before:h-[calc(100%-2px)] before:w-full before:bg-white before:content-[''] 4xl:before:top-[2px]":
                 isBorder,
             })
           )}

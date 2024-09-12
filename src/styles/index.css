@@ -17,7 +17,10 @@
 
 @layer utilities {
   .clip-arc {
-    clip-path: ellipse(51% 90% at 50% 100%);
+    clip-path: circle(55vw at 50% 110%);
+    @media (min-width: 2000px) {
+      clip-path: ellipse(51% 90% at 50% 100%);
+    }
   }
 }
 

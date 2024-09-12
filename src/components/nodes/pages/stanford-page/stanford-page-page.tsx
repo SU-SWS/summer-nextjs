@@ -35,7 +35,7 @@ const StanfordPagePage = ({node, ...props}: Props) => {
     node.layoutSelection?.id === "stanford_basic_page_full" ||
     !!node.suPageComponents?.find(component => fullWidthComponents.includes(component.__typename))
 
-  const lastComponent = node.suPageComponents?.[node.suPageComponents.length - 1]?.__typename
+  const lastComponent = node.suPageComponents?.[node.suPageComponents?.length - 1]?.__typename
 
   const hasBannerOrCalculator = [
     "ParagraphSumCalculator",

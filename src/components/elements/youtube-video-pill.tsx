@@ -38,6 +38,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
     width: 300,
     playerVars: {
       controls: 0,
+      rel: 0,
     },
   }
 

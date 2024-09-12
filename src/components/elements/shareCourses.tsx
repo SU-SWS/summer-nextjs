@@ -59,29 +59,33 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
         )}
       >
         <div className="absolute -top-3 left-3/4 z-0 h-10 w-10 rotate-45 bg-white" />
-        <ul className="list-unstyled bg-white children:border-b children:border-spirited-light last:children:border-transparent">
+        <ul className="list-unstyled bg-white">
           <li className="relative m-0 text-nowrap py-0">
             <a
               href={emailCopy}
-              className="block border-b-2 border-transparent px-6 py-5 font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
+              className="group block border-b-4 border-transparent font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
               data-course-shared={courseNum}
             >
-              Share via email
+              <span className="block border-b border-spirited-light px-6 py-5 group-hocus:border-transparent">
+                Share via email
+              </span>
             </a>
           </li>
           <li className="relative m-0 text-nowrap py-0">
             <a
               href={smsCopy}
-              className="block border-b-2 border-transparent px-6 py-5 font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
+              className="group block border-b-4 border-transparent font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
               data-course-shared={courseNum}
             >
-              Share via text
+              <span className="block border-b border-spirited-light px-6 py-5 group-hocus:border-transparent">
+                Share via text
+              </span>
             </a>
           </li>
           <li className="relative m-0 text-nowrap py-0">
             <button
               onClick={() => copy(copyUrl)}
-              className="block border-b-2 border-transparent px-6 py-5 font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
+              className="block border-b-0 border-b-4 border-transparent px-6 py-5 font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
               data-course-shared={courseNum}
             >
               Copy share link

@@ -6,14 +6,16 @@ const LockupA = ({line1, line5, siteName, logoUrl}: FooterLockupProps) => {
   return (
     <div className="py-10">
       <Link href="/" className="text-black no-underline">
-        <div className="flex flex-row items-center no-underline">
-          <div className="border-r-2 border-black py-2 pr-4">
+        <div className="flex flex-col text-black lg:flex-row lg:items-end">
+          <div className="border-r border-black py-2 pr-4">
             <LockupLogo logoUrl={logoUrl} siteName={siteName} />
           </div>
-          <div className="type-2 pl-4 font-normal text-black">{line1 || siteName}</div>
+          <div className="font-roboto text-28 font-light text-black lg:pl-4">{line1 || siteName}</div>
         </div>
 
-        {line5 && <div className="border-t border-black font-semibold uppercase lg:border-t-0">{line5}</div>}
+        {line5 && (
+          <div className="border-t border-black font-roboto font-semibold uppercase lg:border-t-0">{line5}</div>
+        )}
       </Link>
     </div>
   )

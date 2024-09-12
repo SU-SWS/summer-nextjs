@@ -15,8 +15,17 @@ export const graphqlClient = (requestConfig: Omit<RequestInit, "method"> = {}, i
 
 export const buildHeaders = (headers?: HeadersInit, isPreviewMode?: boolean): Headers => {
   const requestHeaders = new Headers(headers)
-  const authCreds = (isPreviewMode ? process.env.DRUPAL_BASIC_AUTH_ADMIN : process.env.DRUPAL_BASIC_AUTH) as string
+  const authCreds = (
+    isPreviewMode ? process.env.DRUPAL_BASIC_AUTH_ADMIN || process.env.DRUPAL_BASIC_AUTH : process.env.DRUPAL_BASIC_AUTH
+  ) as string
 
-  requestHeaders.set("Authorization", "Basic " + Buffer.from(authCreds).toString("base64"))
+  if (process.env.DRUPAL_REQUEST_HEADERS) {
+    const envRequestHeaders: Record<string, string> = JSON.parse(process.env.DRUPAL_REQUEST_HEADERS)
+    Object.keys(envRequestHeaders).map(key => {
+      requestHeaders.set(key, envRequestHeaders[key])
+    })
+  }
+
+  if (authCreds) requestHeaders.set("Authorization", "Basic " + Buffer.from(authCreds).toString("base64"))
   return requestHeaders
 }

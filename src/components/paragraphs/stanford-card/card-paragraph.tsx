@@ -9,6 +9,7 @@ import {twMerge} from "tailwind-merge"
 import ImageCard from "@components/patterns/image-card"
 import PillCard from "@components/patterns/pill-card"
 import clsx from "clsx"
+import customTwMerge from "@lib/utils/twMergeConfig"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordCard
@@ -68,7 +69,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
       )}
     >
       {paragraph.suCardHeader && (
-        <div id={paragraph.id} className={twMerge("order-2", hideHeader && "sr-only")}>
+        <div id={paragraph.id} className={customTwMerge("order-2", hideHeader && "sr-only")}>
           {headerTag === "h2" && <H2 className={headerClasses}>{paragraph.suCardHeader}</H2>}
           {headerTag === "h3" && <H3 className={headerClasses}>{paragraph.suCardHeader}</H3>}
           {headerTag === "h4" && <H4 className={headerClasses}>{paragraph.suCardHeader}</H4>}

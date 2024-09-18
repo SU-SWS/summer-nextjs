@@ -24,6 +24,7 @@ const StanfordPagePage = ({node, ...props}: Props) => {
     "ParagraphSumCarousel",
     "ParagraphSumCourseFilter",
     "ParagraphSumPillBanner",
+    "ParagraphStanfordBanner",
   ]
   const pageTitleBanners: NodeStanfordPageSuPageBannerUnion["__typename"][] = [
     "ParagraphStanfordPageTitleBanner",
@@ -35,10 +36,14 @@ const StanfordPagePage = ({node, ...props}: Props) => {
     node.layoutSelection?.id === "stanford_basic_page_full" ||
     !!node.suPageComponents?.find(component => fullWidthComponents.includes(component.__typename))
 
-  const lastComponent = node.suPageComponents && node.suPageComponents[node.suPageComponents.length - 1]
+  const lastComponent = node.suPageComponents?.[node.suPageComponents?.length - 1]?.__typename
 
-  const hasBannerOrCalculator =
-    lastComponent?.__typename?.includes("Banner") || lastComponent?.__typename?.includes("Calculator")
+  const hasBannerOrCalculator = [
+    "ParagraphSumCalculator",
+    "ParagraphSumTestimonial",
+    "ParagraphSumPillBanner",
+    "ParagraphStanfordBanner",
+  ].includes(lastComponent ?? "")
 
   return (
     <article {...props} className={clsx({"mb-32": !hasBannerOrCalculator}, props.className)}>

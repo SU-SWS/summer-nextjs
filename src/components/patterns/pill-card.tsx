@@ -66,7 +66,7 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, .
 
       <div
         className={twMerge(
-          "flex flex-col px-10 pb-[125px] pt-20 @3xl:pb-[175px] @4xl:pb-[225px] @5xl:pb-[250px] @7xl:pb-[300px] lg:px-14",
+          "rs-px-3 flex flex-col pb-[125px] pt-20 @7xl:rs-px-4 @2xl:pb-[175px] @3xl:pb-[225px] @4xl:pb-[300px]",
           clsx({
             "pt-[125px] @3xl:pt-[175px] @4xl:pt-[225px] @5xl:pt-[250px] @7xl:pt-[300px]": !imageUrl,
           })

@@ -28,6 +28,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
             "bg-olive-light": bgColor === "olive",
             "bg-spirited-light": bgColor === "spirited",
             "bg-spirited-dark text-white": bgColor === "spirited_dark",
+            "lg:pb-96": !!paragraph.sumTopBannerCards,
           }
         )}
         imageUrl={paragraph.sumTopBannerImage?.mediaImage.url}
@@ -35,7 +36,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
         overlayPosition={behaviors?.sum_top_banner_behaviors?.sum_top_banner_alignment || "right"}
         eagerLoadImage
       >
-        <div className={twMerge("flex flex-col lg:min-h-[400px]", clsx({"lg:pb-96": !!paragraph.sumTopBannerCards}))}>
+        <div className={twMerge("flex flex-col lg:min-h-[400px]")}>
           {pageTitle && (
             <div className="order-2">
               <H1 className="rs-mb-3 type-5 font-normal">{pageTitle}</H1>
@@ -51,7 +52,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
           {paragraph.sumTopBannerLink?.url && (
             <div className="rs-pt-2 order-4">
               <ActionLink
-                className="btn block w-fit rounded-full bg-digital-red px-12 py-6 text-5xl font-normal text-white no-underline transition hocus:text-white hocus:underline"
+                className="btn rs-mt-5 rounded-full border-2 border-transparent bg-digital-red px-8 py-4 font-normal text-white transition hocus:border-white hocus:text-white"
                 href={paragraph.sumTopBannerLink.url}
               >
                 {paragraph.sumTopBannerLink.title}

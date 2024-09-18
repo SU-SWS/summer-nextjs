@@ -82,7 +82,7 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
         <div className="order-1 mb-5 text-20 font-normal uppercase">{paragraph.suCardSuperHeader}</div>
       )}
 
-      <Wysiwyg html={paragraph.suCardBody?.processed} className="order-3 *:text-20 *:leading-[1.25]" />
+      <Wysiwyg html={paragraph.suCardBody?.processed} className="order-3 *:big-paragraph" />
 
       {paragraph.suCardLink?.url && (
         <div className="rs-mt-2 order-4">

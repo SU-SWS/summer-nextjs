@@ -74,7 +74,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
     <div
       {...props}
       className={twMerge(
-        "relative mx-auto sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
+        "relative mx-auto aspect-[9/16] sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
         props.className,
         isPlaying && !isInitialPlay && "border-transparent"
       )}
@@ -84,7 +84,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
         id={id}
         videoId={videoId || shortId}
         className={twMerge(
-          "h-full overflow-hidden transition-all duration-300 ease-in-out",
+          "h-full overflow-hidden bg-black transition-all duration-300 ease-in-out",
           isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white"
         )}
         opts={options}

@@ -1,5 +1,5 @@
+import twMerge from "@lib/utils/twMergeConfig"
 import {HtmlHTMLAttributes} from "react"
-import {twMerge} from "tailwind-merge"
 
 type Props = HtmlHTMLAttributes<HTMLHeadingElement>
 

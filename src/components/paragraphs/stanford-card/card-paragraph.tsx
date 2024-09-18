@@ -14,7 +14,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordCard
 }
 
-const adjustHeadingType = (heading: "h2" | "h3" | "h4" | "div", size?: "larger" | "smaller"): string | number => {
+const adjustHeadingType = (heading: "h2" | "h3" | "h4" | "div", size?: "larger" | "smaller"): number | undefined => {
   const headingTypes: Record<string, number> = {
     h2: 4,
     h3: 3,

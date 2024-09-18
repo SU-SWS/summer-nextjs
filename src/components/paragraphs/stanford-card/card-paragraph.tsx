@@ -21,9 +21,7 @@ const adjustHeadingType = (heading: "h2" | "h3" | "h4" | "div", size?: "larger" 
     h4: 2,
   }
   if (!headingTypes[heading] || !size) return
-  const type = size === "larger" ? headingTypes[heading] + 1 : headingTypes[heading] - 1
-
-  return type
+  return size === "larger" ? headingTypes[heading] + 1 : headingTypes[heading] - 1
 }
 
 const CardParagraph = ({paragraph, ...props}: Props) => {

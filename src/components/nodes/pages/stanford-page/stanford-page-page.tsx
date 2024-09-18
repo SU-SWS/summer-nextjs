@@ -24,6 +24,7 @@ const StanfordPagePage = ({node, ...props}: Props) => {
     "ParagraphSumCarousel",
     "ParagraphSumCourseFilter",
     "ParagraphSumPillBanner",
+    "ParagraphStanfordBanner",
   ]
   const pageTitleBanners: NodeStanfordPageSuPageBannerUnion["__typename"][] = [
     "ParagraphStanfordPageTitleBanner",

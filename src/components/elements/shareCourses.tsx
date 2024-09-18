@@ -43,7 +43,7 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
         {...buttonProps}
         ref={buttonRef}
         className={twMerge(
-          "hocus:outline-3 rounded-full border-2 border-transparent pr-2 hocus:outline hocus:outline-poppy-dark",
+          "hocus-visible:outline-3 rounded-full border-2 border-transparent pr-2 hocus-visible:outline hocus-visible:outline-poppy-dark",
           buttonProps.className
         )}
       >
@@ -85,7 +85,7 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
           <li className="relative m-0 text-nowrap py-0">
             <button
               onClick={() => copy(copyUrl)}
-              className="block border-b-0 border-b-4 border-transparent px-6 py-5 font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
+              className="block border-b-4 border-transparent px-6 py-5 font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
               data-course-shared={courseNum}
             >
               Copy share link

@@ -21,12 +21,7 @@ const adjustHeadingType = (size?: "larger" | "smaller", heading: "h2" | "h3" | "
     h4: 2,
   }
   if (!headingTypes[heading] || !size) return ""
-  let type = headingTypes[heading]
-  if (size === "larger") {
-    type += 1
-  } else if (size === "smaller") {
-    type -= 1
-  }
+  const type = size === "larger" ? headingTypes[heading] + 1 : headingTypes[heading] - 1
 
   return `type-${type}`
 }

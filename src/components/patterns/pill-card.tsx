@@ -66,11 +66,11 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, .
 
       <div
         className={twMerge(
-          "rs-px-3 flex flex-col pb-[125px] pt-20 @7xl:rs-px-4 @2xl:pb-[175px] @3xl:pb-[225px] @4xl:pb-[300px]",
+          "rs-px-3 flex flex-col pb-[125px] pt-20 @7xl:rs-px-4 @2xl:pb-[175px] @3xl:pb-[225px] @4xl:pb-[300px] [&_p>a]:text-black-true hocus:[&_p>a]:text-[#00365C]",
           clsx({
             "pt-[125px] @3xl:pt-[175px] @4xl:pt-[225px] @5xl:pt-[250px] @7xl:pt-[300px]": !imageUrl,
-            "[&_p>a]:text-black-true [&_p>a]:no-underline [&_p>a]:hocus:text-black-true [&_p>a]:hocus:underline":
-              typeof bgColor == "string" && !bgColor?.includes("semitransparent"),
+            "[&_p>a]:text-digital-blue hocus:[&_p>a]:text-black":
+              typeof bgColor == "string" && bgColor?.includes("semitransparent"),
           })
         )}
       >

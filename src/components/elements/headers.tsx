@@ -1,4 +1,4 @@
-import customTwMerge from "@lib/utils/twMergeConfig"
+import twMerge from "@lib/utils/twMergeConfig"
 import {HtmlHTMLAttributes} from "react"
 
 type Props = HtmlHTMLAttributes<HTMLHeadingElement>
@@ -8,7 +8,7 @@ const headingLinkClasses =
 
 export const H1 = ({children, className, ...props}: Props) => {
   return (
-    <h1 className={customTwMerge(className, "type-5 font-light")} {...props}>
+    <h1 className={twMerge(className, "type-5 font-light")} {...props}>
       {children}
     </h1>
   )
@@ -16,7 +16,7 @@ export const H1 = ({children, className, ...props}: Props) => {
 
 export const H2 = ({children, className, ...props}: Props) => {
   return (
-    <h2 className={customTwMerge(headingLinkClasses, "type-4 font-light", className)} {...props}>
+    <h2 className={twMerge(headingLinkClasses, "type-4 font-light", className)} {...props}>
       {children}
     </h2>
   )
@@ -24,7 +24,7 @@ export const H2 = ({children, className, ...props}: Props) => {
 
 export const H3 = ({children, className, ...props}: Props) => {
   return (
-    <h3 className={customTwMerge(headingLinkClasses, "type-3 font-light", className)} {...props}>
+    <h3 className={twMerge(headingLinkClasses, "type-3 font-light", className)} {...props}>
       {children}
     </h3>
   )
@@ -32,7 +32,7 @@ export const H3 = ({children, className, ...props}: Props) => {
 
 export const H4 = ({children, className, ...props}: Props) => {
   return (
-    <h4 className={customTwMerge(headingLinkClasses, "type-2 font-light", className)} {...props}>
+    <h4 className={twMerge(headingLinkClasses, "type-2 font-light", className)} {...props}>
       {children}
     </h4>
   )
@@ -40,7 +40,7 @@ export const H4 = ({children, className, ...props}: Props) => {
 
 export const H5 = ({children, className, ...props}: Props) => {
   return (
-    <h5 className={customTwMerge(headingLinkClasses, "type-1 font-light", className)} {...props}>
+    <h5 className={twMerge(headingLinkClasses, "type-1 font-light", className)} {...props}>
       {children}
     </h5>
   )
@@ -48,7 +48,7 @@ export const H5 = ({children, className, ...props}: Props) => {
 
 export const H6 = ({children, className, ...props}: Props) => {
   return (
-    <h6 className={customTwMerge(headingLinkClasses, "type-0 font-light", className)} {...props}>
+    <h6 className={twMerge(headingLinkClasses, "type-0 font-light", className)} {...props}>
       {children}
     </h6>
   )

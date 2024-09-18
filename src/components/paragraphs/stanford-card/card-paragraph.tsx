@@ -15,7 +15,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 }
 
 const adjustHeadingType = (size?: "larger" | "smaller", heading: "h2" | "h3" | "h4" | "div"): string => {
-  const headingTypes: {[key: string]: number} = {
+  const headingTypes: Record<string, number> = {
     h2: 4,
     h3: 3,
     h4: 2,

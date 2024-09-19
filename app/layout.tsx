@@ -8,7 +8,6 @@ import DrupalWindowSync from "@components/elements/drupal-window-sync"
 import UserAnalytics from "@components/elements/user-analytics"
 import clsx from "clsx"
 import Editori11y from "@components/tools/editorially"
-import localFont from "next/font/local"
 
 const appleIcons: Icon[] = [60, 72, 76, 114, 120, 144, 152, 180].map(size => ({
   url: `https://www-media.stanford.edu/assets/favicon/apple-touch-icon-${size}x${size}.png`,
@@ -44,12 +43,6 @@ export const metadata = {
   },
 }
 
-const stanford = localFont({
-  src: "../public/fonts/stanford.woff2",
-  weight: "300",
-  variable: "--font-stanford",
-})
-
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
 export const revalidate = false
 
@@ -57,7 +50,7 @@ const RootLayout = ({children, modal}: {children: React.ReactNode; modal: React.
   const isDevMode = process.env.NODE_ENV === "development"
 
   return (
-    <html lang="en" className={clsx(sourceSans3.className, roboto.variable, stanford.variable)}>
+    <html lang="en" className={clsx(sourceSans3.className, roboto.variable)}>
       <UserAnalytics />
       <DrupalWindowSync />
       {isDevMode && <Editori11y />}

@@ -23,9 +23,10 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const isArcBanner = behaviors.sum_carousel?.sum_carousel_arc
   const headingSize = behaviors.sum_carousel?.sum_carousel_text_size ? "type-3" : "type-4"
+  const Element = paragraph.sumCarouselHeader ? "article" : "div"
 
   return (
-    <div {...props}>
+    <Element {...props} aria-labelledby={paragraph.sumCarouselHeader ? paragraph.id : undefined}>
       {isArcBanner && (
         <ArcBanner isBorder>
           <CarouselTop
@@ -35,6 +36,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
             description={paragraph.sumCarouselDescription?.processed}
             link={paragraph.sumCarouselLink}
             className="md:rs-mt-7"
+            headerId={paragraph.id}
           />
         </ArcBanner>
       )}
@@ -46,6 +48,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
           headingSize={headingSize}
           description={paragraph.sumCarouselDescription?.processed}
           link={paragraph.sumCarouselLink}
+          headerId={paragraph.id}
         />
       )}
 
@@ -66,7 +69,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
           </Slideshow>
         </div>
       )}
-    </div>
+    </Element>
   )
 }
 
@@ -114,13 +117,18 @@ type TopProps = {
   headingSize?: Maybe<string>
   description?: Maybe<string>
   link?: Maybe<Link>
+  headerId?: string
 }
 
-const CarouselTop = ({header, superHeader, headingSize, description, link, className}: TopProps) => {
+const CarouselTop = ({header, superHeader, headingSize, description, link, className, headerId}: TopProps) => {
   return (
     <div className={twMerge("centered mb-20 text-center", className)}>
       <div className="flex flex-col">
-        {header && <H2 className={clsx("mb-8 font-light", headingSize)}>{header}</H2>}
+        {header && (
+          <H2 id={headerId} className={clsx("mb-8 font-light", headingSize)}>
+            {header}
+          </H2>
+        )}
         {superHeader && <div className="order-first mb-8">{superHeader}</div>}
       </div>
 

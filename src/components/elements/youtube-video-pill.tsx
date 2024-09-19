@@ -102,6 +102,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
           tabIndex={-1}
           aria-hidden
           onClick={() => {
+            videoRef.current?.seekTo(0)
             videoRef.current?.playVideo()
             document.getElementById(id)?.focus()
           }}

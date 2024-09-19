@@ -51,7 +51,7 @@ const Accordion = ({button, children, headingLevel = "h2", ...props}: Props) => 
       <Heading className="rs-py-3 mb-0">
         <button
           {...buttonProps}
-          className={twMerge("group flex w-full items-center justify-between", buttonProps?.className)}
+          className={twMerge("group flex w-full items-center justify-between text-left", buttonProps?.className)}
         >
           {button}
           <span className="group-hocus:outline-3 m-4 rounded-full border-2 border-white bg-digital-red p-6 text-5xl font-normal text-white no-underline transition group-hocus:text-white group-hocus:underline group-hocus:outline group-hocus:outline-digital-red">

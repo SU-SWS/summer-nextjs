@@ -13,8 +13,11 @@ const PageFooter = ({...props}: Props) => {
       <div className="bg-cardinal-red py-10 [&_a:hocus]:text-white [&_a]:text-white [&_a]:no-underline">
         <div className="centered lg:flex lg:items-start lg:gap-20">
           <div className="mb-10 text-center">
-            <a className="text-center font-stanford" href="https://www.stanford.edu">
-              <div className="text-[3.2rem]">Stanford</div>
+            <a
+              className="text-center font-stanford text-[3.4rem] font-regular leading-none text-white"
+              href="https://www.stanford.edu"
+            >
+              <div>Stanford</div>
               <div>University</div>
             </a>
           </div>

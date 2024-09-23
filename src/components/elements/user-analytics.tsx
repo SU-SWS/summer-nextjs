@@ -1,7 +1,7 @@
 import {getConfigPageField} from "@lib/gql/gql-queries"
 import {StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal"
 import Script from "next/script"
-import {GoogleAnalytics} from "@next/third-parties/google"
+import {GoogleAnalytics, GoogleTagManager} from "@next/third-parties/google"
 import {isPreviewMode} from "@lib/drupal/is-preview-mode"
 
 const UserAnalytics = async () => {
@@ -12,11 +12,12 @@ const UserAnalytics = async () => {
     StanfordBasicSiteSetting["suGoogleAnalytics"]
   >("StanfordBasicSiteSetting", "suGoogleAnalytics")
 
-  if (!googleAnalytics) return
+  if (!googleAnalytics && !process.env.NEXT_PUBLIC_GTM) return
   return (
     <>
       <Script async src="//siteimproveanalytics.com/js/siteanalyze_80352.js" />
-      <GoogleAnalytics gaId={googleAnalytics} />
+      {googleAnalytics && <GoogleAnalytics gaId={googleAnalytics} />}
+      {process.env.NEXT_PUBLIC_GTM && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM} />}
     </>
   )
 }

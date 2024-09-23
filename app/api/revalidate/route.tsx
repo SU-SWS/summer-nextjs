@@ -1,9 +1,18 @@
 import {NextRequest, NextResponse} from "next/server"
-import {revalidateTag} from "next/cache"
+import {revalidateTag, unstable_cache as nextCache} from "next/cache"
 import {getEntityFromPath, getMenu} from "@lib/gql/gql-queries"
 import {getMenuActiveTrail} from "@lib/drupal/utils"
 
 export const revalidate = 0
+
+const getHomePagePath = nextCache(
+  async () => {
+    const {entity} = await getEntityFromPath("/")
+    return entity?.path
+  },
+  [],
+  {tags: ["paths:/"]}
+)
 
 export const GET = async (request: NextRequest) => {
   const secret = request.nextUrl.searchParams.get("secret")
@@ -11,7 +20,7 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json({message: "Invalid token"}, {status: 403})
 
   let path = request.nextUrl.searchParams.get("slug")
-  if (!path || path.startsWith("/node/")) return NextResponse.json({message: "Invalid slug"}, {status: 204})
+  if (!path || path.startsWith("/node/")) return NextResponse.json({message: "Invalid slug"}, {status: 403})
 
   const tagsInvalidated = ["paths", `paths:${path}`]
   if (path.startsWith("/tags/"))
@@ -22,11 +31,7 @@ export const GET = async (request: NextRequest) => {
 
   // When the home page is saved, it's url slug might be like `/home`. If the home page matches the slug, invalidate
   // the home page path.
-  const {entity} = await getEntityFromPath("/")
-  if (entity?.path === path) tagsInvalidated.push("paths:/")
-
-  const menu = await getMenu()
-  if (!!getMenuActiveTrail(menu, path).length) tagsInvalidated.push("menu:main")
+  if ((await getHomePagePath()) === path) tagsInvalidated.push("paths:/")
 
   tagsInvalidated.map(tag => revalidateTag(tag))
 

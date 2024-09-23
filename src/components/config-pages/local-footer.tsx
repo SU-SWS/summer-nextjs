@@ -219,7 +219,7 @@ const FooterLockup = ({useDefault = true, siteName, lockupOption, ...props}: Foo
   return (
     <div className="py-10">
       <Link href="/" className="flex flex-col text-black no-underline lg:flex-row lg:items-end">
-        <div className="border-r border-black py-2 pr-4">
+        <div className="border-black py-2 pr-4 lg:border-r">
           <LockupLogo {...lockupProps} />
         </div>
         <div className="font-roboto text-28 font-light text-black lg:pl-4">{siteName || "University"}</div>

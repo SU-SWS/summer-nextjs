@@ -20,7 +20,7 @@ const FavoriteButton = ({uuid, title, path, units, ...props}: Props) => {
       role="switch"
       aria-checked={isFavorite}
       className={twMerge(
-        "hocus:outline-3 rounded-full border-2 border-transparent hocus:outline hocus:outline-spirited-dark",
+        "hocus-visible:outline-3 rounded-full border-2 border-transparent hocus-visible:outline hocus-visible:outline-spirited-dark",
         props.className
       )}
     >

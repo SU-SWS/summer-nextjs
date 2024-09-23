@@ -14,6 +14,16 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordCard
 }
 
+const adjustHeadingType = (heading: "h2" | "h3" | "h4" | "div", size?: "larger" | "smaller"): number | undefined => {
+  const headingTypes: Record<string, number> = {
+    h2: 4,
+    h3: 3,
+    h4: 2,
+  }
+  if (!headingTypes[heading] || !size) return
+  return size === "larger" ? headingTypes[heading] + 1 : headingTypes[heading] - 1
+}
+
 const CardParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
 
@@ -22,8 +32,19 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
     paragraph.suCardMedia?.__typename === "MediaVideo" ? paragraph.suCardMedia.mediaOembedVideo : undefined
 
   const headerTagChoice = (behaviors.su_card_styles?.heading || "h2").split(".", 2)
-  const headerTag = headerTagChoice[0]
-  const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "type-3 mb-12") || "mb-12"
+  const headerSize = behaviors.su_card_styles?.sum_card_heading_size
+  const headerTag = headerTagChoice[0] as "h2" | "h3" | "h4" | "div"
+  const headerType = adjustHeadingType(headerTag, headerSize)
+  const headerClasses = twMerge(
+    headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "type-3 mb-12") || "mb-12",
+    clsx({
+      "type-4": headerType === 4,
+      "type-3": headerType === 3,
+      "type-2": headerType === 2,
+      "type-1": headerType === 1,
+      "type-0": headerType === 0,
+    })
+  )
   const cardVariant = behaviors.su_card_styles?.sum_card_variant
   const hasBgColor = behaviors.su_card_styles?.sum_card_bg_color_variant
   const cardBgColor = cardVariant === "pill" ? behaviors.su_card_styles?.sum_card_pill_bg_color_variant : undefined

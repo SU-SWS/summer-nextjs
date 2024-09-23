@@ -50,6 +50,7 @@ module.exports = {
       },
       fontFamily: {
         roboto: ['var(--font-roboto)', 'sans-serif'],
+        stanford: ['var(--font-stanford)', 'sans-serif'],
       },
     },
   },

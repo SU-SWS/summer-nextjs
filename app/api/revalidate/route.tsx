@@ -1,7 +1,6 @@
 import {NextRequest, NextResponse} from "next/server"
 import {revalidateTag, unstable_cache as nextCache} from "next/cache"
-import {getEntityFromPath, getMenu} from "@lib/gql/gql-queries"
-import {getMenuActiveTrail} from "@lib/drupal/utils"
+import {getEntityFromPath} from "@lib/gql/gql-queries"
 
 export const revalidate = 0
 

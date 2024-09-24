@@ -81,6 +81,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
     })
 
   const hitDomain = new URL(hit.url).origin
+  const imageUrl = hit.photo?.replace(hitDomain, process.env.NEXT_PUBLIC_DRUPAL_BASE_URL as string)
 
   return (
     <div className="rs-py-3 rs-mb-4 rs-px-4 flex flex-col rounded-[25px] bg-fog-light">
@@ -94,9 +95,9 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
           <div className="order-first mb-6 font-semibold text-archway-dark">{hit.sum_course_catalog_number}</div>
         </div>
 
-        {hit.photo && (
+        {imageUrl && (
           <div className="relative order-first aspect-1 w-1/4 shrink-0">
-            <Image className="rounded-[25px] object-cover" src={hit.photo} alt={""} fill sizes="300px" />
+            <Image className="rounded-[25px] object-cover" src={imageUrl} alt={""} fill sizes="500px" />
           </div>
         )}
 

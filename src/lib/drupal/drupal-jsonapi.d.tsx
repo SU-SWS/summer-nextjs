@@ -48,7 +48,6 @@ export type SumBannerParagraphBehaviors = {
 
 export type SumTopBannerParagraphBehaviors = {
   sum_top_banner_alignment?: "left" | "right"
-  sum_top_banner_button?: boolean
   sum_top_banner_overlay_bkg?: "olive" | "spirited" | "spirited_dark"
 }
 
@@ -83,5 +82,5 @@ export type ParagraphBehaviors = {
   sum_testimonial_banner?: TestimonialBannerBehaviors
   sum_at_a_glance_behavior?: AtAGlanceBehaviors
   sum_banner_behaviors?: SumBannerParagraphBehaviors
-  sum_top_banner_behaviors?: SumTopBannerParagraphBehaviors
+  sum_top_banner_behavior?: SumTopBannerParagraphBehaviors
 }

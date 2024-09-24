@@ -17,7 +17,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 
 const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
-  const bgColor = behaviors.sum_banner_behaviors?.sum_banner_overlay_bkg
+  const bgColor = behaviors.sum_top_banner_behavior?.sum_top_banner_overlay_bkg
 
   return (
     <div {...props} className={twMerge("mb-32", props.className)}>
@@ -33,7 +33,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
         )}
         imageUrl={paragraph.sumTopBannerImage?.mediaImage.url}
         imageAlt={paragraph.sumTopBannerImage?.mediaImage.alt}
-        overlayPosition={behaviors?.sum_top_banner_behaviors?.sum_top_banner_alignment || "right"}
+        overlayPosition={behaviors?.sum_top_banner_behavior?.sum_top_banner_alignment || "right"}
         eagerLoadImage
       >
         <div className={twMerge("flex flex-col lg:min-h-[400px]")}>

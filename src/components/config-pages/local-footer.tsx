@@ -172,7 +172,7 @@ const FooterLockup = ({useDefault = true, siteName, lockupOption, ...props}: Foo
   switch (lockupOption) {
     case "none":
       return (
-        <div className="py-10">
+        <div className="w-fit py-10">
           <Link href="/" className="flex flex-row gap-4 font-roboto no-underline">
             <LockupLogo {...lockupProps} />
           </Link>

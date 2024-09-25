@@ -4,7 +4,7 @@ import {FooterLockupProps} from "@components/config-pages/local-footer"
 
 const LockupA = ({line1, line5, siteName, logoUrl}: FooterLockupProps) => {
   return (
-    <div className="py-10">
+    <div className="w-fit py-10">
       <Link href="/" className="text-black no-underline">
         <div className="flex flex-col text-black lg:flex-row lg:items-end">
           <div className="border-black py-2 pr-4 lg:border-r">

@@ -35,7 +35,7 @@ const InterceptionModal = ({children, ...props}: HtmlHTMLAttributes<HTMLDialogEl
     <dialog
       ref={overlay}
       className={twMerge(
-        "modal fixed left-0 top-0 z-[10000] m-0 flex h-full w-screen items-center justify-center overflow-x-hidden overflow-y-scroll overscroll-contain bg-black-true bg-opacity-90 p-0",
+        "modal overflow-x-tw-hidden fixed left-0 top-0 z-[10000] m-0 flex h-full w-screen items-center justify-center overflow-y-scroll overscroll-contain bg-black-true bg-opacity-90 p-0",
         props.className
       )}
       onClick={onClick}

@@ -21,7 +21,7 @@ const BackToTop = () => {
     <Button
       buttonElem
       className={twMerge(
-        "invisible fixed bottom-10 right-10 z-50 hidden opacity-0 transition-all duration-300 xl:block",
+        "tw-hidden invisible fixed bottom-10 right-10 z-50 opacity-0 transition-all duration-300 xl:block",
         clsx({"visible opacity-100": value})
       )}
       onClick={() => {

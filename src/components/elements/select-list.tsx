@@ -32,7 +32,7 @@ const renderSelectedValue = (value: SelectValue<string, boolean>, options: Selec
     return value.map(item => (
       <span
         key={item}
-        className="mb-2 block max-w-full overflow-hidden text-ellipsis whitespace-nowrap rounded bg-archway p-5 text-white"
+        className="overflow-tw-hidden mb-2 block max-w-full text-ellipsis whitespace-nowrap rounded bg-archway p-5 text-white"
       >
         {renderSelectedValue(item, options)}
       </span>
@@ -193,12 +193,12 @@ const SelectList = ({
       <div
         className={
           "absolute left-0 top-full z-[10] max-h-[300px] w-full overflow-y-scroll border border-black-20 bg-white pb-5 shadow-lg " +
-          (listboxVisible ? "" : "hidden")
+          (listboxVisible ? "" : "tw-hidden")
         }
       >
         <ul
           {...getListboxProps()}
-          className={"list-unstyled " + (listboxVisible ? "" : "hidden")}
+          className={"list-unstyled " + (listboxVisible ? "" : "tw-hidden")}
           aria-hidden={!listboxVisible}
           aria-labelledby={labeledBy}
         >
@@ -219,7 +219,7 @@ const SelectList = ({
           </SelectProvider>
         </ul>
       </div>
-      {name && <input ref={inputRef} name={name} type="hidden" value={value || ""} />}
+      {name && <input ref={inputRef} name={name} type="tw-hidden" value={value || ""} />}
     </div>
   )
 }

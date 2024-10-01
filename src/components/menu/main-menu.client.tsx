@@ -94,7 +94,7 @@ const MainMenuClient = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props)
       <div
         className={twMerge(
           "top-100 absolute z-10 block w-full bg-fog-light lg:relative lg:flex lg:items-center lg:justify-end lg:bg-transparent",
-          clsx({hidden: !menuOpen})
+          clsx({"tw-hidden": !menuOpen})
         )}
       >
         <SiteSearchForm className="px-10 lg:hidden" />
@@ -111,7 +111,7 @@ const MainMenuClient = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props)
             <MenuItem key={item.id} {...item} activeTrail={activeTrail} level={0} />
           ))}
 
-          <li className="mb-0 hidden pb-0 lg:block">
+          <li className="tw-hidden mb-0 pb-0 lg:block">
             <Link
               id="search"
               href="/search"
@@ -227,7 +227,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
         "lg:left-full": level !== 0 && positionRight,
         "lg:right-full": level !== 0 && !positionRight,
         block: submenuOpen,
-        hidden: !submenuOpen,
+        "tw-hidden": !submenuOpen,
       }
     )
   )

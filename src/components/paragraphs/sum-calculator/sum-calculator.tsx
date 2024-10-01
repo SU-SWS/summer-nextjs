@@ -271,7 +271,7 @@ const SumCalculatorParagraph = ({
                   <span>Estimated total cost</span>
                   <span>{formatCurrency(totalCost)}</span>
                 </H2>
-                <p className="card-paragraph mb-0 hidden text-left md:block">
+                <p className="tw-hidden card-paragraph mb-0 text-left md:block">
                   * Disclaimer: this is only an estimate. Actual fees are subject to change.
                 </p>
               </div>
@@ -327,7 +327,7 @@ const SumCalculatorParagraph = ({
                 </div>
               </div>
 
-              <div className="order-2 mt-20 hidden border-b border-black md:block">
+              <div className="tw-hidden order-2 mt-20 border-b border-black md:block">
                 <button
                   {...buttonProps}
                   className="card-paragraph mb-3 ml-auto flex items-center text-digital-blue no-underline hocus:underline"

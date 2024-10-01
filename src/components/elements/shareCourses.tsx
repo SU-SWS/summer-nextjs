@@ -54,7 +54,7 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
         {...panelProps}
         className={twMerge(
           "absolute right-0 top-full z-10 -mr-[30px] mt-5 w-fit rounded-[25px] border border-white bg-white px-12 py-4",
-          expanded ? "block" : "hidden",
+          expanded ? "block" : "tw-hidden",
           panelProps.className
         )}
       >

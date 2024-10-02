@@ -276,6 +276,7 @@ fragment FragmentParagraphSumSlideTeaser on ParagraphSumSlideTeaser {
 fragment FragmentParagraphSumTopBanner on ParagraphSumTopBanner {
   ...FragmentParagraphInterface
   sumTopBannerCards {
+    ...FragmentParagraphSumVideo
     ...FragmentParagraphStanfordCard
   }
   sumTopBannerDescrip {

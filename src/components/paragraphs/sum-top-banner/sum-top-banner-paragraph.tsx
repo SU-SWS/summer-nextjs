@@ -9,6 +9,7 @@ import HeroBanner from "@components/patterns/hero-banner"
 import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
 import {clsx} from "clsx"
 import ActionLink from "@components/elements/action-link"
+import SumVideoParagraph from "@components/paragraphs/sum-video/video-paragraph"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumTopBanner
@@ -63,17 +64,19 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
       </HeroBanner>
 
       {paragraph.sumTopBannerCards && (
-        <div className="centered relative z-10 grid gap-10 children:w-2/3 children:w-full lg:-mt-96 lg:grid-cols-3 lg:gap-20">
+        <div className="centered relative z-10 grid gap-10 children:w-full lg:-mt-96 lg:grid-cols-3 lg:gap-20">
           {paragraph.sumTopBannerCards.map(card => {
             const behaviors = getParagraphBehaviors(card)
 
-            return (
-              <CardParagraph
-                key={card.id}
-                paragraph={card}
-                className={behaviors.su_card_styles?.sum_card_bg_color_variant ? "lg:mt-96" : ""}
-              />
-            )
+            if (card.__typename === "ParagraphSumVideo") return <SumVideoParagraph key={card.id} paragraph={card} />
+            if (card.__typename === "ParagraphStanfordCard")
+              return (
+                <CardParagraph
+                  key={card.id}
+                  paragraph={card}
+                  className={behaviors.su_card_styles?.sum_card_bg_color_variant ? "lg:mt-96" : ""}
+                />
+              )
           })}
         </div>
       )}

@@ -522,10 +522,20 @@ export const FragmentNodeStanfordNewsTeaserFragmentDoc = gql`
 ${FragmentMediaImageFragmentDoc}
 ${FragmentTermInterfaceFragmentDoc}
 ${FragmentDateTimeFragmentDoc}`;
+export const FragmentParagraphSumVideoFragmentDoc = gql`
+    fragment FragmentParagraphSumVideo on ParagraphSumVideo {
+  ...FragmentParagraphInterface
+  sumVideoVideo {
+    ...FragmentMediaVideo
+  }
+}
+    ${FragmentParagraphInterfaceFragmentDoc}
+${FragmentMediaVideoFragmentDoc}`;
 export const FragmentParagraphSumTopBannerFragmentDoc = gql`
     fragment FragmentParagraphSumTopBanner on ParagraphSumTopBanner {
   ...FragmentParagraphInterface
   sumTopBannerCards {
+    ...FragmentParagraphSumVideo
     ...FragmentParagraphStanfordCard
   }
   sumTopBannerDescrip {
@@ -540,6 +550,7 @@ export const FragmentParagraphSumTopBannerFragmentDoc = gql`
   sumTopBannerSuperhead
 }
     ${FragmentParagraphInterfaceFragmentDoc}
+${FragmentParagraphSumVideoFragmentDoc}
 ${FragmentParagraphStanfordCardFragmentDoc}
 ${FragmentTextFragmentDoc}
 ${FragmentMediaImageFragmentDoc}
@@ -669,15 +680,6 @@ export const FragmentParagraphSumUserFavoriteFragmentDoc = gql`
   ...FragmentParagraphInterface
 }
     ${FragmentParagraphInterfaceFragmentDoc}`;
-export const FragmentParagraphSumVideoFragmentDoc = gql`
-    fragment FragmentParagraphSumVideo on ParagraphSumVideo {
-  ...FragmentParagraphInterface
-  sumVideoVideo {
-    ...FragmentMediaVideo
-  }
-}
-    ${FragmentParagraphInterfaceFragmentDoc}
-${FragmentMediaVideoFragmentDoc}`;
 export const FragmentParagraphSumFactFragmentDoc = gql`
     fragment FragmentParagraphSumFact on ParagraphSumFact {
   ...FragmentParagraphInterface

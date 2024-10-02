@@ -4,7 +4,7 @@ import {HtmlHTMLAttributes} from "react"
 type Props = HtmlHTMLAttributes<HTMLHeadingElement>
 
 const headingLinkClasses =
-  "[&_a]:text-digital-blue [&_a]:hocus:text-black [&_a]:no-underline [&_a]:hocus:underline font-roboto"
+  "[&_a]:text-digital-blue [&_a]:hocus:text-black [&_a]:no-underline [&_a]:hocus:underline font-roboto [&_a]:font-light"
 
 export const H1 = ({children, className, ...props}: Props) => {
   return (

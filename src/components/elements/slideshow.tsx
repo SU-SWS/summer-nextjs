@@ -11,7 +11,7 @@ const NextArrow = ({className, onClick}: CustomArrowProps) => {
   return (
     <button
       className={twMerge(
-        "hocus:outline-3 absolute right-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:outline hocus:outline-digital-red",
+        "hocus:outline-3 absolute right-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:bg-digital-red hocus:outline hocus:outline-digital-red",
         clsx({"bg-black-40 hocus:bg-black-40 hocus:outline-0": slickDisabled})
       )}
       onClick={onClick}
@@ -28,7 +28,7 @@ const PrevArrow = ({className, onClick}: CustomArrowProps) => {
   return (
     <button
       className={twMerge(
-        "hocus:outline-3 absolute left-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:outline hocus:outline-digital-red",
+        "hocus:outline-3 absolute left-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:bg-digital-red hocus:outline hocus:outline-digital-red",
         clsx({"bg-black-40 hocus:bg-black-40 hocus:outline-0": slickDisabled})
       )}
       onClick={onClick}

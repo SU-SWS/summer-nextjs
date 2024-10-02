@@ -19,8 +19,6 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
   const startDate = node.sumCourseStartDate && convertToLocalDateTime(node.sumCourseStartDate).toUpperCase()
   const endDate = node.sumCourseEndDate && convertToLocalDateTime(node.sumCourseEndDate).toUpperCase()
 
-  console.log("syllabus", node.sumCourseSyllabusFile)
-
   return (
     <article {...props} aria-labelledby={node.id}>
       <ArcBanner {...props} imageUrl="/images/temp-bg.jpg" imageAlt="">

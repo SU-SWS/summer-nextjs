@@ -326,6 +326,7 @@ fragment FragmentNodeStanfordCourseTeaser on NodeStanfordCourse {
 
 fragment FragmentNodeSumSummerCourseTeaser on NodeSumSummerCourse {
   ...FragmentNodeInterface
+  sumCourseCatalogNumber
 }
 
 fragment FragmentNodeStanfordEventTeaser on NodeStanfordEvent {

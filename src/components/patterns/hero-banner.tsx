@@ -67,7 +67,7 @@ const HeroBanner = ({
       {children && (
         <div
           className={twMerge(
-            "rs-px-5 rs-py-8 relative order-1 flex w-full flex-col bg-white lg:z-10 lg:min-h-[400px] lg:w-[calc(50%_-_5rem)]",
+            "rs-px-5 rs-py-8 relative order-1 flex w-full flex-col bg-white lg:z-10 lg:w-[calc(50%_-_5rem)]",
             clsx({
               "lg:ml-auto lg:mr-20": overlayPosition === "right",
               "lg:ml-20 lg:mr-auto": overlayPosition !== "right",

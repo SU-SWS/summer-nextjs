@@ -615,6 +615,7 @@ ${FragmentTermInterfaceFragmentDoc}`;
 export const FragmentNodeSumSummerCourseTeaserFragmentDoc = gql`
     fragment FragmentNodeSumSummerCourseTeaser on NodeSumSummerCourse {
   ...FragmentNodeInterface
+  sumCourseCatalogNumber
 }
     ${FragmentNodeInterfaceFragmentDoc}`;
 export const FragmentNodeTeaserUnionFragmentDoc = gql`

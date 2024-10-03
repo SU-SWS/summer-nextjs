@@ -9,6 +9,7 @@ import FavoritesList from "@components/elements/favorites-list"
 import RelatedCourses from "@components/algolia/algolia-course-related"
 import FavoriteButton from "@components/elements/favorite-button"
 import {ApplyNowLink} from "@components/elements/apply-now-link"
+import Link from "next/link"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeSumSummerCourse
@@ -123,6 +124,14 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
                     node.sumCourseCrossListing.join(", ")}
                 </div>
               )}
+
+              {node.sumCourseSyllabusFile && (
+                <div>
+                  <Link prefetch={false} href={node.sumCourseSyllabusFile.mediaFile.url}>
+                    View <span className="sr-only">{node.title}</span>Course Syllabus
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
           <div>
@@ -148,7 +157,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
         <RelatedCourses objectId={node.id} />
       </div>
       <div className="centered flex flex-col items-end">
-        <div className="rs-mt-3 w-full md:w-1/2">
+        <div className="rs-mt-3 mb-32 w-full md:w-1/2">
           <ApplyNowLink href="/apply-now">
             Ready to dive in? Kick off your application today – let&apos;s make things happen!
           </ApplyNowLink>

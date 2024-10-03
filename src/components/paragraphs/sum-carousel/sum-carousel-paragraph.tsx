@@ -14,6 +14,7 @@ import ArcBanner from "@components/patterns/arc-banner"
 import {getParagraphBehaviors} from "../get-paragraph-behaviors"
 import clsx from "clsx"
 import {twMerge} from "tailwind-merge"
+import ScreenCentered from "@components/elements/screen-centered"
 
 type Props = HTMLAttributes<HTMLElement> & {
   paragraph: ParagraphSumCarousel
@@ -26,50 +27,52 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
   const Element = paragraph.sumCarouselHeader ? "article" : "div"
 
   return (
-    <Element {...props} aria-labelledby={paragraph.sumCarouselHeader ? paragraph.id : undefined}>
-      {isArcBanner && (
-        <ArcBanner isBorder>
+    <ScreenCentered>
+      <Element {...props} aria-labelledby={paragraph.sumCarouselHeader ? paragraph.id : undefined}>
+        {isArcBanner && (
+          <ArcBanner isBorder>
+            <CarouselTop
+              header={paragraph.sumCarouselHeader}
+              superHeader={paragraph.sumCarouselSuperheader}
+              headingSize={headingSize}
+              description={paragraph.sumCarouselDescription?.processed}
+              link={paragraph.sumCarouselLink}
+              className="md:rs-mt-7"
+              headerId={paragraph.id}
+            />
+          </ArcBanner>
+        )}
+
+        {!isArcBanner && (
           <CarouselTop
             header={paragraph.sumCarouselHeader}
             superHeader={paragraph.sumCarouselSuperheader}
             headingSize={headingSize}
             description={paragraph.sumCarouselDescription?.processed}
             link={paragraph.sumCarouselLink}
-            className="md:rs-mt-7"
             headerId={paragraph.id}
           />
-        </ArcBanner>
-      )}
+        )}
 
-      {!isArcBanner && (
-        <CarouselTop
-          header={paragraph.sumCarouselHeader}
-          superHeader={paragraph.sumCarouselSuperheader}
-          headingSize={headingSize}
-          description={paragraph.sumCarouselDescription?.processed}
-          link={paragraph.sumCarouselLink}
-          headerId={paragraph.id}
-        />
-      )}
-
-      {paragraph.sumCarouselSlides && (
-        <div className="relative left-1/2 mb-32 mt-0 w-screen -translate-x-1/2">
-          <Slideshow className="mx-auto w-[calc(100%-50px)] xl:w-[calc(100%-150px)]">
-            {paragraph.sumCarouselSlides.map((slide, slideIndex) => {
-              return (
-                <CarouselSlide
-                  key={slide.id}
-                  slide={slide}
-                  slideNumber={slideIndex + 1}
-                  totalSlides={paragraph.sumCarouselSlides?.length || 0}
-                  slideHeader={paragraph.sumCarouselHeader ? "h3" : "h2"}
-                />
-              )
-            })}
-          </Slideshow>
-        </div>
-      )}
-    </Element>
+        {paragraph.sumCarouselSlides && (
+          <div className="mb-32 mt-0">
+            <Slideshow className="mx-auto w-[calc(100%-50px)] xl:w-[calc(100%-150px)]">
+              {paragraph.sumCarouselSlides.map((slide, slideIndex) => {
+                return (
+                  <CarouselSlide
+                    key={slide.id}
+                    slide={slide}
+                    slideNumber={slideIndex + 1}
+                    totalSlides={paragraph.sumCarouselSlides?.length || 0}
+                    slideHeader={paragraph.sumCarouselHeader ? "h3" : "h2"}
+                  />
+                )
+              })}
+            </Slideshow>
+          </div>
+        )}
+      </Element>
+    </ScreenCentered>
   )
 }
 

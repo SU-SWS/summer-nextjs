@@ -127,7 +127,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
 
               {node.sumCourseSyllabusFile && (
                 <div>
-                  <Link href={node.sumCourseSyllabusFile.mediaFile.url}>
+                  <Link prefetch={false} href={node.sumCourseSyllabusFile.mediaFile.url}>
                     View <span className="sr-only">{node.title}</span>Course Syllabus
                   </Link>
                 </div>

@@ -119,7 +119,8 @@
       cursor: pointer;
     }
 
-    &.form_action button {
+    &.form_action button,
+    &.action button{
       font-family: Roboto, sans-serif;
       margin-top: 3.2rem;
       background: #b1040e;

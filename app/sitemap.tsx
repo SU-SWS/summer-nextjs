@@ -1,9 +1,10 @@
 import {MetadataRoute} from "next"
 import {graphqlClient} from "@lib/gql/gql-client"
 import {NodeUnion} from "@lib/gql/__generated__/drupal"
+import {getHomePagePath} from "./api/revalidate/route"
 
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
-export const revalidate = 25200
+export const revalidate = 604800
 export const dynamic = "force-static"
 
 const Sitemap = async (): Promise<MetadataRoute.Sitemap> => {
@@ -15,9 +16,10 @@ const Sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 
   const sitemap: MetadataRoute.Sitemap = []
 
+  const homePath = await getHomePagePath()
   nodes.map(node =>
     sitemap.push({
-      url: `https://summer.stanford.edu${node.path}`,
+      url: `https://summer.stanford.edu` + (homePath === node.path ? "/" : node.path),
       lastModified: new Date(node.changed.time),
       priority: node.__typename === "NodeStanfordPage" ? 1 : 0.8,
       changeFrequency: node.__typename === "NodeStanfordPage" ? "weekly" : "monthly",

@@ -4,7 +4,7 @@ import {getEntityFromPath} from "@lib/gql/gql-queries"
 
 export const revalidate = 0
 
-const getHomePagePath = nextCache(
+export const getHomePagePath = nextCache(
   async () => {
     const {entity} = await getEntityFromPath("/")
     return entity?.path

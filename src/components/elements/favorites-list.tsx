@@ -16,13 +16,13 @@ const ShareButtons = () => {
   const copyUrl = isClient ? window.location.origin + urlParams : urlParams
 
   const smsCopy =
-    "sms:&body=" +
+    "sms:?body=" +
     encodeURIComponent(
       `I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl}`
     )
   const emailCopy =
     "mailto:?subject=" +
-    decodeURIComponent("Someone wants you to see their list of favorite courses from Stanford Summer Session") +
+    encodeURIComponent("Someone wants you to see their list of favorite courses from Stanford Summer Session") +
     "&body=" +
     encodeURIComponent(
       `I saved some Stanford Summer Session courses that looked interesting to me. What do you think? ${copyUrl}`

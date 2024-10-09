@@ -34,8 +34,13 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
   useEventListener("keydown", handleEscape, ref)
 
   const copyUrl = courseUrl
-  const smsCopy = `sms:&body=Check out this course from Stanford Summer Session: ${courseName} ${copyUrl}`
-  const emailCopy = `mailto:?body=Check out this course from Stanford Summer Session: ${courseName} ${copyUrl} &subject=Someone shared a Stanford Summer Session course with you`
+  const smsCopy =
+    "sms:?body=" + encodeURIComponent(`Check out this course from Stanford Summer Session: ${courseName} ${copyUrl}`)
+  const emailCopy =
+    "mailto:?body=" +
+    encodeURIComponent(`Check out this course from Stanford Summer Session: ${courseName} ${copyUrl}`) +
+    "&subject=" +
+    encodeURIComponent("Someone shared a Stanford Summer Session course with you")
 
   return (
     <div ref={ref} className="relative flex">

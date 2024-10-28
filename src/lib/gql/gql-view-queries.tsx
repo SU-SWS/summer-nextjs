@@ -8,7 +8,7 @@ import {
   NodeStanfordPerson,
   NodeStanfordPublication,
   NodeUnion,
-} from "@lib/gql/__generated__/drupal"
+} from "@lib/gql/__generated__/drupal.d"
 import {graphqlClient} from "@lib/gql/gql-client"
 import View from "@components/views/view"
 

@@ -1,4 +1,4 @@
-import {DateTime} from "@lib/gql/__generated__/drupal"
+import {DateTime} from "@lib/gql/__generated__/drupal.d"
 
 export const convertToLocalDateTime = (timeObject: DateTime): string => {
   return new Date(timeObject.time).toLocaleString("en-US", {

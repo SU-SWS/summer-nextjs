@@ -1,7 +1,7 @@
 import React, {ElementType, HtmlHTMLAttributes} from "react"
 import Image from "next/image"
 import {twMerge} from "tailwind-merge"
-import {Maybe} from "@lib/gql/__generated__/drupal"
+import {Maybe} from "@lib/gql/__generated__/drupal.d"
 import clsx from "clsx"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {

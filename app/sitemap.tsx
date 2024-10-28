@@ -1,6 +1,6 @@
 import {MetadataRoute} from "next"
 import {graphqlClient} from "@lib/gql/gql-client"
-import {NodeUnion} from "@lib/gql/__generated__/drupal"
+import {NodeUnion} from "@lib/gql/__generated__/drupal.d"
 import {getHomePagePath} from "./api/revalidate/route"
 
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config

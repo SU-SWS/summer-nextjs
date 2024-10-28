@@ -2,7 +2,7 @@
 
 import {ShareIcon} from "@heroicons/react/24/outline"
 import useAccordion from "@lib/hooks/useAccordion"
-import React, {useCallback, useRef} from "react"
+import React, {RefObject, useCallback, useRef} from "react"
 import {twMerge} from "tailwind-merge"
 import {useCopyToClipboard, useEventListener} from "usehooks-ts"
 import useOutsideClick from "@lib/hooks/useOutsideClick"
@@ -20,6 +20,10 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
   const buttonRef = useRef<HTMLButtonElement>(null)
   useOutsideClick(ref, collapseAccordion)
 
+  const copyToClip = (text: string) => {
+    copy(text).catch(_e => console.warn("An error occurred when copying to clipboard"))
+  }
+
   // If the user presses escape on the keyboard, close the submenus.
   const handleEscape = useCallback(
     (event: KeyboardEvent) => {
@@ -31,7 +35,7 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
     [expanded, collapseAccordion]
   )
 
-  useEventListener("keydown", handleEscape, ref)
+  useEventListener("keydown", handleEscape, ref as RefObject<HTMLDivElement>)
 
   const copyUrl = courseUrl
   const smsCopy =
@@ -89,7 +93,7 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
           </li>
           <li className="relative m-0 text-nowrap py-0">
             <button
-              onClick={() => copy(copyUrl)}
+              onClick={() => copyToClip(copyUrl)}
               className="block border-b-4 border-transparent px-6 py-5 font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
               data-course-shared={courseNum}
             >

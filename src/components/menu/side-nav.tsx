@@ -1,13 +1,13 @@
 import Link from "@components/elements/link"
 import {clsx} from "clsx"
-import {MenuItem as MenuItemType} from "@lib/gql/__generated__/drupal.d"
+import {BookLink, MenuItem as MenuItemType} from "@lib/gql/__generated__/drupal.d"
 import {HTMLAttributes} from "react"
 
 type Props = HTMLAttributes<HTMLElement> & {
   /**
    * Array of nested menu items.
    */
-  menuItems: MenuItemType[]
+  menuItems: MenuItemType[] | BookLink[]
   /**
    * The trail of the current page within the menu items.
    */
@@ -26,7 +26,7 @@ const SideNav = ({menuItems, activeTrail, ...props}: Props) => {
   )
 }
 
-type MenuItemProps = MenuItemType & {
+type MenuItemProps = (MenuItemType | BookLink) & {
   activeTrail: string[]
   level: number
 }

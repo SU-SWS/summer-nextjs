@@ -4,15 +4,18 @@ import {H1} from "@components/elements/headers"
 import {HtmlHTMLAttributes} from "react"
 import {NodeStanfordCourse} from "@lib/gql/__generated__/drupal.d"
 import {isPreviewMode} from "@lib/drupal/is-preview-mode"
+import StanfordCourseMetadata from "@components/nodes/pages/stanford-course/stanford-course-metadata"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordCourse
+  headingLevel?: "h2" | "h3"
 }
 
 const StanfordCoursePage = ({node, ...props}: Props) => {
   if (node.suCourseLink?.url && !isPreviewMode()) redirect(node.suCourseLink?.url)
   return (
     <article className="centered my-32" {...props}>
+      <StanfordCourseMetadata node={node} />
       <H1>{node.title}</H1>
       <div className="flex flex-col gap-10">
         {node.suCourseSubject && <div>{node.suCourseSubject.name}</div>}

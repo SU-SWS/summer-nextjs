@@ -10,6 +10,7 @@ import RelatedCourses from "@components/algolia/algolia-course-related"
 import FavoriteButton from "@components/elements/favorite-button"
 import {ApplyNowLink} from "@components/elements/apply-now-link"
 import Link from "next/link"
+import SummerCourseMetadata from "@components/nodes/pages/summer-course/summer-course-metadata"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeSumSummerCourse
@@ -21,6 +22,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
 
   return (
     <article {...props} aria-labelledby={node.id}>
+      <SummerCourseMetadata node={node} />
       <ArcBanner {...props} imageUrl="/images/temp-bg.jpg" imageAlt="">
         <div className="w-screen">
           <div className="rs-mx-6 flex flex-col items-center justify-center md:rs-mt-7">

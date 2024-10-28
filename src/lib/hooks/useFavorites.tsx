@@ -36,7 +36,11 @@ const useFavorites = (): {
   const toggleFav = useCallback(
     (uuid: string, title: string, path: string, units: number) => {
       const isFav = favs.some(fav => fav.uuid === uuid)
-      isFav ? removeFav(uuid) : addFav(uuid, title, path, units)
+      if (isFav) {
+        removeFav(uuid)
+      } else {
+        addFav(uuid, title, path, units)
+      }
     },
     [favs, addFav, removeFav]
   )

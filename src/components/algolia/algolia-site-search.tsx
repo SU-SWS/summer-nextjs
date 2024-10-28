@@ -26,6 +26,7 @@ const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey, initialUiState = {
 
   return (
     <div>
+      {/*@ts-expect-error React 19 types don't match with the library.*/}
       <InstantSearchNext
         indexName={searchIndex}
         searchClient={searchClient}

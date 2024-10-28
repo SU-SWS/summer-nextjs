@@ -18,10 +18,10 @@ export const GET = async (request: NextRequest) => {
   if (secret !== process.env.DRUPAL_REVALIDATE_SECRET)
     return NextResponse.json({message: "Invalid token"}, {status: 403})
 
-  let path = request.nextUrl.searchParams.get("slug")
-  if (!path || path.startsWith("/node/")) return NextResponse.json({message: "Invalid slug"}, {status: 403})
+  const path = request.nextUrl.searchParams.get("slug")
+  if (!path || path.startsWith("/node/")) return NextResponse.json({message: "Invalid slug"}, {status: 400})
 
-  const tagsInvalidated = path.startsWith("/tags/") ? [] : [`paths:${path}`]
+  const tagsInvalidated = path.includes("/tags/") ? [] : [`paths:${path}`]
   if (path.startsWith("/tags/"))
     path
       .substring(6)
@@ -30,7 +30,7 @@ export const GET = async (request: NextRequest) => {
 
   // When the home page is saved, it's url slug might be like `/home`. If the home page matches the slug, invalidate
   // the home page path.
-  if (!path.startsWith("/tags/") && (await getHomePagePath()) === path) tagsInvalidated.push("paths:/")
+  if ((await getHomePagePath()) === path) tagsInvalidated.push("paths:/")
 
   tagsInvalidated.map(tag => revalidateTag(tag))
 

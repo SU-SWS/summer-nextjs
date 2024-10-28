@@ -6,8 +6,11 @@ type Props = Omit<PageProps, "searchParams"> & {
   children: ReactNode
 }
 
-const Layout = ({children, params}: Props) => {
-  const currentPath = getPathFromContext({params})
+const Layout = async (props: Props) => {
+  const params = await props.params
+  const currentPath = getPathFromContext(params.slug)
+  const {children} = props
+
   return (
     <>
       {process.env.VERCEL_ENV !== "production" && <FlushCache currentPath={currentPath} />}

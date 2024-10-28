@@ -31,6 +31,7 @@ const DefaultResult = ({hit}: {hit: HitType<AlgoliaHit>}) => {
         {hit.summary && <p className="mb-10">{hit.summary}</p>}
         {hit.html && !hit.summary && (
           <p className="mb-10">
+            {/* @ts-expect-error React 19 types don't match with the library. */}
             <Snippet hit={hit} attribute="html" />
           </p>
         )}

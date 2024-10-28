@@ -27,6 +27,7 @@ const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
   const filters = itemUuids.map(uuid => `objectID:'${uuid}'`).join(" OR ") || "type:'Summer Courses'"
 
   return (
+    // @ts-expect-error React 19 types don't match with the library.
     <InstantSearchNext
       indexName={searchIndex}
       searchClient={searchClient}

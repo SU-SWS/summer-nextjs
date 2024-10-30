@@ -109,7 +109,7 @@ body button:focus {
 }
 
 #CybotCookiebotDialog {
-  a:hover, a:focus-visible {
+  a:hover, a:focus-visible, button:hover, button:focus-visible {
     text-decoration: underline;
   }
 }

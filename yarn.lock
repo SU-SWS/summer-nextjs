@@ -6470,6 +6470,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-cookiebot@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@types/react-cookiebot@npm:1.0.5"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 10c0/963ae31e3dfe2c94ca29df9676a8404e8c788a9daced47afa46d24a0d9491628b0bd3337ffc16c212d6ce38ceb60c89925a9393b77a532821d2c2c2f458cb367
+  languageName: node
+  linkType: hard
+
 "@types/react-dom@npm:types-react-dom@19.0.0-rc.1":
   version: 19.0.0-rc.1
   resolution: "types-react-dom@npm:19.0.0-rc.1"
@@ -14806,6 +14815,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-cookiebot@npm:^1.0.10":
+  version: 1.0.10
+  resolution: "react-cookiebot@npm:1.0.10"
+  dependencies:
+    "@babel/runtime": "npm:^7.12.5"
+    prop-types: "npm:^15.7.2"
+  peerDependencies:
+    react: "*"
+  checksum: 10c0/f40848be28c24e1103373e6f78a1793c90054c96ccd213b43712c2c1dc43a4bcd35e6d76bd2c460b9b5602670d331baee07b45d23c96d04c518bdf9241fb7797
+  languageName: node
+  linkType: hard
+
 "react-docgen-typescript@npm:^2.2.2":
   version: 2.2.2
   resolution: "react-docgen-typescript@npm:2.2.2"
@@ -16662,6 +16683,7 @@ __metadata:
     "@tailwindcss/container-queries": "npm:^0.1.1"
     "@types/node": "npm:^22.8.4"
     "@types/react": "npm:^19.0.0-rc.1"
+    "@types/react-cookiebot": "npm:^1.0.5"
     "@types/react-dom": "npm:19.0.0-rc.1"
     "@types/react-slick": "npm:^0.23.13"
     algoliasearch: "npm:^5.12.0"
@@ -16687,6 +16709,7 @@ __metadata:
     prettier-plugin-tailwindcss: "npm:^0.6.8"
     qs: "npm:^6.13.0"
     react: "npm:19.0.0-rc-fb9a90fa48-20240614"
+    react-cookiebot: "npm:^1.0.10"
     react-docgen: "npm:^7.1.0"
     react-dom: "npm:19.0.0-rc-fb9a90fa48-20240614"
     react-error-boundary: "npm:^4.1.2"

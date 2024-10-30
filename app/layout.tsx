@@ -9,6 +9,7 @@ import UserAnalytics from "@components/elements/user-analytics"
 import clsx from "clsx"
 import Editori11y from "@components/tools/editorially"
 import localFont from "next/font/local"
+import Cookiebot from "@components/elements/cookiebot"
 
 const appleIcons: Icon[] = [60, 72, 76, 114, 120, 144, 152, 180].map(size => ({
   url: `https://www-media.stanford.edu/assets/favicon/apple-touch-icon-${size}x${size}.png`,
@@ -48,11 +49,12 @@ const RootLayout = ({children, modal}: {children: React.ReactNode; modal: React.
 
   return (
     <html lang="en" className={clsx(sourceSans3.className, roboto.variable, stanford.variable)}>
-      <UserAnalytics />
-      <DrupalWindowSync />
-      {isDevMode && <Editori11y />}
-
       <body className="text-archway-dark">
+        <Cookiebot />
+        <UserAnalytics />
+        <DrupalWindowSync />
+        {isDevMode && <Editori11y />}
+
         <nav aria-label="Skip Links">
           <a href="#main-content" className="skiplink">
             Skip to main content

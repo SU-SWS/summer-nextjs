@@ -53,7 +53,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
       )}
 
       {paragraph.sumCarouselSlides && (
-        <div className="relative left-1/2 mb-32 mt-0 w-screen -translate-x-1/2">
+        <div className="relative left-1/2 mb-32 mt-0 w-screen -translate-x-1/2 overflow-x-hidden">
           <Slideshow className="mx-auto w-[calc(100%-50px)] xl:w-[calc(100%-150px)]">
             {paragraph.sumCarouselSlides.map((slide, slideIndex) => {
               return (

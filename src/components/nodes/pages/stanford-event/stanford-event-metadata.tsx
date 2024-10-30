@@ -19,7 +19,7 @@ const StanfordEventMetadata = async ({node}: Props) => {
     <>
       <title>{pageTitle}</title>
       <meta name="description" content={description} />
-      <meta property="og:title" content={title} />
+      <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={description} />
 
       <meta property="og:type" content="website" />

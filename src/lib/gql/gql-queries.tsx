@@ -174,3 +174,12 @@ export const getAlgoliaCredential = nextCache(
   ["algolia"],
   {tags: ["algolia"]}
 )
+
+export const getHomePagePath = nextCache(
+  async () => {
+    const {entity} = await getEntityFromPath("/")
+    return entity?.path
+  },
+  [],
+  {tags: ["paths:/"]}
+)

@@ -5,9 +5,9 @@ import {useEffect} from "react"
 
 const Editori11y = () => {
   const startEditoria11y = () => {
-    // @ts-ignore
+    // @ts-expect-error Globally defined class from the library.
     if (typeof Ed11y != "undefined") {
-      // @ts-ignore
+      // @ts-expect-error Globally defined class from the library.
       new Ed11y({
         checkRoots: "#main-content",
         ignoreElements: "nav *, .ed11y-ignore",
@@ -18,7 +18,7 @@ const Editori11y = () => {
   }
 
   useEffect(() => {
-    fetch("/api/draft/disable", {cache: "no-store"})
+    fetch("/api/draft/disable").catch(_e => console.warn("An error occurred when removing the cookie."))
   }, [])
 
   return (

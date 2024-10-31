@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Oembed from "@components/elements/ombed"
 import {ElementType, HTMLAttributes} from "react"
-import {Maybe} from "@lib/gql/__generated__/drupal"
+import {Maybe} from "@lib/gql/__generated__/drupal.d"
 import clsx from "clsx"
 import {twMerge} from "tailwind-merge"
 

@@ -10,14 +10,24 @@ import {useBoolean} from "usehooks-ts"
  *   Element ref to focus.
  * @param defaultFocus
  *   If the element should be focused immediately: true to focus immediately, false to wait until triggered.
+ *
+ * @return
+ *   Function to focus on the element.
  */
-const useFocusOnRender = (focusOnElement: RefObject<HTMLElement>, defaultFocus: boolean = true) => {
+const useFocusOnRender = (
+  focusOnElement: RefObject<HTMLElement | null>,
+  defaultFocus: boolean = true
+): (() => void) => {
   const {value, setTrue, setFalse} = useBoolean(defaultFocus)
 
   useLayoutEffect(() => {
     if (value) {
       const reduceMotion = !!window.matchMedia("(prefers-reduced-motion: reduce)")?.matches
-      focusOnElement.current?.scrollIntoView({behavior: reduceMotion ? "instant" : "smooth"})
+      focusOnElement.current?.scrollIntoView({
+        behavior: reduceMotion ? "instant" : "smooth",
+        block: "nearest",
+        inline: "start",
+      })
       focusOnElement.current?.focus({preventScroll: true})
 
       setFalse()

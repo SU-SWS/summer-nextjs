@@ -107,3 +107,9 @@ body button:focus {
     padding-right: 59px;
   }
 }
+
+#CybotCookiebotDialog {
+  a:hover, a:focus-visible, button:hover, button:focus-visible {
+    text-decoration: underline;
+  }
+}

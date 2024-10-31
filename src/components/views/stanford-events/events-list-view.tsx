@@ -1,7 +1,6 @@
 import StanfordEventListItem from "@components/nodes/list-item/stanford-event/stanford-event-list-item"
 import LoadMoreList from "@components/elements/load-more-list"
-import EventsFilteredListView from "@components/views/stanford-events/events-filtered-list-view"
-import {NodeStanfordEvent, TermStanfordEventType} from "@lib/gql/__generated__/drupal.d"
+import {NodeStanfordEvent} from "@lib/gql/__generated__/drupal.d"
 
 interface Props {
   /**
@@ -15,16 +14,6 @@ interface Props {
 }
 
 const EventsListView = async ({items = [], headingLevel}: Props) => {
-  if (items.length >= 5) {
-    const topics: TermStanfordEventType[] = []
-    items.map(event => event.suEventType?.map(topic => topics.push(topic)))
-    const uniqueTopics = [...new Map(topics.map(t => [t.id, t])).values()]
-
-    if (uniqueTopics.length > 1) {
-      return <EventsFilteredListView items={items} topics={uniqueTopics} />
-    }
-  }
-
   return (
     <LoadMoreList
       buttonText={

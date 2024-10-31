@@ -34,13 +34,19 @@ export const Tabs = ({paramId = "tab", orientation, defaultTab, children, ...pro
   const router = useRouter()
   const onChange = (_e: SyntheticEvent | null, value: number | string | null) => {
     const params = new URLSearchParams(searchParams)
-    value ? params.set(paramId, `${value}`) : params.delete(paramId)
+    params.delete(paramId)
+    if (value) params.set(paramId, `${value}`)
     router.replace(`?${params.toString()}`, {scroll: false})
   }
   const paramValue = searchParams.get(paramId)
   const initialTab = defaultTab || (paramValue && parseInt(paramValue))
 
-  const {contextValue} = useTabs({orientation, defaultValue: initialTab || 0, onChange, selectionFollowsFocus: true})
+  const {contextValue} = useTabs({
+    orientation,
+    defaultValue: initialTab || 0,
+    onChange,
+    selectionFollowsFocus: true,
+  })
 
   return (
     <TabsProvider value={contextValue}>

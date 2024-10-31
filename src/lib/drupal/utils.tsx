@@ -1,5 +1,5 @@
 import {stringify} from "qs"
-import {TermUnion, MenuItem} from "@lib/gql/__generated__/drupal"
+import {TermUnion, MenuItem, BookLink} from "@lib/gql/__generated__/drupal.d"
 
 export const buildUrl = (path: string, params?: string | Record<string, string> | URLSearchParams): URL => {
   const url = new URL(path.charAt(0) === "/" ? `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${path}` : path)
@@ -9,17 +9,17 @@ export const buildUrl = (path: string, params?: string | Record<string, string> 
   return url
 }
 
+export type Slug = {slug: string[]}
+
 export type PageProps = {
-  params: {slug: string | string[]}
-  searchParams?: Record<string, string | string[] | undefined>
+  params: Promise<Slug>
+  searchParams?: Promise<Record<string, string | string[] | undefined>>
 }
 
-export const getPathFromContext = (context: PageProps, prefix = ""): string => {
-  let {slug} = context.params
-
-  slug = Array.isArray(slug) ? slug.map(s => encodeURIComponent(s)).join("/") : slug
-  slug = slug.replace(/^\//, "")
-  return prefix ? `${prefix}/${slug}` : `/${slug}`
+export const getPathFromContext = (slug: string | string[], prefix = ""): string => {
+  let slugString = Array.isArray(slug) ? slug.map(s => encodeURIComponent(s)).join("/") : slug
+  slugString = slugString.replace(/^\//, "")
+  return prefix ? `${prefix}/${slugString}` : `/${slugString}`
 }
 
 export type TermTree<T extends TermUnion> = T & {
@@ -54,8 +54,8 @@ export const buildTaxonomyTree = <T extends TermUnion>(terms: T[], parent: T["id
  * @param currentPath
  *   Current page url.
  */
-export const getMenuActiveTrail = (menuItems: MenuItem[], currentPath?: string): string[] => {
-  const getActiveTrail = (menuItems: MenuItem[], trail: string[] = []): string[] => {
+export const getMenuActiveTrail = (menuItems: MenuItem[] | BookLink[], currentPath?: string): string[] => {
+  const getActiveTrail = (menuItems: MenuItem[] | BookLink[], trail: string[] = []): string[] => {
     let childTrail, currentTrail
     for (let i = 0; i < menuItems.length; i++) {
       currentTrail = [...trail]

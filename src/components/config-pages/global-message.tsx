@@ -2,15 +2,13 @@ import Wysiwyg from "@components/elements/wysiwyg"
 import {StanfordGlobalMessage} from "@lib/gql/__generated__/drupal.d"
 import ActionLink from "@components/elements/action-link"
 import {twMerge} from "tailwind-merge"
-import {HTMLAttributes, useId} from "react"
+import {HTMLAttributes} from "react"
 import {getConfigPage} from "@lib/gql/gql-queries"
 import {H2} from "@components/elements/headers"
 
 type Props = HTMLAttributes<HTMLElement> & {}
 
 const GlobalMessage = async ({...props}: Props) => {
-  const id = useId()
-
   const globalMessageConfig = await getConfigPage<StanfordGlobalMessage>("StanfordGlobalMessage")
   if (!globalMessageConfig?.suGlobalMsgEnabled) return
 
@@ -20,13 +18,13 @@ const GlobalMessage = async ({...props}: Props) => {
     <ElementWrapper
       {...props}
       className={twMerge("bg-fog-light", props.className)}
-      aria-labelledby={globalMessageConfig.suGlobalMsgHeader ? id : undefined}
+      aria-labelledby={globalMessageConfig.suGlobalMsgHeader ? globalMessageConfig.id : undefined}
     >
       <div className="md:centered">
         <div className="flex w-full flex-col items-center justify-between gap-10 rounded-b-[25px] bg-illuminating-dark px-16 py-10 md:flex-row lg:w-3/4">
           <div>
             {globalMessageConfig.suGlobalMsgHeader && (
-              <H2 id={id} className="mb-3 text-23">
+              <H2 id={globalMessageConfig.id} className="mb-3 text-23">
                 {globalMessageConfig.suGlobalMsgHeader}
               </H2>
             )}

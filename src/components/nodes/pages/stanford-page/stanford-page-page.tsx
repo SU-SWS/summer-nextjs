@@ -11,6 +11,7 @@ import PageTitleBannerParagraph from "@components/paragraphs/stanford-page-title
 import SumArcBannerParagraph from "@components/paragraphs/sum-arc-banner/sum-arc-banner-paragraph"
 import SumTopBannerParagraph from "@components/paragraphs/sum-top-banner/sum-top-banner-paragraph"
 import clsx from "clsx"
+import StanfordPageMetadata from "@components/nodes/pages/stanford-page/stanford-page-metadata"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordPage
@@ -47,6 +48,7 @@ const StanfordPagePage = ({node, ...props}: Props) => {
 
   return (
     <article {...props} className={clsx({"mb-32": !hasBannerOrCalculator}, props.className)}>
+      <StanfordPageMetadata node={node} />
       {node.suPageBanner && (
         <header>
           {node.suPageBanner.__typename === "ParagraphStanfordPageTitleBanner" && (

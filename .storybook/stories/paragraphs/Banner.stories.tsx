@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { ComponentProps } from "react";
-import { ParagraphStanfordBanner, Text } from "@lib/gql/__generated__/drupal";
-import BannerParagraph from "@components/paragraphs/stanford-banner/banner-paragraph";
-import { getStoryBookImage } from "../storybook-entities";
+import type {Meta, StoryObj} from "@storybook/react"
+import {ComponentProps} from "react"
+import {ParagraphStanfordBanner, Text} from "@lib/gql/__generated__/drupal.d"
+import BannerParagraph from "@components/paragraphs/stanford-banner/banner-paragraph"
+import {getStoryBookImage} from "../storybook-entities"
 
 type ComponentStoryProps = ComponentProps<typeof BannerParagraph> & {
-  text: Text["processed"];
-};
+  text: Text["processed"]
+}
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<ComponentStoryProps> = {
@@ -14,15 +14,15 @@ const meta: Meta<ComponentStoryProps> = {
   component: BannerParagraph,
   tags: ["autodocs"],
   argTypes: {},
-};
+}
 
-export default meta;
-type Story = StoryObj<ComponentStoryProps>;
+export default meta
+type Story = StoryObj<ComponentStoryProps>
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Banner: Story = {
-  render: ({ ...args }) => {
-    return <BannerParagraph {...args} />;
+  render: ({...args}) => {
+    return <BannerParagraph {...args} />
   },
   args: {
     paragraph: {
@@ -47,4 +47,4 @@ export const Banner: Story = {
       suBannerSupHeader: "Vestibulum",
     },
   },
-};
+}

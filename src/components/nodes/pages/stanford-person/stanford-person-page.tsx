@@ -9,9 +9,12 @@ import Link from "@components/elements/link"
 import {H1, H2} from "@components/elements/headers"
 import {HtmlHTMLAttributes} from "react"
 import {NodeStanfordPerson} from "@lib/gql/__generated__/drupal.d"
+import ReverseVisualOrder from "@components/elements/reverse-visual-order"
+import StanfordPersonMetadata from "@components/nodes/pages/stanford-person/stanford-person-metadata"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordPerson
+  headingLevel?: "h2" | "h3"
 }
 
 const StanfordPersonPage = ({node, ...props}: Props) => {
@@ -19,25 +22,21 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
 
   return (
     <article className="centered mt-32" {...props}>
+      <StanfordPersonMetadata node={node} />
       <div className="mb-32 flex flex-col gap-20 lg:flex-row">
         {imageUrl && (
           <div className="relative mx-auto aspect-[1/1] w-[250px] shrink-0 lg:mx-0">
-            <Image
-              className="rounded-full"
-              src={imageUrl}
-              alt=""
-              loading="eager"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 900px) 75vw, 1000px"
-            />
+            <Image className="rounded-full object-cover" src={imageUrl} alt="" loading="eager" fill sizes="750px" />
           </div>
         )}
 
-        <div className="flex flex-col">
-          <H1 className="order-2">{node.title}</H1>
+        <div>
+          <ReverseVisualOrder>
+            <H1>{node.title}</H1>
+            {node.suPersonShortTitle && <div className="mb-10">{node.suPersonShortTitle}</div>}
+          </ReverseVisualOrder>
 
-          {node.suPersonShortTitle && <div className="order-1 mb-10">{node.suPersonShortTitle}</div>}
-          {node.suPersonFullTitle && <div className="type-2 order-3">{node.suPersonFullTitle}</div>}
+          {node.suPersonFullTitle && <div className="type-2">{node.suPersonFullTitle}</div>}
         </div>
       </div>
 

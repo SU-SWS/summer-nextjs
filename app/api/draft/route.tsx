@@ -10,14 +10,12 @@ export const GET = async (request: NextRequest) => {
 
   // Check the secret and next parameters
   // This secret should only be known to this route handler and the CMS
-  if (secret !== process.env.DRUPAL_PREVIEW_SECRET) {
-    return NextResponse.json({message: "Invalid token"}, {status: 401})
-  }
+  if (secret !== process.env.DRUPAL_PREVIEW_SECRET) return NextResponse.json({message: "Invalid token"}, {status: 401})
 
-  if (!slug) {
-    return NextResponse.json({message: "Invalid slug path"}, {status: 401})
-  }
-  cookies().set("preview", secret, {
+  if (!slug) return NextResponse.json({message: "Invalid slug path"}, {status: 401})
+
+  const cookieValues = await cookies()
+  cookieValues.set("preview", secret, {
     maxAge: 60 * 60,
     httpOnly: true,
     sameSite: "none",
@@ -26,6 +24,6 @@ export const GET = async (request: NextRequest) => {
   })
 
   // Redirect to the path from the fetched post
-  // We don"t redirect to searchParams.slug as that might lead to open redirect vulnerabilities
+  // We don't redirect to searchParams.slug as that might lead to open redirect vulnerabilities
   redirect(`/preview${slug === "/home" ? "" : slug}`)
 }

@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { ComponentProps } from "react";
-import { ParagraphStanfordCard, Text } from "@lib/gql/__generated__/drupal";
-import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph";
-import { getStoryBookImage } from "../storybook-entities";
+import type {Meta, StoryObj} from "@storybook/react"
+import {ComponentProps} from "react"
+import {ParagraphStanfordCard, Text} from "@lib/gql/__generated__/drupal.d"
+import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
+import {getStoryBookImage} from "../storybook-entities"
 
 type ComponentStoryProps = ComponentProps<typeof CardParagraph> & {
-  text: Text["processed"];
-};
+  text: Text["processed"]
+}
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<ComponentStoryProps> = {
@@ -14,15 +14,15 @@ const meta: Meta<ComponentStoryProps> = {
   component: CardParagraph,
   tags: ["autodocs"],
   argTypes: {},
-};
+}
 
-export default meta;
-type Story = StoryObj<ComponentStoryProps>;
+export default meta
+type Story = StoryObj<ComponentStoryProps>
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Card: Story = {
-  render: ({ ...args }) => {
-    return <CardParagraph {...args} />;
+  render: ({...args}) => {
+    return <CardParagraph {...args} />
   },
   args: {
     paragraph: {
@@ -52,4 +52,4 @@ export const Card: Story = {
       suCardSuperHeader: "Vestibulum",
     },
   },
-};
+}

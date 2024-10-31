@@ -8,7 +8,7 @@ import {ArrowRightIcon, ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/r
 import {MenuItem as MenuItemType, StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
 import {clsx} from "clsx"
 import {useBoolean, useEventListener} from "usehooks-ts"
-import {useCallback, useEffect, useId, useLayoutEffect, useRef, useState} from "react"
+import {RefObject, useCallback, useEffect, useId, useLayoutEffect, useRef, useState} from "react"
 import {usePathname} from "next/navigation"
 import Button from "@components/elements/button"
 import {twMerge} from "tailwind-merge"
@@ -46,7 +46,7 @@ const MainMenuClient = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props)
   )
 
   useEffect(() => closeMenu(), [browserUrl, closeMenu])
-  useEventListener("keydown", handleEscape, menuRef)
+  useEventListener("keydown", handleEscape, menuRef as RefObject<HTMLDivElement>)
 
   return (
     <nav id={navId} aria-label="Main Navigation" className="lg:centered" ref={menuRef}>
@@ -168,7 +168,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
     [level, submenuOpen, closeSubmenu]
   )
 
-  useEventListener("keydown", handleEscape, menuItemRef)
+  useEventListener("keydown", handleEscape, menuItemRef as unknown as RefObject<HTMLDivElement>)
 
   // The last item in the current trail would be the current item id if the user is on that page.
   const isCurrent = activeTrail.at(-1) === id

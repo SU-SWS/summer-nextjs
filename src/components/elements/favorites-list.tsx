@@ -15,6 +15,10 @@ const ShareButtons = () => {
   const urlParams = `/courses/favorites?favs=${favs.map(fav => `${fav.uuid}`).join(",")}`
   const copyUrl = isClient ? window.location.origin + urlParams : urlParams
 
+  const copyToClip = (text: string) => {
+    copy(text).catch(_e => console.warn("An error occurred when copying to clipboard"))
+  }
+
   const smsCopy =
     "sms:?body=" +
     encodeURIComponent(
@@ -62,7 +66,7 @@ const ShareButtons = () => {
       </button>
       <button
         className="text-center font-semibold hocus:underline"
-        onClick={() => copy(copyUrl)}
+        onClick={() => copyToClip(copyUrl)}
         data-course-shared="Favorites"
         disabled={!favs.length}
       >

@@ -34,7 +34,7 @@ const PageHeader = async () => {
           <div className="min-h-50 rs-py-2 centered pr-24 lg:pr-0">
             <div className="flex w-full justify-between">
               <Lockup />
-              <div className="tw-hidden lg:flex">
+              <div className="lg:flex">
                 {primaryButton?.url && (
                   <Button href={primaryButton.url} secondary>
                     {primaryButton.title}

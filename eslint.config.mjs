@@ -32,7 +32,13 @@ const esLintConfig = tseslint.config(eslint.configs.recommended, ...tseslint.con
     "@typescript-eslint/require-await": "off",
     "no-console": ["error", { allow: ["warn", "error"] }],
     "no-fallthrough": "off",
-    "no-restricted-syntax": ["error", "Literal[value=/text-m[\\d]/i]"],
+    "no-restricted-syntax": ["error", {
+      selector: "Literal[value=/text-m[\\d]/i]",
+      message: "Classes like text-m# are deprecated and should be replaced with text-#."
+    }, {
+      selector: "Literal[value=/(?<![^\\s])hidden/i]",
+      message: "Tailwind class 'hidden' conflicts with Slate embed code. Use tw-hidden instead."
+    }],
     "prettier/prettier": ["error"],
     "@typescript-eslint/no-unused-vars": [
       "error",

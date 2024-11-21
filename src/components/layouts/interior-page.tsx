@@ -24,7 +24,7 @@ const InteriorPage = async ({children, currentPath, menuItems, ...props}: Props)
   return (
     <div {...props} className={twMerge("centered flex gap-20", props.className)}>
       {(subTree.length > 1 || subTree[0]?.children) && (
-        <aside className="hidden w-1/4 shrink-0 lg:block">
+        <aside className="tw-hidden w-1/4 shrink-0 lg:block">
           <a href="#page-content" className="skiplink">
             Skip secondary navigation
           </a>

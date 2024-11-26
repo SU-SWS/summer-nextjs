@@ -114,7 +114,7 @@ const GalleryImage = ({
     <li {...props}>
       <figure className="h-full w-full">
         <Link
-          href={`/gallery/${galleryId}/${image.id}`}
+          href={`/gallery/${galleryId}:${image.id}`}
           className={twMerge(
             "relative block h-full w-full overflow-hidden border-5 border-white transition-colors hover:border-cardinal-red focus-visible:border-cardinal-red hocus:outline-none",
             linkClasses

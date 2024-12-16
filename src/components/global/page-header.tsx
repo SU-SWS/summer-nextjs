@@ -29,7 +29,7 @@ const PageHeader = async () => {
         </div>
       </div>
       <GlobalMessage />
-      <div className="relative bg-fog-light">
+      <div className="relative border-4 border-white bg-fog-light">
         <div className="w-full border-b-2 lg:border-b-0">
           <div className="min-h-50 rs-py-2 centered pr-24 lg:pr-0">
             <div className="flex w-full justify-between">

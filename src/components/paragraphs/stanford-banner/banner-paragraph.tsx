@@ -33,7 +33,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
     <BannerWrapper
       {...props}
       aria-labelledby={paragraph.suBannerHeader ? paragraph.id : undefined}
-      className="relative left-1/2 !mt-0 flex w-screen -translate-x-1/2 flex-col @container md:min-h-[400px] lg:block"
+      className="relative left-1/2 !mt-0 flex w-screen -translate-x-1/2 flex-col border-t-4 border-t-white @container md:min-h-[400px] lg:block"
     >
       {hasCard && (
         <div

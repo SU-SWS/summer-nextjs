@@ -27,9 +27,12 @@ const ShareButtons = () => {
       <>
         <button
           className="text-center font-semibold hocus:underline"
-          onClick={ev => {
+          onClick={() => {
             copyToClip(copyUrl)
             setIsActive(!isActive)
+            setTimeout(() => {
+              setIsActive(isActive)
+            }, 4000)
           }}
           data-course-shared="Favorites"
           disabled={!favs.length}
@@ -43,10 +46,10 @@ const ShareButtons = () => {
           />
           Copy
         </button>
-        {/* className={"list-unstyled " + (isActive ? "" : "tw-hidden")} */}
         <div
+          role="tooltip"
           className={twMerge(
-            "r-4 absolute right-0 top-[-35px] w-[80px] bg-fog p-3 text-[.8em] text-black",
+            "r-4 absolute right-0 top-[-35px] w-[90px] bg-fog p-3 text-[.70em] text-black",
             clsx({"tw-hidden": !isActive})
           )}
         >

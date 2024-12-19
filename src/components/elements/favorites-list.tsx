@@ -7,7 +7,7 @@ import {XMarkIcon} from "@heroicons/react/20/solid"
 import {H2} from "./headers"
 import {clsx} from "clsx"
 import {twMerge} from "tailwind-merge"
-import {useState} from "react"
+import React, {useState} from "react"
 
 const ShareButtons = () => {
   const [, copy] = useCopyToClipboard()
@@ -46,7 +46,7 @@ const ShareButtons = () => {
         {/* className={"list-unstyled " + (isActive ? "" : "tw-hidden")} */}
         <div
           className={twMerge(
-            "r-4 absolute bottom-0 right-0 w-20 bg-black p-3 text-base text-white",
+            "r-4 absolute right-0 top-[-35px] w-[80px] bg-fog p-3 text-[.8em] text-black",
             clsx({"tw-hidden": !isActive})
           )}
         >

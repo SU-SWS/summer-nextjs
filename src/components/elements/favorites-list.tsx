@@ -86,6 +86,7 @@ const ShareButtons = () => {
         </button>
       </div>
       <ToastContainer
+        progressClassName="bg-spirited-light"
         position="bottom-left"
         autoClose={5000}
         hideProgressBar={false}

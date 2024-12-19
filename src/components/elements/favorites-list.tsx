@@ -7,6 +7,7 @@ import {XMarkIcon} from "@heroicons/react/20/solid"
 import {H2} from "./headers"
 import {clsx} from "clsx"
 import {twMerge} from "tailwind-merge"
+import {ToastContainer, toast} from "react-toastify"
 
 const ShareButtons = () => {
   const [, copy] = useCopyToClipboard()
@@ -15,8 +16,11 @@ const ShareButtons = () => {
   const urlParams = `/courses/favorites?favs=${favs.map(fav => `${fav.uuid}`).join(",")}`
   const copyUrl = isClient ? window.location.origin + urlParams : urlParams
 
+  const notify = () => toast("Copied!")
+
   const copyToClip = (text: string) => {
     copy(text).catch(_e => console.warn("An error occurred when copying to clipboard"))
+    notify()
   }
 
   const smsCopy =
@@ -33,53 +37,67 @@ const ShareButtons = () => {
     )
 
   return (
-    <div className="mt-12 flex flex-row justify-between gap-5 *:max-w-60 *:flex-1 *:shrink-0 @md:gap-20">
-      <button
-        className="text-center font-semibold text-archway-dark no-underline hocus:underline"
-        onClick={() => (location.href = smsCopy)}
-        data-course-shared="Favorites"
-        disabled={!favs.length}
-      >
-        <ChatBubbleLeftEllipsisIcon
-          width={30}
-          className={twMerge(
-            "mb-4 block w-full rounded-full bg-spirited-dark p-5 text-white",
-            clsx({"bg-black-40": !favs.length})
-          )}
-        />
-        Text
-      </button>
-      <button
-        className="text-center font-semibold text-archway-dark no-underline hocus:underline"
-        onClick={() => (location.href = emailCopy)}
-        data-course-shared="Favorites"
-        disabled={!favs.length}
-      >
-        <EnvelopeIcon
-          width={30}
-          className={twMerge(
-            "mb-4 block w-full rounded-full bg-spirited-dark p-5 text-white",
-            clsx({"bg-black-40": !favs.length})
-          )}
-        />
-        Email
-      </button>
-      <button
-        className="text-center font-semibold hocus:underline"
-        onClick={() => copyToClip(copyUrl)}
-        data-course-shared="Favorites"
-        disabled={!favs.length}
-      >
-        <ClipboardDocumentIcon
-          width={30}
-          className={twMerge(
-            "mb-4 block w-full rounded-full bg-spirited-dark p-5 text-white",
-            clsx({"bg-black-40": !favs.length})
-          )}
-        />
-        Copy
-      </button>
-    </div>
+    <>
+      <div className="mt-12 flex flex-row justify-between gap-5 *:max-w-60 *:flex-1 *:shrink-0 @md:gap-20">
+        <button
+          className="text-center font-semibold text-archway-dark no-underline hocus:underline"
+          onClick={() => (location.href = smsCopy)}
+          data-course-shared="Favorites"
+          disabled={!favs.length}
+        >
+          <ChatBubbleLeftEllipsisIcon
+            width={30}
+            className={twMerge(
+              "mb-4 block w-full rounded-full bg-spirited-dark p-5 text-white",
+              clsx({"bg-black-40": !favs.length})
+            )}
+          />
+          Text
+        </button>
+        <button
+          className="text-center font-semibold text-archway-dark no-underline hocus:underline"
+          onClick={() => (location.href = emailCopy)}
+          data-course-shared="Favorites"
+          disabled={!favs.length}
+        >
+          <EnvelopeIcon
+            width={30}
+            className={twMerge(
+              "mb-4 block w-full rounded-full bg-spirited-dark p-5 text-white",
+              clsx({"bg-black-40": !favs.length})
+            )}
+          />
+          Email
+        </button>
+        <button
+          className="text-center font-semibold hocus:underline"
+          onClick={() => copyToClip(copyUrl)}
+          data-course-shared="Favorites"
+          disabled={!favs.length}
+        >
+          <ClipboardDocumentIcon
+            width={30}
+            className={twMerge(
+              "mb-4 block w-full rounded-full bg-spirited-dark p-5 text-white",
+              clsx({"bg-black-40": !favs.length})
+            )}
+          />
+          Copy
+        </button>
+      </div>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+    </>
   )
 }
 

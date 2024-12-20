@@ -1,47 +1,49 @@
 import Wysiwyg from "@components/elements/wysiwyg"
-import {StanfordGlobalMessage} from "@lib/gql/__generated__/drupal.d"
+import {SummerGlobalMsg} from "@lib/gql/__generated__/drupal.d"
 import ActionLink from "@components/elements/action-link"
 import {twMerge} from "tailwind-merge"
 import {HTMLAttributes} from "react"
-import {getConfigPage} from "@lib/gql/gql-queries"
 import {H2} from "@components/elements/headers"
+import {unstable_cache as nextCache} from "next/cache"
+import {graphqlClient} from "@lib/gql/gql-client"
 
 type Props = HTMLAttributes<HTMLElement> & {}
 
-const GlobalMessage = async ({...props}: Props) => {
-  const globalMessageConfig = await getConfigPage<StanfordGlobalMessage>("StanfordGlobalMessage")
-  if (!globalMessageConfig?.suGlobalMsgEnabled) return
+const getGlobalMessage = nextCache(
+  async (): Promise<SummerGlobalMsg | undefined> => {
+    const messages = await graphqlClient().GlobalMessages()
+    if (messages.summerGlobalMsgs.nodes?.[0]?.label) return messages.summerGlobalMsgs.nodes[0] as SummerGlobalMsg
+  },
+  [],
+  {tags: ["global-message"]}
+)
 
-  const ElementWrapper = globalMessageConfig.suGlobalMsgHeader ? "article" : "div"
+const GlobalMessage = async ({...props}: Props) => {
+  const globalMessageConfig = await getGlobalMessage()
+  if (!globalMessageConfig) return
 
   return (
-    <ElementWrapper
-      {...props}
-      className={twMerge("bg-fog-light", props.className)}
-      aria-labelledby={globalMessageConfig.suGlobalMsgHeader ? globalMessageConfig.id : undefined}
-    >
+    <article {...props} className={twMerge("bg-fog-light", props.className)} aria-labelledby={globalMessageConfig.id}>
       <div className="md:centered">
         <div className="flex w-full flex-col items-center justify-between gap-10 rounded-b-[25px] bg-illuminating-dark px-16 py-10 md:flex-row lg:w-3/4">
           <div>
-            {globalMessageConfig.suGlobalMsgHeader && (
-              <H2 id={globalMessageConfig.id} className="mb-3 text-23">
-                {globalMessageConfig.suGlobalMsgHeader}
-              </H2>
-            )}
-            <Wysiwyg html={globalMessageConfig.suGlobalMsgMessage?.processed} />
+            <H2 id={globalMessageConfig.id} className="mb-3 text-23">
+              {globalMessageConfig.label}
+            </H2>
+            <Wysiwyg html={globalMessageConfig.sumGlobalMsgBody?.processed} />
           </div>
 
-          {globalMessageConfig.suGlobalMsgLink?.url && (
+          {globalMessageConfig.sumGlobalMsgLink?.url && (
             <ActionLink
-              href={globalMessageConfig.suGlobalMsgLink.url}
+              href={globalMessageConfig.sumGlobalMsgLink.url}
               className="w-full max-w-fit text-black no-underline hocus:underline"
             >
-              {globalMessageConfig.suGlobalMsgLink.title}
+              {globalMessageConfig.sumGlobalMsgLink.title}
             </ActionLink>
           )}
         </div>
       </div>
-    </ElementWrapper>
+    </article>
   )
 }
 

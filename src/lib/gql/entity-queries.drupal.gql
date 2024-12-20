@@ -335,3 +335,20 @@ query ConfigPages {
     }
   }
 }
+
+query GlobalMessages {
+  summerGlobalMsgs(first: 10) {
+    nodes {
+      id
+      label
+      sumGlobalMsgHide
+      sumGlobalMsgLink {
+        title
+        url
+      }
+      sumGlobalMsgBody {
+        processed
+      }
+    }
+  }
+}

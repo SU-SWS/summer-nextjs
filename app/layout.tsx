@@ -11,6 +11,7 @@ import Editori11y from "@components/tools/editorially"
 import localFont from "next/font/local"
 import Cookiebot from "@components/elements/cookiebot"
 import Zendesk from "@components/elements/zendesk"
+import {ToastMessage} from "@components/elements/toast-message"
 
 const appleIcons: Icon[] = [60, 72, 76, 114, 120, 144, 152, 180].map(size => ({
   url: `https://www-media.stanford.edu/assets/favicon/apple-touch-icon-${size}x${size}.png`,
@@ -68,6 +69,7 @@ const RootLayout = ({children, modal}: {children: React.ReactNode; modal: React.
           <main id="main-content" className="flex-grow">
             {children}
 
+            <ToastMessage />
             <BackToTop />
           </main>
           <PageFooter />

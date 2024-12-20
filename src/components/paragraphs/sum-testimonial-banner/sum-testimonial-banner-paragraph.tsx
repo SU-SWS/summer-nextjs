@@ -41,7 +41,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
     <article
       {...props}
       className={twMerge(
-        "relative left-1/2 !mt-0 grid w-screen -translate-x-1/2 @container lg:grid-cols-3",
+        "relative left-1/2 !mt-0 grid w-screen -translate-x-1/2 border-t-4 border-t-white @container lg:grid-cols-3",
         props.className
       )}
       aria-labelledby={paragraph.id}

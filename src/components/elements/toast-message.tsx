@@ -1,6 +1,6 @@
 "use client"
 
-import {toast, ToastContainer} from "react-toastify"
+import {ToastContainer} from "react-toastify"
 
 export function ToastMessage() {
   return (

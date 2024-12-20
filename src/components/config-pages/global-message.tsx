@@ -6,6 +6,7 @@ import {HTMLAttributes} from "react"
 import {H2} from "@components/elements/headers"
 import {unstable_cache as nextCache} from "next/cache"
 import {graphqlClient} from "@lib/gql/gql-client"
+import GlobalMessageClient from "@components/config-pages/global-message.client"
 
 type Props = HTMLAttributes<HTMLElement> & {}
 
@@ -23,7 +24,15 @@ const GlobalMessage = async ({...props}: Props) => {
   if (!globalMessageConfig) return
 
   return (
-    <article {...props} className={twMerge("bg-fog-light", props.className)} aria-labelledby={globalMessageConfig.id}>
+    <GlobalMessageClient
+      {...props}
+      className={twMerge("bg-fog-light", props.className)}
+      aria-labelledby={globalMessageConfig.id}
+      hidePaths={globalMessageConfig.sumGlobalMsgHide
+        ?.replace(/\r/, "")
+        .split("\n")
+        .map(path => path.trim())}
+    >
       <div className="md:centered">
         <div className="flex w-full flex-col items-center justify-between gap-10 rounded-b-[25px] bg-illuminating-dark px-16 py-10 md:flex-row lg:w-3/4">
           <div>
@@ -43,7 +52,7 @@ const GlobalMessage = async ({...props}: Props) => {
           )}
         </div>
       </div>
-    </article>
+    </GlobalMessageClient>
   )
 }
 

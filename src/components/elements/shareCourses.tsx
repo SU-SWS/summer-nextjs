@@ -6,6 +6,7 @@ import React, {RefObject, useCallback, useRef} from "react"
 import {twMerge} from "tailwind-merge"
 import {useCopyToClipboard, useEventListener} from "usehooks-ts"
 import useOutsideClick from "@lib/hooks/useOutsideClick"
+import {toast} from "react-toastify"
 
 type Props = {
   courseName: string
@@ -22,6 +23,7 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
 
   const copyToClip = (text: string) => {
     copy(text).catch(_e => console.warn("An error occurred when copying to clipboard"))
+    toast("Copied!")
   }
 
   // If the user presses escape on the keyboard, close the submenus.

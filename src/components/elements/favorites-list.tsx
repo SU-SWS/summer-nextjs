@@ -7,7 +7,7 @@ import {XMarkIcon} from "@heroicons/react/20/solid"
 import {H2} from "./headers"
 import {clsx} from "clsx"
 import {twMerge} from "tailwind-merge"
-import {ToastContainer, toast} from "react-toastify"
+import {toast} from "react-toastify"
 
 const ShareButtons = () => {
   const [, copy] = useCopyToClipboard()
@@ -16,11 +16,9 @@ const ShareButtons = () => {
   const urlParams = `/courses/favorites?favs=${favs.map(fav => `${fav.uuid}`).join(",")}`
   const copyUrl = isClient ? window.location.origin + urlParams : urlParams
 
-  const notify = () => toast("Copied!")
-
   const copyToClip = (text: string) => {
     copy(text).catch(_e => console.warn("An error occurred when copying to clipboard"))
-    notify()
+    toast("Copied!")
   }
 
   const smsCopy =
@@ -85,19 +83,6 @@ const ShareButtons = () => {
           Copy
         </button>
       </div>
-      <ToastContainer
-        progressClassName="bg-spirited-light"
-        position="bottom-left"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
     </>
   )
 }

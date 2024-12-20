@@ -3,7 +3,7 @@
 import twMerge from "@lib/utils/twMergeConfig"
 import {HTMLAttributes} from "react"
 import {clsx} from "clsx"
-import {usePathname} from "next/navigation";
+import {usePathname} from "next/navigation"
 
 type Props = HTMLAttributes<HTMLElement> & {
   hidePaths?: Array<string>

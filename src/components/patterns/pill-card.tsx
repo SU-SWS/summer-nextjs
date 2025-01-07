@@ -68,7 +68,8 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, .
         className={twMerge(
           "rs-px-3 flex flex-col pb-[125px] pt-20 @7xl:rs-px-4 @2xl:pb-[175px] @3xl:pb-[225px] @4xl:pb-[300px] [&_p>a]:text-black-true hocus:[&_p>a]:text-[#001829]",
           clsx({
-            "pt-[125px] @3xl:pt-[175px] @4xl:pt-[225px] @5xl:pt-[250px] @7xl:pt-[300px]": !imageUrl,
+            "pt-[115px] @sm:pt-[115px] @md:pt-[135px] @lg:pt-[155px] @2xl:pt-[220px] @3xl:pt-[220px] @4xl:pt-[270px] @5xl:pt-[300px] @7xl:pt-[350px]":
+              !imageUrl,
           })
         )}
       >

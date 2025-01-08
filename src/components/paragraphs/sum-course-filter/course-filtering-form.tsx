@@ -115,7 +115,7 @@ const SearchForm = () => {
                 autoComplete="on"
                 spellCheck={false}
                 maxLength={60}
-                type="textfield"
+                type="text"
                 placeholder="Search by keyword"
                 defaultValue={query}
               />

@@ -3,7 +3,7 @@
 import {liteClient} from "algoliasearch/lite"
 import {useHits, useSearchBox, usePagination} from "react-instantsearch"
 import {InstantSearchNext} from "react-instantsearch-nextjs"
-import {HTMLAttributes, useEffect, useLayoutEffect, useMemo, useRef} from "react"
+import {HTMLAttributes, useEffect, useLayoutEffect, useMemo, useRef, useState} from "react"
 import Button from "@components/elements/button"
 import {useRouter, useSearchParams} from "next/navigation"
 import {Hit as HitType} from "instantsearch.js"
@@ -13,6 +13,7 @@ import DefaultResult, {AlgoliaHit} from "@components/algolia/results/default"
 import {H2} from "@components/elements/headers"
 import {useBoolean} from "usehooks-ts"
 import AlgoliaPager from "@components/algolia/algolia-pager"
+import {ArrowPathIcon} from "@heroicons/react/16/solid"
 
 type Props = {
   appId: string
@@ -21,9 +22,20 @@ type Props = {
   initialUiState?: IndexUiState
 }
 
-const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey, initialUiState = {}}: Props) => {
+const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
+  const initialRender = useRef(true)
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
+  const [initialUiState, setInitialUiState] = useState<IndexUiState>({})
 
+  useEffect(() => {
+    if (!initialRender.current) return
+    initialRender.current = false
+    const searchParams = new URLSearchParams(window.location.search)
+    const query = searchParams.get("q")
+    if (query) setInitialUiState({query})
+  }, [])
+
+  if (initialRender.current) return <ArrowPathIcon className="mx-auto animate-spin" width={50} />
   return (
     <div>
       {/*@ts-expect-error React 19 types don't match with the library.*/}
@@ -139,7 +151,11 @@ const HitItem = ({
   useLayoutEffect(() => {
     if (focus) {
       const reduceMotion = !!window.matchMedia("(prefers-reduced-motion: reduce)")?.matches
-      ref.current?.scrollIntoView({behavior: reduceMotion ? "instant" : "smooth", block: "end", inline: "nearest"})
+      ref.current?.scrollIntoView({
+        behavior: reduceMotion ? "instant" : "smooth",
+        block: "end",
+        inline: "nearest",
+      })
       ref.current?.focus({preventScroll: true})
     }
   }, [focus])

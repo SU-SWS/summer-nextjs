@@ -18,7 +18,7 @@ const PageHeader = async () => {
 
   return (
     <header className="shadow-lg">
-      <div className="bg-cardinal-red">
+      <div className="border-b-4 border-white bg-cardinal-red">
         <div className="centered py-3">
           <a
             className="logo text-20 text-white no-underline hocus:text-white hocus:underline"
@@ -29,7 +29,7 @@ const PageHeader = async () => {
         </div>
       </div>
       <GlobalMessage />
-      <div className="relative bg-fog-light">
+      <div className="relative border-b-4 border-white bg-fog-light">
         <div className="w-full border-b-2 lg:border-b-0">
           <div className="min-h-50 rs-py-2 centered pr-24 lg:pr-0">
             <div className="flex w-full justify-between">

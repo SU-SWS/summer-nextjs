@@ -116,6 +116,13 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
                 </div>
               )}
 
+              {node.sumCoursePrerequisites && (
+                <div>
+                  <span>Pre-requisites: </span>
+                  <Wysiwyg html={node.sumCoursePrerequisites.processed} />
+                </div>
+              )}
+
               {node.sumCourseCrossListing && (
                 <div>
                   <span>Cross Listing{node.sumCourseCrossListing.length > 1 ? "s" : ""}: </span>

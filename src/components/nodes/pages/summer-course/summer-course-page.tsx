@@ -90,10 +90,8 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
 
               {node.sumCourseInstructors && (
                 <div>
-                  <span>Instructor: </span>
-                  {node.sumCourseInstructors &&
-                    node.sumCourseInstructors.length > 1 &&
-                    node.sumCourseInstructors.join(", ")}
+                  <span>Instructor{node.sumCourseInstructors.length > 1 ? "s" : ""}: </span>
+                  {node.sumCourseInstructors.join(", ")}
                 </div>
               )}
 
@@ -120,10 +118,8 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
 
               {node.sumCourseCrossListing && (
                 <div>
-                  <span>Cross Listings: </span>
-                  {node.sumCourseCrossListing &&
-                    node.sumCourseCrossListing.length > 1 &&
-                    node.sumCourseCrossListing.join(", ")}
+                  <span>Cross Listing{node.sumCourseCrossListing.length > 1 ? "s" : ""}: </span>
+                  {node.sumCourseCrossListing.join(", ")}
                 </div>
               )}
 

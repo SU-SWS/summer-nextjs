@@ -149,10 +149,12 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
       <div {...panelProps}>
         <div className="rs-mt-2 flex flex-col gap-10 xl:flex-row xl:gap-[90px]">
           <div className="flex-grow">
-            <div>
-              <H5 className="mb-5 font-semibold">Summary:</H5>
-              {hit.html}
-            </div>
+            {hit.html && (
+              <div>
+                <H5 className="mb-5 font-semibold">Summary:</H5>
+                {hit.html}
+              </div>
+            )}
 
             {hit.sum_course_notes && (
               <div className="mt-8">
@@ -166,7 +168,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
             <H5 className="font-semibold">Details:</H5>
             {hit.sum_course_interest && (
               <div>
-                <span className="font-semibold">Interest Area: </span>
+                <span className="font-semibold">Interest Area{hit.sum_course_interest.length > 1 ? "s" : ""}: </span>
                 {hit.sum_course_interest.join(", ")}
               </div>
             )}

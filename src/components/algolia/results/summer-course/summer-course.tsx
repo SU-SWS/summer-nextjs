@@ -30,6 +30,7 @@ export type CourseHit = AlgoliaHit & {
   sum_course_schedule?: string
   sum_course_start_date?: number
   sum_course_units?: number
+  su_course_instructors?: string[]
 }
 
 type Props = {
@@ -108,6 +109,12 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
               {hit.sum_course_units}
             </div>
           )}
+          {hit.sum_course_class_number && (
+            <div>
+              <span className="font-semibold">Class Number: </span>
+              {hit.sum_course_unitssum_course_class_number}
+            </div>
+          )}
           {start && end && (
             <div>
               <span className="font-semibold">Dates: </span>
@@ -151,7 +158,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
           <div className="flex-grow">
             {hit.html && (
               <div>
-                <H5 className="mb-5 font-semibold">Summary:</H5>
+                <H5 className="mb-5 font-semibold">Description:</H5>
                 {hit.html}
               </div>
             )}
@@ -170,6 +177,13 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
               <div>
                 <span className="font-semibold">Interest Area{hit.sum_course_interest.length > 1 ? "s" : ""}: </span>
                 {hit.sum_course_interest.join(", ")}
+              </div>
+            )}
+
+            {hit.su_course_instructors && (
+              <div>
+                <span className="font-semibold">Instructors{hit.su_course_instructors.length > 1 ? "s" : ""}: </span>
+                {hit.su_course_instructors.join(", ")}
               </div>
             )}
 

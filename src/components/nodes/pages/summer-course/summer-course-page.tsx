@@ -82,6 +82,12 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
                 </div>
               )}
 
+              {node.sumCourseClassNumber && (
+                <div>
+                  <span>Class Number:</span> {node.sumCourseClassNumber}
+                </div>
+              )}
+
               {node.sumCourseInterestArea && (
                 <div>
                   <span>Interest Area:</span> {node.sumCourseInterestArea.name}
@@ -142,7 +148,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
           <div>
             {node.sumCourseDescription && (
               <div className="rs-mb-1">
-                <H3 className="type-1 mb-5">Summary:</H3>
+                <H3 className="type-1 mb-5">Description:</H3>
                 <Wysiwyg html={node.sumCourseDescription.processed} />
               </div>
             )}

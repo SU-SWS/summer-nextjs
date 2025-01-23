@@ -31,14 +31,13 @@ const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
     if (!initialRender.current) return
     initialRender.current = false
     const searchParams = new URLSearchParams(window.location.search)
-    const query = searchParams.get("q")
-    if (query) setInitialUiState({query})
+    const queryString = searchParams.get("q") || ""
+    setInitialUiState({query: queryString})
   }, [])
 
   if (initialRender.current) return <ArrowPathIcon className="mx-auto animate-spin" width={50} />
   return (
     <div>
-      {/*@ts-expect-error React 19 types don't match with the library.*/}
       <InstantSearchNext
         indexName={searchIndex}
         searchClient={searchClient}

@@ -64,7 +64,6 @@ const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
   }, [])
 
   return (
-    // @ts-expect-error React 19 types don't match with the library.
     <InstantSearchNext
       indexName={searchIndex}
       searchClient={searchClient}

@@ -3,6 +3,7 @@ import {StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
 import Script from "next/script"
 import {GoogleAnalytics, GoogleTagManager} from "@next/third-parties/google"
 import {isPreviewMode} from "@lib/drupal/is-preview-mode"
+import Vwo from "@components/elements/vwo"
 
 const UserAnalytics = async () => {
   if (isPreviewMode()) return
@@ -15,6 +16,7 @@ const UserAnalytics = async () => {
   if (!googleAnalytics && !process.env.NEXT_PUBLIC_GTM) return
   return (
     <>
+      <Vwo />
       <Script async src="//siteimproveanalytics.com/js/siteanalyze_80352.js" />
       {googleAnalytics && <GoogleAnalytics gaId={googleAnalytics} />}
       {process.env.NEXT_PUBLIC_GTM && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM} />}

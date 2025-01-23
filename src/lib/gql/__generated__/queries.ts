@@ -1544,6 +1544,24 @@ export const ConfigPagesDocument = gql`
 }
     ${FragmentLinkFragmentDoc}
 ${FragmentTextFragmentDoc}`;
+export const GlobalMessagesDocument = gql`
+    query GlobalMessages {
+  summerGlobalMsgs(first: 10) {
+    nodes {
+      id
+      label
+      sumGlobalMsgHide
+      sumGlobalMsgLink {
+        title
+        url
+      }
+      sumGlobalMsgBody {
+        processed
+      }
+    }
+  }
+}
+    `;
 export const MenuDocument = gql`
     query Menu($name: MenuAvailable = MAIN) {
   menu(name: $name) {
@@ -1799,6 +1817,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     ConfigPages(variables?: DrupalTypes.ConfigPagesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<DrupalTypes.ConfigPagesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.ConfigPagesQuery>(ConfigPagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ConfigPages', 'query', variables);
+    },
+    GlobalMessages(variables?: DrupalTypes.GlobalMessagesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<DrupalTypes.GlobalMessagesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.GlobalMessagesQuery>(GlobalMessagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GlobalMessages', 'query', variables);
     },
     Menu(variables?: DrupalTypes.MenuQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<DrupalTypes.MenuQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.MenuQuery>(MenuDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Menu', 'query', variables);

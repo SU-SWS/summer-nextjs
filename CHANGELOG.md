@@ -1,3 +1,19 @@
+1.3.0 2025-01-23
+--------------------------------------------------
+
+- Add VWO script code
+- Fixed search page without an initial query
+- Updated dependencies
+- Add course number and instructor to missing spots
+- updated yarn
+- Add pre-req to node detail page
+- Fixed conditional rendering on course node page and search result
+- SUM-260: added react-toastify to make copied alert (#82)
+- fixed incorrect input type
+- SUM-262 SUM-264 SUM-266: fixes to the 4px white border (#80)
+- Replace config page global message with new scheduled summer message (#84)
+- Updated dependencies and reverted image gallery route interception workaround
+
 1.1.0 2024-10-31
 --------------------------------------------------
 

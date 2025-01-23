@@ -7,6 +7,7 @@ import {XMarkIcon} from "@heroicons/react/20/solid"
 import {H2} from "./headers"
 import {clsx} from "clsx"
 import {twMerge} from "tailwind-merge"
+import {toast} from "react-toastify"
 
 const ShareButtons = () => {
   const [, copy] = useCopyToClipboard()
@@ -17,6 +18,7 @@ const ShareButtons = () => {
 
   const copyToClip = (text: string) => {
     copy(text).catch(_e => console.warn("An error occurred when copying to clipboard"))
+    toast("Copied!")
   }
 
   const smsCopy =

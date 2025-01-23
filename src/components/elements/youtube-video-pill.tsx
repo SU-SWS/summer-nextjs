@@ -80,7 +80,6 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
       )}
       ref={ref}
     >
-      {/* @ts-expect-error React 19 types don't match with the library. */}
       <YouTube
         id={id}
         videoId={videoId || shortId}

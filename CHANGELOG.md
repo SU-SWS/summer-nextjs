@@ -1,3 +1,8 @@
+1.3.1 2025-01-28
+--------------------------------------------------
+
+- Fixed algolia course result to properly show the course number and instructors.
+
 1.3.0 2025-01-23
 --------------------------------------------------
 

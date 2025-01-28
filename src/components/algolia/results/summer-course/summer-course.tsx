@@ -30,7 +30,7 @@ export type CourseHit = AlgoliaHit & {
   sum_course_schedule?: string
   sum_course_start_date?: number
   sum_course_units?: number
-  su_course_instructors?: string[]
+  sum_course_instructors?: string | string[]
 }
 
 type Props = {
@@ -112,7 +112,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
           {hit.sum_course_class_number && (
             <div>
               <span className="font-semibold">Class Number: </span>
-              {hit.sum_course_unitssum_course_class_number}
+              {hit.sum_course_class_number}
             </div>
           )}
           {start && end && (
@@ -180,10 +180,14 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
               </div>
             )}
 
-            {hit.su_course_instructors && (
+            {hit.sum_course_instructors && (
               <div>
-                <span className="font-semibold">Instructors{hit.su_course_instructors.length > 1 ? "s" : ""}: </span>
-                {hit.su_course_instructors.join(", ")}
+                <span className="font-semibold">
+                  Instructor
+                  {Array.isArray(hit.sum_course_instructors) && hit.sum_course_instructors.length > 1 ? "s" : ""}:{" "}
+                </span>
+                {Array.isArray(hit.sum_course_instructors) && hit.sum_course_instructors.join(", ")}
+                {!Array.isArray(hit.sum_course_instructors) && hit.sum_course_instructors}
               </div>
             )}
 

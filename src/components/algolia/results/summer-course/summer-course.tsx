@@ -139,7 +139,11 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
       <div className="rs-mb-2 order-first flex flex-row items-center justify-between">
         {hit.sum_course_availability && <CourseAvailability availabilityStatus={hit.sum_course_availability[0]} />}
         <div className="ml-auto flex flex-row justify-center gap-5">
-          <ShareCourses courseUrl={hit.url} courseNum={hit.sum_course_catalog_number || ""} courseName={hit.title} />
+          <ShareCourses
+            courseUrl={hit.url.replace(hitDomain, "https://summer.stanford.edu")}
+            courseNum={hit.sum_course_catalog_number || ""}
+            courseName={hit.title}
+          />
           <FavoriteButton title={hit.title} uuid={hit.objectID} path={hit.url} units={hit.sum_course_units || 0} />
         </div>
       </div>

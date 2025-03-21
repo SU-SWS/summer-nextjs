@@ -4,6 +4,12 @@ import * as DrupalTypes from './drupal.d';
 import { GraphQLClient, RequestOptions } from 'graphql-request';
 import gql from 'graphql-tag';
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders'];
+export const FragmentPageInfoFragmentDoc = gql`
+    fragment FragmentPageInfo on ConnectionPageInfo {
+  hasNextPage
+  endCursor
+}
+    `;
 export const AllNodeInterfaceFragmentDoc = gql`
     fragment AllNodeInterface on NodeInterface {
   id
@@ -1247,19 +1253,30 @@ export const NodeDocument = gql`
 }
     ${FragmentNodeUnionFragmentDoc}`;
 export const AllNodesDocument = gql`
-    query AllNodes($first: Int = 1000) {
-  nodeSumSummerCourses(first: $first, sortKey: CREATED_AT) {
+    query AllNodes($first: Int = 1000, $nodeStanfordPages: Cursor, $nodeSumSummerCourses: Cursor) {
+  nodeSumSummerCourses(
+    first: $first
+    after: $nodeSumSummerCourses
+    sortKey: CREATED_AT
+  ) {
     nodes {
       ...AllNodeInterface
     }
+    pageInfo {
+      ...FragmentPageInfo
+    }
   }
-  nodeStanfordPages(first: $first, sortKey: CREATED_AT) {
+  nodeStanfordPages(first: $first, after: $nodeStanfordPages, sortKey: CREATED_AT) {
     nodes {
       ...AllNodeInterface
+    }
+    pageInfo {
+      ...FragmentPageInfo
     }
   }
 }
-    ${AllNodeInterfaceFragmentDoc}`;
+    ${AllNodeInterfaceFragmentDoc}
+${FragmentPageInfoFragmentDoc}`;
 export const CoursesDocument = gql`
     query Courses($first: Int = 1000, $after: Cursor) {
   nodeStanfordCourses(first: $first, after: $after, sortKey: CREATED_AT) {

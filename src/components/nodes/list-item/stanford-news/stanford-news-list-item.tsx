@@ -32,7 +32,7 @@ const StanfordNewsListItem = ({node, headingLevel, ...props}: Props) => {
           <div className="flex flex-col gap-10">
             <Heading className="type-3 order-last font-bold" id={node.id}>
               <Link
-                href={node.suNewsSource?.url || node.path}
+                href={node.suNewsSource?.url || node.path || "#"}
                 className="order-2 text-digital-red no-underline hocus:text-black hocus:underline"
               >
                 {node.title}

@@ -1,4 +1,6 @@
 import {
+  AllNodesQuery,
+  AllNodesQueryVariables,
   ConfigPagesQuery,
   ConfigPagesUnion,
   MenuAvailable,
@@ -127,18 +129,35 @@ export const getMenu = cache(async (name?: MenuAvailable, maxLevels?: number): P
   return getData()
 })
 
-export const getAllNodePaths = nextCache(
+export const getAllNodes = nextCache(
   cache(async () => {
     "use server"
 
-    const nodeQuery = await graphqlClient({next: {tags: ["paths"]}}).AllNodes({first: 1000})
-    const nodePaths: string[] = []
-    nodeQuery.nodeStanfordPages.nodes.map(node => nodePaths.push(node.path))
-    nodeQuery.nodeSumSummerCourses.nodes.map(node => nodePaths.push(node.path))
-    return nodePaths
+    const nodes: NodeUnion[] = []
+    let fetchMore = true
+    let nodeQuery: AllNodesQuery
+    let queryKeys: (keyof AllNodesQuery)[] = []
+    const cursors: Omit<AllNodesQueryVariables, "first"> = {}
+
+    while (fetchMore) {
+      nodeQuery = await graphqlClient({cache: "no-store"}).AllNodes({first: 1000, ...cursors})
+      queryKeys = Object.keys(nodeQuery) as (keyof AllNodesQuery)[]
+      fetchMore = false
+
+      queryKeys.map(queryKey => {
+        if (queryKey === "__typename") return
+
+        nodeQuery[queryKey]?.nodes.map(node => nodes.push(node as NodeUnion))
+
+        if (nodeQuery[queryKey].pageInfo.endCursor) cursors[queryKey] = nodeQuery[queryKey].pageInfo.endCursor
+        if (nodeQuery[queryKey].pageInfo.hasNextPage) fetchMore = true
+      })
+    }
+
+    return nodes
   }),
   ["node-paths"],
-  {revalidate: 60 * 60 * 7, tags: ["all-entities"]}
+  {revalidate: 60 * 60 * 24 * 7}
 )
 
 /**

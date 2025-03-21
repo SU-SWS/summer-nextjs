@@ -48,7 +48,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
           className="absolute -top-20 right-5 md:right-16 xl:right-0"
           title={node.title}
           uuid={node.id}
-          path={node.path}
+          path={node.path || "#"}
           units={node.sumCourseUnits || 0}
         />
 

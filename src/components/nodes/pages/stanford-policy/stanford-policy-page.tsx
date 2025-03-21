@@ -53,7 +53,7 @@ const StanfordPolicyPage = async ({node, ...props}: Props) => {
           )}
         </div>
       </div>
-      <InteriorPage currentPath={node.path} menuItems={node.book ? [node.book] : undefined}>
+      <InteriorPage currentPath={node.path || "#"} menuItems={node.book ? [node.book] : undefined}>
         <div className="flex flex-col gap-20">
           {(node.suPolicyAuthority || node.suPolicyUpdated || node.suPolicyEffective) && (
             <div>
@@ -119,7 +119,7 @@ const StanfordPolicyPage = async ({node, ...props}: Props) => {
 
           <Wysiwyg html={node.body?.processed} />
 
-          {node.book && <ChildPages currentPath={node.path} bookItems={[node.book]} />}
+          {node.book && <ChildPages currentPath={node.path || "#"} bookItems={[node.book]} />}
         </div>
       </InteriorPage>
 
@@ -130,7 +130,7 @@ const StanfordPolicyPage = async ({node, ...props}: Props) => {
             {node.suPolicyRelated.map(policy => (
               <li key={policy.id}>
                 <Suspense fallback={<ImageCardSkeleton />}>
-                  <RelatedPolicy path={policy.path} />
+                  <RelatedPolicy path={policy.path || "#"} />
                 </Suspense>
               </li>
             ))}

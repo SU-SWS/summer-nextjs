@@ -5,6 +5,11 @@ query Node($uuid: ID!) {
   }
 }
 
+fragment FragmentPageInfo on ConnectionPageInfo {
+  hasNextPage
+  endCursor
+}
+
 fragment AllNodeInterface on NodeInterface {
   id
   path
@@ -13,10 +18,14 @@ fragment AllNodeInterface on NodeInterface {
   }
 }
 
-query AllNodes($first: Int = 1000) {
-  nodeSumSummerCourses(first: $first, sortKey: CREATED_AT) {
+
+query AllNodes($first: Int = 1000, $nodeStanfordPages: Cursor, $nodeSumSummerCourses: Cursor) {
+  nodeSumSummerCourses(first: $first, after: $nodeSumSummerCourses, sortKey: CREATED_AT) {
     nodes {
       ...AllNodeInterface
+    }
+    pageInfo {
+      ...FragmentPageInfo
     }
   }
 #  nodeStanfordCourses(first: $first, sortKey: CREATED_AT) {
@@ -39,9 +48,12 @@ query AllNodes($first: Int = 1000) {
 #      ...FragmentNodeInterface
 #    }
 #  }
-  nodeStanfordPages(first: $first, sortKey: CREATED_AT) {
+  nodeStanfordPages(first: $first, after: $nodeStanfordPages, sortKey: CREATED_AT) {
     nodes {
       ...AllNodeInterface
+    }
+    pageInfo {
+      ...FragmentPageInfo
     }
   }
 #  nodeStanfordPeople(first: $first, sortKey: CREATED_AT) {

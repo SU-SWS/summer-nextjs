@@ -66,7 +66,7 @@ const StanfordPagePage = ({node, ...props}: Props) => {
       {!pageTitleBanners.includes(node.suPageBanner?.__typename) && <H1 className="centered mt-32">{node.title}</H1>}
 
       {!fullWidth && (
-        <InteriorPage currentPath={node.path}>
+        <InteriorPage currentPath={node.path || "#"}>
           <Rows components={node.suPageComponents} />
         </InteriorPage>
       )}

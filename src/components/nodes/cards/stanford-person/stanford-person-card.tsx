@@ -33,7 +33,7 @@ const StanfordPersonCard = ({node, headingLevel, ...props}: Props) => {
       )}
 
       <Heading className="type-3" id={node.id}>
-        <Link href={node.path}>{node.title}</Link>
+        <Link href={node.path || "#"}>{node.title}</Link>
       </Heading>
 
       {node.suPersonShortTitle && <div>{node.suPersonShortTitle}</div>}

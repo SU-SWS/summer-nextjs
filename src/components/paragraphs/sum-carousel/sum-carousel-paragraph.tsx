@@ -7,13 +7,14 @@ import {
 import {HTMLAttributes} from "react"
 import Wysiwyg from "@components/elements/wysiwyg"
 import {H2} from "@components/elements/headers"
-import Paragraph from "@components/paragraphs/paragraph"
 import Slideshow from "@components/elements/slideshow"
 import ActionLink from "@components/elements/action-link"
 import ArcBanner from "@components/patterns/arc-banner"
 import {getParagraphBehaviors} from "../get-paragraph-behaviors"
 import clsx from "clsx"
 import {twMerge} from "tailwind-merge"
+import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
+import SumSlideTeaserParagraph from "@components/paragraphs/sum-slide-teaser/sum-slide-teaser-paragraph"
 
 type Props = HTMLAttributes<HTMLElement> & {
   paragraph: ParagraphSumCarousel
@@ -105,7 +106,8 @@ const CarouselSlide = ({
       aria-labelledby={labelId}
       aria-label={labelId ? undefined : `${slideNumber} of ${totalSlides}`}
     >
-      <Paragraph paragraph={slide} />
+      {slide.__typename === "ParagraphStanfordCard" && <CardParagraph paragraph={slide} linkTabIndex={-1} />}
+      {slide.__typename === "ParagraphSumSlideTeaser" && <SumSlideTeaserParagraph paragraph={slide} />}
     </div>
   )
 }

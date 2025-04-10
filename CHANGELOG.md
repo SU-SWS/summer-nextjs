@@ -1,3 +1,9 @@
+1.3.2 2025-04-10
+--------------------------------------------------
+- Fixed tab index on slideshow and fix button with a strong tag
+- Fixed course sharing url
+- Fixed algolia hit for course number and instructors
+
 1.3.1 2025-01-28
 --------------------------------------------------
 

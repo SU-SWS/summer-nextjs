@@ -12,6 +12,7 @@ import clsx from "clsx"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordCard
+  linkTabIndex?: number
 }
 
 const adjustHeadingType = (heading: "h2" | "h3" | "h4" | "div", size?: "larger" | "smaller"): number | undefined => {
@@ -24,7 +25,7 @@ const adjustHeadingType = (heading: "h2" | "h3" | "h4" | "div", size?: "larger" 
   return size === "larger" ? headingTypes[heading] + 1 : headingTypes[heading] - 1
 }
 
-const CardParagraph = ({paragraph, ...props}: Props) => {
+const CardParagraph = ({paragraph, linkTabIndex, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
 
   const image = paragraph.suCardMedia?.__typename === "MediaImage" ? paragraph.suCardMedia.mediaImage : undefined
@@ -90,13 +91,16 @@ const CardParagraph = ({paragraph, ...props}: Props) => {
               className={clsx("font-roboto text-18 font-medium no-underline hocus:underline", {
                 "text-archway-dark": cardVariant === "pill",
               })}
+              tabIndex={linkTabIndex}
             >
               {paragraph.suCardLink.title}
             </ActionLink>
           )}
 
           {behaviors.su_card_styles?.link_style != "action" && (
-            <Button href={paragraph.suCardLink.url}>{paragraph.suCardLink.title}</Button>
+            <Button href={paragraph.suCardLink.url} tabIndex={linkTabIndex}>
+              {paragraph.suCardLink.title}
+            </Button>
           )}
         </div>
       )}

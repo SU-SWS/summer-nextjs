@@ -1,6 +1,6 @@
 import NodePage from "@components/nodes/pages/node-page"
 import {NodeUnion} from "@lib/gql/__generated__/drupal.d"
-import {getAllNodePaths, getEntityFromPath} from "@lib/gql/gql-queries"
+import {getAllNodes, getEntityFromPath} from "@lib/gql/gql-queries"
 import {notFound, redirect} from "next/navigation"
 import {getPathFromContext, PageProps, Slug} from "@lib/drupal/utils"
 
@@ -24,7 +24,8 @@ const Page = async (props: PageProps) => {
 export const generateStaticParams = async (): Promise<Array<Slug>> => {
   const pagesToBuild = parseInt(process.env.BUILD_PAGES || "0")
   if (pagesToBuild === 0) return []
-  const nodePaths = (await getAllNodePaths()).map(path => ({slug: path.split("/").filter(part => !!part)}))
+  const paths = (await getAllNodes()).map(node => node.path).filter(path => !!path) as Array<string>
+  const nodePaths = paths.map(path => ({slug: path.split("/").filter(part => !!part)}))
   return pagesToBuild < 0 ? nodePaths : nodePaths.slice(0, pagesToBuild)
 }
 

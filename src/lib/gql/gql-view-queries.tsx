@@ -99,6 +99,10 @@ export const getViewPagedItems = cache(
       case "stanford_publications--chicago_list":
         tags.push("views:stanford_publication")
         break
+
+      case "sum_courses--learner":
+        tags.push("views:summer_courses")
+        break
     }
 
     const client = graphqlClient({next: {tags}})
@@ -169,6 +173,13 @@ export const getViewPagedItems = cache(
           graphqlResponse = await client.stanfordSharedTags({contextualFilters, ...queryVariables})
           items = graphqlResponse.stanfordSharedTags?.results as unknown as NodeUnion[]
           totalItems = graphqlResponse.stanfordSharedTags?.pageInfo.total || 0
+          break
+
+        case "sum_courses--learner":
+          contextualFilters = getViewContextualFilters(["term_node_taxonomy_name_depth"], contextualFilter)
+          graphqlResponse = await client.sumCourses({contextualFilters, ...queryVariables})
+          items = graphqlResponse.sumCourses?.results as unknown as NodeUnion[]
+          totalItems = graphqlResponse.sumCourses?.pageInfo.total || 0
           break
 
         default:

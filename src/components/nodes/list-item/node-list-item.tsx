@@ -44,7 +44,7 @@ const NodeListItem = ({node, headingLevel}: Props) => {
     case "NodeStanfordPolicy":
       return <StanfordPolicyListItem node={node} headingLevel={headingLevel} {...itemProps} />
     case "NodeStanfordPublication":
-      return <StanfordPublicationListItem node={node} headingLevel={headingLevel} {...itemProps} />
+      return <StanfordPublicationListItem node={node} {...itemProps} />
   }
 }
 export default NodeListItem

@@ -1,11 +1,14 @@
 "use client"
 
-import {useLayoutEffect, useRef, HtmlHTMLAttributes, JSX, useId} from "react"
+import {useLayoutEffect, useRef, HtmlHTMLAttributes, JSX, useId, useState} from "react"
 import Button from "@components/elements/button"
 import {useBoolean, useCounter} from "usehooks-ts"
 import useFocusOnRender from "@lib/hooks/useFocusOnRender"
+import useServerAction from "@lib/hooks/useServerAction"
+import twMerge from "@lib/utils/twMergeConfig"
+import {ArrowPathIcon} from "@heroicons/react/16/solid"
 
-type Props = HtmlHTMLAttributes<HTMLDivElement> & {
+export type LoadMoreListProps = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
    * Load more button text/element.
    */
@@ -22,18 +25,41 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
    * The number of items per page.
    */
   itemsPerPage?: number
+  /**
+   * Elements to display initially.
+   */
+  children: JSX.Element[]
+  /**
+   * Server action callback to fetch the next "page" contents.
+   */
+  loadPage?: (_page: number) => Promise<JSX.Element>
+  /**
+   * Count of the total number of items of all pages.
+   */
+  totalItems: number
 }
 
-const LoadMoreList = ({buttonText, children, ulProps, liProps, itemsPerPage = 10, ...props}: Props) => {
+const LoadMoreList = ({buttonText, children, ulProps, liProps, totalItems, loadPage, ...props}: LoadMoreListProps) => {
   const id = useId()
-  const {count: shownItems, setCount: setShownItems} = useCounter(itemsPerPage)
+  const {count: page, increment: incrementPage} = useCounter(0)
+  const [items, setItems] = useState<JSX.Element[]>(children)
   const {value: focusOnElement, setTrue: enableFocusElement, setFalse: disableFocusElement} = useBoolean(false)
+  const [runLoadPage, isPending] = useServerAction(loadPage)
 
   const focusItemRef = useRef<HTMLLIElement>(null)
 
   const showMoreItems = () => {
-    enableFocusElement()
-    setShownItems(shownItems + itemsPerPage)
+    if (loadPage) {
+      runLoadPage(page + 1)
+        .then(results => {
+          const resultChildren = results?.props.children
+          setItems([...items, ...resultChildren])
+
+          enableFocusElement()
+          incrementPage()
+        })
+        .catch(_e => console.warn("An error happened"))
+    }
   }
 
   const setFocusOnItem = useFocusOnRender(focusItemRef, false)
@@ -42,17 +68,21 @@ const LoadMoreList = ({buttonText, children, ulProps, liProps, itemsPerPage = 10
     if (focusOnElement) setFocusOnItem()
   }, [focusOnElement, setFocusOnItem])
 
-  const focusingItem = shownItems - itemsPerPage
-  const items = Array.isArray(children) ? children : [children]
-  const itemsToShow = items.slice(0, shownItems)
   return (
-    <div {...props}>
+    <div {...props} className={twMerge("relative", props.className)}>
+      {isPending && (
+        <div className="absolute left-0 top-0 z-20 h-full w-full bg-black-30 bg-opacity-80">
+          <div className="absolute bottom-20 left-1/2 -translate-x-[25px]">
+            <ArrowPathIcon className="animate-spin" width={50} />
+          </div>
+        </div>
+      )}
       <ul {...ulProps}>
-        {itemsToShow.map((item, i) => (
+        {items.map((item, i) => (
           <li
             key={`${id}--${i}`}
-            ref={focusingItem === i ? focusItemRef : null}
-            tabIndex={focusingItem === i && focusOnElement ? 0 : undefined}
+            ref={i === children.length * page ? focusItemRef : null}
+            tabIndex={i === children.length * page && focusOnElement ? 0 : undefined}
             onBlur={disableFocusElement}
             {...liProps}
           >
@@ -60,15 +90,12 @@ const LoadMoreList = ({buttonText, children, ulProps, liProps, itemsPerPage = 10
           </li>
         ))}
       </ul>
+      <span className="sr-only" aria-live="polite" aria-atomic="true">
+        Showing {items.length} items.
+      </span>
 
-      {items.length > itemsPerPage && (
-        <span className="sr-only" aria-live="polite" aria-atomic="true">
-          Showing {itemsToShow.length} of {items.length} total items.
-        </span>
-      )}
-
-      {items.length > shownItems && (
-        <Button centered onClick={showMoreItems}>
+      {items.length < totalItems && loadPage && (
+        <Button buttonElem centered onClick={showMoreItems}>
           {buttonText ? buttonText : "Load More"}
         </Button>
       )}

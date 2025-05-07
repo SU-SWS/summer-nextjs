@@ -1785,6 +1785,24 @@ export const StanfordSharedTagsDocument = gql`
 }
     ${FragmentNodeTeaserUnionFragmentDoc}
 ${FragmentViewPageInfoFragmentDoc}`;
+export const SumCoursesDocument = gql`
+    query sumCourses($contextualFilters: SumCoursesContextualFilterInput, $pageSize: Int = 3, $page: Int, $offset: Int) {
+  sumCourses(
+    contextualFilter: $contextualFilters
+    pageSize: $pageSize
+    page: $page
+    offset: $offset
+  ) {
+    results {
+      ...FragmentNodeSumSummerCourseTeaser
+    }
+    pageInfo {
+      ...FragmentViewPageInfo
+    }
+  }
+}
+    ${FragmentNodeSumSummerCourseTeaserFragmentDoc}
+${FragmentViewPageInfoFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 
@@ -1870,6 +1888,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     stanfordSharedTags(variables?: DrupalTypes.StanfordSharedTagsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<DrupalTypes.StanfordSharedTagsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.StanfordSharedTagsQuery>(StanfordSharedTagsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'stanfordSharedTags', 'query', variables);
+    },
+    sumCourses(variables?: DrupalTypes.SumCoursesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<DrupalTypes.SumCoursesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.SumCoursesQuery>(SumCoursesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'sumCourses', 'query', variables);
     }
   };
 }

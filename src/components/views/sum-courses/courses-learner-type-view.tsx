@@ -20,7 +20,7 @@ const CoursesLearnerType = async ({items, totalItems, loadPage}: ViewDisplayProp
         <div key={item.id}>
           <ReverseVisualOrder>
             <Link href={item.path || "#"}>{item.title}</Link>
-            <div>{item.sumCourseCatalogNumber}</div>
+            <div className="text-18 text-archway-dark">{item.sumCourseCatalogNumber}</div>
           </ReverseVisualOrder>
         </div>
       ))}

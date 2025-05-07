@@ -60,7 +60,7 @@ export const Button = ({
     "text-center m-4": !centered,
     "btn btn--big transition text-5xl text-white [&_*]:text-white hocus:text-white bg-digital-red border-2 border-white hocus:outline hocus:outline-3 hocus:outline-digital-red no-underline hocus:underline py-6 px-12 font-normal rounded-full":
       big && !secondary,
-    "btn btn--secondary transition text-digital-red hocus:text-white [&_*]:text-white hocus:bg-digital-red border-2 border-digital-red hocus:border-white no-underline hocus:underline hocus:outline hocus:outline-3 hocus:outline-digital-red py-4 px-16 font-normal rounded-full":
+    "btn btn--secondary transition text-digital-red hocus:text-white  hocus:[&_*]:text-white hocus:bg-digital-red border-2 border-digital-red hocus:border-white no-underline hocus:underline hocus:outline hocus:outline-3 hocus:outline-digital-red py-4 px-16 font-normal rounded-full":
       !big && secondary,
     "btn btn--big btn--secondary transition text-5xl text-digital-red hocus:text-white hocus:bg-digital-red border-2 border-digital-red hocus:border-white no-underline hocus:underline hocus:outline hocus:outline-3 hocus:outline-digital-red py-6 px-20 font-normal rounded-full":
       big && secondary,

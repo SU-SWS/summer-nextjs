@@ -31,6 +31,7 @@ export type CourseHit = AlgoliaHit & {
   sum_course_start_date?: number
   sum_course_units?: number
   sum_course_instructors?: string | string[]
+  sum_course_grading?: string | string[]
 }
 
 type Props = {

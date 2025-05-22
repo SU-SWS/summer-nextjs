@@ -515,6 +515,15 @@ export type File = {
   url: Scalars["String"]["output"]
 }
 
+/** Smart Date data. */
+export type FontawesomeIconType = {
+  __typename?: "FontawesomeIconType"
+  /** Icon Name */
+  iconName: Scalars["String"]["output"]
+  /** Icon Style */
+  style: Scalars["String"]["output"]
+}
+
 /** A image object to represent an managed file. */
 export type Image = {
   __typename?: "Image"
@@ -1966,6 +1975,8 @@ export type NodeSumSummerCourse = EdgeNode &
     sumCourseEndDate?: Maybe<DateTime>
     /** Course Format */
     sumCourseFormat?: Maybe<Scalars["String"]["output"]>
+    /** Grading */
+    sumCourseGrading?: Maybe<Array<TermSumCourseGrading>>
     /** Course Image */
     sumCourseImage?: Maybe<MediaImage>
     /** Instructors */
@@ -1973,7 +1984,7 @@ export type NodeSumSummerCourse = EdgeNode &
     /** Interest Area */
     sumCourseInterestArea?: Maybe<TermSumCourseInterestArea>
     /** Learner Type */
-    sumCourseLearner?: Maybe<Array<UnsupportedType>>
+    sumCourseLearner?: Maybe<Array<TermSumCourseLearner>>
     /** Course Length */
     sumCourseLength?: Maybe<Scalars["String"]["output"]>
     /** Course Notes */
@@ -4525,9 +4536,61 @@ export type TermSumCourseAvailability = MetaTagInterface &
   }
 
 /** Entity type taxonomy_term. */
+export type TermSumCourseGrading = MetaTagInterface &
+  TermInterface & {
+    __typename?: "TermSumCourseGrading"
+    /** The time that the term was last edited. */
+    changed: DateTime
+    /** Description */
+    description: Text
+    /** The Universally Unique IDentifier (UUID). */
+    id: Scalars["ID"]["output"]
+    /** The term language code. */
+    langcode: Language
+    /** The computed meta tags for the entity. */
+    metatag: Array<MetaTagUnion>
+    /** Name */
+    name: Scalars["String"]["output"]
+    /** The parents of this term. */
+    parent?: Maybe<TermUnion>
+    /** URL alias */
+    path?: Maybe<Scalars["String"]["output"]>
+    /** Published */
+    status: Scalars["Boolean"]["output"]
+    /** The weight of this term in relation to other terms. */
+    weight: Scalars["Int"]["output"]
+  }
+
+/** Entity type taxonomy_term. */
 export type TermSumCourseInterestArea = MetaTagInterface &
   TermInterface & {
     __typename?: "TermSumCourseInterestArea"
+    /** The time that the term was last edited. */
+    changed: DateTime
+    /** Description */
+    description: Text
+    /** The Universally Unique IDentifier (UUID). */
+    id: Scalars["ID"]["output"]
+    /** The term language code. */
+    langcode: Language
+    /** The computed meta tags for the entity. */
+    metatag: Array<MetaTagUnion>
+    /** Name */
+    name: Scalars["String"]["output"]
+    /** The parents of this term. */
+    parent?: Maybe<TermUnion>
+    /** URL alias */
+    path?: Maybe<Scalars["String"]["output"]>
+    /** Published */
+    status: Scalars["Boolean"]["output"]
+    /** The weight of this term in relation to other terms. */
+    weight: Scalars["Int"]["output"]
+  }
+
+/** Entity type taxonomy_term. */
+export type TermSumCourseLearner = MetaTagInterface &
+  TermInterface & {
+    __typename?: "TermSumCourseLearner"
     /** The time that the term was last edited. */
     changed: DateTime
     /** Description */
@@ -4592,7 +4655,9 @@ export type TermUnion =
   | TermSuCourseTag
   | TermSuSharedTag
   | TermSumCourseAvailability
+  | TermSumCourseGrading
   | TermSumCourseInterestArea
+  | TermSumCourseLearner
   | TermSumCoursePopulation
 
 /** A processed text format defined by the CMS. */
@@ -4759,7 +4824,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -4784,7 +4851,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         } | null
@@ -4809,7 +4878,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -4851,7 +4922,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -5012,7 +5085,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -5037,7 +5112,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -5128,7 +5205,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -5153,7 +5232,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -5349,7 +5430,9 @@ export type NodeQuery = {
               | {__typename?: "TermSuCourseTag"; id: string}
               | {__typename?: "TermSuSharedTag"; id: string}
               | {__typename?: "TermSumCourseAvailability"; id: string}
+              | {__typename?: "TermSumCourseGrading"; id: string}
               | {__typename?: "TermSumCourseInterestArea"; id: string}
+              | {__typename?: "TermSumCourseLearner"; id: string}
               | {__typename?: "TermSumCoursePopulation"; id: string}
               | null
           }> | null
@@ -5378,7 +5461,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -5560,7 +5645,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -5596,7 +5683,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -5943,7 +6032,9 @@ export type NodeQuery = {
                               | {__typename?: "TermSuCourseTag"; id: string}
                               | {__typename?: "TermSuSharedTag"; id: string}
                               | {__typename?: "TermSumCourseAvailability"; id: string}
+                              | {__typename?: "TermSumCourseGrading"; id: string}
                               | {__typename?: "TermSumCourseInterestArea"; id: string}
+                              | {__typename?: "TermSumCourseLearner"; id: string}
                               | {__typename?: "TermSumCoursePopulation"; id: string}
                               | null
                           } | null
@@ -6004,7 +6095,9 @@ export type NodeQuery = {
                               | {__typename?: "TermSuCourseTag"; id: string}
                               | {__typename?: "TermSuSharedTag"; id: string}
                               | {__typename?: "TermSumCourseAvailability"; id: string}
+                              | {__typename?: "TermSumCourseGrading"; id: string}
                               | {__typename?: "TermSumCourseInterestArea"; id: string}
+                              | {__typename?: "TermSumCourseLearner"; id: string}
                               | {__typename?: "TermSumCoursePopulation"; id: string}
                               | null
                           }> | null
@@ -6062,7 +6155,9 @@ export type NodeQuery = {
                               | {__typename?: "TermSuCourseTag"; id: string}
                               | {__typename?: "TermSuSharedTag"; id: string}
                               | {__typename?: "TermSumCourseAvailability"; id: string}
+                              | {__typename?: "TermSumCourseGrading"; id: string}
                               | {__typename?: "TermSumCourseInterestArea"; id: string}
+                              | {__typename?: "TermSumCourseLearner"; id: string}
                               | {__typename?: "TermSumCoursePopulation"; id: string}
                               | null
                           }> | null
@@ -6261,7 +6356,9 @@ export type NodeQuery = {
                               | {__typename?: "TermSuCourseTag"; id: string}
                               | {__typename?: "TermSuSharedTag"; id: string}
                               | {__typename?: "TermSumCourseAvailability"; id: string}
+                              | {__typename?: "TermSumCourseGrading"; id: string}
                               | {__typename?: "TermSumCourseInterestArea"; id: string}
+                              | {__typename?: "TermSumCourseLearner"; id: string}
                               | {__typename?: "TermSumCoursePopulation"; id: string}
                               | null
                           }> | null
@@ -6549,7 +6646,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -6803,7 +6902,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -6848,7 +6949,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         } | null
@@ -6881,7 +6984,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         } | null
@@ -6907,7 +7012,9 @@ export type NodeQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -6919,6 +7026,33 @@ export type NodeQuery = {
           name: string
           mediaFile: {__typename?: "File"; url: string}
         } | null
+        sumCourseGrading?: Array<{
+          __typename: "TermSumCourseGrading"
+          id: string
+          name: string
+          path?: string | null
+          weight: number
+          parent?:
+            | {__typename?: "TermBasicPageType"; id: string}
+            | {__typename?: "TermEventAudience"; id: string}
+            | {__typename?: "TermStanfordEventGroup"; id: string}
+            | {__typename?: "TermStanfordEventKeyword"; id: string}
+            | {__typename?: "TermStanfordEventSubject"; id: string}
+            | {__typename?: "TermStanfordEventType"; id: string}
+            | {__typename?: "TermStanfordNewsTopic"; id: string}
+            | {__typename?: "TermStanfordPersonType"; id: string}
+            | {__typename?: "TermStanfordPublicationTopic"; id: string}
+            | {__typename?: "TermSuCourseQuarter"; id: string}
+            | {__typename?: "TermSuCourseSubject"; id: string}
+            | {__typename?: "TermSuCourseTag"; id: string}
+            | {__typename?: "TermSuSharedTag"; id: string}
+            | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
+            | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
+            | {__typename?: "TermSumCoursePopulation"; id: string}
+            | null
+        }> | null
       }
     | null
 }
@@ -7072,7 +7206,9 @@ export type CoursesQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }> | null
@@ -7097,7 +7233,9 @@ export type CoursesQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       } | null
@@ -7122,7 +7260,9 @@ export type CoursesQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }> | null
@@ -7331,7 +7471,9 @@ export type EventSeriesQuery = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -7360,7 +7502,9 @@ export type EventSeriesQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }> | null
@@ -7415,7 +7559,9 @@ export type EventsQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }> | null
@@ -7576,7 +7722,9 @@ export type EventsQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }> | null
@@ -7601,7 +7749,9 @@ export type EventsQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }> | null
@@ -7692,7 +7842,9 @@ export type EventsQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }> | null
@@ -7717,7 +7869,9 @@ export type EventsQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }> | null
@@ -7912,7 +8066,9 @@ export type NewsQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }> | null
@@ -7961,7 +8117,9 @@ export type BasicPagesQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }> | null
@@ -8303,7 +8461,9 @@ export type BasicPagesQuery = {
                             | {__typename?: "TermSuCourseTag"; id: string}
                             | {__typename?: "TermSuSharedTag"; id: string}
                             | {__typename?: "TermSumCourseAvailability"; id: string}
+                            | {__typename?: "TermSumCourseGrading"; id: string}
                             | {__typename?: "TermSumCourseInterestArea"; id: string}
+                            | {__typename?: "TermSumCourseLearner"; id: string}
                             | {__typename?: "TermSumCoursePopulation"; id: string}
                             | null
                         } | null
@@ -8364,7 +8524,9 @@ export type BasicPagesQuery = {
                             | {__typename?: "TermSuCourseTag"; id: string}
                             | {__typename?: "TermSuSharedTag"; id: string}
                             | {__typename?: "TermSumCourseAvailability"; id: string}
+                            | {__typename?: "TermSumCourseGrading"; id: string}
                             | {__typename?: "TermSumCourseInterestArea"; id: string}
+                            | {__typename?: "TermSumCourseLearner"; id: string}
                             | {__typename?: "TermSumCoursePopulation"; id: string}
                             | null
                         }> | null
@@ -8422,7 +8584,9 @@ export type BasicPagesQuery = {
                             | {__typename?: "TermSuCourseTag"; id: string}
                             | {__typename?: "TermSuSharedTag"; id: string}
                             | {__typename?: "TermSumCourseAvailability"; id: string}
+                            | {__typename?: "TermSumCourseGrading"; id: string}
                             | {__typename?: "TermSumCourseInterestArea"; id: string}
+                            | {__typename?: "TermSumCourseLearner"; id: string}
                             | {__typename?: "TermSumCoursePopulation"; id: string}
                             | null
                         }> | null
@@ -8621,7 +8785,9 @@ export type BasicPagesQuery = {
                             | {__typename?: "TermSuCourseTag"; id: string}
                             | {__typename?: "TermSuSharedTag"; id: string}
                             | {__typename?: "TermSumCourseAvailability"; id: string}
+                            | {__typename?: "TermSumCourseGrading"; id: string}
                             | {__typename?: "TermSumCourseInterestArea"; id: string}
+                            | {__typename?: "TermSumCourseLearner"; id: string}
                             | {__typename?: "TermSumCoursePopulation"; id: string}
                             | null
                         }> | null
@@ -8916,7 +9082,9 @@ export type PeopleQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }> | null
@@ -9196,7 +9364,9 @@ export type PublicationsQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }> | null
@@ -9268,7 +9438,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9293,7 +9465,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9318,7 +9492,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9343,7 +9519,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9368,7 +9546,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9393,7 +9573,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9418,7 +9600,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9443,7 +9627,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9468,7 +9654,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9493,7 +9681,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9518,7 +9708,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9543,7 +9735,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9568,7 +9762,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9593,7 +9789,36 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
+          | {__typename?: "TermSumCoursePopulation"; id: string}
+          | null
+      }
+    | {
+        __typename: "TermSumCourseGrading"
+        id: string
+        name: string
+        path?: string | null
+        weight: number
+        parent?:
+          | {__typename?: "TermBasicPageType"; id: string}
+          | {__typename?: "TermEventAudience"; id: string}
+          | {__typename?: "TermStanfordEventGroup"; id: string}
+          | {__typename?: "TermStanfordEventKeyword"; id: string}
+          | {__typename?: "TermStanfordEventSubject"; id: string}
+          | {__typename?: "TermStanfordEventType"; id: string}
+          | {__typename?: "TermStanfordNewsTopic"; id: string}
+          | {__typename?: "TermStanfordPersonType"; id: string}
+          | {__typename?: "TermStanfordPublicationTopic"; id: string}
+          | {__typename?: "TermSuCourseQuarter"; id: string}
+          | {__typename?: "TermSuCourseSubject"; id: string}
+          | {__typename?: "TermSuCourseTag"; id: string}
+          | {__typename?: "TermSuSharedTag"; id: string}
+          | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
+          | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9618,7 +9843,36 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
+          | {__typename?: "TermSumCoursePopulation"; id: string}
+          | null
+      }
+    | {
+        __typename: "TermSumCourseLearner"
+        id: string
+        name: string
+        path?: string | null
+        weight: number
+        parent?:
+          | {__typename?: "TermBasicPageType"; id: string}
+          | {__typename?: "TermEventAudience"; id: string}
+          | {__typename?: "TermStanfordEventGroup"; id: string}
+          | {__typename?: "TermStanfordEventKeyword"; id: string}
+          | {__typename?: "TermStanfordEventSubject"; id: string}
+          | {__typename?: "TermStanfordEventType"; id: string}
+          | {__typename?: "TermStanfordNewsTopic"; id: string}
+          | {__typename?: "TermStanfordPersonType"; id: string}
+          | {__typename?: "TermStanfordPublicationTopic"; id: string}
+          | {__typename?: "TermSuCourseQuarter"; id: string}
+          | {__typename?: "TermSuCourseSubject"; id: string}
+          | {__typename?: "TermSuCourseTag"; id: string}
+          | {__typename?: "TermSuSharedTag"; id: string}
+          | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
+          | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9643,7 +9897,9 @@ export type TermQuery = {
           | {__typename?: "TermSuCourseTag"; id: string}
           | {__typename?: "TermSuSharedTag"; id: string}
           | {__typename?: "TermSumCourseAvailability"; id: string}
+          | {__typename?: "TermSumCourseGrading"; id: string}
           | {__typename?: "TermSumCourseInterestArea"; id: string}
+          | {__typename?: "TermSumCourseLearner"; id: string}
           | {__typename?: "TermSumCoursePopulation"; id: string}
           | null
       }
@@ -9936,7 +10192,9 @@ export type ParagraphQuery = {
                         | {__typename?: "TermSuCourseTag"; id: string}
                         | {__typename?: "TermSuSharedTag"; id: string}
                         | {__typename?: "TermSumCourseAvailability"; id: string}
+                        | {__typename?: "TermSumCourseGrading"; id: string}
                         | {__typename?: "TermSumCourseInterestArea"; id: string}
+                        | {__typename?: "TermSumCourseLearner"; id: string}
                         | {__typename?: "TermSumCoursePopulation"; id: string}
                         | null
                     } | null
@@ -9997,7 +10255,9 @@ export type ParagraphQuery = {
                         | {__typename?: "TermSuCourseTag"; id: string}
                         | {__typename?: "TermSuSharedTag"; id: string}
                         | {__typename?: "TermSumCourseAvailability"; id: string}
+                        | {__typename?: "TermSumCourseGrading"; id: string}
                         | {__typename?: "TermSumCourseInterestArea"; id: string}
+                        | {__typename?: "TermSumCourseLearner"; id: string}
                         | {__typename?: "TermSumCoursePopulation"; id: string}
                         | null
                     }> | null
@@ -10055,7 +10315,9 @@ export type ParagraphQuery = {
                         | {__typename?: "TermSuCourseTag"; id: string}
                         | {__typename?: "TermSuSharedTag"; id: string}
                         | {__typename?: "TermSumCourseAvailability"; id: string}
+                        | {__typename?: "TermSumCourseGrading"; id: string}
                         | {__typename?: "TermSumCourseInterestArea"; id: string}
+                        | {__typename?: "TermSumCourseLearner"; id: string}
                         | {__typename?: "TermSumCoursePopulation"; id: string}
                         | null
                     }> | null
@@ -10246,7 +10508,9 @@ export type ParagraphQuery = {
                         | {__typename?: "TermSuCourseTag"; id: string}
                         | {__typename?: "TermSuSharedTag"; id: string}
                         | {__typename?: "TermSumCourseAvailability"; id: string}
+                        | {__typename?: "TermSumCourseGrading"; id: string}
                         | {__typename?: "TermSumCourseInterestArea"; id: string}
+                        | {__typename?: "TermSumCourseLearner"; id: string}
                         | {__typename?: "TermSumCoursePopulation"; id: string}
                         | null
                     }> | null
@@ -10554,7 +10818,9 @@ type FragmentTermInterface_TermBasicPageType_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10580,7 +10846,9 @@ type FragmentTermInterface_TermEventAudience_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10606,7 +10874,9 @@ type FragmentTermInterface_TermStanfordEventGroup_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10632,7 +10902,9 @@ type FragmentTermInterface_TermStanfordEventKeyword_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10658,7 +10930,9 @@ type FragmentTermInterface_TermStanfordEventSubject_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10684,7 +10958,9 @@ type FragmentTermInterface_TermStanfordEventType_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10710,7 +10986,9 @@ type FragmentTermInterface_TermStanfordNewsTopic_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10736,7 +11014,9 @@ type FragmentTermInterface_TermStanfordPersonType_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10762,7 +11042,9 @@ type FragmentTermInterface_TermStanfordPublicationTopic_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10788,7 +11070,9 @@ type FragmentTermInterface_TermSuCourseQuarter_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10814,7 +11098,9 @@ type FragmentTermInterface_TermSuCourseSubject_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10840,7 +11126,9 @@ type FragmentTermInterface_TermSuCourseTag_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10866,7 +11154,9 @@ type FragmentTermInterface_TermSuSharedTag_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10892,7 +11182,37 @@ type FragmentTermInterface_TermSumCourseAvailability_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
+    | {__typename?: "TermSumCoursePopulation"; id: string}
+    | null
+}
+
+type FragmentTermInterface_TermSumCourseGrading_Fragment = {
+  __typename: "TermSumCourseGrading"
+  id: string
+  name: string
+  path?: string | null
+  weight: number
+  parent?:
+    | {__typename?: "TermBasicPageType"; id: string}
+    | {__typename?: "TermEventAudience"; id: string}
+    | {__typename?: "TermStanfordEventGroup"; id: string}
+    | {__typename?: "TermStanfordEventKeyword"; id: string}
+    | {__typename?: "TermStanfordEventSubject"; id: string}
+    | {__typename?: "TermStanfordEventType"; id: string}
+    | {__typename?: "TermStanfordNewsTopic"; id: string}
+    | {__typename?: "TermStanfordPersonType"; id: string}
+    | {__typename?: "TermStanfordPublicationTopic"; id: string}
+    | {__typename?: "TermSuCourseQuarter"; id: string}
+    | {__typename?: "TermSuCourseSubject"; id: string}
+    | {__typename?: "TermSuCourseTag"; id: string}
+    | {__typename?: "TermSuSharedTag"; id: string}
+    | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
+    | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10918,7 +11238,37 @@ type FragmentTermInterface_TermSumCourseInterestArea_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
+    | {__typename?: "TermSumCoursePopulation"; id: string}
+    | null
+}
+
+type FragmentTermInterface_TermSumCourseLearner_Fragment = {
+  __typename: "TermSumCourseLearner"
+  id: string
+  name: string
+  path?: string | null
+  weight: number
+  parent?:
+    | {__typename?: "TermBasicPageType"; id: string}
+    | {__typename?: "TermEventAudience"; id: string}
+    | {__typename?: "TermStanfordEventGroup"; id: string}
+    | {__typename?: "TermStanfordEventKeyword"; id: string}
+    | {__typename?: "TermStanfordEventSubject"; id: string}
+    | {__typename?: "TermStanfordEventType"; id: string}
+    | {__typename?: "TermStanfordNewsTopic"; id: string}
+    | {__typename?: "TermStanfordPersonType"; id: string}
+    | {__typename?: "TermStanfordPublicationTopic"; id: string}
+    | {__typename?: "TermSuCourseQuarter"; id: string}
+    | {__typename?: "TermSuCourseSubject"; id: string}
+    | {__typename?: "TermSuCourseTag"; id: string}
+    | {__typename?: "TermSuSharedTag"; id: string}
+    | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
+    | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10944,7 +11294,9 @@ type FragmentTermInterface_TermSumCoursePopulation_Fragment = {
     | {__typename?: "TermSuCourseTag"; id: string}
     | {__typename?: "TermSuSharedTag"; id: string}
     | {__typename?: "TermSumCourseAvailability"; id: string}
+    | {__typename?: "TermSumCourseGrading"; id: string}
     | {__typename?: "TermSumCourseInterestArea"; id: string}
+    | {__typename?: "TermSumCourseLearner"; id: string}
     | {__typename?: "TermSumCoursePopulation"; id: string}
     | null
 }
@@ -10964,7 +11316,9 @@ export type FragmentTermInterfaceFragment =
   | FragmentTermInterface_TermSuCourseTag_Fragment
   | FragmentTermInterface_TermSuSharedTag_Fragment
   | FragmentTermInterface_TermSumCourseAvailability_Fragment
+  | FragmentTermInterface_TermSumCourseGrading_Fragment
   | FragmentTermInterface_TermSumCourseInterestArea_Fragment
+  | FragmentTermInterface_TermSumCourseLearner_Fragment
   | FragmentTermInterface_TermSumCoursePopulation_Fragment
 
 export type FragmentLinkFragment = {__typename?: "Link"; title?: string | null; url?: string | null}
@@ -11261,7 +11615,9 @@ export type FragmentNodeSumSummerCourseFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   } | null
@@ -11294,7 +11650,9 @@ export type FragmentNodeSumSummerCourseFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   } | null
@@ -11320,7 +11678,9 @@ export type FragmentNodeSumSummerCourseFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -11332,6 +11692,33 @@ export type FragmentNodeSumSummerCourseFragment = {
     name: string
     mediaFile: {__typename?: "File"; url: string}
   } | null
+  sumCourseGrading?: Array<{
+    __typename: "TermSumCourseGrading"
+    id: string
+    name: string
+    path?: string | null
+    weight: number
+    parent?:
+      | {__typename?: "TermBasicPageType"; id: string}
+      | {__typename?: "TermEventAudience"; id: string}
+      | {__typename?: "TermStanfordEventGroup"; id: string}
+      | {__typename?: "TermStanfordEventKeyword"; id: string}
+      | {__typename?: "TermStanfordEventSubject"; id: string}
+      | {__typename?: "TermStanfordEventType"; id: string}
+      | {__typename?: "TermStanfordNewsTopic"; id: string}
+      | {__typename?: "TermStanfordPersonType"; id: string}
+      | {__typename?: "TermStanfordPublicationTopic"; id: string}
+      | {__typename?: "TermSuCourseQuarter"; id: string}
+      | {__typename?: "TermSuCourseSubject"; id: string}
+      | {__typename?: "TermSuCourseTag"; id: string}
+      | {__typename?: "TermSuSharedTag"; id: string}
+      | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
+      | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
+      | {__typename?: "TermSumCoursePopulation"; id: string}
+      | null
+  }> | null
   changed: {__typename?: "DateTime"; timezone: any; time: any}
   created: {__typename?: "DateTime"; timezone: any; time: any}
 }
@@ -11365,7 +11752,9 @@ export type FragmentNodeStanfordPageFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -11695,7 +12084,9 @@ export type FragmentNodeStanfordPageFragment = {
                         | {__typename?: "TermSuCourseTag"; id: string}
                         | {__typename?: "TermSuSharedTag"; id: string}
                         | {__typename?: "TermSumCourseAvailability"; id: string}
+                        | {__typename?: "TermSumCourseGrading"; id: string}
                         | {__typename?: "TermSumCourseInterestArea"; id: string}
+                        | {__typename?: "TermSumCourseLearner"; id: string}
                         | {__typename?: "TermSumCoursePopulation"; id: string}
                         | null
                     } | null
@@ -11756,7 +12147,9 @@ export type FragmentNodeStanfordPageFragment = {
                         | {__typename?: "TermSuCourseTag"; id: string}
                         | {__typename?: "TermSuSharedTag"; id: string}
                         | {__typename?: "TermSumCourseAvailability"; id: string}
+                        | {__typename?: "TermSumCourseGrading"; id: string}
                         | {__typename?: "TermSumCourseInterestArea"; id: string}
+                        | {__typename?: "TermSumCourseLearner"; id: string}
                         | {__typename?: "TermSumCoursePopulation"; id: string}
                         | null
                     }> | null
@@ -11814,7 +12207,9 @@ export type FragmentNodeStanfordPageFragment = {
                         | {__typename?: "TermSuCourseTag"; id: string}
                         | {__typename?: "TermSuSharedTag"; id: string}
                         | {__typename?: "TermSumCourseAvailability"; id: string}
+                        | {__typename?: "TermSumCourseGrading"; id: string}
                         | {__typename?: "TermSumCourseInterestArea"; id: string}
+                        | {__typename?: "TermSumCourseLearner"; id: string}
                         | {__typename?: "TermSumCoursePopulation"; id: string}
                         | null
                     }> | null
@@ -12005,7 +12400,9 @@ export type FragmentNodeStanfordPageFragment = {
                         | {__typename?: "TermSuCourseTag"; id: string}
                         | {__typename?: "TermSuSharedTag"; id: string}
                         | {__typename?: "TermSumCourseAvailability"; id: string}
+                        | {__typename?: "TermSumCourseGrading"; id: string}
                         | {__typename?: "TermSumCourseInterestArea"; id: string}
+                        | {__typename?: "TermSumCourseLearner"; id: string}
                         | {__typename?: "TermSumCoursePopulation"; id: string}
                         | null
                     }> | null
@@ -12139,7 +12536,9 @@ export type FragmentNodeStanfordCourseFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -12164,7 +12563,9 @@ export type FragmentNodeStanfordCourseFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   } | null
@@ -12189,7 +12590,9 @@ export type FragmentNodeStanfordCourseFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -12232,7 +12635,9 @@ export type FragmentNodeStanfordEventFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -12393,7 +12798,9 @@ export type FragmentNodeStanfordEventFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -12418,7 +12825,9 @@ export type FragmentNodeStanfordEventFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -12509,7 +12918,9 @@ export type FragmentNodeStanfordEventFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -12534,7 +12945,9 @@ export type FragmentNodeStanfordEventFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -12731,7 +13144,9 @@ export type FragmentNodeStanfordEventSeriesFragment = {
         | {__typename?: "TermSuCourseTag"; id: string}
         | {__typename?: "TermSuSharedTag"; id: string}
         | {__typename?: "TermSumCourseAvailability"; id: string}
+        | {__typename?: "TermSumCourseGrading"; id: string}
         | {__typename?: "TermSumCourseInterestArea"; id: string}
+        | {__typename?: "TermSumCourseLearner"; id: string}
         | {__typename?: "TermSumCoursePopulation"; id: string}
         | null
     }> | null
@@ -12760,7 +13175,9 @@ export type FragmentNodeStanfordEventSeriesFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -12943,7 +13360,9 @@ export type FragmentNodeStanfordNewsFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -13134,7 +13553,9 @@ export type FragmentNodeStanfordPersonFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -13390,7 +13811,9 @@ export type FragmentNodeStanfordPublicationFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -13434,7 +13857,9 @@ type FragmentNodeUnion_NodeStanfordCourse_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -13459,7 +13884,9 @@ type FragmentNodeUnion_NodeStanfordCourse_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   } | null
@@ -13484,7 +13911,9 @@ type FragmentNodeUnion_NodeStanfordCourse_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -13527,7 +13956,9 @@ type FragmentNodeUnion_NodeStanfordEvent_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -13688,7 +14119,9 @@ type FragmentNodeUnion_NodeStanfordEvent_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -13713,7 +14146,9 @@ type FragmentNodeUnion_NodeStanfordEvent_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -13804,7 +14239,9 @@ type FragmentNodeUnion_NodeStanfordEvent_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -13829,7 +14266,9 @@ type FragmentNodeUnion_NodeStanfordEvent_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -14026,7 +14465,9 @@ type FragmentNodeUnion_NodeStanfordEventSeries_Fragment = {
         | {__typename?: "TermSuCourseTag"; id: string}
         | {__typename?: "TermSuSharedTag"; id: string}
         | {__typename?: "TermSumCourseAvailability"; id: string}
+        | {__typename?: "TermSumCourseGrading"; id: string}
         | {__typename?: "TermSumCourseInterestArea"; id: string}
+        | {__typename?: "TermSumCourseLearner"; id: string}
         | {__typename?: "TermSumCoursePopulation"; id: string}
         | null
     }> | null
@@ -14055,7 +14496,9 @@ type FragmentNodeUnion_NodeStanfordEventSeries_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -14238,7 +14681,9 @@ type FragmentNodeUnion_NodeStanfordNews_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -14275,7 +14720,9 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -14605,7 +15052,9 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
                         | {__typename?: "TermSuCourseTag"; id: string}
                         | {__typename?: "TermSuSharedTag"; id: string}
                         | {__typename?: "TermSumCourseAvailability"; id: string}
+                        | {__typename?: "TermSumCourseGrading"; id: string}
                         | {__typename?: "TermSumCourseInterestArea"; id: string}
+                        | {__typename?: "TermSumCourseLearner"; id: string}
                         | {__typename?: "TermSumCoursePopulation"; id: string}
                         | null
                     } | null
@@ -14666,7 +15115,9 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
                         | {__typename?: "TermSuCourseTag"; id: string}
                         | {__typename?: "TermSuSharedTag"; id: string}
                         | {__typename?: "TermSumCourseAvailability"; id: string}
+                        | {__typename?: "TermSumCourseGrading"; id: string}
                         | {__typename?: "TermSumCourseInterestArea"; id: string}
+                        | {__typename?: "TermSumCourseLearner"; id: string}
                         | {__typename?: "TermSumCoursePopulation"; id: string}
                         | null
                     }> | null
@@ -14724,7 +15175,9 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
                         | {__typename?: "TermSuCourseTag"; id: string}
                         | {__typename?: "TermSuSharedTag"; id: string}
                         | {__typename?: "TermSumCourseAvailability"; id: string}
+                        | {__typename?: "TermSumCourseGrading"; id: string}
                         | {__typename?: "TermSumCourseInterestArea"; id: string}
+                        | {__typename?: "TermSumCourseLearner"; id: string}
                         | {__typename?: "TermSumCoursePopulation"; id: string}
                         | null
                     }> | null
@@ -14915,7 +15368,9 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
                         | {__typename?: "TermSuCourseTag"; id: string}
                         | {__typename?: "TermSuSharedTag"; id: string}
                         | {__typename?: "TermSumCourseAvailability"; id: string}
+                        | {__typename?: "TermSumCourseGrading"; id: string}
                         | {__typename?: "TermSumCourseInterestArea"; id: string}
+                        | {__typename?: "TermSumCourseLearner"; id: string}
                         | {__typename?: "TermSumCoursePopulation"; id: string}
                         | null
                     }> | null
@@ -15198,7 +15653,9 @@ type FragmentNodeUnion_NodeStanfordPerson_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -15454,7 +15911,9 @@ type FragmentNodeUnion_NodeStanfordPublication_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -15500,7 +15959,9 @@ type FragmentNodeUnion_NodeSumSummerCourse_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   } | null
@@ -15533,7 +15994,9 @@ type FragmentNodeUnion_NodeSumSummerCourse_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   } | null
@@ -15559,7 +16022,9 @@ type FragmentNodeUnion_NodeSumSummerCourse_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -15571,6 +16036,33 @@ type FragmentNodeUnion_NodeSumSummerCourse_Fragment = {
     name: string
     mediaFile: {__typename?: "File"; url: string}
   } | null
+  sumCourseGrading?: Array<{
+    __typename: "TermSumCourseGrading"
+    id: string
+    name: string
+    path?: string | null
+    weight: number
+    parent?:
+      | {__typename?: "TermBasicPageType"; id: string}
+      | {__typename?: "TermEventAudience"; id: string}
+      | {__typename?: "TermStanfordEventGroup"; id: string}
+      | {__typename?: "TermStanfordEventKeyword"; id: string}
+      | {__typename?: "TermStanfordEventSubject"; id: string}
+      | {__typename?: "TermStanfordEventType"; id: string}
+      | {__typename?: "TermStanfordNewsTopic"; id: string}
+      | {__typename?: "TermStanfordPersonType"; id: string}
+      | {__typename?: "TermStanfordPublicationTopic"; id: string}
+      | {__typename?: "TermSuCourseQuarter"; id: string}
+      | {__typename?: "TermSuCourseSubject"; id: string}
+      | {__typename?: "TermSuCourseTag"; id: string}
+      | {__typename?: "TermSuSharedTag"; id: string}
+      | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
+      | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
+      | {__typename?: "TermSumCoursePopulation"; id: string}
+      | null
+  }> | null
 }
 
 export type FragmentNodeUnionFragment =
@@ -15612,7 +16104,9 @@ export type FragmentNodeStanfordCourseTeaserFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   } | null
@@ -15685,7 +16179,9 @@ export type FragmentNodeStanfordEventTeaserFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -15739,7 +16235,9 @@ export type FragmentNodeStanfordNewsTeaserFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -15893,7 +16391,9 @@ export type FragmentNodeStanfordPublicationTeaserFragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -15931,7 +16431,9 @@ type FragmentNodeTeaserUnion_NodeStanfordCourse_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   } | null
@@ -15993,7 +16495,9 @@ type FragmentNodeTeaserUnion_NodeStanfordEvent_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -16047,7 +16551,9 @@ type FragmentNodeTeaserUnion_NodeStanfordNews_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -16201,7 +16707,9 @@ type FragmentNodeTeaserUnion_NodeStanfordPublication_Fragment = {
       | {__typename?: "TermSuCourseTag"; id: string}
       | {__typename?: "TermSuSharedTag"; id: string}
       | {__typename?: "TermSumCourseAvailability"; id: string}
+      | {__typename?: "TermSumCourseGrading"; id: string}
       | {__typename?: "TermSumCourseInterestArea"; id: string}
+      | {__typename?: "TermSumCourseLearner"; id: string}
       | {__typename?: "TermSumCoursePopulation"; id: string}
       | null
   }> | null
@@ -16795,7 +17303,9 @@ export type FragmentParagraphSumCarouselFragment = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               } | null
@@ -16856,7 +17366,9 @@ export type FragmentParagraphSumCarouselFragment = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -16908,7 +17420,9 @@ export type FragmentParagraphSumCarouselFragment = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -17087,7 +17601,9 @@ export type FragmentParagraphSumCarouselFragment = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -17142,7 +17658,9 @@ export type FragmentParagraphSumSlideTeaserFragment = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         } | null
@@ -17203,7 +17721,9 @@ export type FragmentParagraphSumSlideTeaserFragment = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -17255,7 +17775,9 @@ export type FragmentParagraphSumSlideTeaserFragment = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -17416,7 +17938,9 @@ export type FragmentParagraphSumSlideTeaserFragment = {
             | {__typename?: "TermSuCourseTag"; id: string}
             | {__typename?: "TermSuSharedTag"; id: string}
             | {__typename?: "TermSumCourseAvailability"; id: string}
+            | {__typename?: "TermSumCourseGrading"; id: string}
             | {__typename?: "TermSumCourseInterestArea"; id: string}
+            | {__typename?: "TermSumCourseLearner"; id: string}
             | {__typename?: "TermSumCoursePopulation"; id: string}
             | null
         }> | null
@@ -17906,7 +18430,9 @@ type FragmentParagraphUnion_ParagraphSumCarousel_Fragment = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               } | null
@@ -17967,7 +18493,9 @@ type FragmentParagraphUnion_ParagraphSumCarousel_Fragment = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -18019,7 +18547,9 @@ type FragmentParagraphUnion_ParagraphSumCarousel_Fragment = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -18198,7 +18728,9 @@ type FragmentParagraphUnion_ParagraphSumCarousel_Fragment = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -18492,7 +19024,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -18517,7 +19051,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               } | null
@@ -18542,7 +19078,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -18584,7 +19122,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -18763,7 +19303,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -18788,7 +19330,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -18879,7 +19423,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -18904,7 +19450,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -19118,7 +19666,9 @@ export type RouteQuery = {
                     | {__typename?: "TermSuCourseTag"; id: string}
                     | {__typename?: "TermSuSharedTag"; id: string}
                     | {__typename?: "TermSumCourseAvailability"; id: string}
+                    | {__typename?: "TermSumCourseGrading"; id: string}
                     | {__typename?: "TermSumCourseInterestArea"; id: string}
+                    | {__typename?: "TermSumCourseLearner"; id: string}
                     | {__typename?: "TermSumCoursePopulation"; id: string}
                     | null
                 }> | null
@@ -19147,7 +19697,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -19347,7 +19899,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -19383,7 +19937,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -19786,7 +20342,9 @@ export type RouteQuery = {
                                     | {__typename?: "TermSuCourseTag"; id: string}
                                     | {__typename?: "TermSuSharedTag"; id: string}
                                     | {__typename?: "TermSumCourseAvailability"; id: string}
+                                    | {__typename?: "TermSumCourseGrading"; id: string}
                                     | {__typename?: "TermSumCourseInterestArea"; id: string}
+                                    | {__typename?: "TermSumCourseLearner"; id: string}
                                     | {__typename?: "TermSumCoursePopulation"; id: string}
                                     | null
                                 } | null
@@ -19851,7 +20409,9 @@ export type RouteQuery = {
                                     | {__typename?: "TermSuCourseTag"; id: string}
                                     | {__typename?: "TermSuSharedTag"; id: string}
                                     | {__typename?: "TermSumCourseAvailability"; id: string}
+                                    | {__typename?: "TermSumCourseGrading"; id: string}
                                     | {__typename?: "TermSumCourseInterestArea"; id: string}
+                                    | {__typename?: "TermSumCourseLearner"; id: string}
                                     | {__typename?: "TermSumCoursePopulation"; id: string}
                                     | null
                                 }> | null
@@ -19909,7 +20469,9 @@ export type RouteQuery = {
                                     | {__typename?: "TermSuCourseTag"; id: string}
                                     | {__typename?: "TermSuSharedTag"; id: string}
                                     | {__typename?: "TermSumCourseAvailability"; id: string}
+                                    | {__typename?: "TermSumCourseGrading"; id: string}
                                     | {__typename?: "TermSumCourseInterestArea"; id: string}
+                                    | {__typename?: "TermSumCourseLearner"; id: string}
                                     | {__typename?: "TermSumCoursePopulation"; id: string}
                                     | null
                                 }> | null
@@ -20113,7 +20675,9 @@ export type RouteQuery = {
                                     | {__typename?: "TermSuCourseTag"; id: string}
                                     | {__typename?: "TermSuSharedTag"; id: string}
                                     | {__typename?: "TermSumCourseAvailability"; id: string}
+                                    | {__typename?: "TermSumCourseGrading"; id: string}
                                     | {__typename?: "TermSumCourseInterestArea"; id: string}
+                                    | {__typename?: "TermSumCourseLearner"; id: string}
                                     | {__typename?: "TermSumCoursePopulation"; id: string}
                                     | null
                                 }> | null
@@ -20442,7 +21006,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -20714,7 +21280,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -20759,7 +21327,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               } | null
@@ -20792,7 +21362,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               } | null
@@ -20818,7 +21390,9 @@ export type RouteQuery = {
                   | {__typename?: "TermSuCourseTag"; id: string}
                   | {__typename?: "TermSuSharedTag"; id: string}
                   | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
                   | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
                   | {__typename?: "TermSumCoursePopulation"; id: string}
                   | null
               }> | null
@@ -20830,6 +21404,33 @@ export type RouteQuery = {
                 name: string
                 mediaFile: {__typename?: "File"; url: string}
               } | null
+              sumCourseGrading?: Array<{
+                __typename: "TermSumCourseGrading"
+                id: string
+                name: string
+                path?: string | null
+                weight: number
+                parent?:
+                  | {__typename?: "TermBasicPageType"; id: string}
+                  | {__typename?: "TermEventAudience"; id: string}
+                  | {__typename?: "TermStanfordEventGroup"; id: string}
+                  | {__typename?: "TermStanfordEventKeyword"; id: string}
+                  | {__typename?: "TermStanfordEventSubject"; id: string}
+                  | {__typename?: "TermStanfordEventType"; id: string}
+                  | {__typename?: "TermStanfordNewsTopic"; id: string}
+                  | {__typename?: "TermStanfordPersonType"; id: string}
+                  | {__typename?: "TermStanfordPublicationTopic"; id: string}
+                  | {__typename?: "TermSuCourseQuarter"; id: string}
+                  | {__typename?: "TermSuCourseSubject"; id: string}
+                  | {__typename?: "TermSuCourseTag"; id: string}
+                  | {__typename?: "TermSuSharedTag"; id: string}
+                  | {__typename?: "TermSumCourseAvailability"; id: string}
+                  | {__typename?: "TermSumCourseGrading"; id: string}
+                  | {__typename?: "TermSumCourseInterestArea"; id: string}
+                  | {__typename?: "TermSumCourseLearner"; id: string}
+                  | {__typename?: "TermSumCoursePopulation"; id: string}
+                  | null
+              }> | null
             }
           | {__typename?: "TermBasicPageType"}
           | {__typename?: "TermStanfordEventType"}
@@ -21036,7 +21637,9 @@ export type StanfordCoursesQuery = {
               | {__typename?: "TermSuCourseTag"; id: string}
               | {__typename?: "TermSuSharedTag"; id: string}
               | {__typename?: "TermSumCourseAvailability"; id: string}
+              | {__typename?: "TermSumCourseGrading"; id: string}
               | {__typename?: "TermSumCourseInterestArea"; id: string}
+              | {__typename?: "TermSumCourseLearner"; id: string}
               | {__typename?: "TermSumCoursePopulation"; id: string}
               | null
           }> | null
@@ -21061,7 +21664,9 @@ export type StanfordCoursesQuery = {
               | {__typename?: "TermSuCourseTag"; id: string}
               | {__typename?: "TermSuSharedTag"; id: string}
               | {__typename?: "TermSumCourseAvailability"; id: string}
+              | {__typename?: "TermSumCourseGrading"; id: string}
               | {__typename?: "TermSumCourseInterestArea"; id: string}
+              | {__typename?: "TermSumCourseLearner"; id: string}
               | {__typename?: "TermSumCoursePopulation"; id: string}
               | null
           } | null
@@ -21086,7 +21691,9 @@ export type StanfordCoursesQuery = {
               | {__typename?: "TermSuCourseTag"; id: string}
               | {__typename?: "TermSuSharedTag"; id: string}
               | {__typename?: "TermSumCourseAvailability"; id: string}
+              | {__typename?: "TermSumCourseGrading"; id: string}
               | {__typename?: "TermSumCourseInterestArea"; id: string}
+              | {__typename?: "TermSumCourseLearner"; id: string}
               | {__typename?: "TermSumCoursePopulation"; id: string}
               | null
           }> | null
@@ -21173,7 +21780,9 @@ export type StanfordEventsQuery = {
               | {__typename?: "TermSuCourseTag"; id: string}
               | {__typename?: "TermSuSharedTag"; id: string}
               | {__typename?: "TermSumCourseAvailability"; id: string}
+              | {__typename?: "TermSumCourseGrading"; id: string}
               | {__typename?: "TermSumCourseInterestArea"; id: string}
+              | {__typename?: "TermSumCourseLearner"; id: string}
               | {__typename?: "TermSumCoursePopulation"; id: string}
               | null
           }> | null
@@ -21260,7 +21869,9 @@ export type StanfordEventsPastEventsQuery = {
               | {__typename?: "TermSuCourseTag"; id: string}
               | {__typename?: "TermSuSharedTag"; id: string}
               | {__typename?: "TermSumCourseAvailability"; id: string}
+              | {__typename?: "TermSumCourseGrading"; id: string}
               | {__typename?: "TermSumCourseInterestArea"; id: string}
+              | {__typename?: "TermSumCourseLearner"; id: string}
               | {__typename?: "TermSumCoursePopulation"; id: string}
               | null
           }> | null
@@ -21329,7 +21940,9 @@ export type StanfordNewsQuery = {
               | {__typename?: "TermSuCourseTag"; id: string}
               | {__typename?: "TermSuSharedTag"; id: string}
               | {__typename?: "TermSumCourseAvailability"; id: string}
+              | {__typename?: "TermSumCourseGrading"; id: string}
               | {__typename?: "TermSumCourseInterestArea"; id: string}
+              | {__typename?: "TermSumCourseLearner"; id: string}
               | {__typename?: "TermSumCoursePopulation"; id: string}
               | null
           }> | null
@@ -21436,7 +22049,9 @@ export type StanfordPublicationsQuery = {
               | {__typename?: "TermSuCourseTag"; id: string}
               | {__typename?: "TermSuSharedTag"; id: string}
               | {__typename?: "TermSumCourseAvailability"; id: string}
+              | {__typename?: "TermSumCourseGrading"; id: string}
               | {__typename?: "TermSumCourseInterestArea"; id: string}
+              | {__typename?: "TermSumCourseLearner"; id: string}
               | {__typename?: "TermSumCoursePopulation"; id: string}
               | null
           }> | null
@@ -21491,7 +22106,9 @@ export type StanfordSharedTagsQuery = {
               | {__typename?: "TermSuCourseTag"; id: string}
               | {__typename?: "TermSuSharedTag"; id: string}
               | {__typename?: "TermSumCourseAvailability"; id: string}
+              | {__typename?: "TermSumCourseGrading"; id: string}
               | {__typename?: "TermSumCourseInterestArea"; id: string}
+              | {__typename?: "TermSumCourseLearner"; id: string}
               | {__typename?: "TermSumCoursePopulation"; id: string}
               | null
           } | null
@@ -21552,7 +22169,9 @@ export type StanfordSharedTagsQuery = {
               | {__typename?: "TermSuCourseTag"; id: string}
               | {__typename?: "TermSuSharedTag"; id: string}
               | {__typename?: "TermSumCourseAvailability"; id: string}
+              | {__typename?: "TermSumCourseGrading"; id: string}
               | {__typename?: "TermSumCourseInterestArea"; id: string}
+              | {__typename?: "TermSumCourseLearner"; id: string}
               | {__typename?: "TermSumCoursePopulation"; id: string}
               | null
           }> | null
@@ -21604,7 +22223,9 @@ export type StanfordSharedTagsQuery = {
               | {__typename?: "TermSuCourseTag"; id: string}
               | {__typename?: "TermSuSharedTag"; id: string}
               | {__typename?: "TermSumCourseAvailability"; id: string}
+              | {__typename?: "TermSumCourseGrading"; id: string}
               | {__typename?: "TermSumCourseInterestArea"; id: string}
+              | {__typename?: "TermSumCourseLearner"; id: string}
               | {__typename?: "TermSumCoursePopulation"; id: string}
               | null
           }> | null
@@ -21765,7 +22386,9 @@ export type StanfordSharedTagsQuery = {
               | {__typename?: "TermSuCourseTag"; id: string}
               | {__typename?: "TermSuSharedTag"; id: string}
               | {__typename?: "TermSumCourseAvailability"; id: string}
+              | {__typename?: "TermSumCourseGrading"; id: string}
               | {__typename?: "TermSumCourseInterestArea"; id: string}
+              | {__typename?: "TermSumCourseLearner"; id: string}
               | {__typename?: "TermSumCoursePopulation"; id: string}
               | null
           }> | null

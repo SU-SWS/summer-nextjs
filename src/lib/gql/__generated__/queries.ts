@@ -1201,6 +1201,9 @@ export const FragmentNodeSumSummerCourseFragmentDoc = gql`
   sumCourseUniqueImportId
   sumCourseUnits
   sumStudentsAlsoStudied
+  sumCourseGrading {
+    ...FragmentTermInterface
+  }
 }
     ${FragmentNodeInterfaceFragmentDoc}
 ${FragmentTermInterfaceFragmentDoc}

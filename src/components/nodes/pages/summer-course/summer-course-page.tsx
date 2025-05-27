@@ -136,6 +136,13 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
                 </div>
               )}
 
+              {node.sumCourseGrading && (
+                <div>
+                  <span>Grading Basis: </span>
+                  {node.sumCourseGrading.map(grading => grading.name).join(", ")}
+                </div>
+              )}
+
               {node.sumCourseSyllabusFile && (
                 <div>
                   <Link prefetch={false} href={node.sumCourseSyllabusFile.mediaFile.url}>

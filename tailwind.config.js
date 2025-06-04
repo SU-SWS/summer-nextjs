@@ -29,6 +29,7 @@ module.exports = {
       ...decanter.theme.extend,
       screens: {
         "3xl": "1600px",
+        "4xl": "2000px",
       },
       gridTemplateColumns: {...twoColumn, ...threeColumn},
       containers: {
@@ -41,9 +42,6 @@ module.exports = {
         "14xl": "140rem",
         "15xl": "150rem",
       },
-      screens: {
-        "4xl": "2000px",
-      },
       scale: {
         "-100": "-1",
       },
@@ -51,6 +49,12 @@ module.exports = {
         roboto: ["var(--font-roboto)", "sans-serif"],
         stanford: ["var(--font-stanford)", "sans-serif"],
       },
+      listStyleType: {
+        "lower-alpha": "lower-alpha",
+        "upper-alpha": "upper-alpha",
+        "lower-roman": "lower-roman",
+        "upper-roman": "upper-roman",
+      }
     },
   },
   plugins: [

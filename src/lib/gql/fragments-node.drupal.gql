@@ -55,6 +55,9 @@ fragment FragmentNodeSumSummerCourse on NodeSumSummerCourse {
   sumCourseUniqueImportId
   sumCourseUnits
   sumStudentsAlsoStudied
+  sumCourseGrading {
+    ...FragmentTermInterface
+  }
 }
 
 fragment FragmentNodeStanfordPage on NodeStanfordPage {

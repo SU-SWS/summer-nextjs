@@ -125,6 +125,17 @@ const options: HTMLReactParserOptions = {
           return <Td {...nodeProps}>{domToReact(children, options)}</Td>
         case "tr":
           return <Tr {...nodeProps}>{domToReact(children, options)}</Tr>
+        case "ol":
+          nodeProps.className = twMerge(
+            nodeProps.className,
+            clsx({
+              "list-lower-alpha": nodeProps?.type === "a",
+              "list-upper-alpha": nodeProps?.type === "A",
+              "list-lower-roman": nodeProps?.type === "i",
+              "list-upper-roman": nodeProps?.type === "I",
+            })
+          )
+          return <ol {...nodeProps}>{domToReact(children, options)}</ol>
         case "b":
         case "cite":
         case "dt":
@@ -138,9 +149,7 @@ const options: HTMLReactParserOptions = {
         case "span":
         case "blockquote":
         case "ul":
-        case "ol":
         case "li":
-
         case "strong":
         case "em":
         case "s":
@@ -257,7 +266,7 @@ const cleanMediaMarkup = (node: Element) => {
   if (image) {
     let {src} = image
     const {alt, width, height} = image
-    if (!src) return
+    if (typeof src !== "string" || !src) return
 
     if (src?.startsWith("/")) {
       src = process.env.NEXT_PUBLIC_DRUPAL_BASE_URL + src

@@ -1,3 +1,11 @@
+1.3.3 2025-06-05
+--------------------------------------------------
+- Support `type` attribute on <ol> elements
+- SUM-328: Display course grading field (#91)
+- SUM-268: changing padding-top for no image pills (#83)
+- SUM-323: updated the arrow on the secondary button. (#89)
+- SUM-318: Updated views to display summer course learner type display (#90)
+
 1.3.2 2025-04-10
 --------------------------------------------------
 - Fixed tab index on slideshow and fix button with a strong tag

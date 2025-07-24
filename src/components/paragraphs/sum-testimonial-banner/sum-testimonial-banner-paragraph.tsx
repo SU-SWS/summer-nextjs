@@ -27,7 +27,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
       studentType = "High School"
       break
     case "sum_graduate":
-      studentType = "Graduate"
+      studentType = "Graduate Student"
       break
     case "sum_gap_year":
       studentType = "Gap Year"

@@ -389,6 +389,15 @@ export type CitationUnion =
   | CitationSuOther
   | CitationSuThesi
 
+/** Color Field. */
+export type ColorFieldType = {
+  __typename?: "ColorFieldType"
+  /** Color Hex */
+  color: Scalars["String"]["output"]
+  /** Opacity */
+  opacity?: Maybe<Scalars["Float"]["output"]>
+}
+
 /** Entity type config_pages. */
 export type ConfigPagesInterface = {
   /** The Universally Unique IDentifier (UUID). */
@@ -515,7 +524,7 @@ export type File = {
   url: Scalars["String"]["output"]
 }
 
-/** Smart Date data. */
+/** FontAwesome Icon. */
 export type FontawesomeIconType = {
   __typename?: "FontawesomeIconType"
   /** Icon Name */
@@ -3090,6 +3099,7 @@ export type QuerySearchArgs = {
   offset?: InputMaybe<Scalars["Int"]["input"]>
   page?: InputMaybe<Scalars["Int"]["input"]>
   pageSize?: InputMaybe<Scalars["Int"]["input"]>
+  sortDir?: InputMaybe<SortDirection>
 }
 
 /** The schema's entry-point for queries. */
@@ -3173,10 +3183,13 @@ export type QueryStanfordNewsArgs = {
 
 /** The schema's entry-point for queries. */
 export type QueryStanfordOpportunitiesArgs = {
+  contextualFilter?: InputMaybe<StanfordOpportunitiesContextualFilterInput>
   filter?: InputMaybe<StanfordOpportunitiesFilterInput>
   offset?: InputMaybe<Scalars["Int"]["input"]>
   page?: InputMaybe<Scalars["Int"]["input"]>
   pageSize?: InputMaybe<Scalars["Int"]["input"]>
+  sortDir?: InputMaybe<SortDirection>
+  sortKey?: InputMaybe<StanfordOpportunitiesSortKeys>
 }
 
 /** The schema's entry-point for queries. */
@@ -3859,9 +3872,13 @@ export enum StanfordNewsSortKeys {
   Title = "TITLE",
 }
 
+export type StanfordOpportunitiesContextualFilterInput = {
+  term_node_taxonomy_name_depth?: InputMaybe<Scalars["String"]["input"]>
+}
+
 export type StanfordOpportunitiesFilterInput = {
   /** Filter  */
-  tags?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
+  filters?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
 
 /** Result for view stanford_opportunities display graphql. */
@@ -3882,9 +3899,16 @@ export type StanfordOpportunitiesResult = View & {
   /** Information about the page in the view. */
   pageInfo: ViewPageInfo
   /** The results of the view. */
-  results: Array<UnsupportedType>
+  results: Array<NodeUnion>
   /** The machine name of the view. */
   view: Scalars["String"]["output"]
+}
+
+export enum StanfordOpportunitiesSortKeys {
+  /** Start Date (su_opp_start_date) */
+  Start = "START",
+  /** Title */
+  Title = "TITLE",
 }
 
 export type StanfordPersonContextualFilterInput = {

@@ -13,6 +13,7 @@ import {
 } from "@heroicons/react/24/solid"
 import FavoriteButton from "@components/elements/favorite-button"
 import ShareCourses from "@components/elements/shareCourses"
+import CoursePreRequisites from "@components/elements/course-pre-requisites"
 
 export type CourseHit = AlgoliaHit & {
   sum_course_availability?: string
@@ -158,7 +159,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
         </button>
       </H4>
 
-      <div {...panelProps}>
+      <div>
         <div className="rs-mt-2 flex flex-col gap-10 xl:flex-row xl:gap-[90px]">
           <div className="flex-grow">
             {hit.html && (
@@ -220,7 +221,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
             {hit.sum_course_prerequisites && (
               <div>
                 <span className="font-semibold">Pre-requisites: </span>
-                {hit.sum_course_prerequisites}
+                <CoursePreRequisites preReqs={hit.sum_course_prerequisites} />
               </div>
             )}
 

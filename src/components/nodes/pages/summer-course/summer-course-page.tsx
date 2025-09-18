@@ -11,6 +11,7 @@ import FavoriteButton from "@components/elements/favorite-button"
 import {ApplyNowLink} from "@components/elements/apply-now-link"
 import Link from "next/link"
 import SummerCourseMetadata from "@components/nodes/pages/summer-course/summer-course-metadata"
+import CoursePreRequisites from "@components/elements/course-pre-requisites"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeSumSummerCourse
@@ -125,7 +126,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
               {node.sumCoursePrerequisites && (
                 <div>
                   <span>Pre-requisites: </span>
-                  <Wysiwyg html={node.sumCoursePrerequisites.processed} />
+                  <CoursePreRequisites preReqs={node.sumCoursePrerequisites.processed} />
                 </div>
               )}
 

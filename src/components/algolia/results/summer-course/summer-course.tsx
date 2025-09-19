@@ -159,7 +159,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
         </button>
       </H4>
 
-      <div>
+      <div {...panelProps}>
         <div className="rs-mt-2 flex flex-col gap-10 xl:flex-row xl:gap-[90px]">
           <div className="flex-grow">
             {hit.html && (

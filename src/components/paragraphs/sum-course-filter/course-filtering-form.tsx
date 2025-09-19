@@ -5,7 +5,6 @@ import {
   useSearchBox,
   useRefinementList,
   useClearRefinements,
-  useCurrentRefinements,
   useInfiniteHits,
   usePagination,
   Configure,
@@ -14,9 +13,7 @@ import {InstantSearchNext} from "react-instantsearch-nextjs"
 import {H2, H3} from "@components/elements/headers"
 import {useEffect, useId, useLayoutEffect, useMemo, useRef} from "react"
 import Button from "@components/elements/button"
-import {useRouter, useSearchParams} from "next/navigation"
 import {ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/20/solid"
-import {IndexUiState} from "instantsearch.js/es/types/ui-state"
 import useAccordion from "@lib/hooks/useAccordion"
 import {clsx} from "clsx"
 import SummerCourse from "@components/algolia/results/summer-course/summer-course"
@@ -29,6 +26,7 @@ import {
 } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList"
 import {ApplyNowLink} from "@components/elements/apply-now-link"
 import {useBoolean} from "usehooks-ts"
+import {IndexUiState} from "instantsearch.js/es/types/ui-state"
 
 type Props = {
   appId: string
@@ -37,38 +35,59 @@ type Props = {
 }
 
 const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
-  const searchParams = useSearchParams()
-  const firstRender = useRef(true)
-
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
-  const initialUiState: IndexUiState = {
-    refinementList: {},
+  const queryKeys = new Map<string, string>([
+    ["sum_course_interest", "interests"],
+    ["sum_course_format", "format"],
+    ["sum_course_availability", "availability"],
+    ["sum_course_population", "population"],
+    ["sum_course_units", "units"],
+  ])
+  const reverseQueryKeys = new Map<string, string>()
+  for (const [key, value] of queryKeys.entries()) {
+    reverseQueryKeys.set(value, key)
   }
-
-  if (firstRender.current) {
-    if (searchParams.get("availability") && initialUiState.refinementList)
-      initialUiState.refinementList.sum_course_availability = searchParams.get("availability")?.split(",") as string[]
-    if (searchParams.get("format") && initialUiState.refinementList)
-      initialUiState.refinementList.sum_course_format = searchParams.get("format")?.split(",") as string[]
-    if (searchParams.get("interests") && initialUiState.refinementList)
-      initialUiState.refinementList.sum_course_interest = searchParams.get("interests")?.split(",") as string[]
-    if (searchParams.get("population") && initialUiState.refinementList)
-      initialUiState.refinementList.sum_course_population = searchParams.get("population")?.split(",") as string[]
-    if (searchParams.get("units") && initialUiState.refinementList)
-      initialUiState.refinementList.sum_course_units = searchParams.get("units")?.split(",") as string[]
-    if (searchParams.get("q")) initialUiState.query = searchParams.get("q") as string
-  }
-
-  useEffect(() => {
-    firstRender.current = false
-  }, [])
 
   return (
     <InstantSearchNext
       indexName={searchIndex}
       searchClient={searchClient}
-      initialUiState={{[searchIndex]: initialUiState}}
-      future={{preserveSharedStateOnUnmount: true}}
+      future={{preserveSharedStateOnUnmount: false}}
+      ignoreMultipleHooksWarning={true}
+      routing={{
+        router: {cleanUrlOnDispose: false},
+        stateMapping: {
+          stateToRoute(uiState): Record<string, string> {
+            const indexUiState = uiState[searchIndex]
+            const refinements: Record<string, string> = {}
+
+            if (indexUiState?.refinementList) {
+              Object.keys(indexUiState.refinementList).map(refinementKey => {
+                const queryKey = queryKeys.get(refinementKey)
+
+                if (queryKey && indexUiState.refinementList?.[refinementKey]) {
+                  refinements[queryKey] = indexUiState.refinementList[refinementKey].join(",")
+                }
+              })
+            }
+
+            if (indexUiState.query) refinements.q = indexUiState.query
+            return refinements
+          },
+          routeToState(routeState: Record<string, string>) {
+            const refinementList: IndexUiState["refinementList"] = {}
+            Object.keys(routeState).map(key => {
+              const refinementKey = reverseQueryKeys.get(key)
+              if (refinementKey && routeState[key]) {
+                refinementList[refinementKey] = routeState[key].split(",")
+              }
+            })
+            return {
+              [searchIndex]: {query: routeState.q, refinementList},
+            }
+          },
+        },
+      }}
     >
       <Configure filters="type:'Summer Courses'" />
       <SearchForm />
@@ -92,13 +111,13 @@ const SearchForm = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const {query, refine} = useSearchBox({})
   useEffect(() => {
-    if (inputRef.current && !query) {
-      inputRef.current.value = ""
+    if (inputRef.current) {
+      inputRef.current.value = query || ""
     }
-  }, [query, inputRef])
+  }, [query])
 
   return (
-    <div className="grid grid-cols-12 sm:gap-12">
+    <div id="search-form" className="grid grid-cols-12 sm:gap-12">
       <div className="col-span-12 flex flex-col lg:col-span-4 xl:col-span-3">
         <form className="flex flex-col" role="search" aria-label="Search Courses" onSubmit={e => e.preventDefault()}>
           <H2 className="sr-only">Search and filter course results</H2>
@@ -166,38 +185,8 @@ const SearchForm = () => {
 }
 
 const CustomCurrentRefinements = () => {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-
-  const {query, refine} = useSearchBox({})
-
-  const {items: currentRefinements} = useCurrentRefinements()
+  const {refine} = useSearchBox({})
   const {refine: clearRefinements} = useClearRefinements({})
-
-  useEffect(() => {
-    const queryKeys = new Map<string, string>([
-      ["sum_course_interest", "interests"],
-      ["sum_course_format", "format"],
-      ["sum_course_availability", "availability"],
-      ["sum_course_population", "population"],
-      ["sum_course_units", "units"],
-      ["query", "q"],
-    ])
-
-    const params = new URLSearchParams(searchParams.toString())
-    ;[...queryKeys.values()].map(key => params.delete(key))
-
-    // Keyword search.
-    if (query) params.set("q", query)
-
-    currentRefinements.map(refinements => {
-      const key = queryKeys.get(refinements.attribute)
-      const filteredChoices = refinements.refinements.map(item => item.value)
-      if (key) params.set(key, filteredChoices.join(","))
-    })
-
-    router.replace(`?${params.toString()}`, {scroll: false})
-  }, [router, searchParams, currentRefinements, query])
 
   return (
     <Button

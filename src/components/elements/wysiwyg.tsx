@@ -18,18 +18,24 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
    * HTML string.
    */
   html?: Maybe<string>
+  /**
+   * Disable the default class styles that are used.
+   */
+  disableDefaultStyles?: boolean
 }
 
-const Wysiwyg = ({html, className, ...props}: Props) => {
+const Wysiwyg = ({html, className, disableDefaultStyles, ...props}: Props) => {
   if (!html) return
   // Remove comments and empty lines.
   html = html.replaceAll(/<!--[\s\S]*?-->/g, "").replaceAll(/(^(\r\n|\n|\r)$)|(^(\r\n|\n|\r))|^\s*$/gm, "")
 
-  const addMathJax = html.match(/\$\$.*\$\$/) || html.match(/\\\[.*\\\]/) || html.match(/\\\(.*\\\)/)
+  const addMathJax = html.match(/\$\$.*\$\$/) || html.match(/\\\[.*\\]/) || html.match(/\\\(.*\\\)/)
   return (
     <div
       className={twMerge(
-        "wysiwyg w-full md:max-w-[440px] lg:max-w-[536px] xl:max-w-[653px] 2xl:max-w-[725px]",
+        clsx({
+          "wysiwyg w-full md:max-w-[440px] lg:max-w-[536px] xl:max-w-[653px] 2xl:max-w-[725px]": !disableDefaultStyles,
+        }),
         className
       )}
       {...props}

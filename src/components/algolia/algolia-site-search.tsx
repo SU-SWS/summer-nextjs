@@ -3,9 +3,8 @@
 import {liteClient} from "algoliasearch/lite"
 import {useHits, useSearchBox, usePagination} from "react-instantsearch"
 import {InstantSearchNext} from "react-instantsearch-nextjs"
-import {HTMLAttributes, useEffect, useLayoutEffect, useMemo, useRef, useState} from "react"
+import {HTMLAttributes, useLayoutEffect, useMemo, useRef} from "react"
 import Button from "@components/elements/button"
-import {useRouter, useSearchParams} from "next/navigation"
 import {Hit as HitType} from "instantsearch.js"
 import {IndexUiState} from "instantsearch.js/es/types/ui-state"
 import {MagnifyingGlassIcon} from "@heroicons/react/20/solid"
@@ -13,7 +12,6 @@ import DefaultResult, {AlgoliaHit} from "@components/algolia/results/default"
 import {H2} from "@components/elements/headers"
 import {useBoolean} from "usehooks-ts"
 import AlgoliaPager from "@components/algolia/algolia-pager"
-import {ArrowPathIcon} from "@heroicons/react/16/solid"
 
 type Props = {
   appId: string
@@ -23,26 +21,27 @@ type Props = {
 }
 
 const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
-  const initialRender = useRef(true)
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
-  const [initialUiState, setInitialUiState] = useState<IndexUiState>({})
-
-  useEffect(() => {
-    if (!initialRender.current) return
-    initialRender.current = false
-    const searchParams = new URLSearchParams(window.location.search)
-    const queryString = searchParams.get("q") || ""
-    setInitialUiState({query: queryString})
-  }, [])
-
-  if (initialRender.current) return <ArrowPathIcon className="mx-auto animate-spin" width={50} />
   return (
     <div>
       <InstantSearchNext
         indexName={searchIndex}
         searchClient={searchClient}
-        initialUiState={{[searchIndex]: initialUiState}}
         future={{preserveSharedStateOnUnmount: true}}
+        ignoreMultipleHooksWarning={true}
+        routing={{
+          stateMapping: {
+            stateToRoute(uiState): Record<string, string> {
+              const indexUiState = uiState[searchIndex]
+              return indexUiState.query ? {q: indexUiState.query} : {}
+            },
+            routeToState(routeState: Record<string, string>) {
+              return {
+                [searchIndex]: {query: routeState.q},
+              }
+            },
+          },
+        }}
       >
         <SearchForm />
       </InstantSearchNext>
@@ -51,20 +50,8 @@ const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
 }
 
 const SearchForm = () => {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-
   const inputRef = useRef<HTMLInputElement>(null)
   const {query, refine} = useSearchBox({})
-
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.delete("q")
-
-    // Keyword search.
-    if (query) params.set("q", query)
-    router.replace(`?${params.toString()}`, {scroll: false})
-  }, [router, searchParams, query])
 
   return (
     <div>

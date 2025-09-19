@@ -76,7 +76,7 @@ const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
             const refinementList: IndexUiState["refinementList"] = {}
             Object.keys(routeState).map(key => {
               const refinementKey = reverseQueryKeys.get(key)
-              if (refinementKey && typeof routeState[key] === "string") {
+              if (refinementKey && routeState[key]) {
                 refinementList[refinementKey] = routeState[key].split(",")
               }
             })

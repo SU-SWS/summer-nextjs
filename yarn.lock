@@ -14944,13 +14944,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-instantsearch-nextjs@npm:0.5.0":
-  version: 0.5.0
-  resolution: "react-instantsearch-nextjs@npm:0.5.0"
+"react-instantsearch-nextjs@npm:1.0.2":
+  version: 1.0.2
+  resolution: "react-instantsearch-nextjs@npm:1.0.2"
   peerDependencies:
     next: ">= 13.4 < 16"
     react-instantsearch: ">= 7.1.0 < 8"
-  checksum: 10c0/8b739398e786c35134de29449fd405a816d9f284cd5c3508a9a1a94bd84efbb4e25c478305db720febeaa3459904f3f1c7354c792401408bf034f3045dda54f0
+  checksum: 10c0/e43110eb72bd20b119d5b4074959194a664b619e8bdfc8ee1c80b44ee31a14970919187c0a56cd19b7dca420d96b3076d45b2c168090438602cd3bf7e940da7c
   languageName: node
   linkType: hard
 
@@ -16732,7 +16732,7 @@ __metadata:
     react-error-boundary: "npm:^6.0.0"
     react-focus-lock: "npm:^2.13.6"
     react-instantsearch: "npm:^7.16.3"
-    react-instantsearch-nextjs: "npm:0.5.0"
+    react-instantsearch-nextjs: "npm:1.0.2"
     react-instantsearch-router-nextjs: "npm:^7.16.3"
     react-slick: "npm:^0.31.0"
     react-super-responsive-table: "npm:^6.0.2"

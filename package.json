@@ -39,7 +39,7 @@
     "react-error-boundary": "^6.0.0",
     "react-focus-lock": "^2.13.6",
     "react-instantsearch": "^7.16.3",
-    "react-instantsearch-nextjs": "0.5.0",
+    "react-instantsearch-nextjs": "1.0.2",
     "react-instantsearch-router-nextjs": "^7.16.3",
     "react-slick": "^0.31.0",
     "react-super-responsive-table": "^6.0.2",

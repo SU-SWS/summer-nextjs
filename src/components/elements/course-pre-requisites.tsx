@@ -9,7 +9,7 @@ const CoursePreRequisites = ({preReqs}: Props) => {
   for (let i = 0; i < reqCodes.length; i++) {
     preReqs = preReqs.replace(
       reqCodes[i][1],
-      `<a href="/courses?prod_Summer[query]=${reqCodes[i][1]}#search-form">${reqCodes[i][1]}</a>`
+      `<a href="/courses?q=${reqCodes[i][1]}#search-form">${reqCodes[i][1]}</a>`
     )
   }
 

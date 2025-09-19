@@ -26,7 +26,7 @@ import {
 } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList"
 import {ApplyNowLink} from "@components/elements/apply-now-link"
 import {useBoolean} from "usehooks-ts"
-import {createInstantSearchRouterNext} from "react-instantsearch-router-nextjs"
+import {IndexUiState} from "instantsearch.js/es/types/ui-state"
 
 type Props = {
   appId: string
@@ -36,20 +36,56 @@ type Props = {
 
 const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
+  const queryKeys = new Map<string, string>([
+    ["sum_course_interest", "interests"],
+    ["sum_course_format", "format"],
+    ["sum_course_availability", "availability"],
+    ["sum_course_population", "population"],
+    ["sum_course_units", "units"],
+  ])
+  const reverseQueryKeys = new Map<string, string>()
+  for (const [key, value] of queryKeys.entries()) {
+    reverseQueryKeys.set(value, key)
+  }
 
   return (
     <InstantSearchNext
       indexName={searchIndex}
       searchClient={searchClient}
-      // initialUiState={{[searchIndex]: initialUiState}}
-      routing={{
-        router: createInstantSearchRouterNext({
-          routerOptions: {
-            cleanUrlOnDispose: false,
-          },
-        }),
-      }}
       future={{preserveSharedStateOnUnmount: false}}
+      routing={{
+        stateMapping: {
+          stateToRoute(uiState): Record<string, string> {
+            const indexUiState = uiState[searchIndex]
+            const refinements: Record<string, string> = {}
+
+            if (indexUiState?.refinementList) {
+              Object.keys(indexUiState.refinementList).map(refinementKey => {
+                const queryKey = queryKeys.get(refinementKey)
+
+                if (queryKey && indexUiState.refinementList?.[refinementKey]) {
+                  refinements[queryKey] = indexUiState.refinementList[refinementKey].join(",")
+                }
+              })
+            }
+
+            if (indexUiState.query) refinements.q = indexUiState.query
+            return refinements
+          },
+          routeToState(routeState: Record<string, string>) {
+            const refinementList: IndexUiState["refinementList"] = {}
+            Object.keys(routeState).map(key => {
+              const refinementKey = reverseQueryKeys.get(key)
+              if (refinementKey && typeof routeState[key] === "string") {
+                refinementList[refinementKey] = routeState[key].split(",")
+              }
+            })
+            return {
+              [searchIndex]: {query: routeState.q, refinementList},
+            }
+          },
+        },
+      }}
     >
       <Configure filters="type:'Summer Courses'" />
       <SearchForm />

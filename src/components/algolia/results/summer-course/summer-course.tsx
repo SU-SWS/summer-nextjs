@@ -14,6 +14,7 @@ import {
 import FavoriteButton from "@components/elements/favorite-button"
 import ShareCourses from "@components/elements/shareCourses"
 import CoursePreRequisites from "@components/elements/course-pre-requisites"
+import Wysiwyg from "@components/elements/wysiwyg"
 
 export type CourseHit = AlgoliaHit & {
   sum_course_availability?: string
@@ -165,14 +166,14 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
             {hit.html && (
               <div>
                 <H5 className="mb-5 font-semibold">Description:</H5>
-                {hit.html}
+                <Wysiwyg html={hit.html} disableDefaultStyles />
               </div>
             )}
 
             {hit.sum_course_notes && (
               <div className="mt-8">
                 <H5 className="mb-5 font-semibold">Course notes:</H5>
-                {hit.sum_course_notes}
+                <Wysiwyg html={hit.sum_course_notes} disableDefaultStyles />
               </div>
             )}
           </div>

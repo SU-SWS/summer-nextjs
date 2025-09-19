@@ -31,6 +31,7 @@ const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
       indexName={searchIndex}
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: true}}
+      ignoreMultipleHooksWarning={true}
     >
       <Configure filters={filters} attributesToHighlight={["html"]} attributesToSnippet={["html"]} />
       <HitList />

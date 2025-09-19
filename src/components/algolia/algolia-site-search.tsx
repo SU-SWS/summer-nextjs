@@ -28,12 +28,12 @@ const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
         indexName={searchIndex}
         searchClient={searchClient}
         future={{preserveSharedStateOnUnmount: true}}
+        ignoreMultipleHooksWarning={true}
         routing={{
           stateMapping: {
             stateToRoute(uiState): Record<string, string> {
               const indexUiState = uiState[searchIndex]
-              if (indexUiState.query) return {q: indexUiState.query}
-              return {}
+              return indexUiState.query ? {q: indexUiState.query} : {}
             },
             routeToState(routeState: Record<string, string>) {
               return {

@@ -56,14 +56,14 @@ const CourseInfo = ({courseName}: Props) => {
           <InformationCircleIcon width={25} className="text-archway-dark" />
 
           <p className="mb-0 text-[17px] font-semibold">Pre-requisites</p>
-          <button type="button" onClick={() => collapseAccordion()} className="align-right ml-auto">
+          <button type="button" onClick={() => collapseAccordion()} className="z-11 align-right ml-auto">
             <XMarkIcon width={24} className="mt-2 group-hocus:text-spirited-dark" />
             <span className="sr-only">Close</span>
           </button>
         </div>
 
         <p className="text-[17px] text-gray-600">
-          This is informative text to be written about the prereqs for this class.
+          We expect visiting students to have knowledge that is equivalent to the listed Stanford pre-requisite course.
         </p>
       </div>
     </div>

@@ -36,7 +36,7 @@ const CourseInfo = ({courseName}: Props) => {
         {...buttonProps}
         ref={buttonRef}
         className={twMerge(
-          "hocus-visible:outline-3 rounded-full border-2 border-transparent pr-2 hocus-visible:outline hocus-visible:outline-digital-red",
+          "hocus-visible:outline-3 rounded-full border-2 border-transparent hocus-visible:outline hocus-visible:outline-digital-red",
           buttonProps.className
         )}
       >
@@ -46,23 +46,23 @@ const CourseInfo = ({courseName}: Props) => {
       <div
         {...panelProps}
         className={twMerge(
-          "absolute right-0 top-full z-10 -mr-[30px] mt-5 w-[400px] rounded-[25px] border border-white bg-white px-12 py-4",
+          "absolute right-0 top-full z-10 -mr-[110px] mt-5 w-[300px] rounded-[25px] border border-white bg-white p-12 drop-shadow-md sm:-mr-[350px] sm:w-[400px] lg:-mr-[30px]",
           expanded ? "block" : "tw-hidden",
           panelProps.className
         )}
       >
-        <div className="absolute -top-3 left-[85%] z-0 h-10 w-10 rotate-45 bg-white" />
+        <div className="absolute -top-3 left-[53%] z-0 h-10 w-10 rotate-45 bg-white sm:left-[5%] md:h-9 md:w-9 lg:left-[85%]" />
         <div className="mb-2 flex flex-row items-center gap-2">
           <InformationCircleIcon width={25} className="text-archway-dark" />
 
           <p className="mb-0 text-[17px] font-semibold">Pre-requisites</p>
-          <button type="button" onClick={() => collapseAccordion()} className="z-11 align-right ml-auto">
-            <XMarkIcon width={24} className="mt-2 group-hocus:text-spirited-dark" />
+          <button type="button" onClick={() => collapseAccordion()} className="align-right ml-auto">
+            <XMarkIcon width={24} className="mt-2 pr-0 hocus:text-spirited-dark" />
             <span className="sr-only">Close</span>
           </button>
         </div>
 
-        <p className="text-[17px] text-gray-600">
+        <p className="mb-0 text-[17px]">
           We expect visiting students to have knowledge that is equivalent to the listed Stanford pre-requisite course.
         </p>
       </div>

@@ -7,11 +7,7 @@ import {twMerge} from "tailwind-merge"
 import {useEventListener} from "usehooks-ts"
 import useOutsideClick from "@lib/hooks/useOutsideClick"
 
-type Props = {
-  courseName: string
-}
-
-const CourseInfo = ({courseName}: Props) => {
+const CourseInfo = () => {
   const {buttonProps, panelProps, expanded, collapseAccordion} = useAccordion()
   const ref = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)

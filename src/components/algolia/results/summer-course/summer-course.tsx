@@ -224,7 +224,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
               <div>
                 <div className="flex flex-row gap-2 font-semibold">
                   Pre-requisites:
-                  <CourseInfo courseName={hit.title} />
+                  <CourseInfo />
                 </div>
                 <CoursePreRequisites preReqs={hit.sum_course_prerequisites} />
               </div>

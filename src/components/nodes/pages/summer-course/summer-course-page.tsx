@@ -12,6 +12,7 @@ import {ApplyNowLink} from "@components/elements/apply-now-link"
 import Link from "next/link"
 import SummerCourseMetadata from "@components/nodes/pages/summer-course/summer-course-metadata"
 import CoursePreRequisites from "@components/elements/course-pre-requisites"
+import CourseInfo from "@components/elements/courses-info-icon"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeSumSummerCourse
@@ -125,7 +126,10 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
 
               {node.sumCoursePrerequisites && (
                 <div>
-                  <span>Pre-requisites: </span>
+                  <div className="flex flex-row items-center gap-2 font-semibold">
+                    Pre-requisites:
+                    <CourseInfo />
+                  </div>
                   <CoursePreRequisites preReqs={node.sumCoursePrerequisites.processed} />
                 </div>
               )}

@@ -14,6 +14,7 @@ import {
 import FavoriteButton from "@components/elements/favorite-button"
 import ShareCourses from "@components/elements/shareCourses"
 import CoursePreRequisites from "@components/elements/course-pre-requisites"
+import CourseInfo from "@components/elements/courses-info-icon"
 import Wysiwyg from "@components/elements/wysiwyg"
 
 export type CourseHit = AlgoliaHit & {
@@ -221,7 +222,10 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
 
             {hit.sum_course_prerequisites && (
               <div>
-                <span className="font-semibold">Pre-requisites: </span>
+                <div className="flex flex-row gap-2 font-semibold">
+                  Pre-requisites:
+                  <CourseInfo />
+                </div>
                 <CoursePreRequisites preReqs={hit.sum_course_prerequisites} />
               </div>
             )}

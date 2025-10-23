@@ -154,6 +154,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
       x: 0,
       width: 0,
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (x + width > window.innerWidth) setPositionRight(false)
   }, [submenuOpen])
 

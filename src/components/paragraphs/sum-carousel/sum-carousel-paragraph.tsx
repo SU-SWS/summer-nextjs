@@ -85,19 +85,21 @@ const CarouselSlide = ({
   totalSlides: number
   slideHeader?: "h2" | "h3"
 }) => {
+  const slideCopy = {...slide}
+
   let labelId = undefined
-  if (slide.__typename === "ParagraphStanfordCard") {
-    const slideBehaviors = getParagraphBehaviors(slide)
+  if (slideCopy.__typename === "ParagraphStanfordCard") {
+    const slideBehaviors = getParagraphBehaviors(slideCopy)
     slideBehaviors.su_card_styles = {
       ...slideBehaviors.su_card_styles,
       heading: slideHeader || "h2",
     }
-    slide.behaviors = JSON.stringify(slideBehaviors)
+    slideCopy.behaviors = JSON.stringify(slideBehaviors)
 
-    if (slide.suCardHeader) labelId = slide.id
+    if (slideCopy.suCardHeader) labelId = slideCopy.id
   }
 
-  if (slide.__typename === "ParagraphSumSlideTeaser") labelId = slide.sumSlideTeaserEntity.id
+  if (slideCopy.__typename === "ParagraphSumSlideTeaser") labelId = slideCopy.sumSlideTeaserEntity.id
 
   return (
     <div
@@ -106,8 +108,8 @@ const CarouselSlide = ({
       aria-labelledby={labelId}
       aria-label={labelId ? undefined : `${slideNumber} of ${totalSlides}`}
     >
-      {slide.__typename === "ParagraphStanfordCard" && <CardParagraph paragraph={slide} linkTabIndex={-1} />}
-      {slide.__typename === "ParagraphSumSlideTeaser" && <SumSlideTeaserParagraph paragraph={slide} />}
+      {slideCopy.__typename === "ParagraphStanfordCard" && <CardParagraph paragraph={slideCopy} linkTabIndex={-1} />}
+      {slideCopy.__typename === "ParagraphSumSlideTeaser" && <SumSlideTeaserParagraph paragraph={slideCopy} />}
     </div>
   )
 }

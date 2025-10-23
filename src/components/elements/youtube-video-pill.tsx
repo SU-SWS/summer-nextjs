@@ -97,7 +97,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
         onEnd={() => setIsPlaying(false)}
         iframeClassName="w-full aspect-[9/16] h-full"
       />
-      {!isPlaying && videoRef.current && (
+      {!isPlaying && (
         <button
           tabIndex={-1}
           aria-hidden

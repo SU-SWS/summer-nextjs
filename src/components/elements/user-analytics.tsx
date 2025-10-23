@@ -6,7 +6,7 @@ import {isPreviewMode} from "@lib/drupal/is-preview-mode"
 import Vwo from "@components/elements/vwo"
 
 const UserAnalytics = async () => {
-  if (isPreviewMode()) return
+  if (await isPreviewMode()) return
 
   const googleAnalytics = await getConfigPageField<
     StanfordBasicSiteSetting,

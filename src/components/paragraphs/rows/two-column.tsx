@@ -1,7 +1,6 @@
 import OneColumn from "@components/paragraphs/rows/one-column"
 import {ParagraphUnion} from "@lib/gql/__generated__/drupal.d"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
-import {isPreviewMode} from "@lib/drupal/is-preview-mode"
 import {twMerge} from "tailwind-merge"
 
 export type TwoColumnConfig = Record<string, string>
@@ -20,10 +19,7 @@ const TwoColumn = ({items, config}: Props) => {
     gridCols = "@6xl:grid-cols-2-1"
   }
 
-  const draftProps: Record<string, string> = {}
-  if (isPreviewMode()) {
-    draftProps["data-columns"] = "2"
-  }
+  const draftProps: Record<string, string> = {"data-columns": "2"}
 
   return (
     <div className={twMerge("gutters grid gap-10 @6xl:gap-20", gridCols)} {...draftProps}>

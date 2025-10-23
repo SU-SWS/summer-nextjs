@@ -1,7 +1,6 @@
 import OneColumn from "@components/paragraphs/rows/one-column"
 import {ParagraphUnion} from "@lib/gql/__generated__/drupal.d"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
-import {isPreviewMode} from "@lib/drupal/is-preview-mode"
 
 const ThreeColumn = ({items}: {items: ParagraphUnion[]}) => {
   const leftItems = items.filter(item => getParagraphBehaviors(item).layout_paragraphs?.region === "left")
@@ -10,10 +9,7 @@ const ThreeColumn = ({items}: {items: ParagraphUnion[]}) => {
   )
   const rightItems = items.filter(item => getParagraphBehaviors(item).layout_paragraphs?.region === "right")
 
-  const draftProps: Record<string, string> = {}
-  if (isPreviewMode()) {
-    draftProps["data-columns"] = "3"
-  }
+  const draftProps: Record<string, string> = {"data-columns": "3"}
 
   return (
     <div className="centered grid gap-10 @9xl:grid-cols-3 @9xl:gap-20" {...draftProps}>

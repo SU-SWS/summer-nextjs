@@ -3,7 +3,6 @@ import Wysiwyg from "@components/elements/wysiwyg"
 import {H1} from "@components/elements/headers"
 import {HtmlHTMLAttributes} from "react"
 import {NodeStanfordCourse} from "@lib/gql/__generated__/drupal.d"
-import {isPreviewMode} from "@lib/drupal/is-preview-mode"
 import StanfordCourseMetadata from "@components/nodes/pages/stanford-course/stanford-course-metadata"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -12,7 +11,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 }
 
 const StanfordCoursePage = ({node, ...props}: Props) => {
-  if (node.suCourseLink?.url && !isPreviewMode()) redirect(node.suCourseLink?.url)
+  if (node.suCourseLink?.url) redirect(node.suCourseLink?.url)
   return (
     <article className="centered my-32" {...props}>
       <StanfordCourseMetadata node={node} />

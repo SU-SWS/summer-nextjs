@@ -99,15 +99,16 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
 }
 
 const PillBannerCard = ({card, headingLevel}: {card: ParagraphStanfordCard; headingLevel: "h2" | "h3"}) => {
-  const cardBehaviors = getParagraphBehaviors(card)
+  const cardCopy = {...card}
+  const cardBehaviors = getParagraphBehaviors(cardCopy)
   cardBehaviors.su_card_styles = {
     ...(cardBehaviors.su_card_styles || {}),
     heading: headingLevel,
     sum_card_variant: "pill",
     sum_card_bg_color_variant: false,
   }
-  card.behaviors = JSON.stringify(cardBehaviors)
-  return <CardParagraph paragraph={card} />
+  cardCopy.behaviors = JSON.stringify(cardBehaviors)
+  return <CardParagraph paragraph={cardCopy} />
 }
 
 export default SumPillBannerParagraph

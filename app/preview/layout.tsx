@@ -2,8 +2,8 @@ import {isPreviewMode} from "@lib/drupal/is-preview-mode"
 import Editori11y from "@components/tools/editorially"
 import UnpublishedBanner from "@components/elements/unpublished-banner"
 
-const Layout = ({children}: {children: React.ReactNode}) => {
-  const inPreview = isPreviewMode()
+const Layout = async ({children}: {children: React.ReactNode}) => {
+  const inPreview = await isPreviewMode()
   return (
     <>
       {inPreview && (

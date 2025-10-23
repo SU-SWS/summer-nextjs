@@ -36,7 +36,7 @@ const Paragraph = async ({paragraph}: Props) => {
   )
 }
 const ParagraphComponent = async ({paragraph}: Props) => {
-  const previewMode = isPreviewMode()
+  const previewMode = await isPreviewMode()
 
   const itemProps: Record<string, string> = {}
   if (previewMode) {

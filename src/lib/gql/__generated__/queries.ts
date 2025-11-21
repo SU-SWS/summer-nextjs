@@ -29,6 +29,37 @@ export const FragmentNameTypeFragmentDoc = gql`
   credentials
 }
     `;
+export const FragmentMediaInterfaceFragmentDoc = gql`
+    fragment FragmentMediaInterface on MediaInterface {
+  __typename
+  uuid
+  name
+}
+    `;
+export const FragmentMediaEmbeddableFragmentDoc = gql`
+    fragment FragmentMediaEmbeddable on MediaEmbeddable {
+  ...FragmentMediaInterface
+  mediaEmbeddableCode
+  mediaEmbeddableOembed
+}
+    ${FragmentMediaInterfaceFragmentDoc}`;
+export const FragmentMediaVideoFragmentDoc = gql`
+    fragment FragmentMediaVideo on MediaVideo {
+  ...FragmentMediaInterface
+  mediaOembedVideo
+}
+    ${FragmentMediaInterfaceFragmentDoc}`;
+export const FragmentMediaImageFragmentDoc = gql`
+    fragment FragmentMediaImage on MediaImage {
+  ...FragmentMediaInterface
+  mediaImage {
+    url
+    alt
+    height
+    width
+  }
+}
+    ${FragmentMediaInterfaceFragmentDoc}`;
 export const FragmentDateTimeFragmentDoc = gql`
     fragment FragmentDateTime on DateTime {
   timezone
@@ -50,11 +81,6 @@ export const FragmentNodeInterfaceFragmentDoc = gql`
   }
 }
     ${FragmentDateTimeFragmentDoc}`;
-export const FragmentTextSummaryFragmentDoc = gql`
-    fragment FragmentTextSummary on TextSummary {
-  processed
-}
-    `;
 export const FragmentTermInterfaceFragmentDoc = gql`
     fragment FragmentTermInterface on TermInterface {
   __typename
@@ -69,9 +95,83 @@ export const FragmentTermInterfaceFragmentDoc = gql`
   }
 }
     `;
+export const FragmentNodeStanfordMediaFragmentDoc = gql`
+    fragment FragmentNodeStanfordMedia on NodeStanfordMedia {
+  body {
+    processed
+  }
+  suMediaAudioVideo {
+    ...FragmentMediaEmbeddable
+    ...FragmentMediaVideo
+  }
+  suMediaDate {
+    time
+    timezone
+  }
+  suMediaDek
+  suMediaDuration
+  suMediaEpisode
+  suMediaImage {
+    ...FragmentMediaImage
+  }
+  suMediaPerson {
+    ...FragmentNodeInterface
+    suPersonShortTitle
+  }
+  suMediaSeason
+  suMediaSeries
+  suMediaSource {
+    url
+  }
+  suMediaTranscript {
+    processed
+  }
+  suMediaTypes {
+    ...FragmentTermInterface
+  }
+}
+    ${FragmentMediaEmbeddableFragmentDoc}
+${FragmentMediaVideoFragmentDoc}
+${FragmentMediaImageFragmentDoc}
+${FragmentNodeInterfaceFragmentDoc}
+${FragmentTermInterfaceFragmentDoc}`;
+export const FragmentMetaTagFragmentDoc = gql`
+    fragment FragmentMetaTag on MetaTagUnion {
+  ... on MetaTagValue {
+    __typename
+    tag
+    attributes {
+      name
+      content
+    }
+  }
+  ... on MetaTagProperty {
+    __typename
+    tag
+    attributes {
+      property
+      content
+    }
+  }
+}
+    `;
+export const FragmentNodePageFragmentDoc = gql`
+    fragment FragmentNodePage on NodeInterface {
+  ...FragmentNodeInterface
+  status
+  metatag {
+    ...FragmentMetaTag
+  }
+}
+    ${FragmentNodeInterfaceFragmentDoc}
+${FragmentMetaTagFragmentDoc}`;
+export const FragmentTextSummaryFragmentDoc = gql`
+    fragment FragmentTextSummary on TextSummary {
+  processed
+}
+    `;
 export const FragmentNodeStanfordCourseFragmentDoc = gql`
     fragment FragmentNodeStanfordCourse on NodeStanfordCourse {
-  ...FragmentNodeInterface
   body {
     ...FragmentTextSummary
   }
@@ -94,8 +194,7 @@ export const FragmentNodeStanfordCourseFragmentDoc = gql`
     ...FragmentTermInterface
   }
 }
-    ${FragmentNodeInterfaceFragmentDoc}
-${FragmentTextSummaryFragmentDoc}
+    ${FragmentTextSummaryFragmentDoc}
 ${FragmentTermInterfaceFragmentDoc}`;
 export const FragmentParagraphInterfaceFragmentDoc = gql`
     fragment FragmentParagraphInterface on ParagraphInterface {
@@ -120,24 +219,6 @@ export const FragmentParagraphStanfordAccordionFragmentDoc = gql`
 }
     ${FragmentParagraphInterfaceFragmentDoc}
 ${FragmentTextFragmentDoc}`;
-export const FragmentMediaInterfaceFragmentDoc = gql`
-    fragment FragmentMediaInterface on MediaInterface {
-  __typename
-  uuid
-  name
-}
-    `;
-export const FragmentMediaImageFragmentDoc = gql`
-    fragment FragmentMediaImage on MediaImage {
-  ...FragmentMediaInterface
-  mediaImage {
-    url
-    alt
-    height
-    width
-  }
-}
-    ${FragmentMediaInterfaceFragmentDoc}`;
 export const FragmentParagraphStanfordBannerFragmentDoc = gql`
     fragment FragmentParagraphStanfordBanner on ParagraphStanfordBanner {
   ...FragmentParagraphInterface
@@ -157,13 +238,6 @@ export const FragmentParagraphStanfordBannerFragmentDoc = gql`
     ${FragmentParagraphInterfaceFragmentDoc}
 ${FragmentTextFragmentDoc}
 ${FragmentMediaImageFragmentDoc}`;
-export const FragmentMediaEmbeddableFragmentDoc = gql`
-    fragment FragmentMediaEmbeddable on MediaEmbeddable {
-  ...FragmentMediaInterface
-  mediaEmbeddableCode
-  mediaEmbeddableOembed
-}
-    ${FragmentMediaInterfaceFragmentDoc}`;
 export const FragmentMediaFileFragmentDoc = gql`
     fragment FragmentMediaFile on MediaFile {
   ...FragmentMediaInterface
@@ -189,12 +263,6 @@ export const FragmentMediaStanfordGalleryImageFragmentDoc = gql`
     height
     width
   }
-}
-    ${FragmentMediaInterfaceFragmentDoc}`;
-export const FragmentMediaVideoFragmentDoc = gql`
-    fragment FragmentMediaVideo on MediaVideo {
-  ...FragmentMediaInterface
-  mediaOembedVideo
 }
     ${FragmentMediaInterfaceFragmentDoc}`;
 export const FragmentMediaUnionFragmentDoc = gql`
@@ -251,6 +319,33 @@ export const FragmentParagraphStanfordEntityFragmentDoc = gql`
 }
     ${FragmentParagraphInterfaceFragmentDoc}
 ${FragmentTextFragmentDoc}`;
+export const FragmentParagraphStanfordFaqFragmentDoc = gql`
+    fragment FragmentParagraphStanfordFaq on ParagraphStanfordFaq {
+  suFaqHeadline
+  suFaqDescription {
+    processed
+  }
+  suFaqQuestions {
+    ...FragmentParagraphInterface
+    ...FragmentParagraphStanfordAccordion
+  }
+}
+    ${FragmentParagraphInterfaceFragmentDoc}
+${FragmentParagraphStanfordAccordionFragmentDoc}`;
+export const FragmentParagraphStanfordFilteredListFragmentDoc = gql`
+    fragment FragmentParagraphStanfordFilteredList on ParagraphStanfordFilteredList {
+  suListHeadline
+  suListDescription {
+    ...FragmentText
+  }
+  suFilteredListView {
+    view
+    display
+    contextualFilter
+    pageSize
+  }
+}
+    ${FragmentTextFragmentDoc}`;
 export const FragmentParagraphStanfordGalleryFragmentDoc = gql`
     fragment FragmentParagraphStanfordGallery on ParagraphStanfordGallery {
   ...FragmentParagraphInterface
@@ -572,7 +667,6 @@ export const FragmentParagraphStanfordPageTitleBannerFragmentDoc = gql`
 ${FragmentMediaImageFragmentDoc}`;
 export const FragmentNodeStanfordPageTeaserFragmentDoc = gql`
     fragment FragmentNodeStanfordPageTeaser on NodeStanfordPage {
-  ...FragmentNodeInterface
   suPageDescription
   suPageImage {
     ...FragmentMediaImage
@@ -583,8 +677,7 @@ export const FragmentNodeStanfordPageTeaserFragmentDoc = gql`
     ...FragmentParagraphSumArcBanner
   }
 }
-    ${FragmentNodeInterfaceFragmentDoc}
-${FragmentMediaImageFragmentDoc}
+    ${FragmentMediaImageFragmentDoc}
 ${FragmentParagraphSumTopBannerFragmentDoc}
 ${FragmentParagraphStanfordPageTitleBannerFragmentDoc}
 ${FragmentParagraphSumArcBannerFragmentDoc}`;
@@ -799,6 +892,8 @@ export const FragmentParagraphUnionFragmentDoc = gql`
   ...FragmentParagraphStanfordBanner
   ...FragmentParagraphStanfordCard
   ...FragmentParagraphStanfordEntity
+  ...FragmentParagraphStanfordFaq
+  ...FragmentParagraphStanfordFilteredList
   ...FragmentParagraphStanfordGallery
   ...FragmentParagraphStanfordLayout
   ...FragmentParagraphStanfordList
@@ -822,6 +917,8 @@ ${FragmentParagraphStanfordAccordionFragmentDoc}
 ${FragmentParagraphStanfordBannerFragmentDoc}
 ${FragmentParagraphStanfordCardFragmentDoc}
 ${FragmentParagraphStanfordEntityFragmentDoc}
+${FragmentParagraphStanfordFaqFragmentDoc}
+${FragmentParagraphStanfordFilteredListFragmentDoc}
 ${FragmentParagraphStanfordGalleryFragmentDoc}
 ${FragmentParagraphStanfordLayoutFragmentDoc}
 ${FragmentParagraphStanfordListFragmentDoc}
@@ -882,7 +979,6 @@ ${FragmentAddressTypeFragmentDoc}
 ${FragmentParagraphStanfordPersonCtumFragmentDoc}`;
 export const FragmentNodeStanfordEventFragmentDoc = gql`
     fragment FragmentNodeStanfordEvent on NodeStanfordEvent {
-  ...FragmentNodeInterface
   body {
     ...FragmentTextSummary
   }
@@ -933,8 +1029,7 @@ export const FragmentNodeStanfordEventFragmentDoc = gql`
     ...FragmentTermInterface
   }
 }
-    ${FragmentNodeInterfaceFragmentDoc}
-${FragmentTextSummaryFragmentDoc}
+    ${FragmentTextSummaryFragmentDoc}
 ${FragmentTermInterfaceFragmentDoc}
 ${FragmentParagraphUnionFragmentDoc}
 ${FragmentSmartDateTypeFragmentDoc}
@@ -942,7 +1037,6 @@ ${FragmentAddressTypeFragmentDoc}
 ${FragmentParagraphStanfordScheduleFragmentDoc}`;
 export const FragmentNodeStanfordEventSeriesFragmentDoc = gql`
     fragment FragmentNodeStanfordEventSeries on NodeStanfordEventSeries {
-  ...FragmentNodeInterface
   suEventSeriesComponents {
     ...FragmentParagraphUnion
   }
@@ -955,13 +1049,11 @@ export const FragmentNodeStanfordEventSeriesFragmentDoc = gql`
     ...FragmentTermInterface
   }
 }
-    ${FragmentNodeInterfaceFragmentDoc}
-${FragmentParagraphUnionFragmentDoc}
+    ${FragmentParagraphUnionFragmentDoc}
 ${FragmentNodeStanfordEventTeaserFragmentDoc}
 ${FragmentTermInterfaceFragmentDoc}`;
 export const FragmentNodeStanfordNewsFragmentDoc = gql`
     fragment FragmentNodeStanfordNews on NodeStanfordNews {
-  ...FragmentNodeInterface
   suNewsBanner {
     ...FragmentMediaUnion
   }
@@ -986,14 +1078,12 @@ export const FragmentNodeStanfordNewsFragmentDoc = gql`
     ...FragmentTermInterface
   }
 }
-    ${FragmentNodeInterfaceFragmentDoc}
-${FragmentMediaUnionFragmentDoc}
+    ${FragmentMediaUnionFragmentDoc}
 ${FragmentParagraphUnionFragmentDoc}
 ${FragmentDateTimeFragmentDoc}
 ${FragmentTermInterfaceFragmentDoc}`;
 export const FragmentNodeStanfordPageFragmentDoc = gql`
     fragment FragmentNodeStanfordPage on NodeStanfordPage {
-  ...FragmentNodeInterface
   layoutSelection {
     id
   }
@@ -1013,8 +1103,7 @@ export const FragmentNodeStanfordPageFragmentDoc = gql`
     ...FragmentMediaUnion
   }
 }
-    ${FragmentNodeInterfaceFragmentDoc}
-${FragmentTermInterfaceFragmentDoc}
+    ${FragmentTermInterfaceFragmentDoc}
 ${FragmentParagraphSumTopBannerFragmentDoc}
 ${FragmentParagraphStanfordPageTitleBannerFragmentDoc}
 ${FragmentParagraphSumArcBannerFragmentDoc}
@@ -1022,7 +1111,6 @@ ${FragmentParagraphUnionFragmentDoc}
 ${FragmentMediaUnionFragmentDoc}`;
 export const FragmentNodeStanfordPersonFragmentDoc = gql`
     fragment FragmentNodeStanfordPerson on NodeStanfordPerson {
-  ...FragmentNodeInterface
   body {
     ...FragmentTextSummary
   }
@@ -1076,8 +1164,7 @@ export const FragmentNodeStanfordPersonFragmentDoc = gql`
     ...FragmentTermInterface
   }
 }
-    ${FragmentNodeInterfaceFragmentDoc}
-${FragmentTextSummaryFragmentDoc}
+    ${FragmentTextSummaryFragmentDoc}
 ${FragmentParagraphUnionFragmentDoc}
 ${FragmentTextFragmentDoc}
 ${FragmentMediaImageFragmentDoc}
@@ -1096,7 +1183,6 @@ export const FragmentSuPolicyLogFragmentDoc = gql`
     ${FragmentDateTimeFragmentDoc}`;
 export const FragmentNodeStanfordPolicyFragmentDoc = gql`
     fragment FragmentNodeStanfordPolicy on NodeStanfordPolicy {
-  ...FragmentNodeInterface
   body {
     ...FragmentTextSummary
   }
@@ -1158,8 +1244,7 @@ export const FragmentNodeStanfordPolicyFragmentDoc = gql`
     }
   }
 }
-    ${FragmentNodeInterfaceFragmentDoc}
-${FragmentTextSummaryFragmentDoc}
+    ${FragmentTextSummaryFragmentDoc}
 ${FragmentSuPolicyLogFragmentDoc}
 ${FragmentDateTimeFragmentDoc}`;
 export const FragmentNodeStanfordPublicationFragmentDoc = gql`
@@ -1252,7 +1337,6 @@ ${FragmentMediaImageFragmentDoc}
 ${FragmentTermInterfaceFragmentDoc}`;
 export const FragmentNodeSumSummerCourseFragmentDoc = gql`
     fragment FragmentNodeSumSummerCourse on NodeSumSummerCourse {
-  ...FragmentNodeInterface
   sumCourseAvailability {
     ...FragmentTermInterface
   }
@@ -1298,15 +1382,14 @@ export const FragmentNodeSumSummerCourseFragmentDoc = gql`
     ...FragmentTermInterface
   }
 }
-    ${FragmentNodeInterfaceFragmentDoc}
-${FragmentTermInterfaceFragmentDoc}
+    ${FragmentTermInterfaceFragmentDoc}
 ${FragmentTextFragmentDoc}
 ${FragmentDateTimeFragmentDoc}
 ${FragmentMediaImageFragmentDoc}
 ${FragmentMediaFileFragmentDoc}`;
 export const FragmentNodeUnionFragmentDoc = gql`
     fragment FragmentNodeUnion on NodeUnion {
-  ...FragmentNodeInterface
+  ...FragmentNodePage
   ...FragmentNodeStanfordCourse
   ...FragmentNodeStanfordEvent
   ...FragmentNodeStanfordEventSeries
@@ -1318,7 +1401,7 @@ export const FragmentNodeUnionFragmentDoc = gql`
   ...FragmentNodeStanfordOpportunity
   ...FragmentNodeSumSummerCourse
 }
-    ${FragmentNodeInterfaceFragmentDoc}
+    ${FragmentNodePageFragmentDoc}
 ${FragmentNodeStanfordCourseFragmentDoc}
 ${FragmentNodeStanfordEventFragmentDoc}
 ${FragmentNodeStanfordEventSeriesFragmentDoc}
@@ -1329,6 +1412,36 @@ ${FragmentNodeStanfordPolicyFragmentDoc}
 ${FragmentNodeStanfordPublicationFragmentDoc}
 ${FragmentNodeStanfordOpportunityFragmentDoc}
 ${FragmentNodeSumSummerCourseFragmentDoc}`;
+export const FragmentNodeStanfordMediaTeaserFragmentDoc = gql`
+    fragment FragmentNodeStanfordMediaTeaser on NodeStanfordMedia {
+  body {
+    processed
+  }
+  suMediaDate {
+    time
+  }
+  suMediaDek
+  suMediaDuration
+  suMediaEpisode
+  suMediaImage {
+    ...FragmentMediaImage
+  }
+  suMediaPerson {
+    ...FragmentNodeInterface
+    suPersonShortTitle
+  }
+  suMediaSeason
+  suMediaSeries
+  suMediaSource {
+    url
+  }
+  suMediaTypes {
+    ...FragmentTermInterface
+  }
+}
+    ${FragmentMediaImageFragmentDoc}
+${FragmentNodeInterfaceFragmentDoc}
+${FragmentTermInterfaceFragmentDoc}`;
 export const FragmentMenuLinkFragmentDoc = gql`
     fragment FragmentMenuLink on MenuItem {
   url
@@ -1912,6 +2025,25 @@ export const StanfordEventsPastEventsDocument = gql`
     ${FragmentViewFragmentDoc}
 ${FragmentNodeInterfaceFragmentDoc}
 ${FragmentNodeStanfordEventTeaserFragmentDoc}`;
+export const StanfordMediaDocument = gql`
+    query stanfordMedia($contextualFilters: StanfordMediaContextualFilterInput, $filter: StanfordMediaFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
+  stanfordMedia(
+    contextualFilter: $contextualFilters
+    filter: $filter
+    pageSize: $pageSize
+    page: $page
+    offset: $offset
+  ) {
+    ...FragmentView
+    results {
+      ...FragmentNodeInterface
+      ...FragmentNodeStanfordMediaTeaser
+    }
+  }
+}
+    ${FragmentViewFragmentDoc}
+${FragmentNodeInterfaceFragmentDoc}
+${FragmentNodeStanfordMediaTeaserFragmentDoc}`;
 export const StanfordNewsDocument = gql`
     query stanfordNews($contextualFilters: StanfordNewsContextualFilterInput, $filter: StanfordNewsFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
   stanfordNews(
@@ -2118,6 +2250,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     stanfordEventsPastEvents(variables?: DrupalTypes.StanfordEventsPastEventsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.StanfordEventsPastEventsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.StanfordEventsPastEventsQuery>({ document: StanfordEventsPastEventsDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'stanfordEventsPastEvents', 'query', variables);
+    },
+    stanfordMedia(variables?: DrupalTypes.StanfordMediaQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.StanfordMediaQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.StanfordMediaQuery>({ document: StanfordMediaDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'stanfordMedia', 'query', variables);
     },
     stanfordNews(variables?: DrupalTypes.StanfordNewsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.StanfordNewsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.StanfordNewsQuery>({ document: StanfordNewsDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'stanfordNews', 'query', variables);

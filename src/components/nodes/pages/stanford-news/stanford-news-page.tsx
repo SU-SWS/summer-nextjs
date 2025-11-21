@@ -6,7 +6,10 @@ import {H1} from "@components/elements/headers"
 import {HtmlHTMLAttributes} from "react"
 import {NodeStanfordNews} from "@lib/gql/__generated__/drupal.d"
 import ReverseVisualOrder from "@components/elements/reverse-visual-order"
-import StanfordNewsMetadata from "@components/nodes/pages/stanford-news/stanford-news-metadata"
+import NodePageMetadata from "@components/nodes/pages/node-page-metadata"
+import {getFirstText} from "@lib/utils/text-tools"
+import Wysiwyg from "@components/elements/wysiwyg"
+import StanfordNewsSpotlightPage from "@components/nodes/pages/stanford-news/stanford-news-spotlight-page"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordNews
@@ -14,6 +17,8 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 }
 
 const StanfordNewsPage = ({node, ...props}: Props) => {
+  if (node.layoutSelection?.id === "news_spotlight") return <StanfordNewsSpotlightPage node={node} {...props} />
+
   if (node.suNewsSource?.url) redirect(node.suNewsSource.url)
 
   const publishDate = node.suNewsPublishingDate
@@ -36,7 +41,11 @@ const StanfordNewsPage = ({node, ...props}: Props) => {
 
   return (
     <article className="centered mt-32" {...props}>
-      <StanfordNewsMetadata node={node} />
+      <NodePageMetadata
+        pageTitle={node.title}
+        metatags={node.metatag}
+        backupDescription={node.suNewsDek || getFirstText(node.suNewsComponents)}
+      />
       <div className="mx-auto mb-48 lg:w-10/12">
         <ReverseVisualOrder>
           <H1>{node.title}</H1>
@@ -76,6 +85,7 @@ const StanfordNewsPage = ({node, ...props}: Props) => {
         </figure>
       )}
 
+      <Wysiwyg html={node.body?.processed} className="centered mb-32 xl:max-w-[980px]" />
       <Rows components={node.suNewsComponents} className="mx-auto lg:w-8/12" />
     </article>
   )

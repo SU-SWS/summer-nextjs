@@ -20,6 +20,7 @@ import SumAtAGlanceParagraph from "@components/paragraphs/sum-at-a-glance/at-a-g
 import SumPillBannerParagraph from "@components/paragraphs/sum-pill-banner/sum-pill-banner-paragraph"
 import SumTestimonialBannerParagraph from "@components/paragraphs/sum-testimonial-banner/sum-testimonial-banner-paragraph"
 import UnpublishedBanner from "@components/elements/unpublished-banner"
+import FilteredListParagraph from "@components/paragraphs/stanford-filtered-lists/filtered-list-paragraph"
 
 type Props = {
   /**
@@ -63,6 +64,12 @@ const ParagraphComponent = async ({paragraph}: Props) => {
       return (
         <Suspense>
           <ListParagraph paragraph={paragraph} {...itemProps} />
+        </Suspense>
+      )
+    case "ParagraphStanfordFilteredList":
+      return (
+        <Suspense>
+          <FilteredListParagraph paragraph={paragraph} {...itemProps} />
         </Suspense>
       )
     case "ParagraphSumCalculator":

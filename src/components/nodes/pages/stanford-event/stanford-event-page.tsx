@@ -13,7 +13,8 @@ import Email from "@components/elements/email"
 import Telephone from "@components/elements/telephone"
 import Link from "@components/elements/link"
 import ReverseVisualOrder from "@components/elements/reverse-visual-order"
-import StanfordEventMetadata from "@components/nodes/pages/stanford-event/stanford-event-metadata"
+import NodePageMetadata from "@components/nodes/pages/node-page-metadata"
+import {getCleanDescription} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordEvent
@@ -29,7 +30,11 @@ const StanfordEventPage = ({node, ...props}: Props) => {
 
   return (
     <article className="centered mt-32 flex flex-col gap-20" {...props}>
-      <StanfordEventMetadata node={node} />
+      <NodePageMetadata
+        pageTitle={node.title}
+        metatags={node.metatag}
+        backupDescription={node.suEventSubheadline || getCleanDescription(node.body?.processed)}
+      />
       <ReverseVisualOrder>
         <H1>{node.title}</H1>
 

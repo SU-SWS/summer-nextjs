@@ -1,3 +1,5 @@
+"use cache"
+
 import {
   AllNodesQuery,
   AllNodesQueryVariables,
@@ -250,7 +252,7 @@ export const getTermFilterGroups = async (vocab: FilterVocabs): Promise<Array<Fi
       options: filterTerms
         .filter(term => term.parent?.uuid === groupTerm.uuid)
         .map(term => ({
-          value: term.uuid,
+          value: term.id,
           label: term.name,
         })),
     })

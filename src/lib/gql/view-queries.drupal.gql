@@ -51,15 +51,15 @@ query stanfordEventsPastEvents($contextualFilters: StanfordEventsPastEventsConte
   }
 }
 
-#query stanfordMedia($contextualFilters: StanfordMediaContextualFilterInput, $filter: StanfordMediaFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
-#  stanfordMedia(contextualFilter: $contextualFilters, filter: $filter, pageSize: $pageSize, page: $page, offset: $offset) {
-#    ...FragmentView
-#    results {
-#      ...FragmentNodeInterface
-#      ...FragmentNodeStanfordMediaTeaser
-#    }
-#  }
-#}
+query stanfordMedia($contextualFilters: StanfordMediaContextualFilterInput, $filter: StanfordMediaFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
+  stanfordMedia(contextualFilter: $contextualFilters, filter: $filter, pageSize: $pageSize, page: $page, offset: $offset) {
+    ...FragmentView
+    results {
+      ...FragmentNodeInterface
+      ...FragmentNodeStanfordMediaTeaser
+    }
+  }
+}
 
 query stanfordNews($contextualFilters: StanfordNewsContextualFilterInput, $filter: StanfordNewsFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
   stanfordNews(contextualFilter: $contextualFilters, filter: $filter pageSize: $pageSize, page: $page, offset: $offset) {

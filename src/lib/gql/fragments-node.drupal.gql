@@ -12,8 +12,15 @@ fragment FragmentNodeInterface on NodeInterface {
   }
 }
 
-fragment FragmentNodeSumSummerCourse on NodeSumSummerCourse {
+fragment FragmentNodePage on NodeInterface {
   ...FragmentNodeInterface
+  status
+  metatag {
+    ...FragmentMetaTag
+  }
+}
+
+fragment FragmentNodeSumSummerCourse on NodeSumSummerCourse {
   sumCourseAvailability {
     ...FragmentTermInterface
   }
@@ -61,7 +68,6 @@ fragment FragmentNodeSumSummerCourse on NodeSumSummerCourse {
 }
 
 fragment FragmentNodeStanfordPage on NodeStanfordPage {
-  ...FragmentNodeInterface
   layoutSelection {
     id
   }
@@ -83,7 +89,6 @@ fragment FragmentNodeStanfordPage on NodeStanfordPage {
 }
 
 fragment FragmentNodeStanfordCourse on NodeStanfordCourse {
-  ...FragmentNodeInterface
   body {
     ...FragmentTextSummary
   }
@@ -108,7 +113,6 @@ fragment FragmentNodeStanfordCourse on NodeStanfordCourse {
 }
 
 fragment FragmentNodeStanfordEvent on NodeStanfordEvent {
-  ...FragmentNodeInterface
   body {
     ...FragmentTextSummary
   }
@@ -161,7 +165,6 @@ fragment FragmentNodeStanfordEvent on NodeStanfordEvent {
 }
 
 fragment FragmentNodeStanfordEventSeries on NodeStanfordEventSeries {
-  ...FragmentNodeInterface
   suEventSeriesComponents {
     ...FragmentParagraphUnion
   }
@@ -175,8 +178,42 @@ fragment FragmentNodeStanfordEventSeries on NodeStanfordEventSeries {
   }
 }
 
+fragment FragmentNodeStanfordMedia on NodeStanfordMedia {
+  body {
+    processed
+  }
+  suMediaAudioVideo {
+    ...FragmentMediaEmbeddable
+    ...FragmentMediaVideo
+  }
+  suMediaDate {
+    time
+    timezone
+  }
+  suMediaDek
+  suMediaDuration
+  suMediaEpisode
+  suMediaImage {
+    ...FragmentMediaImage
+  }
+  suMediaPerson {
+    ...FragmentNodeInterface
+    suPersonShortTitle
+  }
+  suMediaSeason
+  suMediaSeries
+  suMediaSource {
+    url
+  }
+  suMediaTranscript {
+    processed
+  }
+  suMediaTypes {
+    ...FragmentTermInterface
+  }
+}
+
 fragment FragmentNodeStanfordNews on NodeStanfordNews {
-  ...FragmentNodeInterface
   suNewsBanner {
     ...FragmentMediaUnion
   }
@@ -203,7 +240,6 @@ fragment FragmentNodeStanfordNews on NodeStanfordNews {
 }
 
 fragment FragmentNodeStanfordPerson on NodeStanfordPerson {
-  ...FragmentNodeInterface
   body {
     ...FragmentTextSummary
   }
@@ -259,7 +295,6 @@ fragment FragmentNodeStanfordPerson on NodeStanfordPerson {
 }
 
 fragment FragmentNodeStanfordPolicy on NodeStanfordPolicy {
-  ...FragmentNodeInterface
   body {
     ...FragmentTextSummary
   }
@@ -399,7 +434,7 @@ fragment FragmentNodeStanfordOpportunity on NodeStanfordOpportunity {
 }
 
 fragment FragmentNodeUnion on NodeUnion {
-  ...FragmentNodeInterface
+  ...FragmentNodePage
   ...FragmentNodeStanfordCourse
   ...FragmentNodeStanfordEvent
   ...FragmentNodeStanfordEventSeries
@@ -450,6 +485,33 @@ fragment FragmentNodeStanfordEventSeriesTeaser on NodeStanfordEventSeries {
   suEventSeriesDek
 }
 
+fragment FragmentNodeStanfordMediaTeaser on NodeStanfordMedia {
+  body {
+    processed
+  }
+  suMediaDate {
+    time
+  }
+  suMediaDek
+  suMediaDuration
+  suMediaEpisode
+  suMediaImage {
+    ...FragmentMediaImage
+  }
+  suMediaPerson {
+    ...FragmentNodeInterface
+    suPersonShortTitle
+  }
+  suMediaSeason
+  suMediaSeries
+  suMediaSource {
+    url
+  }
+  suMediaTypes {
+    ...FragmentTermInterface
+  }
+}
+
 fragment FragmentNodeStanfordNewsTeaser on NodeStanfordNews {
   ...FragmentNodeInterface
   suNewsDek
@@ -469,7 +531,6 @@ fragment FragmentNodeStanfordNewsTeaser on NodeStanfordNews {
 }
 
 fragment FragmentNodeStanfordPageTeaser on NodeStanfordPage {
-  ...FragmentNodeInterface
   suPageDescription
   suPageImage {
     ...FragmentMediaImage

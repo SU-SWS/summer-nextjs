@@ -35,7 +35,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
     <CardWrapper
       {...props}
       className={twMerge(
-        "rs-mb-5 centered w-full rounded-[25px] lg:mb-0 lg:max-w-[920px] lg:border-4 lg:border-white xl:max-w-[980px]",
+        "rs-mb-5 centered relative w-full rounded-[25px] lg:mb-0 lg:max-w-[920px] lg:border-4 lg:border-white xl:max-w-[980px]",
         clsx({"bg-transparent": hasBgColor, "bg-fog-light": !hasBgColor}, props.className)
       )}
     >

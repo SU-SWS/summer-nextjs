@@ -63,6 +63,30 @@ fragment FragmentParagraphStanfordEntity on ParagraphStanfordEntity {
   }
 }
 
+fragment FragmentParagraphStanfordFaq on ParagraphStanfordFaq {
+  suFaqHeadline
+  suFaqDescription {
+    processed
+  }
+  suFaqQuestions {
+    ...FragmentParagraphInterface
+    ...FragmentParagraphStanfordAccordion
+  }
+}
+
+fragment FragmentParagraphStanfordFilteredList on ParagraphStanfordFilteredList {
+  suListHeadline
+  suListDescription {
+    ...FragmentText
+  }
+  suFilteredListView {
+    view
+    display
+    contextualFilter
+    pageSize
+  }
+}
+
 fragment FragmentParagraphStanfordGallery on ParagraphStanfordGallery {
   ...FragmentParagraphInterface
   suGalleryHeadline
@@ -372,6 +396,8 @@ fragment FragmentParagraphUnion on ParagraphUnion {
   ...FragmentParagraphStanfordBanner
   ...FragmentParagraphStanfordCard
   ...FragmentParagraphStanfordEntity
+  ...FragmentParagraphStanfordFaq
+  ...FragmentParagraphStanfordFilteredList
   ...FragmentParagraphStanfordGallery
   ...FragmentParagraphStanfordLayout
   ...FragmentParagraphStanfordList

@@ -39,7 +39,7 @@ const SocialIcons = ({...props}) => {
         <span className="sr-only">LinkedIn</span>
       </a>
       <a
-        href={`mailto:?subject=${document.title}&body=${path}`}
+        href={`mailto:?subject=${encodeURIComponent(document.title)}&body=${path}`}
         className="text-black transition hocus:text-digital-blue"
       >
         <EnvelopeIcon width={30} />

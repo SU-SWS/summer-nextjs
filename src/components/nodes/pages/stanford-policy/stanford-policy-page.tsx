@@ -3,7 +3,7 @@ import StanfordPolicyCard from "@components/nodes/cards/stanford-policy/stanford
 import StringWithLines from "@components/elements/string-with-lines"
 import {HtmlHTMLAttributes, Suspense} from "react"
 import {H1, H2, H3} from "@components/elements/headers"
-import {BookLink, Maybe, NodeStanfordPolicy} from "@lib/gql/__generated__/drupal.d"
+import {BookLink, NodeInterface, NodeStanfordPolicy} from "@lib/gql/__generated__/drupal.d"
 import {getEntityFromPath} from "@lib/gql/gql-queries"
 import {ImageCardSkeleton} from "@components/patterns/image-card"
 import InteriorPage from "@components/layouts/interior-page"
@@ -11,7 +11,9 @@ import Button from "@components/elements/button"
 import {ChevronLeftIcon} from "@heroicons/react/16/solid"
 import {ChevronRightIcon} from "@heroicons/react/20/solid"
 import StanfordPolicyListItem from "@components/nodes/list-item/stanford-policy/stanford-policy-list-item"
-import StanfordPolicyMetadata from "@components/nodes/pages/stanford-policy/stanford-policy-metadata"
+import NodePageMetadata from "@components/nodes/pages/node-page-metadata"
+import {getCleanDescription} from "@lib/utils/text-tools"
+import {redirect} from "next/navigation"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordPolicy
@@ -19,6 +21,8 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 }
 
 const StanfordPolicyPage = async ({node, ...props}: Props) => {
+  if (node.suPolicySource?.url) redirect(node.suPolicySource.url)
+
   const changeLog = node.suPolicyChangelog?.filter(change => change.suPolicyPublic) || []
 
   const flattenedMenu: BookLink[] = []
@@ -35,7 +39,11 @@ const StanfordPolicyPage = async ({node, ...props}: Props) => {
 
   return (
     <article className="centered pt-32" {...props}>
-      <StanfordPolicyMetadata node={node} />
+      <NodePageMetadata
+        pageTitle={node.title}
+        metatags={node.metatag}
+        backupDescription={getCleanDescription(node.body?.processed)}
+      />
       <div className="flex gap-5">
         <H1 className="flex-grow">{node.title}</H1>
         <div className="flex h-fit gap-5">
@@ -130,7 +138,7 @@ const StanfordPolicyPage = async ({node, ...props}: Props) => {
             {node.suPolicyRelated.map(policy => (
               <li key={policy.uuid}>
                 <Suspense fallback={<ImageCardSkeleton />}>
-                  <RelatedPolicy path={policy.path || "#"} />
+                  <RelatedPolicy path={policy.path} />
                 </Suspense>
               </li>
             ))}
@@ -162,7 +170,7 @@ const ChildPages = ({bookItems, currentPath}: {bookItems: Array<BookLink>; curre
   )
 }
 
-const ChildTeaser = async ({path}: {path: Maybe<string> | undefined}) => {
+const ChildTeaser = async ({path}: {path: NodeInterface["path"]}) => {
   if (!path) return
   const queryResponse = await getEntityFromPath<NodeStanfordPolicy>(path, false, true)
   if (!queryResponse.entity) return
@@ -174,7 +182,8 @@ const ChildTeaser = async ({path}: {path: Maybe<string> | undefined}) => {
   )
 }
 
-const RelatedPolicy = async ({path}: {path: string}) => {
+const RelatedPolicy = async ({path}: {path: NodeInterface["path"]}) => {
+  if (!path) return
   const queryResponse = await getEntityFromPath<NodeStanfordPolicy>(path, false, true)
   if (!queryResponse.entity) return
   return <StanfordPolicyCard node={queryResponse.entity} headingLevel="h3" />

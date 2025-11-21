@@ -9,12 +9,15 @@ import {
   RouteQuery,
   RouteRedirect,
   StanfordBasicSiteSetting,
+  TermInterface,
 } from "@lib/gql/__generated__/drupal.d"
 import {cache} from "react"
 import {graphqlClient} from "@lib/gql/gql-client"
-import {unstable_cache as nextCache} from "next/cache"
+import {cacheTag, unstable_cache as nextCache} from "next/cache"
 import {ClientError} from "graphql-request"
 import {GraphQLError} from "graphql/error"
+import {FilterGroup} from "@components/views/filtered-list-view/filtered-list-view.client"
+import {FilterVocabs} from "@lib/gql/filter-vocabs"
 
 type DrupalGraphqlError = GraphQLError & {debugMessage: string}
 
@@ -202,3 +205,55 @@ export const getHomePagePath = nextCache(
   [],
   {tags: ["paths:/"]}
 )
+
+export const getFilterTerms = async (vocab: FilterVocabs): Promise<Array<TermInterface>> => {
+  cacheTag(`taxonomy:${vocab}`)
+  switch (vocab) {
+    case FilterVocabs.Courses:
+      return (await graphqlClient().CourseFiltersTerms()).termCourseFilters.nodes as unknown as TermInterface[]
+
+    case FilterVocabs.Events:
+      return (await graphqlClient().EventFiltersTerms()).termEventFilters.nodes as unknown as TermInterface[]
+
+    case FilterVocabs.Media:
+      return (await graphqlClient().MediaContentFiltersTerms()).termMediaContentFilters
+        .nodes as unknown as TermInterface[]
+
+    case FilterVocabs.News:
+      return (await graphqlClient().NewsSpotlightFiltersTerms()).termStanfordNewsSpotlightFilters
+        .nodes as unknown as TermInterface[]
+
+    case FilterVocabs.Opportunities:
+      return (await graphqlClient().OpportunityFiltersTerms()).termOpportunityTagFilters
+        .nodes as unknown as TermInterface[]
+
+    case FilterVocabs.People:
+      return (await graphqlClient().PersonFiltersTerms()).termPersonFilters.nodes as unknown as TermInterface[]
+
+    case FilterVocabs.Publications:
+      return (await graphqlClient().PublicationFiltersTerms()).termPublicationFilters
+        .nodes as unknown as TermInterface[]
+  }
+  return []
+}
+
+export const getTermFilterGroups = async (vocab: FilterVocabs): Promise<Array<FilterGroup>> => {
+  const filterTerms = await getFilterTerms(vocab)
+  const filterGroups = filterTerms
+    .sort((a, b) => a.weight - b.weight)
+    .filter(term => !filterTerms.find(t => t.uuid === term.parent?.uuid))
+
+  const filters: Array<FilterGroup> = []
+  filterGroups.map(groupTerm => {
+    filters.push({
+      label: groupTerm.name,
+      options: filterTerms
+        .filter(term => term.parent?.uuid === groupTerm.uuid)
+        .map(term => ({
+          value: term.uuid,
+          label: term.name,
+        })),
+    })
+  })
+  return filters
+}

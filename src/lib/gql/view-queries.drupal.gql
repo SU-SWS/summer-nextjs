@@ -1,105 +1,123 @@
 # Each of the view queries.
 
 fragment FragmentViewPageInfo on ViewPageInfo {
-    page
-    total
+  page
+  total
+}
+
+fragment FragmentView on View {
+  pageInfo {
+    ...FragmentViewPageInfo
+  }
 }
 
 query stanfordBasicPages($contextualFilters: StanfordBasicPagesContextualFilterInput, $sortKey: StanfordBasicPagesSortKeys, $sortDir: SortDirection $pageSize: Int = 3, $page: Int, $offset: Int) {
-    stanfordBasicPages(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset, sortKey: $sortKey, sortDir: $sortDir) {
-        results {
-            ...FragmentNodeStanfordPageTeaser
-        }
-        pageInfo {
-            ...FragmentViewPageInfo
-        }
+  stanfordBasicPages(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset, sortKey: $sortKey, sortDir: $sortDir) {
+    ...FragmentView
+    results {
+      ...FragmentNodeInterface
+      ...FragmentNodeStanfordPageTeaser
     }
+  }
 }
 
-query stanfordCourses($contextualFilters: StanfordCoursesContextualFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
-    stanfordCourses(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset) {
-        results {
-            ...FragmentNodeStanfordCourse
-        }
-        pageInfo {
-            ...FragmentViewPageInfo
-        }
+query stanfordCourses($contextualFilters: StanfordCoursesContextualFilterInput, $filter: StanfordCoursesFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
+  stanfordCourses(contextualFilter: $contextualFilters, filter: $filter, pageSize: $pageSize, page: $page, offset: $offset) {
+    ...FragmentView
+    results {
+      ...FragmentNodeInterface
+      ...FragmentNodeStanfordCourse
     }
+  }
 }
 
 query stanfordEvents($contextualFilters: StanfordEventsContextualFilterInput, $pageSize: Int, $page: Int = -1, $offset: Int) {
-    stanfordEvents(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset) {
-        results {
-            ...FragmentNodeStanfordEventTeaser
-        }
-        pageInfo {
-            ...FragmentViewPageInfo
-        }
+  stanfordEvents(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset, sortKey: START_TIME) {
+    ...FragmentView
+    results {
+      ...FragmentNodeInterface
+      ...FragmentNodeStanfordEventTeaser
     }
+  }
 }
 
 query stanfordEventsPastEvents($contextualFilters: StanfordEventsPastEventsContextualFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
-    stanfordEventsPastEvents(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset) {
-        results {
-            ...FragmentNodeStanfordEventTeaser
-        }
-        pageInfo {
-            ...FragmentViewPageInfo
-        }
+  stanfordEventsPastEvents(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset, sortKey: START_TIME) {
+    ...FragmentView
+    results {
+      ...FragmentNodeInterface
+      ...FragmentNodeStanfordEventTeaser
     }
+  }
 }
 
-query stanfordNews($contextualFilters: StanfordNewsContextualFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
-    stanfordNews(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset) {
-        results {
-            ...FragmentNodeStanfordNewsTeaser
-        }
-        pageInfo {
-            ...FragmentViewPageInfo
-        }
+#query stanfordMedia($contextualFilters: StanfordMediaContextualFilterInput, $filter: StanfordMediaFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
+#  stanfordMedia(contextualFilter: $contextualFilters, filter: $filter, pageSize: $pageSize, page: $page, offset: $offset) {
+#    ...FragmentView
+#    results {
+#      ...FragmentNodeInterface
+#      ...FragmentNodeStanfordMediaTeaser
+#    }
+#  }
+#}
+
+query stanfordNews($contextualFilters: StanfordNewsContextualFilterInput, $filter: StanfordNewsFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
+  stanfordNews(contextualFilter: $contextualFilters, filter: $filter pageSize: $pageSize, page: $page, offset: $offset) {
+    ...FragmentView
+    results {
+      ...FragmentNodeInterface
+      ...FragmentNodeStanfordNewsTeaser
     }
+  }
 }
 
-query stanfordPerson($contextualFilters: StanfordPersonContextualFilterInput, $pageSize: Int, $page: Int = -1, $offset: Int) {
-    stanfordPerson(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset) {
-        results {
-            ...FragmentNodeStanfordPersonTeaser
-        }
-        pageInfo {
-            ...FragmentViewPageInfo
-        }
+query stanfordOpportunities($contextualFilters: StanfordOpportunitiesContextualFilterInput, $filter: StanfordOpportunitiesFilterInput, $sortKey: StanfordOpportunitiesSortKeys, $pageSize: Int = 3, $page: Int $offset: Int) {
+  stanfordOpportunities(contextualFilter: $contextualFilters, filter: $filter, pageSize: $pageSize, page: $page, offset: $offset, sortKey: $sortKey) {
+    ...FragmentView
+    results {
+      ...FragmentNodeInterface
+      ...FragmentNodeStanfordOpportunityTeaser
     }
+  }
+}
+
+query stanfordPerson($contextualFilters: StanfordPersonContextualFilterInput, $filter: StanfordPersonFilterInput, $pageSize: Int, $page: Int = -1, $offset: Int) {
+  stanfordPerson(contextualFilter: $contextualFilters, filter: $filter, pageSize: $pageSize, page: $page, offset: $offset) {
+    ...FragmentView
+    results {
+      ...FragmentNodeInterface
+      ...FragmentNodeStanfordPersonTeaser
+    }
+  }
 }
 
 query stanfordPublications($contextualFilters: StanfordPublicationsContextualFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
-    stanfordPublications(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset) {
-        results {
-            ...FragmentNodeStanfordPublicationTeaser
-        }
-        pageInfo {
-            ...FragmentViewPageInfo
-        }
+  stanfordPublications(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset) {
+    ...FragmentView
+    results {
+      ...FragmentNodeInterface
+      ...FragmentNodeStanfordPublicationTeaser
     }
+  }
 }
 
 query stanfordSharedTags($contextualFilters: StanfordSharedTagsContextualFilterInput, $pageSize: Int = 3, $page: Int $offset: Int) {
-    stanfordSharedTags(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset) {
-        results {
-            ...FragmentNodeTeaserUnion
-        }
-        pageInfo {
-            ...FragmentViewPageInfo
-        }
+  stanfordSharedTags(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset) {
+    ...FragmentView
+    results {
+      ...FragmentNodeInterface
+      ...FragmentNodeTeaserUnion
     }
+  }
 }
 
 query sumCourses($contextualFilters: SumCoursesContextualFilterInput, $pageSize: Int = 3, $page: Int $offset: Int) {
-    sumCourses(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset) {
-        results {
-            ...FragmentNodeSumSummerCourseTeaser
-        }
-        pageInfo {
-            ...FragmentViewPageInfo
-        }
+  sumCourses(contextualFilter: $contextualFilters, pageSize: $pageSize, page: $page, offset: $offset) {
+    results {
+      ...FragmentNodeSumSummerCourseTeaser
     }
+    pageInfo {
+      ...FragmentViewPageInfo
+    }
+  }
 }

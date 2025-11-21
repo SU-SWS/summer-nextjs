@@ -21,7 +21,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
     <Element
       {...props}
       className={twMerge("centered flex flex-col gap-20 @container", props.className)}
-      aria-labelledby={paragraph.sumAtAGlanceHeadline ? paragraph.id : undefined}
+      aria-labelledby={paragraph.sumAtAGlanceHeadline ? paragraph.uuid : undefined}
     >
       <div className="grid gap-y-10 @6xl:grid-cols-2">
         <div className="mt-auto h-fit">
@@ -44,7 +44,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
             )}
           >
             {paragraph.sumAtAGlanceHeadline && (
-              <H2 id={paragraph.id} className="font-light">
+              <H2 id={paragraph.uuid} className="font-light">
                 {paragraph.sumAtAGlanceHeadline}
               </H2>
             )}
@@ -80,7 +80,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
 
           {paragraph.sumAtAGlanceFacts.map((fact, i) => (
             <div
-              key={fact.id}
+              key={fact.uuid}
               className={twMerge(
                 "border-archway-dark border-opacity-50 p-10",
                 clsx({

@@ -23,12 +23,12 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
   const endDate = node.sumCourseEndDate && convertToLocalDateTime(node.sumCourseEndDate).toUpperCase()
 
   return (
-    <article {...props} aria-labelledby={node.id}>
+    <article {...props} aria-labelledby={node.uuid}>
       <SummerCourseMetadata node={node} />
       <ArcBanner {...props} imageUrl="/images/temp-bg.jpg" imageAlt="">
         <div className="w-screen">
           <div className="rs-mx-6 flex flex-col items-center justify-center md:rs-mt-7">
-            <H1 id={node.id} className="rs-mb-0 max-w-[900px] text-center font-roboto font-normal">
+            <H1 id={node.uuid} className="rs-mb-0 max-w-[900px] text-center font-roboto font-normal">
               {node.title}
             </H1>
 
@@ -49,7 +49,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
         <FavoriteButton
           className="absolute -top-20 right-5 md:right-16 xl:right-0"
           title={node.title}
-          uuid={node.id}
+          uuid={node.uuid}
           path={node.path || "#"}
           units={node.sumCourseUnits || 0}
         />
@@ -177,7 +177,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
         </div>
       </div>
       <div className="centered">
-        <RelatedCourses objectId={node.id} />
+        <RelatedCourses objectId={node.uuid} />
       </div>
       <div className="centered flex flex-col items-end">
         <div className="rs-mt-3 mb-32 w-full md:w-1/2">

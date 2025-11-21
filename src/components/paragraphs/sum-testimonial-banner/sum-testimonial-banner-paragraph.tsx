@@ -44,7 +44,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
         "relative left-1/2 !mt-0 grid w-screen -translate-x-1/2 border-t-4 border-t-white @container lg:grid-cols-3",
         props.className
       )}
-      aria-labelledby={paragraph.id}
+      aria-labelledby={paragraph.uuid}
     >
       <div
         className={twMerge(
@@ -138,7 +138,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
           )}
         >
           <H2
-            id={paragraph.id}
+            id={paragraph.uuid}
             className={twMerge(
               "rs-mb-3 font-light",
               behaviors.sum_testimonial_banner?.sum_testimonial_banner_heading === "type_4" ? "type-4" : "type-5"

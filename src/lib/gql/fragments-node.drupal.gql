@@ -1,6 +1,6 @@
 fragment FragmentNodeInterface on NodeInterface {
   __typename
-  id
+  uuid
   title
   status
   path
@@ -275,7 +275,7 @@ fragment FragmentNodeStanfordPolicy on NodeStanfordPolicy {
   suPolicyPolicyNum
   suPolicyRelated {
     ... on NodeInterface {
-      id
+      uuid
       path
     }
   }
@@ -342,6 +342,62 @@ fragment FragmentNodeStanfordPublication on NodeStanfordPublication {
   }
 }
 
+fragment FragmentNodeStanfordOpportunity on NodeStanfordOpportunity {
+    body {
+        ...FragmentTextSummary
+    }
+    suOppApplicationDeadline {
+        ...FragmentDateTime
+    }
+    suOppCardFooter {
+        ...FragmentText
+    }
+    suOppComponents {
+        ...FragmentParagraphUnion
+    }
+    suOppContactEmail
+    suOppContactName
+    suOppContactPhone
+    suOppContactUrl {
+        ...FragmentLink
+    }
+    suOppCourseCode
+    suOppCtaUrl {
+        ...FragmentLink
+    }
+    suOppEligibility {
+        ...FragmentText
+    }
+    suOppIcon {
+        iconName
+        style
+    }
+    suOppImage {
+        ...FragmentMediaImage
+    }
+    suOppPrerequisites {
+        ...FragmentText
+    }
+    suOppSource {
+        ...FragmentLink
+    }
+    suOppSponsor {
+        ...FragmentTermInterface
+    }
+    suOppSummary {
+        ...FragmentText
+    }
+    suOppTags {
+        ...FragmentTermInterface
+    }
+    suOppType {
+        ...FragmentTermInterface
+    }
+    suOppUnits {
+        ...FragmentTermInterface
+    }
+}
+
 fragment FragmentNodeUnion on NodeUnion {
   ...FragmentNodeInterface
   ...FragmentNodeStanfordCourse
@@ -352,6 +408,7 @@ fragment FragmentNodeUnion on NodeUnion {
   ...FragmentNodeStanfordPerson
   ...FragmentNodeStanfordPolicy
   ...FragmentNodeStanfordPublication
+  ...FragmentNodeStanfordOpportunity
   ...FragmentNodeSumSummerCourse
 }
 
@@ -448,6 +505,31 @@ fragment FragmentNodeStanfordPublicationTeaser on NodeStanfordPublication {
   }
 }
 
+fragment FragmentNodeStanfordOpportunityTeaser on NodeStanfordOpportunity {
+    suOppCardFooter {
+        ...FragmentText
+    }
+    suOppIcon {
+        iconName
+        style
+    }
+    suOppImage {
+        ...FragmentMediaImage
+    }
+    suOppSummary {
+        ...FragmentText
+    }
+    suOppSource {
+        url
+    }
+    suOppSponsor {
+        ...FragmentTermInterface
+    }
+    suOppType {
+        ...FragmentTermInterface
+    }
+}
+
 fragment FragmentNodeTeaserUnion on NodeUnion {
   ...FragmentNodeInterface
   ...FragmentNodeStanfordCourseTeaser
@@ -458,5 +540,6 @@ fragment FragmentNodeTeaserUnion on NodeUnion {
   ...FragmentNodeStanfordPersonTeaser
   ...FragmentNodeStanfordPolicyTeaser
   ...FragmentNodeStanfordPublicationTeaser
+  ...FragmentNodeStanfordOpportunityTeaser
   ...FragmentNodeSumSummerCourseTeaser
 }

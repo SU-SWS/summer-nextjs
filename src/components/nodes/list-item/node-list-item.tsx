@@ -7,6 +7,7 @@ import StanfordPersonListItem from "@components/nodes/list-item/stanford-person/
 import StanfordPolicyListItem from "@components/nodes/list-item/stanford-policy/stanford-policy-list-item"
 import StanfordPublicationListItem from "@components/nodes/list-item/stanford-publication/stanford-publication-list-item"
 import {NodeUnion} from "@lib/gql/__generated__/drupal.d"
+import StanfordOpportunityListItem from "@components/nodes/list-item/stanford-opportunity/stanford-opportunity-list-item"
 
 type Props = {
   /**
@@ -23,7 +24,7 @@ const NodeListItem = ({node, headingLevel}: Props) => {
   const itemProps: {[key: string]: string} = {}
   if (process.env.NODE_ENV === "development") {
     itemProps["data-type"] = node.__typename || "unknown"
-    itemProps["data-id"] = node.id
+    itemProps["data-id"] = node.uuid
   }
 
   switch (node.__typename) {
@@ -43,6 +44,8 @@ const NodeListItem = ({node, headingLevel}: Props) => {
       return <StanfordPolicyListItem node={node} headingLevel={headingLevel} {...itemProps} />
     case "NodeStanfordPublication":
       return <StanfordPublicationListItem node={node} {...itemProps} />
+    case "NodeStanfordOpportunity":
+      return <StanfordOpportunityListItem node={node} {...itemProps} />
   }
 }
 export default NodeListItem

@@ -41,7 +41,7 @@ const ParagraphComponent = async ({paragraph}: Props) => {
   const itemProps: Record<string, string> = {}
   if (previewMode) {
     itemProps["data-type"] = paragraph.__typename || "unknown"
-    itemProps["data-id"] = paragraph.id
+    itemProps["data-id"] = paragraph.uuid
   }
 
   switch (paragraph.__typename) {
@@ -86,6 +86,6 @@ const ParagraphComponent = async ({paragraph}: Props) => {
     case "ParagraphSumTestimonial":
       return <SumTestimonialBannerParagraph paragraph={paragraph} {...itemProps} />
   }
-  console.warn(`Unknown paragraph ${paragraph.__typename}. Item ${paragraph.id}.`)
+  console.warn(`Unknown paragraph ${paragraph.__typename}. Item ${paragraph.uuid}.`)
 }
 export default Paragraph

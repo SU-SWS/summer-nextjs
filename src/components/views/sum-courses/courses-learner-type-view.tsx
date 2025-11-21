@@ -17,7 +17,7 @@ const CoursesLearnerType = async ({items, totalItems, loadPage}: ViewDisplayProp
       loadPage={loadPage}
     >
       {items.map(item => (
-        <div key={item.id}>
+        <div key={item.uuid}>
           <ReverseVisualOrder>
             <Link href={item.path || "#"}>{item.title}</Link>
             <div className="text-18 text-archway-dark">{item.sumCourseCatalogNumber}</div>

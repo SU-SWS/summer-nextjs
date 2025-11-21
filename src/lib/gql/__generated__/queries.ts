@@ -38,7 +38,7 @@ export const FragmentDateTimeFragmentDoc = gql`
 export const FragmentNodeInterfaceFragmentDoc = gql`
     fragment FragmentNodeInterface on NodeInterface {
   __typename
-  id
+  uuid
   title
   status
   path
@@ -58,13 +58,13 @@ export const FragmentTextSummaryFragmentDoc = gql`
 export const FragmentTermInterfaceFragmentDoc = gql`
     fragment FragmentTermInterface on TermInterface {
   __typename
-  id
+  uuid
   name
   path
   weight
   parent {
     ... on TermInterface {
-      id
+      uuid
     }
   }
 }
@@ -100,7 +100,7 @@ ${FragmentTermInterfaceFragmentDoc}`;
 export const FragmentParagraphInterfaceFragmentDoc = gql`
     fragment FragmentParagraphInterface on ParagraphInterface {
   __typename
-  id
+  uuid
   behaviors
   status
 }
@@ -123,7 +123,7 @@ ${FragmentTextFragmentDoc}`;
 export const FragmentMediaInterfaceFragmentDoc = gql`
     fragment FragmentMediaInterface on MediaInterface {
   __typename
-  id
+  uuid
   name
 }
     `;
@@ -244,7 +244,7 @@ export const FragmentParagraphStanfordEntityFragmentDoc = gql`
   }
   suEntityItem {
     ... on NodeInterface {
-      id
+      uuid
       path
     }
   }
@@ -618,6 +618,34 @@ export const FragmentNodeStanfordPublicationTeaserFragmentDoc = gql`
 }
     ${FragmentNodeInterfaceFragmentDoc}
 ${FragmentTermInterfaceFragmentDoc}`;
+export const FragmentNodeStanfordOpportunityTeaserFragmentDoc = gql`
+    fragment FragmentNodeStanfordOpportunityTeaser on NodeStanfordOpportunity {
+  suOppCardFooter {
+    ...FragmentText
+  }
+  suOppIcon {
+    iconName
+    style
+  }
+  suOppImage {
+    ...FragmentMediaImage
+  }
+  suOppSummary {
+    ...FragmentText
+  }
+  suOppSource {
+    url
+  }
+  suOppSponsor {
+    ...FragmentTermInterface
+  }
+  suOppType {
+    ...FragmentTermInterface
+  }
+}
+    ${FragmentTextFragmentDoc}
+${FragmentMediaImageFragmentDoc}
+${FragmentTermInterfaceFragmentDoc}`;
 export const FragmentNodeSumSummerCourseTeaserFragmentDoc = gql`
     fragment FragmentNodeSumSummerCourseTeaser on NodeSumSummerCourse {
   ...FragmentNodeInterface
@@ -635,6 +663,7 @@ export const FragmentNodeTeaserUnionFragmentDoc = gql`
   ...FragmentNodeStanfordPersonTeaser
   ...FragmentNodeStanfordPolicyTeaser
   ...FragmentNodeStanfordPublicationTeaser
+  ...FragmentNodeStanfordOpportunityTeaser
   ...FragmentNodeSumSummerCourseTeaser
 }
     ${FragmentNodeInterfaceFragmentDoc}
@@ -646,6 +675,7 @@ ${FragmentNodeStanfordPageTeaserFragmentDoc}
 ${FragmentNodeStanfordPersonTeaserFragmentDoc}
 ${FragmentNodeStanfordPolicyTeaserFragmentDoc}
 ${FragmentNodeStanfordPublicationTeaserFragmentDoc}
+${FragmentNodeStanfordOpportunityTeaserFragmentDoc}
 ${FragmentNodeSumSummerCourseTeaserFragmentDoc}`;
 export const FragmentParagraphSumSlideTeaserFragmentDoc = gql`
     fragment FragmentParagraphSumSlideTeaser on ParagraphSumSlideTeaser {
@@ -1055,7 +1085,7 @@ ${FragmentTermInterfaceFragmentDoc}`;
 export const FragmentSuPolicyLogFragmentDoc = gql`
     fragment FragmentSuPolicyLog on SuPolicyLog {
   __typename
-  id
+  uuid
   suPolicyDate {
     ...FragmentDateTime
   }
@@ -1082,7 +1112,7 @@ export const FragmentNodeStanfordPolicyFragmentDoc = gql`
   suPolicyPolicyNum
   suPolicyRelated {
     ... on NodeInterface {
-      id
+      uuid
       path
     }
   }
@@ -1157,6 +1187,69 @@ ${FragmentNodeStanfordPersonTeaserFragmentDoc}
 ${FragmentParagraphUnionFragmentDoc}
 ${FragmentMediaImageFragmentDoc}
 ${FragmentTermInterfaceFragmentDoc}`;
+export const FragmentNodeStanfordOpportunityFragmentDoc = gql`
+    fragment FragmentNodeStanfordOpportunity on NodeStanfordOpportunity {
+  body {
+    ...FragmentTextSummary
+  }
+  suOppApplicationDeadline {
+    ...FragmentDateTime
+  }
+  suOppCardFooter {
+    ...FragmentText
+  }
+  suOppComponents {
+    ...FragmentParagraphUnion
+  }
+  suOppContactEmail
+  suOppContactName
+  suOppContactPhone
+  suOppContactUrl {
+    ...FragmentLink
+  }
+  suOppCourseCode
+  suOppCtaUrl {
+    ...FragmentLink
+  }
+  suOppEligibility {
+    ...FragmentText
+  }
+  suOppIcon {
+    iconName
+    style
+  }
+  suOppImage {
+    ...FragmentMediaImage
+  }
+  suOppPrerequisites {
+    ...FragmentText
+  }
+  suOppSource {
+    ...FragmentLink
+  }
+  suOppSponsor {
+    ...FragmentTermInterface
+  }
+  suOppSummary {
+    ...FragmentText
+  }
+  suOppTags {
+    ...FragmentTermInterface
+  }
+  suOppType {
+    ...FragmentTermInterface
+  }
+  suOppUnits {
+    ...FragmentTermInterface
+  }
+}
+    ${FragmentTextSummaryFragmentDoc}
+${FragmentDateTimeFragmentDoc}
+${FragmentTextFragmentDoc}
+${FragmentParagraphUnionFragmentDoc}
+${FragmentLinkFragmentDoc}
+${FragmentMediaImageFragmentDoc}
+${FragmentTermInterfaceFragmentDoc}`;
 export const FragmentNodeSumSummerCourseFragmentDoc = gql`
     fragment FragmentNodeSumSummerCourse on NodeSumSummerCourse {
   ...FragmentNodeInterface
@@ -1222,6 +1315,7 @@ export const FragmentNodeUnionFragmentDoc = gql`
   ...FragmentNodeStanfordPerson
   ...FragmentNodeStanfordPolicy
   ...FragmentNodeStanfordPublication
+  ...FragmentNodeStanfordOpportunity
   ...FragmentNodeSumSummerCourse
 }
     ${FragmentNodeInterfaceFragmentDoc}
@@ -1233,6 +1327,7 @@ ${FragmentNodeStanfordPageFragmentDoc}
 ${FragmentNodeStanfordPersonFragmentDoc}
 ${FragmentNodeStanfordPolicyFragmentDoc}
 ${FragmentNodeStanfordPublicationFragmentDoc}
+${FragmentNodeStanfordOpportunityFragmentDoc}
 ${FragmentNodeSumSummerCourseFragmentDoc}`;
 export const FragmentMenuLinkFragmentDoc = gql`
     fragment FragmentMenuLink on MenuItem {
@@ -1248,6 +1343,13 @@ export const FragmentViewPageInfoFragmentDoc = gql`
   total
 }
     `;
+export const FragmentViewFragmentDoc = gql`
+    fragment FragmentView on View {
+  pageInfo {
+    ...FragmentViewPageInfo
+  }
+}
+    ${FragmentViewPageInfoFragmentDoc}`;
 export const NodeDocument = gql`
     query Node($uuid: ID!) {
   node(id: $uuid) {
@@ -1582,6 +1684,97 @@ export const GlobalMessagesDocument = gql`
   }
 }
     `;
+export const CourseFiltersTermsDocument = gql`
+    query CourseFiltersTerms {
+  termCourseFilters(first: 1000) {
+    nodes {
+      ...FragmentTermInterface
+      ... on TermInterface {
+        id
+        weight
+      }
+    }
+  }
+}
+    ${FragmentTermInterfaceFragmentDoc}`;
+export const EventFiltersTermsDocument = gql`
+    query EventFiltersTerms {
+  termEventFilters(first: 1000) {
+    nodes {
+      ...FragmentTermInterface
+      ... on TermInterface {
+        id
+        weight
+      }
+    }
+  }
+}
+    ${FragmentTermInterfaceFragmentDoc}`;
+export const MediaContentFiltersTermsDocument = gql`
+    query MediaContentFiltersTerms {
+  termMediaContentFilters(first: 1000) {
+    nodes {
+      ...FragmentTermInterface
+      ... on TermInterface {
+        id
+        weight
+      }
+    }
+  }
+}
+    ${FragmentTermInterfaceFragmentDoc}`;
+export const OpportunityFiltersTermsDocument = gql`
+    query OpportunityFiltersTerms {
+  termOpportunityTagFilters(first: 1000) {
+    nodes {
+      ...FragmentTermInterface
+      ... on TermInterface {
+        id
+        weight
+      }
+    }
+  }
+}
+    ${FragmentTermInterfaceFragmentDoc}`;
+export const PersonFiltersTermsDocument = gql`
+    query PersonFiltersTerms {
+  termPersonFilters(first: 1000) {
+    nodes {
+      ...FragmentTermInterface
+      ... on TermInterface {
+        id
+        weight
+      }
+    }
+  }
+}
+    ${FragmentTermInterfaceFragmentDoc}`;
+export const PublicationFiltersTermsDocument = gql`
+    query PublicationFiltersTerms {
+  termPublicationFilters(first: 1000) {
+    nodes {
+      ...FragmentTermInterface
+      ... on TermInterface {
+        id
+        weight
+      }
+    }
+  }
+}
+    ${FragmentTermInterfaceFragmentDoc}`;
+export const NewsSpotlightFiltersTermsDocument = gql`
+    query NewsSpotlightFiltersTerms {
+  termStanfordNewsSpotlightFilters(first: 1000) {
+    nodes {
+      ...FragmentTermInterface
+      ... on TermInterface {
+        id
+        weight
+      }
+    }
+  }
+}
+    ${FragmentTermInterfaceFragmentDoc}`;
 export const MenuDocument = gql`
     query Menu($name: MenuAvailable = MAIN) {
   menu(name: $name) {
@@ -1627,7 +1820,7 @@ export const RedirectsDocument = gql`
     query Redirects($first: Int = 1000, $after: Cursor) {
   redirects(first: $first, after: $after) {
     redirects: nodes {
-      id
+      uuid
       redirectSource {
         url
       }
@@ -1652,34 +1845,35 @@ export const StanfordBasicPagesDocument = gql`
     sortKey: $sortKey
     sortDir: $sortDir
   ) {
+    ...FragmentView
     results {
+      ...FragmentNodeInterface
       ...FragmentNodeStanfordPageTeaser
-    }
-    pageInfo {
-      ...FragmentViewPageInfo
     }
   }
 }
-    ${FragmentNodeStanfordPageTeaserFragmentDoc}
-${FragmentViewPageInfoFragmentDoc}`;
+    ${FragmentViewFragmentDoc}
+${FragmentNodeInterfaceFragmentDoc}
+${FragmentNodeStanfordPageTeaserFragmentDoc}`;
 export const StanfordCoursesDocument = gql`
-    query stanfordCourses($contextualFilters: StanfordCoursesContextualFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
+    query stanfordCourses($contextualFilters: StanfordCoursesContextualFilterInput, $filter: StanfordCoursesFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
   stanfordCourses(
     contextualFilter: $contextualFilters
+    filter: $filter
     pageSize: $pageSize
     page: $page
     offset: $offset
   ) {
+    ...FragmentView
     results {
+      ...FragmentNodeInterface
       ...FragmentNodeStanfordCourse
-    }
-    pageInfo {
-      ...FragmentViewPageInfo
     }
   }
 }
-    ${FragmentNodeStanfordCourseFragmentDoc}
-${FragmentViewPageInfoFragmentDoc}`;
+    ${FragmentViewFragmentDoc}
+${FragmentNodeInterfaceFragmentDoc}
+${FragmentNodeStanfordCourseFragmentDoc}`;
 export const StanfordEventsDocument = gql`
     query stanfordEvents($contextualFilters: StanfordEventsContextualFilterInput, $pageSize: Int, $page: Int = -1, $offset: Int) {
   stanfordEvents(
@@ -1687,17 +1881,18 @@ export const StanfordEventsDocument = gql`
     pageSize: $pageSize
     page: $page
     offset: $offset
+    sortKey: START_TIME
   ) {
+    ...FragmentView
     results {
+      ...FragmentNodeInterface
       ...FragmentNodeStanfordEventTeaser
-    }
-    pageInfo {
-      ...FragmentViewPageInfo
     }
   }
 }
-    ${FragmentNodeStanfordEventTeaserFragmentDoc}
-${FragmentViewPageInfoFragmentDoc}`;
+    ${FragmentViewFragmentDoc}
+${FragmentNodeInterfaceFragmentDoc}
+${FragmentNodeStanfordEventTeaserFragmentDoc}`;
 export const StanfordEventsPastEventsDocument = gql`
     query stanfordEventsPastEvents($contextualFilters: StanfordEventsPastEventsContextualFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
   stanfordEventsPastEvents(
@@ -1705,53 +1900,76 @@ export const StanfordEventsPastEventsDocument = gql`
     pageSize: $pageSize
     page: $page
     offset: $offset
+    sortKey: START_TIME
   ) {
+    ...FragmentView
     results {
+      ...FragmentNodeInterface
       ...FragmentNodeStanfordEventTeaser
     }
-    pageInfo {
-      ...FragmentViewPageInfo
-    }
   }
 }
-    ${FragmentNodeStanfordEventTeaserFragmentDoc}
-${FragmentViewPageInfoFragmentDoc}`;
+    ${FragmentViewFragmentDoc}
+${FragmentNodeInterfaceFragmentDoc}
+${FragmentNodeStanfordEventTeaserFragmentDoc}`;
 export const StanfordNewsDocument = gql`
-    query stanfordNews($contextualFilters: StanfordNewsContextualFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
+    query stanfordNews($contextualFilters: StanfordNewsContextualFilterInput, $filter: StanfordNewsFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
   stanfordNews(
     contextualFilter: $contextualFilters
+    filter: $filter
     pageSize: $pageSize
     page: $page
     offset: $offset
   ) {
+    ...FragmentView
     results {
+      ...FragmentNodeInterface
       ...FragmentNodeStanfordNewsTeaser
     }
-    pageInfo {
-      ...FragmentViewPageInfo
+  }
+}
+    ${FragmentViewFragmentDoc}
+${FragmentNodeInterfaceFragmentDoc}
+${FragmentNodeStanfordNewsTeaserFragmentDoc}`;
+export const StanfordOpportunitiesDocument = gql`
+    query stanfordOpportunities($contextualFilters: StanfordOpportunitiesContextualFilterInput, $filter: StanfordOpportunitiesFilterInput, $sortKey: StanfordOpportunitiesSortKeys, $pageSize: Int = 3, $page: Int, $offset: Int) {
+  stanfordOpportunities(
+    contextualFilter: $contextualFilters
+    filter: $filter
+    pageSize: $pageSize
+    page: $page
+    offset: $offset
+    sortKey: $sortKey
+  ) {
+    ...FragmentView
+    results {
+      ...FragmentNodeInterface
+      ...FragmentNodeStanfordOpportunityTeaser
     }
   }
 }
-    ${FragmentNodeStanfordNewsTeaserFragmentDoc}
-${FragmentViewPageInfoFragmentDoc}`;
+    ${FragmentViewFragmentDoc}
+${FragmentNodeInterfaceFragmentDoc}
+${FragmentNodeStanfordOpportunityTeaserFragmentDoc}`;
 export const StanfordPersonDocument = gql`
-    query stanfordPerson($contextualFilters: StanfordPersonContextualFilterInput, $pageSize: Int, $page: Int = -1, $offset: Int) {
+    query stanfordPerson($contextualFilters: StanfordPersonContextualFilterInput, $filter: StanfordPersonFilterInput, $pageSize: Int, $page: Int = -1, $offset: Int) {
   stanfordPerson(
     contextualFilter: $contextualFilters
+    filter: $filter
     pageSize: $pageSize
     page: $page
     offset: $offset
   ) {
+    ...FragmentView
     results {
+      ...FragmentNodeInterface
       ...FragmentNodeStanfordPersonTeaser
-    }
-    pageInfo {
-      ...FragmentViewPageInfo
     }
   }
 }
-    ${FragmentNodeStanfordPersonTeaserFragmentDoc}
-${FragmentViewPageInfoFragmentDoc}`;
+    ${FragmentViewFragmentDoc}
+${FragmentNodeInterfaceFragmentDoc}
+${FragmentNodeStanfordPersonTeaserFragmentDoc}`;
 export const StanfordPublicationsDocument = gql`
     query stanfordPublications($contextualFilters: StanfordPublicationsContextualFilterInput, $pageSize: Int = -1, $page: Int, $offset: Int) {
   stanfordPublications(
@@ -1760,16 +1978,16 @@ export const StanfordPublicationsDocument = gql`
     page: $page
     offset: $offset
   ) {
+    ...FragmentView
     results {
+      ...FragmentNodeInterface
       ...FragmentNodeStanfordPublicationTeaser
-    }
-    pageInfo {
-      ...FragmentViewPageInfo
     }
   }
 }
-    ${FragmentNodeStanfordPublicationTeaserFragmentDoc}
-${FragmentViewPageInfoFragmentDoc}`;
+    ${FragmentViewFragmentDoc}
+${FragmentNodeInterfaceFragmentDoc}
+${FragmentNodeStanfordPublicationTeaserFragmentDoc}`;
 export const StanfordSharedTagsDocument = gql`
     query stanfordSharedTags($contextualFilters: StanfordSharedTagsContextualFilterInput, $pageSize: Int = 3, $page: Int, $offset: Int) {
   stanfordSharedTags(
@@ -1778,16 +1996,16 @@ export const StanfordSharedTagsDocument = gql`
     page: $page
     offset: $offset
   ) {
+    ...FragmentView
     results {
+      ...FragmentNodeInterface
       ...FragmentNodeTeaserUnion
-    }
-    pageInfo {
-      ...FragmentViewPageInfo
     }
   }
 }
-    ${FragmentNodeTeaserUnionFragmentDoc}
-${FragmentViewPageInfoFragmentDoc}`;
+    ${FragmentViewFragmentDoc}
+${FragmentNodeInterfaceFragmentDoc}
+${FragmentNodeTeaserUnionFragmentDoc}`;
 export const SumCoursesDocument = gql`
     query sumCourses($contextualFilters: SumCoursesContextualFilterInput, $pageSize: Int = 3, $page: Int, $offset: Int) {
   sumCourses(
@@ -1859,6 +2077,27 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     GlobalMessages(variables?: DrupalTypes.GlobalMessagesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.GlobalMessagesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.GlobalMessagesQuery>({ document: GlobalMessagesDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'GlobalMessages', 'query', variables);
     },
+    CourseFiltersTerms(variables?: DrupalTypes.CourseFiltersTermsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.CourseFiltersTermsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.CourseFiltersTermsQuery>({ document: CourseFiltersTermsDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'CourseFiltersTerms', 'query', variables);
+    },
+    EventFiltersTerms(variables?: DrupalTypes.EventFiltersTermsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.EventFiltersTermsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.EventFiltersTermsQuery>({ document: EventFiltersTermsDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'EventFiltersTerms', 'query', variables);
+    },
+    MediaContentFiltersTerms(variables?: DrupalTypes.MediaContentFiltersTermsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.MediaContentFiltersTermsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.MediaContentFiltersTermsQuery>({ document: MediaContentFiltersTermsDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'MediaContentFiltersTerms', 'query', variables);
+    },
+    OpportunityFiltersTerms(variables?: DrupalTypes.OpportunityFiltersTermsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.OpportunityFiltersTermsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.OpportunityFiltersTermsQuery>({ document: OpportunityFiltersTermsDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'OpportunityFiltersTerms', 'query', variables);
+    },
+    PersonFiltersTerms(variables?: DrupalTypes.PersonFiltersTermsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.PersonFiltersTermsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.PersonFiltersTermsQuery>({ document: PersonFiltersTermsDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'PersonFiltersTerms', 'query', variables);
+    },
+    PublicationFiltersTerms(variables?: DrupalTypes.PublicationFiltersTermsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.PublicationFiltersTermsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.PublicationFiltersTermsQuery>({ document: PublicationFiltersTermsDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'PublicationFiltersTerms', 'query', variables);
+    },
+    NewsSpotlightFiltersTerms(variables?: DrupalTypes.NewsSpotlightFiltersTermsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.NewsSpotlightFiltersTermsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.NewsSpotlightFiltersTermsQuery>({ document: NewsSpotlightFiltersTermsDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'NewsSpotlightFiltersTerms', 'query', variables);
+    },
     Menu(variables?: DrupalTypes.MenuQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.MenuQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.MenuQuery>({ document: MenuDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'Menu', 'query', variables);
     },
@@ -1882,6 +2121,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     stanfordNews(variables?: DrupalTypes.StanfordNewsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.StanfordNewsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.StanfordNewsQuery>({ document: StanfordNewsDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'stanfordNews', 'query', variables);
+    },
+    stanfordOpportunities(variables?: DrupalTypes.StanfordOpportunitiesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.StanfordOpportunitiesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.StanfordOpportunitiesQuery>({ document: StanfordOpportunitiesDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'stanfordOpportunities', 'query', variables);
     },
     stanfordPerson(variables?: DrupalTypes.StanfordPersonQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<DrupalTypes.StanfordPersonQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DrupalTypes.StanfordPersonQuery>({ document: StanfordPersonDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'stanfordPerson', 'query', variables);

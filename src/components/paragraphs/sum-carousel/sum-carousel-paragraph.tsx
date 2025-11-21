@@ -27,7 +27,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
   const Element = paragraph.sumCarouselHeader ? "article" : "div"
 
   return (
-    <Element {...props} aria-labelledby={paragraph.sumCarouselHeader ? paragraph.id : undefined}>
+    <Element {...props} aria-labelledby={paragraph.sumCarouselHeader ? paragraph.uuid : undefined}>
       {isArcBanner && (
         <ArcBanner isBorder>
           <CarouselTop
@@ -37,7 +37,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
             description={paragraph.sumCarouselDescription?.processed}
             link={paragraph.sumCarouselLink}
             className="md:rs-mt-7"
-            headerId={paragraph.id}
+            headerId={paragraph.uuid}
           />
         </ArcBanner>
       )}
@@ -49,7 +49,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
           headingSize={headingSize}
           description={paragraph.sumCarouselDescription?.processed}
           link={paragraph.sumCarouselLink}
-          headerId={paragraph.id}
+          headerId={paragraph.uuid}
         />
       )}
 
@@ -59,7 +59,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
             {paragraph.sumCarouselSlides.map((slide, slideIndex) => {
               return (
                 <CarouselSlide
-                  key={slide.id}
+                  key={slide.uuid}
                   slide={slide}
                   slideNumber={slideIndex + 1}
                   totalSlides={paragraph.sumCarouselSlides?.length || 0}
@@ -96,10 +96,10 @@ const CarouselSlide = ({
     }
     slideCopy.behaviors = JSON.stringify(slideBehaviors)
 
-    if (slideCopy.suCardHeader) labelId = slideCopy.id
+    if (slideCopy.suCardHeader) labelId = slideCopy.uuid
   }
 
-  if (slideCopy.__typename === "ParagraphSumSlideTeaser") labelId = slideCopy.sumSlideTeaserEntity.id
+  if (slideCopy.__typename === "ParagraphSumSlideTeaser") labelId = slideCopy.sumSlideTeaserEntity.uuid
 
   return (
     <div

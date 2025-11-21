@@ -15,10 +15,10 @@ const SumAccordionParagraph = ({paragraph, ...props}: Props) => {
     <Element
       {...props}
       className={twMerge("centered", props.className)}
-      aria-labelledby={paragraph.sumAccordionsHeading ? paragraph.id : undefined}
+      aria-labelledby={paragraph.sumAccordionsHeading ? paragraph.uuid : undefined}
     >
       {paragraph.sumAccordionsHeading && (
-        <H2 id={paragraph.id} className="text-center">
+        <H2 id={paragraph.uuid} className="text-center">
           {paragraph.sumAccordionsHeading}
         </H2>
       )}
@@ -27,7 +27,7 @@ const SumAccordionParagraph = ({paragraph, ...props}: Props) => {
 
       {paragraph.sumAccordionsAccords.map(accordion => (
         <Accordion
-          key={accordion.id}
+          key={accordion.uuid}
           headingLevel={paragraph.sumAccordionsHeading ? "h3" : "h2"}
           button={accordion.suAccordionTitle}
         >

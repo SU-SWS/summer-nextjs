@@ -27,7 +27,7 @@ const GlobalMessage = async ({...props}: Props) => {
     <GlobalMessageClient
       {...props}
       className={twMerge("bg-fog-light", props.className)}
-      aria-labelledby={globalMessageConfig.id}
+      aria-labelledby={globalMessageConfig.uuid}
       hidePaths={globalMessageConfig.sumGlobalMsgHide
         ?.replace(/\r/, "")
         .split("\n")
@@ -36,7 +36,7 @@ const GlobalMessage = async ({...props}: Props) => {
       <div className="md:centered">
         <div className="flex w-full flex-col items-center justify-between gap-10 rounded-b-[25px] bg-illuminating-dark px-16 py-10 md:flex-row lg:w-3/4">
           <div>
-            <H2 id={globalMessageConfig.id} className="mb-3 text-23">
+            <H2 id={globalMessageConfig.uuid} className="mb-3 text-23">
               {globalMessageConfig.label}
             </H2>
             <Wysiwyg html={globalMessageConfig.sumGlobalMsgBody?.processed} />

@@ -68,11 +68,11 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
           {paragraph.sumTopBannerCards.map(card => {
             const behaviors = getParagraphBehaviors(card)
 
-            if (card.__typename === "ParagraphSumVideo") return <SumVideoParagraph key={card.id} paragraph={card} />
+            if (card.__typename === "ParagraphSumVideo") return <SumVideoParagraph key={card.uuid} paragraph={card} />
             if (card.__typename === "ParagraphStanfordCard")
               return (
                 <CardParagraph
-                  key={card.id}
+                  key={card.uuid}
                   paragraph={card}
                   className={behaviors.su_card_styles?.sum_card_bg_color_variant ? "lg:mt-96" : ""}
                 />

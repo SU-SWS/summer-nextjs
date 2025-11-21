@@ -6,7 +6,7 @@ import {ParagraphStanfordList} from "@lib/gql/__generated__/drupal.d"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {twMerge} from "tailwind-merge"
 import Button from "@components/elements/button"
-import {getViewItems, loadViewPage} from "@lib/gql/gql-view-queries"
+import {getViewPagedItems, loadViewPage, VIEW_PAGE_SIZE} from "@lib/gql/gql-view-queries"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordList
@@ -14,13 +14,19 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 
 const ListParagraph = async ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
-  const viewId = paragraph.suListView?.view
-  const displayId = paragraph.suListView?.display
-  const {items: viewItems, totalItems} =
+  const viewId = paragraph.suListView?.view || ""
+  const displayId = paragraph.suListView?.display || ""
+  const limit = paragraph.suListView?.pageSize || VIEW_PAGE_SIZE
+
+  const pagedItems =
     viewId && displayId
-      ? await getViewItems(viewId, displayId, paragraph.suListView?.contextualFilter, 0, paragraph.suListView?.pageSize)
+      ? await getViewPagedItems(viewId, displayId, limit, paragraph.suListView?.contextualFilter)
       : {items: [], totalItems: 0}
-  const addLoadMore = (paragraph.suListView?.pageSize || 3) > 99
+
+  const {totalItems} = pagedItems
+  const viewItems = (limit || 3) < VIEW_PAGE_SIZE ? pagedItems.items.slice(0, limit) : pagedItems.items
+
+  const addLoadMore = (limit || 3) >= VIEW_PAGE_SIZE && totalItems > viewItems.length
 
   if (behaviors.list_paragraph?.hide_empty && viewItems.length === 0) return null
 
@@ -31,11 +37,11 @@ const ListParagraph = async ({paragraph, ...props}: Props) => {
     <ListWrapper
       {...props}
       className={twMerge("centered mb-20 flex flex-col gap-10 lg:max-w-[920px] xl:max-w-[980px]", props.className)}
-      aria-labelledby={ListWrapper === "section" ? paragraph.id : undefined}
+      aria-labelledby={ListWrapper === "section" ? paragraph.uuid : undefined}
     >
       {ListWrapper === "section" && (
         <H2
-          id={paragraph.id}
+          id={paragraph.uuid}
           className={twMerge("text-center", behaviors.list_paragraph?.heading_behavior === "hide" && "sr-only")}
         >
           {paragraph.suListHeadline}
@@ -56,8 +62,9 @@ const ListParagraph = async ({paragraph, ...props}: Props) => {
                   null,
                   viewId,
                   displayId,
-                  paragraph.suListView?.contextualFilter || [],
-                  !!paragraph.suListHeadline
+                  !!paragraph.suListHeadline,
+                  VIEW_PAGE_SIZE,
+                  paragraph.suListView?.contextualFilter || []
                 )
               : undefined
           }

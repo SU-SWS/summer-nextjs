@@ -56,7 +56,7 @@ const CardParagraph = ({paragraph, linkTabIndex, ...props}: Props) => {
   return (
     <Element
       {...props}
-      aria-labelledby={paragraph.suCardHeader ? paragraph.id : undefined}
+      aria-labelledby={paragraph.suCardHeader ? paragraph.uuid : undefined}
       imageUrl={image?.url}
       imageAlt={image?.alt}
       videoUrl={videoUrl}
@@ -69,7 +69,7 @@ const CardParagraph = ({paragraph, linkTabIndex, ...props}: Props) => {
       )}
     >
       {paragraph.suCardHeader && (
-        <div id={paragraph.id} className={twMerge("order-2", hideHeader && "sr-only")}>
+        <div id={paragraph.uuid} className={twMerge("order-2", hideHeader && "sr-only")}>
           {headerTag === "h2" && <H2 className={headerClasses}>{paragraph.suCardHeader}</H2>}
           {headerTag === "h3" && <H3 className={headerClasses}>{paragraph.suCardHeader}</H3>}
           {headerTag === "h4" && <H4 className={headerClasses}>{paragraph.suCardHeader}</H4>}

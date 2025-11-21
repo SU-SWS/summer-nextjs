@@ -17,9 +17,9 @@ const StanfordCourseListItem = ({node, headingLevel, ...props}: Props) => {
     .split(" ")
 
   return (
-    <article {...props} aria-labelledby={node.id}>
+    <article {...props} aria-labelledby={node.uuid}>
       <div className="flex flex-col">
-        <Heading className="type-3 order-last" id={node.id}>
+        <Heading className="type-3 order-last" id={node.uuid}>
           <Link href={node.path || "#"}>{node.title}</Link>
         </Heading>
 

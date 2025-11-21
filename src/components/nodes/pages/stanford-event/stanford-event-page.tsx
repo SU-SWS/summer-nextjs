@@ -41,7 +41,7 @@ const StanfordEventPage = ({node, ...props}: Props) => {
       {node.suEventSponsor && (
         <div>
           {node.suEventSponsor.map((sponsor, i) => (
-            <div key={`${node.id}-sponsor-${i}`}>{sponsor}</div>
+            <div key={`${node.uuid}-sponsor-${i}`}>{sponsor}</div>
           ))}
         </div>
       )}
@@ -95,7 +95,7 @@ const StanfordEventPage = ({node, ...props}: Props) => {
               <div>
                 <H3 className="type-2">This event is open to:</H3>
                 {node.suEventAudience.map(audience => (
-                  <div key={audience.id}>{audience.name}</div>
+                  <div key={audience.uuid}>{audience.name}</div>
                 ))}
               </div>
             </div>
@@ -118,7 +118,7 @@ const StanfordEventPage = ({node, ...props}: Props) => {
       {node.suEventSchedule && (
         <div>
           {node.suEventSchedule.map(scheduleInstance => (
-            <ScheduleParagraph paragraph={scheduleInstance} key={scheduleInstance.id} />
+            <ScheduleParagraph paragraph={scheduleInstance} key={scheduleInstance.uuid} />
           ))}
         </div>
       )}

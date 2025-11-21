@@ -12,9 +12,11 @@ import CourseCardView from "@components/views/stanford-courses/course-card-view"
 import PublicationsApaView from "@components/views/stanford-publications/publications-apa-view"
 import PublicationsChicagoView from "@components/views/stanford-publications/publications-chicago-view"
 import {
+  Maybe,
   NodeStanfordCourse,
   NodeStanfordEvent,
   NodeStanfordNews,
+  NodeStanfordOpportunity,
   NodeStanfordPage,
   NodeStanfordPerson,
   NodeStanfordPublication,
@@ -22,6 +24,9 @@ import {
   NodeUnion,
 } from "@lib/gql/__generated__/drupal.d"
 import CoursesLearnerType from "@components/views/sum-courses/courses-learner-type-view"
+import OpportunitiesCardView from "@components/views/stanford-opportunities/opportunities-card-view"
+import OpportunitiesListView from "@components/views/stanford-opportunities/opportunities-list-view"
+import {ViewFilter} from "@lib/gql/gql-view-queries"
 
 export type ViewDisplayProps<T extends NodeUnion = NodeUnion> = {
   /**
@@ -39,7 +44,11 @@ export type ViewDisplayProps<T extends NodeUnion = NodeUnion> = {
   /**
    * Server action callback to fetch the next "page" contents.
    */
-  loadPage?: (_page: number) => Promise<JSX.Element>
+  loadPage?: (_page?: Maybe<number>, _filter?: ViewFilter) => Promise<JSX.Element>
+  /**
+   * If the view is a filtering with input fields.
+   */
+  filtered?: boolean
 }
 
 interface Props {
@@ -66,24 +75,29 @@ interface Props {
   /**
    * Server action to load a page.
    */
-  loadPage?: (_page: number) => Promise<JSX.Element>
+  loadPage?: ViewDisplayProps["loadPage"]
 }
 
 const View = async ({viewId, displayId, items, totalItems, loadPage, headingLevel = "h3"}: Props) => {
   const component = `${viewId}--${displayId}`
-  const viewProps = {totalItems, headingLevel, loadPage}
+
+  const viewProps = {totalItems, headingLevel, loadPage, filtered: component.includes("filtered")}
 
   switch (component) {
     case "stanford_basic_pages--basic_page_type_list":
       return <PageListView items={items as NodeStanfordPage[]} {...viewProps} />
 
     case "stanford_news--vertical_cards":
+    case "stanford_news_filtered--spotlight_cards":
+    case "stanford_news--spotlight_card_grid":
+    case "stanford_news--spotlight_card_grid_no_date":
       return <NewsCardView items={items as NodeStanfordNews[]} {...viewProps} />
 
     case "stanford_news--block_1":
       return <NewsListView items={items as NodeStanfordNews[]} {...viewProps} />
 
     case "stanford_person--grid_list_all":
+    case "people_filtered--grid_list_all":
       return <PersonCardView items={items as NodeStanfordPerson[]} {...viewProps} />
 
     case "stanford_events--cards":
@@ -94,15 +108,18 @@ const View = async ({viewId, displayId, items, totalItems, loadPage, headingLeve
       return <EventsListView items={items as NodeStanfordEvent[]} {...viewProps} />
 
     case "stanford_basic_pages--viewfield_block_1":
+    case "stanford_basic_pages--card_grid_alpha":
       return <PageCardView items={items as NodeStanfordPage[]} {...viewProps} />
 
     case "stanford_shared_tags--card_grid":
       return <SharedTagsCardView items={items} {...viewProps} />
 
     case "stanford_courses--default_list_viewfield_block":
+    case "courses_filtered--list":
       return <CourseListView items={items as NodeStanfordCourse[]} {...viewProps} />
 
     case "stanford_courses--vertical_teaser_viewfield_block":
+    case "courses_filtered--card_grid":
       return <CourseCardView items={items as NodeStanfordCourse[]} {...viewProps} />
 
     case "stanford_publications--apa_list":
@@ -111,8 +128,27 @@ const View = async ({viewId, displayId, items, totalItems, loadPage, headingLeve
     case "stanford_publications--chicago_list":
       return <PublicationsChicagoView items={items as NodeStanfordPublication[]} {...viewProps} />
 
+    case "stanford_opportunities--cards":
+    case "stanford_opportunities_filtered--cards":
+      return <OpportunitiesCardView items={items as NodeStanfordOpportunity[]} {...viewProps} />
+
+    case "stanford_opportunities--list":
+    case "stanford_opportunities_filtered--list_page":
+      return <OpportunitiesListView items={items as NodeStanfordOpportunity[]} {...viewProps} />
+
+    // case "media_content--list":
+    // case "media_filtered--default_list":
+    //   return <MediaListView items={items as NodeStanfordMedia[]} {...viewProps} />
+    //
+    // case "media_content--card_grid":
+    // case "media_filtered--card_grid":
+    //   return <MediaCardView items={items as NodeStanfordMedia[]} {...viewProps} />
+
     case "sum_courses--learner":
       return <CoursesLearnerType items={items as NodeSumSummerCourse[]} {...viewProps} />
+
+    default:
+      console.warn(`Unable to find component for view: ${viewId} display: ${displayId}`)
   }
 }
 export default View

@@ -7,6 +7,7 @@ import useFocusOnRender from "@lib/hooks/useFocusOnRender"
 import useServerAction from "@lib/hooks/useServerAction"
 import twMerge from "@lib/utils/twMergeConfig"
 import {ArrowPathIcon} from "@heroicons/react/16/solid"
+import {ViewDisplayProps} from "@components/views/view"
 
 export type LoadMoreListProps = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
@@ -32,7 +33,7 @@ export type LoadMoreListProps = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
    * Server action callback to fetch the next "page" contents.
    */
-  loadPage?: (_page: number) => Promise<JSX.Element>
+  loadPage?: ViewDisplayProps["loadPage"]
   /**
    * Count of the total number of items of all pages.
    */

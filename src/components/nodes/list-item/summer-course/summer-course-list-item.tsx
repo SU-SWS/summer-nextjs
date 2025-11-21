@@ -15,13 +15,13 @@ const SummerCourseListItem = ({node, headingLevel, ...props}: Props) => {
   return (
     <ImageCard
       {...props}
-      aria-labelledby={node.id}
+      aria-labelledby={node.uuid}
       isArticle
       imageUrl={node.sumCourseImage?.mediaImage.url}
       imageAlt={node.sumCourseImage?.mediaImage.alt}
     >
       <div className="flex flex-col">
-        <Heading className="type-3 order-2 mb-0" id={node.id}>
+        <Heading className="type-3 order-2 mb-0" id={node.uuid}>
           <ActionLink className="font-roboto font-normal" href={node.path || "#"}>
             {node.title}
           </ActionLink>

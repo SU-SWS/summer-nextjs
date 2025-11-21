@@ -32,7 +32,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
   return (
     <BannerWrapper
       {...props}
-      aria-labelledby={paragraph.suBannerHeader ? paragraph.id : undefined}
+      aria-labelledby={paragraph.suBannerHeader ? paragraph.uuid : undefined}
       className="relative left-1/2 !mt-0 flex w-screen -translate-x-1/2 flex-col border-t-4 border-t-white @container md:min-h-[400px] lg:block"
     >
       {hasCard && (
@@ -49,7 +49,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
           )}
         >
           {paragraph.suBannerHeader && (
-            <div id={paragraph.id} className={behaviors.hero_pattern?.hide_heading ? "sr-only" : undefined}>
+            <div id={paragraph.uuid} className={behaviors.hero_pattern?.hide_heading ? "sr-only" : undefined}>
               {headerTag === "h2" && <H2 className={twMerge(headerClasses, "rs-mb-3")}>{paragraph.suBannerHeader}</H2>}
               {headerTag === "h3" && <H3 className={twMerge(headerClasses, "rs-mb-3")}>{paragraph.suBannerHeader}</H3>}
               {headerTag === "h4" && <H4 className={twMerge(headerClasses, "rs-mb-3")}>{paragraph.suBannerHeader}</H4>}

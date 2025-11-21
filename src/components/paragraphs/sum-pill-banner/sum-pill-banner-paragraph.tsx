@@ -21,7 +21,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
     <Element
       {...props}
       className={twMerge("relative left-1/2 !mt-0 w-screen -translate-x-1/2", props.className)}
-      aria-labelledby={paragraph.sumPillBannerHeadline ? paragraph.id : undefined}
+      aria-labelledby={paragraph.sumPillBannerHeadline ? paragraph.uuid : undefined}
     >
       {paragraph.sumPillBannerBkgd && (
         <div className="absolute left-0 top-0 -z-10 h-full w-full">
@@ -54,7 +54,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
           <div className="gutters">
             <div className="flex flex-col">
               {paragraph.sumPillBannerHeadline && (
-                <H2 id={paragraph.id} className="mb-8 font-light">
+                <H2 id={paragraph.uuid} className="mb-8 font-light">
                   {paragraph.sumPillBannerHeadline}
                 </H2>
               )}
@@ -89,7 +89,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
         {paragraph.sumPillBannerCards && (
           <div className="rs-mb-8 centered -mt-96 flex w-full flex-col gap-20 lg:flex-row">
             {paragraph.sumPillBannerCards.map(card => (
-              <PillBannerCard key={card.id} card={card} headingLevel={Element === "div" ? "h2" : "h3"} />
+              <PillBannerCard key={card.uuid} card={card} headingLevel={Element === "div" ? "h2" : "h3"} />
             ))}
           </div>
         )}

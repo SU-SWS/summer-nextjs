@@ -8,6 +8,7 @@ import StanfordPolicyCard from "@components/nodes/cards/stanford-policy/stanford
 import StanfordPublicationCard from "@components/nodes/cards/stanford-publication/stanford-publication-card"
 import {NodeUnion} from "@lib/gql/__generated__/drupal.d"
 import SummerCourseCard from "@components/nodes/cards/summer-course/summer-course-card"
+import StanfordOpportunityCard from "@components/nodes/cards/stanford-opportunity/stanford-opportunity-card"
 
 type Props = {
   /**
@@ -24,7 +25,7 @@ const NodeCard = ({node, headingLevel}: Props) => {
   const itemProps: {[key: string]: string} = {}
   if (process.env.NODE_ENV === "development") {
     itemProps["data-type"] = node.__typename || "unknown"
-    itemProps["data-id"] = node.id
+    itemProps["data-id"] = node.uuid
   }
   switch (node.__typename) {
     case "NodeStanfordCourse":
@@ -43,6 +44,8 @@ const NodeCard = ({node, headingLevel}: Props) => {
       return <StanfordPolicyCard node={node} headingLevel={headingLevel} {...itemProps} />
     case "NodeStanfordPublication":
       return <StanfordPublicationCard node={node} headingLevel={headingLevel} {...itemProps} />
+    case "NodeStanfordOpportunity":
+      return <StanfordOpportunityCard node={node} headingLevel={headingLevel} {...itemProps} />
     case "NodeSumSummerCourse":
       return <SummerCourseCard node={node} headingLevel={headingLevel} {...itemProps} />
   }

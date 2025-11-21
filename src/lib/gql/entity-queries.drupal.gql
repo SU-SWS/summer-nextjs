@@ -364,3 +364,87 @@ query GlobalMessages {
     }
   }
 }
+
+query CourseFiltersTerms {
+    termCourseFilters(first: 1000) {
+        nodes {
+            ...FragmentTermInterface
+            ... on TermInterface {
+                id
+                weight
+            }
+        }
+    }
+}
+
+query EventFiltersTerms {
+    termEventFilters(first: 1000) {
+        nodes {
+            ...FragmentTermInterface
+            ... on TermInterface {
+                id
+                weight
+            }
+        }
+    }
+}
+
+query MediaContentFiltersTerms {
+    termMediaContentFilters(first: 1000) {
+        nodes {
+            ...FragmentTermInterface
+            ... on TermInterface {
+                id
+                weight
+            }
+        }
+    }
+}
+
+query OpportunityFiltersTerms {
+    termOpportunityTagFilters(first: 1000) {
+        nodes {
+            ...FragmentTermInterface
+            ... on TermInterface {
+                id
+                weight
+            }
+        }
+    }
+}
+
+query PersonFiltersTerms {
+    termPersonFilters(first: 1000) {
+        nodes {
+            ...FragmentTermInterface
+            ... on TermInterface {
+                id
+                weight
+            }
+        }
+    }
+}
+
+query PublicationFiltersTerms {
+    termPublicationFilters(first: 1000) {
+        nodes {
+            ...FragmentTermInterface
+            ... on TermInterface {
+                id
+                weight
+            }
+        }
+    }
+}
+
+query NewsSpotlightFiltersTerms {
+    termStanfordNewsSpotlightFilters(first: 1000) {
+        nodes {
+            ...FragmentTermInterface
+            ... on TermInterface {
+                id
+                weight
+            }
+        }
+    }
+}

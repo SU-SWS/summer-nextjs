@@ -15,6 +15,7 @@ import clsx from "clsx"
 import {twMerge} from "tailwind-merge"
 import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
 import SumSlideTeaserParagraph from "@components/paragraphs/sum-slide-teaser/sum-slide-teaser-paragraph"
+import {getIdAttribute} from "@lib/utils/text-tools"
 
 type Props = HTMLAttributes<HTMLElement> & {
   paragraph: ParagraphSumCarousel
@@ -25,9 +26,10 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
   const isArcBanner = behaviors.sum_carousel?.sum_carousel_arc
   const headingSize = behaviors.sum_carousel?.sum_carousel_text_size ? "type-3" : "type-4"
   const Element = paragraph.sumCarouselHeader ? "article" : "div"
+  const id = paragraph.sumCarouselHeader ? getIdAttribute(paragraph.sumCarouselHeader) : undefined
 
   return (
-    <Element {...props} aria-labelledby={paragraph.sumCarouselHeader ? paragraph.uuid : undefined}>
+    <Element {...props} aria-labelledby={paragraph.sumCarouselHeader ? id : undefined}>
       {isArcBanner && (
         <ArcBanner isBorder>
           <CarouselTop
@@ -37,7 +39,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
             description={paragraph.sumCarouselDescription?.processed}
             link={paragraph.sumCarouselLink}
             className="md:rs-mt-7"
-            headerId={paragraph.uuid}
+            headerId={id}
           />
         </ArcBanner>
       )}
@@ -49,7 +51,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
           headingSize={headingSize}
           description={paragraph.sumCarouselDescription?.processed}
           link={paragraph.sumCarouselLink}
-          headerId={paragraph.uuid}
+          headerId={id}
         />
       )}
 

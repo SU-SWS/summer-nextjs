@@ -8,6 +8,7 @@ import {twMerge} from "tailwind-merge"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {clsx} from "clsx"
 import ActionLink from "@components/elements/action-link"
+import {getIdAttribute} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumPillBanner
@@ -16,12 +17,13 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const Element = paragraph.sumPillBannerHeadline ? "article" : "div"
+  const id = paragraph.sumPillBannerHeadline ? getIdAttribute(paragraph.sumPillBannerHeadline) : undefined
 
   return (
     <Element
       {...props}
       className={twMerge("relative left-1/2 !mt-0 w-screen -translate-x-1/2", props.className)}
-      aria-labelledby={paragraph.sumPillBannerHeadline ? paragraph.uuid : undefined}
+      aria-labelledby={paragraph.sumPillBannerHeadline ? id : undefined}
     >
       {paragraph.sumPillBannerBkgd && (
         <div className="absolute left-0 top-0 -z-10 h-full w-full">
@@ -54,7 +56,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
           <div className="gutters">
             <div className="flex flex-col">
               {paragraph.sumPillBannerHeadline && (
-                <H2 id={paragraph.uuid} className="mb-8 font-light">
+                <H2 id={id} className="mb-8 font-light">
                   {paragraph.sumPillBannerHeadline}
                 </H2>
               )}

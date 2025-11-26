@@ -9,6 +9,7 @@ import ActionLink from "@components/elements/action-link"
 import Link from "next/link"
 import {ArrowRightIcon} from "@heroicons/react/24/outline"
 import Image from "next/image"
+import {getIdAttribute} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordBanner
@@ -29,10 +30,13 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
   const isSection = !!paragraph.suBannerHeader
   const BannerWrapper: ElementType = isSection ? "section" : "div"
 
+  const id = paragraph.suBannerHeader ? getIdAttribute(paragraph.suBannerHeader) : undefined
+  const headerProps = {id, className: clsx(headerClasses, "rs-mb-3", {"sr-only": behaviors.hero_pattern?.hide_heading})}
+
   return (
     <BannerWrapper
       {...props}
-      aria-labelledby={paragraph.suBannerHeader ? paragraph.uuid : undefined}
+      aria-labelledby={paragraph.suBannerHeader ? id : undefined}
       className="relative left-1/2 !mt-0 flex w-screen -translate-x-1/2 flex-col border-t-4 border-t-white @container md:min-h-[400px] lg:block"
     >
       {hasCard && (
@@ -49,14 +53,12 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
           )}
         >
           {paragraph.suBannerHeader && (
-            <div id={paragraph.uuid} className={behaviors.hero_pattern?.hide_heading ? "sr-only" : undefined}>
-              {headerTag === "h2" && <H2 className={twMerge(headerClasses, "rs-mb-3")}>{paragraph.suBannerHeader}</H2>}
-              {headerTag === "h3" && <H3 className={twMerge(headerClasses, "rs-mb-3")}>{paragraph.suBannerHeader}</H3>}
-              {headerTag === "h4" && <H4 className={twMerge(headerClasses, "rs-mb-3")}>{paragraph.suBannerHeader}</H4>}
-              {headerTag === "div" && (
-                <div className={twMerge(headerClasses, "rs-mb-3")}>{paragraph.suBannerHeader}</div>
-              )}
-            </div>
+            <>
+              {headerTag === "h2" && <H2 {...headerProps}>{paragraph.suBannerHeader}</H2>}
+              {headerTag === "h3" && <H3 {...headerProps}>{paragraph.suBannerHeader}</H3>}
+              {headerTag === "h4" && <H4 {...headerProps}>{paragraph.suBannerHeader}</H4>}
+              {headerTag === "div" && <div {...headerProps}>{paragraph.suBannerHeader}</div>}
+            </>
           )}
 
           {paragraph.suBannerSupHeader && (

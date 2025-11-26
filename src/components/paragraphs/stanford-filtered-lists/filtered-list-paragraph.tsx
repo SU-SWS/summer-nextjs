@@ -7,6 +7,7 @@ import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behavi
 import twMerge from "@lib/utils/twMergeConfig"
 import {getViewPagedItems, loadViewPage, VIEW_PAGE_SIZE} from "@lib/gql/gql-view-queries"
 import {clsx} from "clsx"
+import {getIdAttribute} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordFilteredList
@@ -35,17 +36,18 @@ const FilteredListParagraph = async ({paragraph, ...props}: Props) => {
 
   const ListWrapper: ElementType =
     paragraph.suListHeadline && behaviors.list_paragraph?.heading_behavior !== "remove" ? "section" : "div"
+  const id = paragraph.suListHeadline ? getIdAttribute(paragraph.suListHeadline) : undefined
 
   return (
     <ListWrapper
       {...props}
       className={twMerge("centered mb-20 flex flex-col gap-20", props.className)}
-      aria-labelledby={ListWrapper === "section" ? paragraph.uuid : undefined}
+      aria-labelledby={ListWrapper === "section" ? id : undefined}
       data-nosnippet
     >
       {paragraph.suListHeadline && behaviors.list_paragraph?.heading_behavior !== "remove" && (
         <H2
-          id={paragraph.uuid}
+          id={id}
           className={twMerge("mb-0", clsx({"sr-only": behaviors.list_paragraph?.heading_behavior === "hide"}))}
         >
           {paragraph.suListHeadline}

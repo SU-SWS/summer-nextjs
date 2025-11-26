@@ -7,6 +7,8 @@ import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behavi
 import {twMerge} from "tailwind-merge"
 import Button from "@components/elements/button"
 import {getViewPagedItems, loadViewPage, VIEW_PAGE_SIZE} from "@lib/gql/gql-view-queries"
+import {getIdAttribute} from "@lib/utils/text-tools"
+import clsx from "clsx"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordList
@@ -33,16 +35,18 @@ const ListParagraph = async ({paragraph, ...props}: Props) => {
   const ListWrapper: ElementType =
     paragraph.suListHeadline && behaviors.list_paragraph?.heading_behavior !== "remove" ? "section" : "div"
 
+  const id = paragraph.suListHeadline ? getIdAttribute(paragraph.suListHeadline) : undefined
+
   return (
     <ListWrapper
       {...props}
       className={twMerge("centered mb-20 flex flex-col gap-10 lg:max-w-[920px] xl:max-w-[980px]", props.className)}
-      aria-labelledby={ListWrapper === "section" ? paragraph.uuid : undefined}
+      aria-labelledby={ListWrapper === "section" ? id : undefined}
     >
       {ListWrapper === "section" && (
         <H2
-          id={paragraph.uuid}
-          className={twMerge("text-center", behaviors.list_paragraph?.heading_behavior === "hide" && "sr-only")}
+          id={id}
+          className={twMerge("text-center", clsx({"sr-only": behaviors.list_paragraph?.heading_behavior === "hide"}))}
         >
           {paragraph.suListHeadline}
         </H2>

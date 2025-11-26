@@ -6,6 +6,7 @@ import Wysiwyg from "@components/elements/wysiwyg"
 import Button from "@components/elements/button"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {clsx} from "clsx"
+import {getIdAttribute} from "@lib/utils/text-tools"
 
 type Props = HTMLAttributes<HTMLElement> & {
   paragraph: ParagraphSumAtAGlance
@@ -17,11 +18,13 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
   const Element = paragraph.sumAtAGlanceHeadline ? "article" : "div"
   const headingOnLeft = !!behaviors.sum_at_a_glance_behavior?.sum_at_a_glance_alignment
 
+  const id = paragraph.sumAtAGlanceHeadline ? getIdAttribute(paragraph.sumAtAGlanceHeadline) : undefined
+
   return (
     <Element
       {...props}
       className={twMerge("centered flex flex-col gap-20 @container", props.className)}
-      aria-labelledby={paragraph.sumAtAGlanceHeadline ? paragraph.uuid : undefined}
+      aria-labelledby={paragraph.sumAtAGlanceHeadline ? id : undefined}
     >
       <div className="grid gap-y-10 @6xl:grid-cols-2">
         <div className="mt-auto h-fit">
@@ -44,7 +47,7 @@ const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
             )}
           >
             {paragraph.sumAtAGlanceHeadline && (
-              <H2 id={paragraph.uuid} className="font-light">
+              <H2 id={id} className="font-light">
                 {paragraph.sumAtAGlanceHeadline}
               </H2>
             )}

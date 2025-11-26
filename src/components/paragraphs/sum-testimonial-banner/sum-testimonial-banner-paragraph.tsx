@@ -9,6 +9,7 @@ import {H2} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 import YoutubeVideoPill from "@components/elements/youtube-video-pill"
 import ActionLink from "@components/elements/action-link"
+import {getIdAttribute} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumTestimonial
@@ -37,6 +38,8 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
       break
   }
 
+  const id = paragraph.sumTestimonialHeading ? getIdAttribute(paragraph.sumTestimonialHeading) : undefined
+
   return (
     <article
       {...props}
@@ -44,7 +47,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
         "relative left-1/2 !mt-0 grid w-screen -translate-x-1/2 border-t-4 border-t-white @container lg:grid-cols-3",
         props.className
       )}
-      aria-labelledby={paragraph.uuid}
+      aria-labelledby={id}
     >
       <div
         className={twMerge(
@@ -138,7 +141,7 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
           )}
         >
           <H2
-            id={paragraph.uuid}
+            id={id}
             className={twMerge(
               "rs-mb-3 font-light",
               behaviors.sum_testimonial_banner?.sum_testimonial_banner_heading === "type_4" ? "type-4" : "type-5"

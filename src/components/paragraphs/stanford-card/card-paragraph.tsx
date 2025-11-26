@@ -9,6 +9,7 @@ import {twMerge} from "tailwind-merge"
 import ImageCard from "@components/patterns/image-card"
 import PillCard from "@components/patterns/pill-card"
 import clsx from "clsx"
+import {getIdAttribute} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordCard
@@ -49,14 +50,15 @@ const CardParagraph = ({paragraph, linkTabIndex, ...props}: Props) => {
   const cardVariant = behaviors.su_card_styles?.sum_card_variant
   const hasBgColor = behaviors.su_card_styles?.sum_card_bg_color_variant
   const cardBgColor = cardVariant === "pill" ? behaviors.su_card_styles?.sum_card_pill_bg_color_variant : undefined
-  const hideHeader = behaviors.su_card_styles?.hide_heading
 
   const Element = cardVariant === "pill" ? PillCard : ImageCard
+  const id = paragraph.suCardHeader ? getIdAttribute(paragraph.suCardHeader) : undefined
+  const headerProps = {id, className: clsx(headerClasses, {"sr-only": behaviors.su_card_styles?.hide_heading})}
 
   return (
     <Element
       {...props}
-      aria-labelledby={paragraph.suCardHeader ? paragraph.uuid : undefined}
+      aria-labelledby={paragraph.suCardHeader ? id : undefined}
       imageUrl={image?.url}
       imageAlt={image?.alt}
       videoUrl={videoUrl}
@@ -69,22 +71,22 @@ const CardParagraph = ({paragraph, linkTabIndex, ...props}: Props) => {
       )}
     >
       {paragraph.suCardHeader && (
-        <div id={paragraph.uuid} className={twMerge("order-2", hideHeader && "sr-only")}>
-          {headerTag === "h2" && <H2 className={headerClasses}>{paragraph.suCardHeader}</H2>}
-          {headerTag === "h3" && <H3 className={headerClasses}>{paragraph.suCardHeader}</H3>}
-          {headerTag === "h4" && <H4 className={headerClasses}>{paragraph.suCardHeader}</H4>}
-          {headerTag === "div" && <div className={headerClasses}>{paragraph.suCardHeader}</div>}
-        </div>
+        <>
+          {headerTag === "h2" && <H2 {...headerProps}>{paragraph.suCardHeader}</H2>}
+          {headerTag === "h3" && <H3 {...headerProps}>{paragraph.suCardHeader}</H3>}
+          {headerTag === "h4" && <H4 {...headerProps}>{paragraph.suCardHeader}</H4>}
+          {headerTag === "div" && <div {...headerProps}>{paragraph.suCardHeader}</div>}
+        </>
       )}
 
       {paragraph.suCardSuperHeader && (
-        <div className="order-1 mb-5 text-20 font-normal uppercase">{paragraph.suCardSuperHeader}</div>
+        <div className="order-first mb-5 text-20 font-normal uppercase">{paragraph.suCardSuperHeader}</div>
       )}
 
-      <Wysiwyg html={paragraph.suCardBody?.processed} className="order-3 *:big-paragraph" />
+      <Wysiwyg html={paragraph.suCardBody?.processed} className="*:big-paragraph" />
 
       {paragraph.suCardLink?.url && (
-        <div className="rs-mt-2 order-4">
+        <div className="rs-mt-2">
           {behaviors.su_card_styles?.link_style === "action" && (
             <ActionLink
               href={paragraph.suCardLink.url}

@@ -8,6 +8,8 @@ import {twMerge} from "tailwind-merge"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {getEntityFromPath} from "@lib/gql/gql-queries"
 import {ImageCardSkeleton} from "@components/patterns/image-card"
+import {getIdAttribute} from "@lib/utils/text-tools"
+import clsx from "clsx"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordEntity
@@ -22,16 +24,21 @@ const EntityParagraph = async ({paragraph, ...props}: Props) => {
   const EntityWrapper: ElementType =
     paragraph.suEntityHeadline && behaviors.stanford_teaser?.heading_behavior !== "remove" ? "section" : "div"
 
+  const id = paragraph.suEntityHeadline ? getIdAttribute(paragraph.suEntityHeadline) : undefined
+
   return (
     <EntityWrapper
       {...props}
       className={twMerge("centered mb-20 flex flex-col gap-10 lg:max-w-[920px] xl:max-w-[980px]", props.className)}
-      aria-labelledby={EntityWrapper === "section" ? paragraph.uuid : undefined}
+      aria-labelledby={EntityWrapper === "section" ? id : undefined}
     >
       {EntityWrapper === "section" && (
         <H2
-          id={paragraph.uuid}
-          className={twMerge("mb-0 text-center", behaviors.stanford_teaser?.heading_behavior === "hide" && "sr-only")}
+          id={id}
+          className={twMerge(
+            "mb-0 text-center",
+            clsx({"sr-only": behaviors.stanford_teaser?.heading_behavior === "hide"})
+          )}
         >
           {paragraph.suEntityHeadline}
         </H2>

@@ -6,6 +6,7 @@ import {ElementType, HTMLAttributes, HtmlHTMLAttributes} from "react"
 import {MediaStanfordGalleryImage, ParagraphStanfordGallery} from "@lib/gql/__generated__/drupal.d"
 import Link from "@components/elements/link"
 import {twMerge} from "tailwind-merge"
+import {getIdAttribute} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordGallery
@@ -13,6 +14,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 
 const GalleryParagraph = ({paragraph, ...props}: Props) => {
   const GalleryWrapper: ElementType = paragraph.suGalleryHeadline ? "article" : "div"
+  const id = paragraph.suGalleryHeadline ? getIdAttribute(paragraph.suGalleryHeadline) : undefined
 
   return (
     <GalleryWrapper
@@ -21,10 +23,10 @@ const GalleryParagraph = ({paragraph, ...props}: Props) => {
         "centered mb-20 flex flex-col gap-10 @container lg:max-w-[920px] xl:max-w-[980px]",
         props.className
       )}
-      aria-labelledby={paragraph.suGalleryHeadline ? paragraph.uuid : undefined}
+      aria-labelledby={paragraph.suGalleryHeadline ? id : undefined}
     >
       {paragraph.suGalleryHeadline && (
-        <H2 id={paragraph.uuid} className="text-center">
+        <H2 id={id} className="text-center">
           {paragraph.suGalleryHeadline}
         </H2>
       )}

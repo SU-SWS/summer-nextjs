@@ -4,6 +4,7 @@ import Wysiwyg from "@components/elements/wysiwyg"
 import {H2} from "@components/elements/headers"
 import {HTMLAttributes} from "react"
 import {twMerge} from "tailwind-merge"
+import {getIdAttribute} from "@lib/utils/text-tools"
 
 type Props = HTMLAttributes<HTMLElement> & {
   paragraph: ParagraphSumAccordion
@@ -11,14 +12,16 @@ type Props = HTMLAttributes<HTMLElement> & {
 
 const SumAccordionParagraph = ({paragraph, ...props}: Props) => {
   const Element = paragraph.sumAccordionsHeading ? "article" : "div"
+  const id = paragraph.sumAccordionsHeading ? getIdAttribute(paragraph.sumAccordionsHeading) : undefined
+
   return (
     <Element
       {...props}
       className={twMerge("centered", props.className)}
-      aria-labelledby={paragraph.sumAccordionsHeading ? paragraph.uuid : undefined}
+      aria-labelledby={paragraph.sumAccordionsHeading ? id : undefined}
     >
       {paragraph.sumAccordionsHeading && (
-        <H2 id={paragraph.uuid} className="text-center">
+        <H2 id={id} className="text-center">
           {paragraph.sumAccordionsHeading}
         </H2>
       )}

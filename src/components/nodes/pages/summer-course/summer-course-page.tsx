@@ -13,7 +13,7 @@ import Link from "next/link"
 import CoursePreRequisites from "@components/elements/course-pre-requisites"
 import CourseInfo from "@components/elements/courses-info-icon"
 import NodePageMetadata from "@components/nodes/pages/node-page-metadata"
-import {getFirstText} from "@lib/utils/text-tools"
+import {getCleanDescription} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeSumSummerCourse
@@ -28,7 +28,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
       <NodePageMetadata
         pageTitle={node.title}
         metatags={node.metatag}
-        backupDescription={getFirstText(node.sumCourseDescription?.processed)}
+        backupDescription={getCleanDescription(node.sumCourseDescription?.processed)}
       />
       <ArcBanner {...props} imageUrl="/images/temp-bg.jpg" imageAlt="">
         <div className="w-screen">

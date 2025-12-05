@@ -47,6 +47,9 @@ export const FragmentMediaVideoFragmentDoc = gql`
     fragment FragmentMediaVideo on MediaVideo {
   ...FragmentMediaInterface
   mediaOembedVideo
+  sumVideoFile {
+    url
+  }
 }
     ${FragmentMediaInterfaceFragmentDoc}`;
 export const FragmentMediaImageFragmentDoc = gql`

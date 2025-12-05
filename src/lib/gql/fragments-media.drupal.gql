@@ -47,6 +47,9 @@ fragment FragmentMediaStanfordGalleryImage on MediaStanfordGalleryImage {
 fragment FragmentMediaVideo on MediaVideo {
     ...FragmentMediaInterface
     mediaOembedVideo
+    sumVideoFile {
+        url
+    }
 }
 
 fragment FragmentMediaUnion on MediaUnion {

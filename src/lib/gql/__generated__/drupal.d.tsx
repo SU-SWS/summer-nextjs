@@ -1041,6 +1041,12 @@ export type MediaVideo = MediaInterface &
     suVideoDuration?: Maybe<Scalars["Int"]["output"]>
     /** Subtitles */
     suVideoSubtitles?: Maybe<File>
+    /**
+     * Upload an mp4 video. This will be used for the initial display as an
+     * introduction when it comes into view for the user. The video will be trimmed
+     * to the first 6 seconds and the audio will be removed.
+     */
+    sumVideoFile?: Maybe<File>
     /** The Universally Unique IDentifier (UUID). */
     uuid: Scalars["ID"]["output"]
   }
@@ -6204,7 +6210,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -6295,7 +6307,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
               suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
               suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -6600,7 +6618,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -6691,7 +6715,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
               suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
               suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -6881,7 +6911,13 @@ export type NodeQuery = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suNewsComponents?: Array<
           | {
@@ -6916,7 +6952,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -7007,7 +7049,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
               suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
               suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -7136,7 +7184,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -7227,7 +7281,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
               suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
               suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -7531,7 +7591,13 @@ export type NodeQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                   }
                 | {
@@ -7544,6 +7610,7 @@ export type NodeQuery = {
                       mediaOembedVideo: string
                       uuid: string
                       name: string
+                      sumVideoFile?: {__typename?: "File"; url: string} | null
                     } | null
                   }
               > | null
@@ -7590,7 +7657,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -7696,7 +7769,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
               suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
               suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -7812,7 +7891,13 @@ export type NodeQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                   }
                 | {
@@ -8114,6 +8199,7 @@ export type NodeQuery = {
                                             mediaOembedVideo: string
                                             uuid: string
                                             name: string
+                                            sumVideoFile?: {__typename?: "File"; url: string} | null
                                           }
                                         | null
                                     }
@@ -8127,6 +8213,7 @@ export type NodeQuery = {
                                         mediaOembedVideo: string
                                         uuid: string
                                         name: string
+                                        sumVideoFile?: {__typename?: "File"; url: string} | null
                                       } | null
                                     }
                                 > | null
@@ -8280,7 +8367,13 @@ export type NodeQuery = {
                         width: number
                       }
                     }
-                  | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                  | {
+                      __typename: "MediaVideo"
+                      mediaOembedVideo: string
+                      uuid: string
+                      name: string
+                      sumVideoFile?: {__typename?: "File"; url: string} | null
+                    }
                   | null
               }> | null
               sumPillBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -8311,7 +8404,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
             }
           | {__typename: "ParagraphSumUserFavorite"; uuid: string; behaviors?: string | null; status: boolean}
           | {
@@ -8319,7 +8418,13 @@ export type NodeQuery = {
               uuid: string
               behaviors?: string | null
               status: boolean
-              sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+              sumVideoVideo?: {
+                __typename: "MediaVideo"
+                mediaOembedVideo: string
+                uuid: string
+                name: string
+                sumVideoFile?: {__typename?: "File"; url: string} | null
+              } | null
             }
         > | null
         suPageImage?: {
@@ -8401,7 +8506,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -8492,7 +8603,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
               suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
               suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -8718,7 +8835,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -8809,7 +8932,13 @@ export type NodeQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
               suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
               suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -9388,7 +9517,13 @@ export type EventSeriesQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
               | null
           }
         | {
@@ -9479,7 +9614,13 @@ export type EventSeriesQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
               | null
             suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
             suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -9707,7 +9848,13 @@ export type EventsQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
               | null
           }
         | {
@@ -9798,7 +9945,13 @@ export type EventsQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
               | null
             suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
             suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -10072,7 +10225,13 @@ export type NewsQuery = {
             name: string
             mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
           }
-        | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+        | {
+            __typename: "MediaVideo"
+            mediaOembedVideo: string
+            uuid: string
+            name: string
+            sumVideoFile?: {__typename?: "File"; url: string} | null
+          }
         | null
       suNewsComponents?: Array<
         | {
@@ -10107,7 +10266,13 @@ export type NewsQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
               | null
           }
         | {
@@ -10198,7 +10363,13 @@ export type NewsQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
               | null
             suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
             suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -10376,7 +10547,13 @@ export type BasicPagesQuery = {
                           width: number
                         }
                       }
-                    | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                    | {
+                        __typename: "MediaVideo"
+                        mediaOembedVideo: string
+                        uuid: string
+                        name: string
+                        sumVideoFile?: {__typename?: "File"; url: string} | null
+                      }
                     | null
                 }
               | {
@@ -10389,6 +10566,7 @@ export type BasicPagesQuery = {
                     mediaOembedVideo: string
                     uuid: string
                     name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
                   } | null
                 }
             > | null
@@ -10435,7 +10613,13 @@ export type BasicPagesQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
               | null
           }
         | {
@@ -10541,7 +10725,13 @@ export type BasicPagesQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
               | null
             suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
             suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -10657,7 +10847,13 @@ export type BasicPagesQuery = {
                           width: number
                         }
                       }
-                    | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                    | {
+                        __typename: "MediaVideo"
+                        mediaOembedVideo: string
+                        uuid: string
+                        name: string
+                        sumVideoFile?: {__typename?: "File"; url: string} | null
+                      }
                     | null
                 }
               | {
@@ -10954,7 +11150,13 @@ export type BasicPagesQuery = {
                                             width: number
                                           }
                                         }
-                                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                                      | {
+                                          __typename: "MediaVideo"
+                                          mediaOembedVideo: string
+                                          uuid: string
+                                          name: string
+                                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                                        }
                                       | null
                                   }
                                 | {
@@ -10967,6 +11169,7 @@ export type BasicPagesQuery = {
                                       mediaOembedVideo: string
                                       uuid: string
                                       name: string
+                                      sumVideoFile?: {__typename?: "File"; url: string} | null
                                     } | null
                                   }
                               > | null
@@ -11114,7 +11317,13 @@ export type BasicPagesQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }> | null
             sumPillBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -11145,7 +11354,13 @@ export type BasicPagesQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
           }
         | {__typename: "ParagraphSumUserFavorite"; uuid: string; behaviors?: string | null; status: boolean}
         | {
@@ -11153,7 +11368,13 @@ export type BasicPagesQuery = {
             uuid: string
             behaviors?: string | null
             status: boolean
-            sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+            sumVideoVideo?: {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            } | null
           }
       > | null
       suPageImage?: {
@@ -11228,7 +11449,13 @@ export type PeopleQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
               | null
           }
         | {
@@ -11319,7 +11546,13 @@ export type PeopleQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
               | null
             suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
             suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -11535,7 +11768,13 @@ export type PublicationsQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
               | null
           }
         | {
@@ -11626,7 +11865,13 @@ export type PublicationsQuery = {
                   name: string
                   mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                 }
-              | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+              | {
+                  __typename: "MediaVideo"
+                  mediaOembedVideo: string
+                  uuid: string
+                  name: string
+                  sumVideoFile?: {__typename?: "File"; url: string} | null
+                }
               | null
             suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
             suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -11727,7 +11972,13 @@ export type MediaQuery = {
         name: string
         suGalleryImage?: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number} | null
       }
-    | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+    | {
+        __typename: "MediaVideo"
+        mediaOembedVideo: string
+        uuid: string
+        name: string
+        sumVideoFile?: {__typename?: "File"; url: string} | null
+      }
     | null
 }
 
@@ -12890,7 +13141,13 @@ export type ParagraphQuery = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -12996,7 +13253,13 @@ export type ParagraphQuery = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -13123,7 +13386,13 @@ export type ParagraphQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -13416,7 +13685,13 @@ export type ParagraphQuery = {
                                         width: number
                                       }
                                     }
-                                  | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                                  | {
+                                      __typename: "MediaVideo"
+                                      mediaOembedVideo: string
+                                      uuid: string
+                                      name: string
+                                      sumVideoFile?: {__typename?: "File"; url: string} | null
+                                    }
                                   | null
                               }
                             | {
@@ -13429,6 +13704,7 @@ export type ParagraphQuery = {
                                   mediaOembedVideo: string
                                   uuid: string
                                   name: string
+                                  sumVideoFile?: {__typename?: "File"; url: string} | null
                                 } | null
                               }
                           > | null
@@ -13573,7 +13849,13 @@ export type ParagraphQuery = {
                 name: string
                 mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
               }
-            | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+            | {
+                __typename: "MediaVideo"
+                mediaOembedVideo: string
+                uuid: string
+                name: string
+                sumVideoFile?: {__typename?: "File"; url: string} | null
+              }
             | null
         }> | null
         sumPillBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -13605,7 +13887,13 @@ export type ParagraphQuery = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
       }
     | {
         __typename: "ParagraphSumTopBanner"
@@ -13630,7 +13918,13 @@ export type ParagraphQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -13638,7 +13932,13 @@ export type ParagraphQuery = {
               uuid: string
               behaviors?: string | null
               status: boolean
-              sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+              sumVideoVideo?: {
+                __typename: "MediaVideo"
+                mediaOembedVideo: string
+                uuid: string
+                name: string
+                sumVideoFile?: {__typename?: "File"; url: string} | null
+              } | null
             }
         > | null
         sumTopBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -13656,7 +13956,13 @@ export type ParagraphQuery = {
         uuid: string
         behaviors?: string | null
         status: boolean
-        sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+        sumVideoVideo?: {
+          __typename: "MediaVideo"
+          mediaOembedVideo: string
+          uuid: string
+          name: string
+          sumVideoFile?: {__typename?: "File"; url: string} | null
+        } | null
       }
     | null
 }
@@ -15437,6 +15743,7 @@ export type FragmentMediaVideoFragment = {
   mediaOembedVideo: string
   uuid: string
   name: string
+  sumVideoFile?: {__typename?: "File"; url: string} | null
 }
 
 type FragmentMediaUnion_MediaEmbeddable_Fragment = {
@@ -15481,6 +15788,7 @@ type FragmentMediaUnion_MediaVideo_Fragment = {
   mediaOembedVideo: string
   uuid: string
   name: string
+  sumVideoFile?: {__typename?: "File"; url: string} | null
 }
 
 export type FragmentMediaUnionFragment =
@@ -16167,7 +16475,13 @@ export type FragmentNodeStanfordPageFragment = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -16175,7 +16489,13 @@ export type FragmentNodeStanfordPageFragment = {
               uuid: string
               behaviors?: string | null
               status: boolean
-              sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+              sumVideoVideo?: {
+                __typename: "MediaVideo"
+                mediaOembedVideo: string
+                uuid: string
+                name: string
+                sumVideoFile?: {__typename?: "File"; url: string} | null
+              } | null
             }
         > | null
         sumTopBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -16221,7 +16541,13 @@ export type FragmentNodeStanfordPageFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -16327,7 +16653,13 @@ export type FragmentNodeStanfordPageFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -16437,7 +16769,13 @@ export type FragmentNodeStanfordPageFragment = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -16730,7 +17068,13 @@ export type FragmentNodeStanfordPageFragment = {
                                         width: number
                                       }
                                     }
-                                  | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                                  | {
+                                      __typename: "MediaVideo"
+                                      mediaOembedVideo: string
+                                      uuid: string
+                                      name: string
+                                      sumVideoFile?: {__typename?: "File"; url: string} | null
+                                    }
                                   | null
                               }
                             | {
@@ -16743,6 +17087,7 @@ export type FragmentNodeStanfordPageFragment = {
                                   mediaOembedVideo: string
                                   uuid: string
                                   name: string
+                                  sumVideoFile?: {__typename?: "File"; url: string} | null
                                 } | null
                               }
                           > | null
@@ -16886,7 +17231,13 @@ export type FragmentNodeStanfordPageFragment = {
                 name: string
                 mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
               }
-            | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+            | {
+                __typename: "MediaVideo"
+                mediaOembedVideo: string
+                uuid: string
+                name: string
+                sumVideoFile?: {__typename?: "File"; url: string} | null
+              }
             | null
         }> | null
         sumPillBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -16917,7 +17268,13 @@ export type FragmentNodeStanfordPageFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
       }
     | {__typename: "ParagraphSumUserFavorite"; uuid: string; behaviors?: string | null; status: boolean}
     | {
@@ -16925,7 +17282,13 @@ export type FragmentNodeStanfordPageFragment = {
         uuid: string
         behaviors?: string | null
         status: boolean
-        sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+        sumVideoVideo?: {
+          __typename: "MediaVideo"
+          mediaOembedVideo: string
+          uuid: string
+          name: string
+          sumVideoFile?: {__typename?: "File"; url: string} | null
+        } | null
       }
   > | null
   suPageImage?: {
@@ -17142,7 +17505,13 @@ export type FragmentNodeStanfordEventFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -17233,7 +17602,13 @@ export type FragmentNodeStanfordEventFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -17519,7 +17894,13 @@ export type FragmentNodeStanfordEventSeriesFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -17610,7 +17991,13 @@ export type FragmentNodeStanfordEventSeriesFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -17761,7 +18148,13 @@ export type FragmentNodeStanfordMediaFragment = {
         uuid: string
         name: string
       }
-    | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+    | {
+        __typename: "MediaVideo"
+        mediaOembedVideo: string
+        uuid: string
+        name: string
+        sumVideoFile?: {__typename?: "File"; url: string} | null
+      }
   >
   suMediaDate?: {__typename?: "DateTime"; time: any; timezone: any} | null
   suMediaImage?: {
@@ -17835,7 +18228,13 @@ export type FragmentNodeStanfordNewsFragment = {
         name: string
         mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
       }
-    | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+    | {
+        __typename: "MediaVideo"
+        mediaOembedVideo: string
+        uuid: string
+        name: string
+        sumVideoFile?: {__typename?: "File"; url: string} | null
+      }
     | null
   suNewsComponents?: Array<
     | {
@@ -17870,7 +18269,13 @@ export type FragmentNodeStanfordNewsFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -17961,7 +18366,13 @@ export type FragmentNodeStanfordNewsFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -18081,7 +18492,13 @@ export type FragmentNodeStanfordPersonFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -18172,7 +18589,13 @@ export type FragmentNodeStanfordPersonFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -18364,7 +18787,13 @@ export type FragmentNodeStanfordPublicationFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -18455,7 +18884,13 @@ export type FragmentNodeStanfordPublicationFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -18566,7 +19001,13 @@ export type FragmentNodeStanfordOpportunityFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -18657,7 +19098,13 @@ export type FragmentNodeStanfordOpportunityFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -19088,7 +19535,13 @@ type FragmentNodeUnion_NodeStanfordEvent_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -19179,7 +19632,13 @@ type FragmentNodeUnion_NodeStanfordEvent_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -19485,7 +19944,13 @@ type FragmentNodeUnion_NodeStanfordEventSeries_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -19576,7 +20041,13 @@ type FragmentNodeUnion_NodeStanfordEventSeries_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -19768,7 +20239,13 @@ type FragmentNodeUnion_NodeStanfordNews_Fragment = {
         name: string
         mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
       }
-    | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+    | {
+        __typename: "MediaVideo"
+        mediaOembedVideo: string
+        uuid: string
+        name: string
+        sumVideoFile?: {__typename?: "File"; url: string} | null
+      }
     | null
   suNewsComponents?: Array<
     | {
@@ -19803,7 +20280,13 @@ type FragmentNodeUnion_NodeStanfordNews_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -19894,7 +20377,13 @@ type FragmentNodeUnion_NodeStanfordNews_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -20024,7 +20513,13 @@ type FragmentNodeUnion_NodeStanfordOpportunity_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -20115,7 +20610,13 @@ type FragmentNodeUnion_NodeStanfordOpportunity_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -20414,7 +20915,13 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -20422,7 +20929,13 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
               uuid: string
               behaviors?: string | null
               status: boolean
-              sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+              sumVideoVideo?: {
+                __typename: "MediaVideo"
+                mediaOembedVideo: string
+                uuid: string
+                name: string
+                sumVideoFile?: {__typename?: "File"; url: string} | null
+              } | null
             }
         > | null
         sumTopBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -20468,7 +20981,13 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -20574,7 +21093,13 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -20684,7 +21209,13 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -20977,7 +21508,13 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
                                         width: number
                                       }
                                     }
-                                  | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                                  | {
+                                      __typename: "MediaVideo"
+                                      mediaOembedVideo: string
+                                      uuid: string
+                                      name: string
+                                      sumVideoFile?: {__typename?: "File"; url: string} | null
+                                    }
                                   | null
                               }
                             | {
@@ -20990,6 +21527,7 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
                                   mediaOembedVideo: string
                                   uuid: string
                                   name: string
+                                  sumVideoFile?: {__typename?: "File"; url: string} | null
                                 } | null
                               }
                           > | null
@@ -21133,7 +21671,13 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
                 name: string
                 mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
               }
-            | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+            | {
+                __typename: "MediaVideo"
+                mediaOembedVideo: string
+                uuid: string
+                name: string
+                sumVideoFile?: {__typename?: "File"; url: string} | null
+              }
             | null
         }> | null
         sumPillBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -21164,7 +21708,13 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
       }
     | {__typename: "ParagraphSumUserFavorite"; uuid: string; behaviors?: string | null; status: boolean}
     | {
@@ -21172,7 +21722,13 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
         uuid: string
         behaviors?: string | null
         status: boolean
-        sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+        sumVideoVideo?: {
+          __typename: "MediaVideo"
+          mediaOembedVideo: string
+          uuid: string
+          name: string
+          sumVideoFile?: {__typename?: "File"; url: string} | null
+        } | null
       }
   > | null
   suPageImage?: {
@@ -21255,7 +21811,13 @@ type FragmentNodeUnion_NodeStanfordPerson_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -21346,7 +21908,13 @@ type FragmentNodeUnion_NodeStanfordPerson_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -21574,7 +22142,13 @@ type FragmentNodeUnion_NodeStanfordPublication_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -21665,7 +22239,13 @@ type FragmentNodeUnion_NodeStanfordPublication_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
         suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
         suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -22280,7 +22860,13 @@ export type FragmentNodeStanfordPageTeaserFragment = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -22288,7 +22874,13 @@ export type FragmentNodeStanfordPageTeaserFragment = {
               uuid: string
               behaviors?: string | null
               status: boolean
-              sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+              sumVideoVideo?: {
+                __typename: "MediaVideo"
+                mediaOembedVideo: string
+                uuid: string
+                name: string
+                sumVideoFile?: {__typename?: "File"; url: string} | null
+              } | null
             }
         > | null
         sumTopBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -22834,7 +23426,13 @@ type FragmentNodeTeaserUnion_NodeStanfordPage_Fragment = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
             }
           | {
@@ -22842,7 +23440,13 @@ type FragmentNodeTeaserUnion_NodeStanfordPage_Fragment = {
               uuid: string
               behaviors?: string | null
               status: boolean
-              sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+              sumVideoVideo?: {
+                __typename: "MediaVideo"
+                mediaOembedVideo: string
+                uuid: string
+                name: string
+                sumVideoFile?: {__typename?: "File"; url: string} | null
+              } | null
             }
         > | null
         sumTopBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -23234,7 +23838,13 @@ export type FragmentParagraphStanfordCardFragment = {
         name: string
         mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
       }
-    | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+    | {
+        __typename: "MediaVideo"
+        mediaOembedVideo: string
+        uuid: string
+        name: string
+        sumVideoFile?: {__typename?: "File"; url: string} | null
+      }
     | null
 }
 
@@ -23333,7 +23943,13 @@ export type FragmentParagraphStanfordMediaCaptionFragment = {
         name: string
         mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
       }
-    | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+    | {
+        __typename: "MediaVideo"
+        mediaOembedVideo: string
+        uuid: string
+        name: string
+        sumVideoFile?: {__typename?: "File"; url: string} | null
+      }
     | null
   suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
   suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -23530,7 +24146,13 @@ export type FragmentParagraphSumCarouselFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -23811,7 +24433,13 @@ export type FragmentParagraphSumCarouselFragment = {
                                   width: number
                                 }
                               }
-                            | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                            | {
+                                __typename: "MediaVideo"
+                                mediaOembedVideo: string
+                                uuid: string
+                                name: string
+                                sumVideoFile?: {__typename?: "File"; url: string} | null
+                              }
                             | null
                         }
                       | {
@@ -23824,6 +24452,7 @@ export type FragmentParagraphSumCarouselFragment = {
                             mediaOembedVideo: string
                             uuid: string
                             name: string
+                            sumVideoFile?: {__typename?: "File"; url: string} | null
                           } | null
                         }
                     > | null
@@ -24198,7 +24827,13 @@ export type FragmentParagraphSumSlideTeaserFragment = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                   }
                 | {
@@ -24211,6 +24846,7 @@ export type FragmentParagraphSumSlideTeaserFragment = {
                       mediaOembedVideo: string
                       uuid: string
                       name: string
+                      sumVideoFile?: {__typename?: "File"; url: string} | null
                     } | null
                   }
               > | null
@@ -24334,7 +24970,13 @@ export type FragmentParagraphSumTopBannerFragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -24342,7 +24984,13 @@ export type FragmentParagraphSumTopBannerFragment = {
         uuid: string
         behaviors?: string | null
         status: boolean
-        sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+        sumVideoVideo?: {
+          __typename: "MediaVideo"
+          mediaOembedVideo: string
+          uuid: string
+          name: string
+          sumVideoFile?: {__typename?: "File"; url: string} | null
+        } | null
       }
   > | null
   sumTopBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -24360,7 +25008,13 @@ export type FragmentParagraphSumVideoFragment = {
   uuid: string
   behaviors?: string | null
   status: boolean
-  sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+  sumVideoVideo?: {
+    __typename: "MediaVideo"
+    mediaOembedVideo: string
+    uuid: string
+    name: string
+    sumVideoFile?: {__typename?: "File"; url: string} | null
+  } | null
 }
 
 export type FragmentParagraphSumUserFavoriteFragment = {
@@ -24433,7 +25087,13 @@ export type FragmentParagraphSumPillBannerFragment = {
           name: string
           mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
         }
-      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+      | {
+          __typename: "MediaVideo"
+          mediaOembedVideo: string
+          uuid: string
+          name: string
+          sumVideoFile?: {__typename?: "File"; url: string} | null
+        }
       | null
   }> | null
   sumPillBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -24465,7 +25125,13 @@ export type FragmentParagraphSumTestimonialFragment = {
         name: string
         mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
       }
-    | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+    | {
+        __typename: "MediaVideo"
+        mediaOembedVideo: string
+        uuid: string
+        name: string
+        sumVideoFile?: {__typename?: "File"; url: string} | null
+      }
 }
 
 type FragmentParagraphUnion_ParagraphStanfordAccordion_Fragment = {
@@ -24510,7 +25176,13 @@ type FragmentParagraphUnion_ParagraphStanfordCard_Fragment = {
         name: string
         mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
       }
-    | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+    | {
+        __typename: "MediaVideo"
+        mediaOembedVideo: string
+        uuid: string
+        name: string
+        sumVideoFile?: {__typename?: "File"; url: string} | null
+      }
     | null
 }
 
@@ -24622,7 +25294,13 @@ type FragmentParagraphUnion_ParagraphStanfordMediaCaption_Fragment = {
         name: string
         mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
       }
-    | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+    | {
+        __typename: "MediaVideo"
+        mediaOembedVideo: string
+        uuid: string
+        name: string
+        sumVideoFile?: {__typename?: "File"; url: string} | null
+      }
     | null
   suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
   suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -24780,7 +25458,13 @@ type FragmentParagraphUnion_ParagraphSumCarousel_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -25061,7 +25745,13 @@ type FragmentParagraphUnion_ParagraphSumCarousel_Fragment = {
                                   width: number
                                 }
                               }
-                            | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                            | {
+                                __typename: "MediaVideo"
+                                mediaOembedVideo: string
+                                uuid: string
+                                name: string
+                                sumVideoFile?: {__typename?: "File"; url: string} | null
+                              }
                             | null
                         }
                       | {
@@ -25074,6 +25764,7 @@ type FragmentParagraphUnion_ParagraphSumCarousel_Fragment = {
                             mediaOembedVideo: string
                             uuid: string
                             name: string
+                            sumVideoFile?: {__typename?: "File"; url: string} | null
                           } | null
                         }
                     > | null
@@ -25225,7 +25916,13 @@ type FragmentParagraphUnion_ParagraphSumPillBanner_Fragment = {
           name: string
           mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
         }
-      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+      | {
+          __typename: "MediaVideo"
+          mediaOembedVideo: string
+          uuid: string
+          name: string
+          sumVideoFile?: {__typename?: "File"; url: string} | null
+        }
       | null
   }> | null
   sumPillBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -25264,7 +25961,13 @@ type FragmentParagraphUnion_ParagraphSumTestimonial_Fragment = {
         name: string
         mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
       }
-    | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+    | {
+        __typename: "MediaVideo"
+        mediaOembedVideo: string
+        uuid: string
+        name: string
+        sumVideoFile?: {__typename?: "File"; url: string} | null
+      }
 }
 
 type FragmentParagraphUnion_ParagraphSumTopBanner_Fragment = {
@@ -25290,7 +25993,13 @@ type FragmentParagraphUnion_ParagraphSumTopBanner_Fragment = {
               name: string
               mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
             }
-          | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+          | {
+              __typename: "MediaVideo"
+              mediaOembedVideo: string
+              uuid: string
+              name: string
+              sumVideoFile?: {__typename?: "File"; url: string} | null
+            }
           | null
       }
     | {
@@ -25298,7 +26007,13 @@ type FragmentParagraphUnion_ParagraphSumTopBanner_Fragment = {
         uuid: string
         behaviors?: string | null
         status: boolean
-        sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+        sumVideoVideo?: {
+          __typename: "MediaVideo"
+          mediaOembedVideo: string
+          uuid: string
+          name: string
+          sumVideoFile?: {__typename?: "File"; url: string} | null
+        } | null
       }
   > | null
   sumTopBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -25323,7 +26038,13 @@ type FragmentParagraphUnion_ParagraphSumVideo_Fragment = {
   uuid: string
   behaviors?: string | null
   status: boolean
-  sumVideoVideo?: {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string} | null
+  sumVideoVideo?: {
+    __typename: "MediaVideo"
+    mediaOembedVideo: string
+    uuid: string
+    name: string
+    sumVideoFile?: {__typename?: "File"; url: string} | null
+  } | null
 }
 
 export type FragmentParagraphUnionFragment =
@@ -25686,7 +26407,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                   }
                 | {
@@ -25783,7 +26510,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                     suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
                     suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -26104,7 +26837,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                   }
                 | {
@@ -26201,7 +26940,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                     suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
                     suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -26399,7 +27144,13 @@ export type RouteQuery = {
                     name: string
                     mediaImage: {__typename?: "Image"; url: string; alt?: string | null; height: number; width: number}
                   }
-                | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                | {
+                    __typename: "MediaVideo"
+                    mediaOembedVideo: string
+                    uuid: string
+                    name: string
+                    sumVideoFile?: {__typename?: "File"; url: string} | null
+                  }
                 | null
               suNewsComponents?: Array<
                 | {
@@ -26446,7 +27197,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                   }
                 | {
@@ -26543,7 +27300,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                     suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
                     suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -26688,7 +27451,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                   }
                 | {
@@ -26785,7 +27554,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                     suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
                     suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -27105,7 +27880,13 @@ export type RouteQuery = {
                                   width: number
                                 }
                               }
-                            | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                            | {
+                                __typename: "MediaVideo"
+                                mediaOembedVideo: string
+                                uuid: string
+                                name: string
+                                sumVideoFile?: {__typename?: "File"; url: string} | null
+                              }
                             | null
                         }
                       | {
@@ -27118,6 +27899,7 @@ export type RouteQuery = {
                             mediaOembedVideo: string
                             uuid: string
                             name: string
+                            sumVideoFile?: {__typename?: "File"; url: string} | null
                           } | null
                         }
                     > | null
@@ -27182,7 +27964,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                   }
                 | {
@@ -27294,7 +28082,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                     suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
                     suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -27430,7 +28224,13 @@ export type RouteQuery = {
                                   width: number
                                 }
                               }
-                            | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                            | {
+                                __typename: "MediaVideo"
+                                mediaOembedVideo: string
+                                uuid: string
+                                name: string
+                                sumVideoFile?: {__typename?: "File"; url: string} | null
+                              }
                             | null
                         }
                       | {
@@ -27736,6 +28536,7 @@ export type RouteQuery = {
                                                   mediaOembedVideo: string
                                                   uuid: string
                                                   name: string
+                                                  sumVideoFile?: {__typename?: "File"; url: string} | null
                                                 }
                                               | null
                                           }
@@ -27749,6 +28550,7 @@ export type RouteQuery = {
                                               mediaOembedVideo: string
                                               uuid: string
                                               name: string
+                                              sumVideoFile?: {__typename?: "File"; url: string} | null
                                             } | null
                                           }
                                       > | null
@@ -27908,7 +28710,13 @@ export type RouteQuery = {
                               width: number
                             }
                           }
-                        | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                        | {
+                            __typename: "MediaVideo"
+                            mediaOembedVideo: string
+                            uuid: string
+                            name: string
+                            sumVideoFile?: {__typename?: "File"; url: string} | null
+                          }
                         | null
                     }> | null
                     sumPillBannerDescrip?: {__typename?: "Text"; processed?: any | null} | null
@@ -27951,7 +28759,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                   }
                 | {__typename: "ParagraphSumUserFavorite"; uuid: string; behaviors?: string | null; status: boolean}
                 | {
@@ -27964,6 +28778,7 @@ export type RouteQuery = {
                       mediaOembedVideo: string
                       uuid: string
                       name: string
+                      sumVideoFile?: {__typename?: "File"; url: string} | null
                     } | null
                   }
               > | null
@@ -28062,7 +28877,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                   }
                 | {
@@ -28159,7 +28980,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                     suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
                     suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -28405,7 +29232,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                   }
                 | {
@@ -28502,7 +29335,13 @@ export type RouteQuery = {
                             width: number
                           }
                         }
-                      | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                      | {
+                          __typename: "MediaVideo"
+                          mediaOembedVideo: string
+                          uuid: string
+                          name: string
+                          sumVideoFile?: {__typename?: "File"; url: string} | null
+                        }
                       | null
                     suMediaCaptionLink?: {__typename?: "Link"; url?: string | null; title?: string | null} | null
                     suMediaCaptionCaption?: {__typename?: "Text"; processed?: any | null} | null
@@ -29018,7 +29857,13 @@ export type StanfordBasicPagesQuery = {
                               width: number
                             }
                           }
-                        | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                        | {
+                            __typename: "MediaVideo"
+                            mediaOembedVideo: string
+                            uuid: string
+                            name: string
+                            sumVideoFile?: {__typename?: "File"; url: string} | null
+                          }
                         | null
                     }
                   | {
@@ -29031,6 +29876,7 @@ export type StanfordBasicPagesQuery = {
                         mediaOembedVideo: string
                         uuid: string
                         name: string
+                        sumVideoFile?: {__typename?: "File"; url: string} | null
                       } | null
                     }
                 > | null
@@ -30890,7 +31736,13 @@ export type StanfordSharedTagsQuery = {
                               width: number
                             }
                           }
-                        | {__typename: "MediaVideo"; mediaOembedVideo: string; uuid: string; name: string}
+                        | {
+                            __typename: "MediaVideo"
+                            mediaOembedVideo: string
+                            uuid: string
+                            name: string
+                            sumVideoFile?: {__typename?: "File"; url: string} | null
+                          }
                         | null
                     }
                   | {
@@ -30903,6 +31755,7 @@ export type StanfordSharedTagsQuery = {
                         mediaOembedVideo: string
                         uuid: string
                         name: string
+                        sumVideoFile?: {__typename?: "File"; url: string} | null
                       } | null
                     }
                 > | null

@@ -6,12 +6,14 @@ import {HTMLAttributes, useCallback, useEffect, useId, useRef} from "react"
 import {ErrorBoundary} from "react-error-boundary"
 import {PlayIcon} from "@heroicons/react/24/solid"
 import {twMerge} from "tailwind-merge"
+import {clsx} from "clsx"
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   videoUrl: string
+  intro?: string
 }
 
-const YoutubeVideoPill = ({videoUrl, ...props}: Props) => {
+const YoutubeVideoPill = ({videoUrl, intro, ...props}: Props) => {
   return (
     <ErrorBoundary
       fallback={
@@ -21,10 +23,83 @@ const YoutubeVideoPill = ({videoUrl, ...props}: Props) => {
         </a>
       }
     >
-      <YoutubeVideoPillBounded videoUrl={videoUrl} {...props} />
+      {intro && <YoutubeVideoPillIntroBounded videoUrl={videoUrl} intro={intro} {...props} />}
+      {!intro && <YoutubeVideoPillBounded videoUrl={videoUrl} {...props} />}
     </ErrorBoundary>
   )
 }
+
+const YoutubeVideoPillIntroBounded = ({videoUrl, intro, ...props}: Props) => {
+  const {value: isInitialPlay, setFalse: endInitialPlay} = useBoolean(true)
+  const {value: isPlaying, setValue: setIsPlaying} = useBoolean(false)
+  const {isIntersecting, ref} = useIntersectionObserver({
+    freezeOnceVisible: true,
+  })
+
+  const videoId = videoUrl.match(/v=([\w_-]+)/)?.[1]
+  const shortId = videoUrl.match(/shorts\/([\w_-]+)/)?.[1]
+
+  return (
+    <div
+      {...props}
+      className={twMerge(
+        "relative mx-auto aspect-[9/16] sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
+        clsx({"border-transparent": isPlaying}),
+        props.className
+      )}
+      ref={ref}
+    >
+      <div
+        className={twMerge(
+          "h-full overflow-hidden bg-black transition-all duration-300 ease-in-out",
+          clsx({
+            "rounded-full outline outline-4 outline-offset-[-10px] outline-white": !isPlaying,
+          })
+        )}
+      >
+        {isInitialPlay && isIntersecting && <video src={intro} autoPlay muted className="w-full" />}
+        {!isInitialPlay && (
+          <YouTube
+            videoId={videoId || shortId}
+            className={twMerge(
+              "h-full overflow-hidden bg-black transition-all duration-300 ease-in-out",
+              clsx({
+                "rounded-full outline outline-4 outline-offset-[-10px] outline-white": !isPlaying,
+              })
+            )}
+            opts={{
+              height: 530,
+              width: 300,
+              playerVars: {
+                controls: 0,
+                rel: 0,
+                autoplay: 1,
+              },
+            }}
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            onEnd={() => setIsPlaying(false)}
+            iframeClassName="w-full aspect-[9/16] h-full"
+          />
+        )}
+
+        {isInitialPlay && (
+          <button
+            onClick={() => {
+              endInitialPlay()
+              setIsPlaying(true)
+            }}
+            aria-label="Play video"
+            className="hocus:outline-3 absolute left-1/2 top-1/2 -translate-x-[50px] -translate-y-[50px] rounded-full border-2 border-transparent hocus:outline hocus:outline-digital-red"
+          >
+            <PlayIcon width={100} className="rounded-full bg-digital-red p-10 text-white" />
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
 const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
   const id = useId()
   const {value: isInitialPlay, setFalse: endInitialPlay} = useBoolean(true)

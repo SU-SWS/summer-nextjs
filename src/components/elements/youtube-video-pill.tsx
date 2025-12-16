@@ -76,6 +76,7 @@ const YoutubeVideoPillIntroBounded = ({videoUrl, intro, ...props}: Props) => {
                 autoplay: 1,
               },
             }}
+            onReady={e => e.target.g.focus()}
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
             onEnd={() => setIsPlaying(false)}

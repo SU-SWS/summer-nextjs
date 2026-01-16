@@ -31,11 +31,21 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
           getFirstText(node.suOppComponents)
         }
       />
-      <div className="mx-auto mb-10 flex items-start lg:w-10/12">
+      <div className="mx-auto mb-10 flex items-center lg:w-10/12">
         {node.suOppIcon && (
           <div className={`mr-10 shrink-0 text-[50px] ${node.suOppIcon.style} fa-${node.suOppIcon.iconName}`} />
         )}
-        <div>
+        <div className="flex grow flex-col items-center justify-between">
+          <div>
+            {node.suOppApplicationDeadline && (
+              <div className="uppercase">
+                {new Date(node.suOppApplicationDeadline.time).toLocaleString("en-us", {
+                  month: "long",
+                  year: "numeric",
+                })}
+              </div>
+            )}
+          </div>
           <H1>{node.title}</H1>
           <Wysiwyg html={node.suOppSummary?.processed} />
         </div>
@@ -44,7 +54,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
       {image?.url && (
         <div className="relative mb-20 aspect-[2/1]">
           <Image
-            className="ed11y-ignore object-cover"
+            className="ed11y-ignore rounded-[2.5rem] object-cover"
             src={image.url}
             alt=""
             fill

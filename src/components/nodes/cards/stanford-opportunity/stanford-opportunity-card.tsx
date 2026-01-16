@@ -16,15 +16,21 @@ const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
   const Heading = headingLevel === "h3" ? H3 : H2
 
   return (
-    <ImageCard {...props} aria-labelledby={node.uuid} imageUrl={image?.url} isArticle>
-      <ReverseVisualOrder>
-        <Heading className="[&_a]:text-black" id={node.uuid}>
+    <ImageCard
+      {...props}
+      aria-labelledby={node.uuid}
+      imageUrl={image?.url}
+      isArticle
+      className="[&_div:first]:aspect-1"
+    >
+      <div className="flex-start mb-5 flex">
+        <Heading className="type-1 [&_a]:text-black" id={node.uuid}>
           <Link className="stretched-link" href={node.suOppSource?.url || node.path || "#"}>
             {node.title}
           </Link>
         </Heading>
         {node.suOppType && <div>{node.suOppType?.map(type => type.name).join(", ")}</div>}
-      </ReverseVisualOrder>
+      </div>
       <Wysiwyg html={node.suOppSummary?.processed || node.body?.summary} />
       {node.suOppCardFooter && <Wysiwyg html={node.suOppCardFooter.processed} />}
       {node.suOppIcon && (

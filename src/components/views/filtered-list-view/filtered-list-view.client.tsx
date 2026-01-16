@@ -78,6 +78,19 @@ const FilteredListViewClient = ({
       .catch(_e => console.warn("An error happened"))
   }
 
+  const handleClearFilters = () => {
+    setChosenFilters({})
+    runLoadPage(0, {[filterKey]: []})
+      .then(results => {
+        const resultChildren = results?.props.children
+        setFilteredTotalItems(results?.props.totalItems)
+        setItems([...resultChildren])
+        resetPage()
+        enableFocusElement()
+      })
+      .catch(_e => console.warn("An error happened"))
+  }
+
   return (
     <div {...props} className={twMerge("relative", props.className)}>
       {isPending && (
@@ -89,6 +102,15 @@ const FilteredListViewClient = ({
       )}
       <div className="flex flex-col gap-12 lg:flex-row">
         <form className="shrink-0 lg:w-1/4">
+          <div className="flex flex-row items-end justify-between">
+            <h3 className="type-1 mb-4 font-light">Filter by</h3>
+            <a
+              onClick={handleClearFilters}
+              className="mb-4 block cursor-pointer text-3xl font-normal no-underline hocus:underline"
+            >
+              Clear all filters
+            </a>
+          </div>
           {filters.map((filterGroup, i) => (
             <InputGroup
               key={`filter-${filterGroup.label.toLowerCase().replaceAll(/[^a-z0-9-]/g, "-")}-${i}`}

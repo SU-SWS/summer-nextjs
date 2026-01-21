@@ -21,9 +21,19 @@ const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
       aria-labelledby={node.uuid}
       imageUrl={image?.url}
       isArticle
-      className="[&_div:first]:aspect-1"
+      className="h-full [&_div:first]:aspect-1"
     >
-      <div className="flex-start mb-5 flex">
+      <div className="flex-start mb-5 flex flex-col">
+        <div>
+          {node.suOppApplicationDeadline && (
+            <div className="uppercase">
+              {new Date(node.suOppApplicationDeadline.time).toLocaleString("en-us", {
+                month: "long",
+                year: "numeric",
+              })}
+            </div>
+          )}
+        </div>
         <Heading className="type-1 [&_a]:text-black" id={node.uuid}>
           <Link className="stretched-link" href={node.suOppSource?.url || node.path || "#"}>
             {node.title}
@@ -35,7 +45,7 @@ const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
       {node.suOppCardFooter && <Wysiwyg html={node.suOppCardFooter.processed} />}
       {node.suOppIcon && (
         <div
-          className={`mr-10 text-right text-[30px] text-lagunita ${node.suOppIcon.style} fa-${node.suOppIcon.iconName}`}
+          className={`absolute bottom-[1.9rem] right-0 mr-10 text-[30px] text-lagunita ${node.suOppIcon.style} fa-${node.suOppIcon.iconName}`}
         />
       )}
     </ImageCard>

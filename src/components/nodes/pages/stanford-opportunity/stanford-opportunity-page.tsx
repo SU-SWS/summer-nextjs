@@ -63,7 +63,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
       <div className="mx-auto mb-20 flex flex-col gap-20 lg:w-10/12 lg:flex-row">
         <div className="lg:w-9/12">
           {(node.suOppEligibility?.processed || node.suOppPrerequisites?.processed) && (
-            <div className="mb-20 flex flex-col gap-20 bg-black-10 bg-opacity-80 p-10">
+            <div className="mb-20 flex flex-col gap-20 rounded-[2.5rem] bg-black-10 bg-opacity-80 p-10">
               {node.suOppEligibility && (
                 <div>
                   <H2 className="text-3xl">Eligibility</H2>
@@ -83,13 +83,8 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
           <Wysiwyg html={node.body?.processed} />
         </div>
         <div className="border-t border-black-30 lg:w-3/12">
-          {node.suOppIcon && (
-            <div
-              className={`mt-10 shrink-0 pb-8 text-[30px] text-lagunita ${node.suOppIcon.style} fa-${node.suOppIcon.iconName}`}
-            />
-          )}
           {(node.suOppType || node.suOppCourseCode || node.suOppUnits) && (
-            <div className="flex flex-col gap-8 border-b border-black-30 px-5 pb-11">
+            <div className="flex flex-col gap-8 border-b border-black-30 px-5 py-11">
               {node.suOppType && (
                 <div className="font-semibold">{node.suOppType.map(type => type.name).join(", ")}</div>
               )}
@@ -120,6 +115,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
                 .replace(" at ", " ")}
             </div>
           )}
+
           {node.suOppTags && <FilterTerms terms={node.suOppTags} />}
 
           {(node.suOppContactEmail || node.suOppContactPhone || node.suOppContactName || node.suOppContactUrl) && (
@@ -159,7 +155,7 @@ const FilterTerms = async ({terms}: {terms: TermOpportunityTagFilter[]}) => {
     <div className="flex flex-col gap-8 border-b border-black-30 px-5 py-11">
       {groups.map(group => (
         <div key={group.uuid}>
-          <H2 className="text-3xl">{group.name}</H2>
+          <H2 className="text-3xl font-semibold">{group.name}</H2>
           {terms
             .filter(term => term.parent?.uuid === group.uuid)
             .map(term => term.name)

@@ -33,10 +33,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
         }
       />
       <ArcBanner {...props} imageUrl="/images/opportunity-bg.jpg" imageAlt="">
-        {node.suOppIcon && (
-          <div className={`mr-10 shrink-0 text-[50px] ${node.suOppIcon.style} fa-${node.suOppIcon.iconName}`} />
-        )}
-        <div className="mx-auto mb-10 flex grow flex-col items-center justify-between lg:w-10/12">
+        <div className="mx-auto mb-10 flex grow flex-col items-center justify-between lg:w-6/12">
           <div>
             {node.suOppApplicationDeadline && (
               <div className="uppercase">
@@ -47,7 +44,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
               </div>
             )}
           </div>
-          <H1>{node.title}</H1>
+          <H1 className="text-center">{node.title}</H1>
           <Wysiwyg html={node.suOppSummary?.processed} />
         </div>
       </ArcBanner>
@@ -86,8 +83,13 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
           <Wysiwyg html={node.body?.processed} />
         </div>
         <div className="border-t border-black-30 lg:w-3/12">
+          {node.suOppIcon && (
+            <div
+              className={`mt-10 shrink-0 pb-8 text-[30px] text-lagunita ${node.suOppIcon.style} fa-${node.suOppIcon.iconName}`}
+            />
+          )}
           {(node.suOppType || node.suOppCourseCode || node.suOppUnits) && (
-            <div className="flex flex-col gap-8 border-b border-black-30 px-5 py-16">
+            <div className="flex flex-col gap-8 border-b border-black-30 px-5 pb-11">
               {node.suOppType && (
                 <div className="font-semibold">{node.suOppType.map(type => type.name).join(", ")}</div>
               )}
@@ -105,7 +107,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
           )}
 
           {node.suOppApplicationDeadline && (
-            <div className="border-b border-black-30 px-5 py-16">
+            <div className="border-b border-black-30 px-5 py-8">
               <div className="font-semibold">Application Deadline</div>
               {new Date(node.suOppApplicationDeadline.time)
                 .toLocaleString("en-us", {
@@ -121,7 +123,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
           {node.suOppTags && <FilterTerms terms={node.suOppTags} />}
 
           {(node.suOppContactEmail || node.suOppContactPhone || node.suOppContactName || node.suOppContactUrl) && (
-            <div className="flex flex-col gap-2 px-5 py-16">
+            <div className="flex flex-col gap-2 px-5 py-8">
               {node.suOppContactEmail && <div>{node.suOppContactEmail}</div>}
               {node.suOppContactName && <div>{node.suOppContactName}</div>}
               {node.suOppContactPhone && <Telephone tel={node.suOppContactPhone}>{node.suOppContactPhone}</Telephone>}
@@ -133,7 +135,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
             </div>
           )}
           {node.suOppCtaUrl?.url && (
-            <div className="px-5 py-16">
+            <div className="px-5 py-8">
               <Button href={node.suOppCtaUrl.url}>{node.suOppCtaUrl.title}</Button>
             </div>
           )}
@@ -154,7 +156,7 @@ const FilterTerms = async ({terms}: {terms: TermOpportunityTagFilter[]}) => {
     }
   })
   return (
-    <div className="flex flex-col gap-8 border-b border-black-30 px-5 py-16">
+    <div className="flex flex-col gap-8 border-b border-black-30 px-5 py-11">
       {groups.map(group => (
         <div key={group.uuid}>
           <H2 className="text-3xl">{group.name}</H2>

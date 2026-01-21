@@ -11,6 +11,7 @@ import Telephone from "@components/elements/telephone"
 import Button from "@components/elements/button"
 import {getFilterTerms} from "@lib/gql/gql-queries"
 import {FilterVocabs} from "@lib/gql/filter-vocabs"
+import ArcBanner from "@components/patterns/arc-banner"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordOpportunity
@@ -21,7 +22,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
   const image = node.suOppImage?.mediaImage
 
   return (
-    <article className="centered mt-32" {...props}>
+    <article {...props}>
       <NodePageMetadata
         pageTitle={node.title}
         metatags={node.metatag}
@@ -31,11 +32,11 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
           getFirstText(node.suOppComponents)
         }
       />
-      <div className="mx-auto mb-10 flex items-center lg:w-10/12">
+      <ArcBanner {...props} imageUrl="/images/opportunity-bg.jpg" imageAlt="">
         {node.suOppIcon && (
           <div className={`mr-10 shrink-0 text-[50px] ${node.suOppIcon.style} fa-${node.suOppIcon.iconName}`} />
         )}
-        <div className="flex grow flex-col items-center justify-between">
+        <div className="mx-auto mb-10 flex grow flex-col items-center justify-between lg:w-10/12">
           <div>
             {node.suOppApplicationDeadline && (
               <div className="uppercase">
@@ -49,10 +50,10 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
           <H1>{node.title}</H1>
           <Wysiwyg html={node.suOppSummary?.processed} />
         </div>
-      </div>
+      </ArcBanner>
 
       {image?.url && (
-        <div className="relative mb-20 aspect-[2/1]">
+        <div className="centered relative mb-20 aspect-[2/1] lg:w-10/12">
           <Image
             className="ed11y-ignore rounded-[2.5rem] object-cover"
             src={image.url}

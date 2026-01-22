@@ -138,7 +138,7 @@ const FilteredListViewClient = ({
           ))}
         </form>
 
-        <div className="flex-grow">
+        <div className="flex-grow @container">
           <ul {...ulProps}>
             {items.map((item, i) => (
               <li

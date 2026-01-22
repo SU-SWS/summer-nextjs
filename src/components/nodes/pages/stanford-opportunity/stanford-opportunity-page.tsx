@@ -33,7 +33,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
         }
       />
       <ArcBanner {...props} imageUrl="/images/opportunity-bg.jpg" imageAlt="">
-        <div className="mx-auto mb-10 flex grow flex-col items-center justify-between lg:w-6/12">
+        <div className="mx-auto mb-10 flex w-6/12 grow flex-col items-center justify-between">
           <div>
             {node.suOppApplicationDeadline && (
               <div className="uppercase">
@@ -61,7 +61,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
         </div>
       )}
       <div className="mx-auto mb-20 flex flex-col gap-20 lg:w-10/12 lg:flex-row">
-        <div className="lg:w-9/12">
+        <div className="px-10 lg:w-9/12 lg:px-0">
           {(node.suOppEligibility?.processed || node.suOppPrerequisites?.processed) && (
             <div className="mb-20 flex flex-col gap-20 rounded-[2.5rem] bg-black-10 bg-opacity-80 p-10">
               {node.suOppEligibility && (
@@ -82,7 +82,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
 
           <Wysiwyg html={node.body?.processed} />
         </div>
-        <div className="border-t border-black-30 lg:w-3/12">
+        <div className="lg:px-0border-t border-black-30 px-10 lg:w-3/12">
           {(node.suOppType || node.suOppCourseCode || node.suOppUnits) && (
             <div className="flex flex-col gap-8 border-b border-black-30 px-5 py-11">
               {node.suOppType && (

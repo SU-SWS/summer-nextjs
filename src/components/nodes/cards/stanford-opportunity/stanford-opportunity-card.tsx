@@ -21,7 +21,7 @@ const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
       aria-labelledby={node.uuid}
       imageUrl={image?.url}
       isArticle
-      className="h-full [&_div:first]:aspect-1"
+      className="h-full [&>div:first-child]:!aspect-[1/1]"
     >
       <div className="flex-start mb-5 flex flex-col">
         <div>

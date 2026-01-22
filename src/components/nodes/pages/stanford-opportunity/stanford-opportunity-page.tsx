@@ -44,13 +44,13 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
               </div>
             )}
           </div>
-          <H1 className="text-center">{node.title}</H1>
-          <Wysiwyg html={node.suOppSummary?.processed} />
+          <H1 className="mb-0 text-center">{node.title}</H1>
+          <Wysiwyg html={node.suOppSummary?.processed} className="mb-20 text-center" />
         </div>
       </ArcBanner>
 
       {image?.url && (
-        <div className="centered relative mb-20 aspect-[2/1] lg:w-10/12">
+        <div className="centered relative mb-20 mt-20 aspect-[2/1] lg:w-10/12">
           <Image
             className="ed11y-ignore rounded-[2.5rem] object-cover"
             src={image.url}

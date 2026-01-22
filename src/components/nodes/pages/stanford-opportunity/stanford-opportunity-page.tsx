@@ -103,7 +103,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
 
           {node.suOppApplicationDeadline && (
             <div className="border-b border-black-30 px-5 py-8">
-              <div className="font-semibold">Application Deadline</div>
+              <div className="mb-5 font-semibold">Application Deadline</div>
               {new Date(node.suOppApplicationDeadline.time)
                 .toLocaleString("en-us", {
                   day: "numeric",

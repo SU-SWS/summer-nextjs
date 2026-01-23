@@ -29,19 +29,10 @@ type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
   /**
    * Ratio class for the image container.
    */
-  imageRatioClass?: Maybe<string>
+  isSquare?: Maybe<boolean>
 }
 
-const ImageCard = ({
-  imageUrl,
-  imageAlt,
-  videoUrl,
-  isArticle,
-  children,
-  hasBgColor,
-  imageRatioClass,
-  ...props
-}: Props) => {
+const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColor, isSquare, ...props}: Props) => {
   const CardWrapper: ElementType = isArticle ? "article" : "div"
 
   return (
@@ -53,7 +44,7 @@ const ImageCard = ({
       )}
     >
       {imageUrl && (
-        <div className={clsx("relative aspect-[16/9] w-full", imageRatioClass)}>
+        <div className={clsx("relative w-full", {"aspect-[16/9]": !isSquare, "aspect-[1/1]": isSquare})}>
           <Image
             className="rounded-t-[25px] object-cover object-center"
             src={imageUrl}

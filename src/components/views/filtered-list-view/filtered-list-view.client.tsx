@@ -114,14 +114,14 @@ const FilteredListViewClient = ({
           </div>
         </div>
       )}
-      <div className="flex flex-col gap-12 lg:flex-row">
+      <div className="flex flex-col gap-24 lg:flex-row">
         <form className="shrink-0 lg:w-1/4">
           <div className="flex flex-row items-end justify-between">
             <h3 className="type-1 mb-4 font-light">Filter by</h3>
             <button
               type="button"
               onClick={handleClearFilters}
-              className="mb-4 block cursor-pointer text-3xl font-normal no-underline hocus:underline"
+              className="mb-4 block cursor-pointer text-3xl font-normal text-digital-blue no-underline hocus:text-black hocus:underline"
             >
               Clear all filters
             </button>
@@ -130,7 +130,6 @@ const FilteredListViewClient = ({
             <InputGroup
               key={`filter-${filterGroup.label.toLowerCase().replaceAll(/[^a-z0-9-]/g, "-")}-${i}`}
               label={filterGroup.label}
-              button=""
             >
               <RadioButton
                 value=""

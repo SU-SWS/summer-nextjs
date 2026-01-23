@@ -7,33 +7,9 @@ import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid"
 
 type Props = HTMLAttributes<HTMLElement> & {
   label: string
-  /**
-   * Button clickable element or string.
-   */
-  button: JSX.Element | string
-  /**
-   * If the accordion should be visible on first render.
-   */
-  initiallyVisible?: boolean
-  /**
-   * Button click event if the component is controlled.
-   */
-  onClick?: () => void
-  /**
-   * Panel visibility state if the component is controlled.
-   */
-  isVisible?: boolean
-  /**
-   * Extra attributes on the button element.
-   */
-  buttonProps?: HTMLAttributes<HTMLButtonElement>
-  /**
-   * Extra attributes on the panel element.
-   */
-  panelProps?: HTMLAttributes<HTMLDivElement>
 }
 
-const InputGroup = ({button, label, children, ...props}: Props) => {
+const InputGroup = ({label, children, ...props}: Props) => {
   const id = useId()
   const {buttonProps, panelProps, expanded} = useAccordion({
     buttonId: `${id}-button`,

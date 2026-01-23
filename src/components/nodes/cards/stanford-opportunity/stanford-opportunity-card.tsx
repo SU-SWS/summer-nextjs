@@ -14,17 +14,9 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
   const image = node.suOppImage?.mediaImage
   const Heading = headingLevel === "h3" ? H3 : H2
-  const imageRatioClass = props.imageRatioClass || "aspect-[1/1]"
 
   return (
-    <ImageCard
-      {...props}
-      aria-labelledby={node.uuid}
-      imageUrl={image?.url}
-      isArticle
-      imageRatioClass={imageRatioClass}
-      className="h-full [&>div:first-child]:aspect-1"
-    >
+    <ImageCard {...props} aria-labelledby={node.uuid} imageUrl={image?.url} isArticle isSquare className="h-full">
       <div className="flex-start mb-5 flex flex-col">
         <div className="mb-3 flex flex-row gap-3">
           <span>{node.sumOppDay}</span>

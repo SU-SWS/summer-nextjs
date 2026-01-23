@@ -18,7 +18,7 @@ const StanfordOpportunityListItem = ({node, headingLevel, ...props}: Props) => {
 
   return (
     <article {...props} aria-labelledby={node.uuid} className={twMerge("@container", props.className)}>
-      <div className="flex w-full flex-col justify-between @3xl:flex-row">
+      <div className="flex w-full flex-col justify-between gap-24 @3xl:flex-row">
         <div className="order-2 @3xl:order-1">
           <ReverseVisualOrder>
             <Heading className="font-bold" id={node.uuid}>

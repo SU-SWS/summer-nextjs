@@ -134,7 +134,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
           )}
         </div>
       </div>
-      <Rows components={node.suOppComponents} />
+      <Rows components={node.suOppComponents} className="mb-32" />
     </article>
   )
 }

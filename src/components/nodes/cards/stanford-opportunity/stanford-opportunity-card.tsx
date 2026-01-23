@@ -4,16 +4,17 @@ import {HtmlHTMLAttributes} from "react"
 import {NodeStanfordOpportunity} from "@lib/gql/__generated__/drupal.d"
 import ImageCard from "@components/patterns/image-card"
 import Wysiwyg from "@components/elements/wysiwyg"
-import ReverseVisualOrder from "@components/elements/reverse-visual-order"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordOpportunity
   headingLevel?: "h2" | "h3"
+  imageRatioClass?: string
 }
 
 const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
   const image = node.suOppImage?.mediaImage
   const Heading = headingLevel === "h3" ? H3 : H2
+  const imageRatioClass = props.imageRatioClass || "aspect-[1/1]"
 
   return (
     <ImageCard
@@ -21,7 +22,8 @@ const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
       aria-labelledby={node.uuid}
       imageUrl={image?.url}
       isArticle
-      className="h-full [&>div:first-child]:!aspect-[1/1]"
+      imageRatioClass={imageRatioClass}
+      className="h-full [&>div:first-child]:aspect-1"
     >
       <div className="flex-start mb-5 flex flex-col">
         <div>

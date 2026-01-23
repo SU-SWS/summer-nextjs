@@ -1,31 +1,66 @@
 "use client"
 
-import {HTMLAttributes, useState} from "react"
+import {HTMLAttributes, JSX, useId} from "react"
 import twMerge from "@lib/utils/twMergeConfig"
-import {ChevronDownIcon} from "@heroicons/react/20/solid"
+import useAccordion from "@lib/hooks/useAccordion"
+import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid"
 
 type Props = HTMLAttributes<HTMLElement> & {
   label: string
+  /**
+   * Button clickable element or string.
+   */
+  button: JSX.Element | string
+  /**
+   * If the accordion should be visible on first render.
+   */
+  initiallyVisible?: boolean
+  /**
+   * Button click event if the component is controlled.
+   */
+  onClick?: () => void
+  /**
+   * Panel visibility state if the component is controlled.
+   */
+  isVisible?: boolean
+  /**
+   * Extra attributes on the button element.
+   */
+  buttonProps?: HTMLAttributes<HTMLButtonElement>
+  /**
+   * Extra attributes on the panel element.
+   */
+  panelProps?: HTMLAttributes<HTMLDivElement>
 }
 
-const InputGroup = ({label, children, ...props}: Props) => {
-  const [expanded, setExpanded] = useState(true)
+const InputGroup = ({button, label, children, ...props}: Props) => {
+  const id = useId()
+  const {buttonProps, panelProps, expanded} = useAccordion({
+    buttonId: `${id}-button`,
+    initiallyVisible: true,
+  })
 
   return (
-    <fieldset {...props} className={twMerge("mb-10 space-y-3 pb-5", props.className)}>
+    <fieldset
+      aria-labelledby={`${id}-button`}
+      {...props}
+      className={twMerge("mb-10 max-h-96 space-y-3 overflow-y-auto overflow-x-hidden pb-5", props.className)}
+    >
       <legend className="mb-10 w-full border-t border-black pt-10 font-semibold">
         <button
           type="button"
-          onClick={() => setExpanded(!expanded)}
-          aria-expanded={expanded}
-          className="flex w-full items-center justify-between"
+          {...buttonProps}
+          className={twMerge("flex w-full items-center justify-between", buttonProps?.className)}
         >
           {label}
-          <ChevronDownIcon width={20} className={expanded ? "rotate-180" : ""} />
+          {expanded && <ChevronUpIcon height={20} className="ml-auto shrink-0" />}
+
+          {!expanded && <ChevronDownIcon height={20} className="ml-auto shrink-0" />}
         </button>
       </legend>
-
-      {expanded && <div className="max-h-96 space-y-3 overflow-y-auto overflow-x-hidden">{children}</div>}
+      <div {...panelProps}>
+        <div className="mt-10 pb-24">{children}</div>
+      </div>
     </fieldset>
   )
 }

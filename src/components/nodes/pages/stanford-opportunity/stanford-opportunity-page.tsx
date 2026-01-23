@@ -33,9 +33,9 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
         }
       />
       <ArcBanner {...props} imageUrl="/images/opportunity-bg.jpg" imageAlt="">
-        <div className="mx-auto mb-10 flex w-6/12 grow flex-col items-center justify-between">
+        <div className="mx-auto mb-10 w-6/12 w-fit grow">
           {node.suOppApplicationDeadline && (
-            <div className="uppercase">
+            <div className="text-center uppercase">
               {new Date(node.suOppApplicationDeadline.time).toLocaleString("en-us", {
                 month: "long",
                 year: "numeric",

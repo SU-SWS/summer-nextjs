@@ -1,10 +1,10 @@
-import {ChangeEvent, HTMLAttributes} from "react"
+import {ChangeEvent, HTMLAttributes, InputHTMLAttributes} from "react"
 import twMerge from "@lib/utils/twMergeConfig"
 
 type Props = HTMLAttributes<HTMLLabelElement> & {
   value: string | number
   name?: string
-  inputProps?: HTMLAttributes<HTMLInputElement>
+  inputProps?: InputHTMLAttributes<HTMLInputElement>
   onRadioChange?: (_e: ChangeEvent<HTMLInputElement>) => void
 }
 const RadioButton = ({value, name, onRadioChange, inputProps, children, ...props}: Props) => {

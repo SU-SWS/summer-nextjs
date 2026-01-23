@@ -26,12 +26,19 @@ const InputGroup = ({label, children, ...props}: Props) => {
         <button
           type="button"
           {...buttonProps}
-          className={twMerge("flex w-full items-center justify-between", buttonProps?.className)}
+          className={twMerge(
+            "flex w-full items-center justify-between text-black no-underline hocus:text-digital-blue hocus:underline",
+            buttonProps?.className
+          )}
         >
           {label}
-          {expanded && <ChevronUpIcon height={20} className="ml-auto shrink-0" />}
+          {expanded && (
+            <ChevronUpIcon height={20} className="ml-auto shrink-0 text-black no-underline hocus:text-digital-blue" />
+          )}
 
-          {!expanded && <ChevronDownIcon height={20} className="ml-auto shrink-0" />}
+          {!expanded && (
+            <ChevronDownIcon height={20} className="ml-auto shrink-0 text-black no-underline hocus:text-digital-blue" />
+          )}
         </button>
       </legend>
       <div {...panelProps}>

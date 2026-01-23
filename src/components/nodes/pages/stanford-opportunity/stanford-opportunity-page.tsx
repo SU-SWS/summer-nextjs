@@ -34,16 +34,15 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
       />
       <ArcBanner {...props} imageUrl="/images/opportunity-bg.jpg" imageAlt="">
         <div className="mx-auto mb-10 w-6/12 w-fit grow">
-          {node.suOppApplicationDeadline && (
-            <div className="text-center uppercase">
-              {new Date(node.suOppApplicationDeadline.time).toLocaleString("en-us", {
-                month: "long",
-                year: "numeric",
-              })}
-            </div>
-          )}
-          <H1 className="mb-0 text-center">{node.title}</H1>
-          <Wysiwyg html={node.suOppSummary?.processed} className="mb-20 text-center" />
+          <div className="flex flex-row justify-center gap-3 text-center uppercase">
+            <span>{node.sumOppDay}</span>
+            <span>
+              {node.sumOppMonth && new Date(2000, node.sumOppMonth - 1).toLocaleString("en-us", {month: "long"})}
+            </span>
+            <span>{node.sumOppYear}</span>
+          </div>
+          <H1 className="mx-auto mb-0 w-6/12 text-center">{node.title}</H1>
+          <Wysiwyg html={node.suOppSummary?.processed} className="mx-auto mb-20 w-6/12 text-center" />
         </div>
       </ArcBanner>
 

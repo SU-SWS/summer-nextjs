@@ -26,15 +26,12 @@ const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
       className="h-full [&>div:first-child]:aspect-1"
     >
       <div className="flex-start mb-5 flex flex-col">
-        <div>
-          {node.suOppApplicationDeadline && (
-            <div className="uppercase">
-              {new Date(node.suOppApplicationDeadline.time).toLocaleString("en-us", {
-                month: "long",
-                year: "numeric",
-              })}
-            </div>
-          )}
+        <div className="mb-3 flex flex-row gap-3">
+          <span>{node.sumOppDay}</span>
+          <span>
+            {node.sumOppMonth && new Date(2000, node.sumOppMonth - 1).toLocaleString("en-us", {month: "long"})}
+          </span>
+          <span>{node.sumOppYear}</span>
         </div>
         <Heading className="type-1 [&_a]:text-black" id={node.uuid}>
           <Link className="stretched-link" href={node.suOppSource?.url || node.path || "#"}>

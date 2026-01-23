@@ -431,6 +431,9 @@ fragment FragmentNodeStanfordOpportunity on NodeStanfordOpportunity {
     suOppUnits {
         ...FragmentTermInterface
     }
+    sumOppYear
+    sumOppMonth
+    sumOppDay
 }
 
 fragment FragmentNodeUnion on NodeUnion {
@@ -589,6 +592,9 @@ fragment FragmentNodeStanfordOpportunityTeaser on NodeStanfordOpportunity {
     suOppType {
         ...FragmentTermInterface
     }
+    sumOppYear
+    sumOppMonth
+    sumOppDay
 }
 
 fragment FragmentNodeTeaserUnion on NodeUnion {

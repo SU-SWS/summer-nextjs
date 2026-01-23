@@ -738,6 +738,9 @@ export const FragmentNodeStanfordOpportunityTeaserFragmentDoc = gql`
   suOppType {
     ...FragmentTermInterface
   }
+  sumOppYear
+  sumOppMonth
+  sumOppDay
 }
     ${FragmentTextFragmentDoc}
 ${FragmentMediaImageFragmentDoc}
@@ -1330,6 +1333,9 @@ export const FragmentNodeStanfordOpportunityFragmentDoc = gql`
   suOppUnits {
     ...FragmentTermInterface
   }
+  sumOppYear
+  sumOppMonth
+  sumOppDay
 }
     ${FragmentTextSummaryFragmentDoc}
 ${FragmentDateTimeFragmentDoc}

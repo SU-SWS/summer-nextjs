@@ -1044,7 +1044,7 @@ export type MediaVideo = MediaInterface &
     /**
      * Upload an mp4 video. This will be used for the initial display as an
      * introduction when it comes into view for the user. The video will be trimmed
-     * to the first 6 seconds and the audio will be removed.
+     * to the first 5 seconds and the audio will be removed.
      */
     sumVideoFile?: Maybe<File>
     /** The Universally Unique IDentifier (UUID). */
@@ -1385,6 +1385,8 @@ export type NodeStanfordEvent = EdgeNode &
     suEventGroups?: Maybe<Array<TermStanfordEventGroup>>
     /** Keywords and Tags */
     suEventKeywords?: Maybe<Array<TermStanfordEventKeyword>>
+    /** Localist ID */
+    suEventLocalistId?: Maybe<Scalars["Int"]["output"]>
     /** Where the event is taking place. */
     suEventLocation?: Maybe<Address>
     /** This is the text that will display on the site. */
@@ -1561,6 +1563,8 @@ export type NodeStanfordMedia = EdgeNode &
     sticky: Scalars["Boolean"]["output"]
     /** Audio/Video */
     suMediaAudioVideo: Array<NodeStanfordMediaSuMediaAudioVideoUnion>
+    /** Media Category */
+    suMediaCategory?: Maybe<Scalars["String"]["output"]>
     /** Published Date */
     suMediaDate?: Maybe<DateTime>
     /** Dek */
@@ -1652,7 +1656,7 @@ export type NodeStanfordNews = EdgeNode &
     /** Paragraphs */
     suNewsComponents?: Maybe<Array<NodeStanfordNewsSuNewsComponentsUnion>>
     /**
-     * Maximum 180 characters. <em>A "dek" is a brief summary that appears below the
+     * Maximum 500 characters. <em>A "dek" is a brief summary that appears below the
      * headline - in smaller font - on the list page and on the article page.</em>
      */
     suNewsDek?: Maybe<Scalars["String"]["output"]>
@@ -1849,6 +1853,12 @@ export type NodeStanfordOpportunity = EdgeNode &
      * number of units, please use the Opportunities Filters field instead.
      */
     suOppUnits?: Maybe<Array<TermOpportunityUnit>>
+    /** Day */
+    sumOppDay?: Maybe<Scalars["Int"]["output"]>
+    /** Month */
+    sumOppMonth?: Maybe<Scalars["Int"]["output"]>
+    /** Year */
+    sumOppYear?: Maybe<Scalars["Int"]["output"]>
     /** Title */
     title: Scalars["String"]["output"]
     /** The Universally Unique IDentifier (UUID). */
@@ -4575,8 +4585,14 @@ export type StanfordOpportunitiesResult = View & {
 }
 
 export enum StanfordOpportunitiesSortKeys {
+  /** Day (sum_opp_day) */
+  Day = "DAY",
+  /** Month (sum_opp_month) */
+  Month = "MONTH",
   /** Title */
   Title = "TITLE",
+  /** Year (sum_opp_year) */
+  Year = "YEAR",
 }
 
 export type StanfordPersonContextualFilterInput = {
@@ -7131,6 +7147,9 @@ export type NodeQuery = {
         suOppContactName?: string | null
         suOppContactPhone?: any | null
         suOppCourseCode?: Array<string> | null
+        sumOppYear?: number | null
+        sumOppMonth?: number | null
+        sumOppDay?: number | null
         uuid: string
         title: string
         path?: string | null
@@ -18965,6 +18984,9 @@ export type FragmentNodeStanfordOpportunityFragment = {
   suOppContactName?: string | null
   suOppContactPhone?: any | null
   suOppCourseCode?: Array<string> | null
+  sumOppYear?: number | null
+  sumOppMonth?: number | null
+  sumOppDay?: number | null
   body?: {__typename?: "TextSummary"; processed?: any | null} | null
   suOppApplicationDeadline?: {__typename?: "DateTime"; timezone: any; time: any} | null
   suOppCardFooter?: {__typename?: "Text"; processed?: any | null} | null
@@ -20460,6 +20482,9 @@ type FragmentNodeUnion_NodeStanfordOpportunity_Fragment = {
   suOppContactName?: string | null
   suOppContactPhone?: any | null
   suOppCourseCode?: Array<string> | null
+  sumOppYear?: number | null
+  sumOppMonth?: number | null
+  sumOppDay?: number | null
   uuid: string
   title: string
   path?: string | null
@@ -22974,6 +22999,9 @@ export type FragmentNodeStanfordPublicationTeaserFragment = {
 
 export type FragmentNodeStanfordOpportunityTeaserFragment = {
   __typename?: "NodeStanfordOpportunity"
+  sumOppYear?: number | null
+  sumOppMonth?: number | null
+  sumOppDay?: number | null
   suOppCardFooter?: {__typename?: "Text"; processed?: any | null} | null
   suOppIcon?: {__typename?: "FontawesomeIconType"; iconName: string; style: string} | null
   suOppImage?: {
@@ -23271,6 +23299,9 @@ type FragmentNodeTeaserUnion_NodeStanfordOpportunity_Fragment = {
   title: string
   status: boolean
   path?: string | null
+  sumOppYear?: number | null
+  sumOppMonth?: number | null
+  sumOppDay?: number | null
   changed: {__typename?: "DateTime"; timezone: any; time: any}
   created: {__typename?: "DateTime"; timezone: any; time: any}
   suOppCardFooter?: {__typename?: "Text"; processed?: any | null} | null
@@ -27382,6 +27413,9 @@ export type RouteQuery = {
               suOppContactName?: string | null
               suOppContactPhone?: any | null
               suOppCourseCode?: Array<string> | null
+              sumOppYear?: number | null
+              sumOppMonth?: number | null
+              sumOppDay?: number | null
               uuid: string
               title: string
               path?: string | null
@@ -30942,6 +30976,9 @@ export type StanfordOpportunitiesQuery = {
           title: string
           status: boolean
           path?: string | null
+          sumOppYear?: number | null
+          sumOppMonth?: number | null
+          sumOppDay?: number | null
           changed: {__typename?: "DateTime"; timezone: any; time: any}
           created: {__typename?: "DateTime"; timezone: any; time: any}
           suOppCardFooter?: {__typename?: "Text"; processed?: any | null} | null
@@ -31576,6 +31613,9 @@ export type StanfordSharedTagsQuery = {
           title: string
           status: boolean
           path?: string | null
+          sumOppYear?: number | null
+          sumOppMonth?: number | null
+          sumOppDay?: number | null
           changed: {__typename?: "DateTime"; timezone: any; time: any}
           created: {__typename?: "DateTime"; timezone: any; time: any}
           suOppCardFooter?: {__typename?: "Text"; processed?: any | null} | null

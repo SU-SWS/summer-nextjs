@@ -4,7 +4,6 @@ import {HtmlHTMLAttributes} from "react"
 import {NodeStanfordOpportunity} from "@lib/gql/__generated__/drupal.d"
 import ImageCard from "@components/patterns/image-card"
 import Wysiwyg from "@components/elements/wysiwyg"
-import ReverseVisualOrder from "@components/elements/reverse-visual-order"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordOpportunity
@@ -16,19 +15,30 @@ const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
   const Heading = headingLevel === "h3" ? H3 : H2
 
   return (
-    <ImageCard {...props} aria-labelledby={node.uuid} imageUrl={image?.url} isArticle>
-      <ReverseVisualOrder>
-        <Heading className="[&_a]:text-black" id={node.uuid}>
+    <ImageCard {...props} aria-labelledby={node.uuid} imageUrl={image?.url} isArticle isSquare className="h-full">
+      <div className="flex-start mb-5 flex flex-col">
+        <Heading className="type-1 [&_a]:text-black" id={node.uuid}>
           <Link className="stretched-link" href={node.suOppSource?.url || node.path || "#"}>
             {node.title}
           </Link>
         </Heading>
+
+        <div className="order-first mb-3 flex flex-row gap-3">
+          <span>{node.sumOppDay}</span>
+          <span>
+            {node.sumOppMonth && new Date(2000, node.sumOppMonth - 1).toLocaleString("en-us", {month: "long"})}
+          </span>
+          <span>{node.sumOppYear}</span>
+        </div>
+
         {node.suOppType && <div>{node.suOppType?.map(type => type.name).join(", ")}</div>}
-      </ReverseVisualOrder>
+      </div>
       <Wysiwyg html={node.suOppSummary?.processed || node.body?.summary} />
       {node.suOppCardFooter && <Wysiwyg html={node.suOppCardFooter.processed} />}
       {node.suOppIcon && (
-        <div className={`mr-10 text-right text-[50px] ${node.suOppIcon.style} fa-${node.suOppIcon.iconName}`} />
+        <div
+          className={`absolute bottom-[1.9rem] right-0 mr-10 text-[30px] text-lagunita ${node.suOppIcon.style} fa-${node.suOppIcon.iconName}`}
+        />
       )}
     </ImageCard>
   )

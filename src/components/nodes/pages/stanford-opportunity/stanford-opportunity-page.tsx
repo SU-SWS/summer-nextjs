@@ -11,6 +11,7 @@ import Telephone from "@components/elements/telephone"
 import Button from "@components/elements/button"
 import {getFilterTerms} from "@lib/gql/gql-queries"
 import {FilterVocabs} from "@lib/gql/filter-vocabs"
+import ArcBanner from "@components/patterns/arc-banner"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordOpportunity
@@ -21,7 +22,7 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
   const image = node.suOppImage?.mediaImage
 
   return (
-    <article className="centered mt-32" {...props}>
+    <article {...props}>
       <NodePageMetadata
         pageTitle={node.title}
         metatags={node.metatag}
@@ -31,20 +32,25 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
           getFirstText(node.suOppComponents)
         }
       />
-      <div className="mx-auto mb-10 flex items-start lg:w-10/12">
-        {node.suOppIcon && (
-          <div className={`mr-10 shrink-0 text-[50px] ${node.suOppIcon.style} fa-${node.suOppIcon.iconName}`} />
-        )}
-        <div>
-          <H1>{node.title}</H1>
-          <Wysiwyg html={node.suOppSummary?.processed} />
+      <ArcBanner {...props} imageUrl="/images/opportunity-bg.jpg" imageAlt="">
+        <div className="mx-auto mb-10 flex w-fit grow flex-col">
+          <H1 className="mx-auto mb-0 w-6/12 text-center">{node.title}</H1>
+
+          <div className="order-first flex flex-row justify-center gap-3 text-center uppercase">
+            <span>{node.sumOppDay}</span>
+            <span>
+              {node.sumOppMonth && new Date(2000, node.sumOppMonth - 1).toLocaleString("en-us", {month: "long"})}
+            </span>
+            <span>{node.sumOppYear}</span>
+          </div>
+          <Wysiwyg html={node.suOppSummary?.processed} className="mx-auto mb-20 w-6/12 text-center" />
         </div>
-      </div>
+      </ArcBanner>
 
       {image?.url && (
-        <div className="relative mb-20 aspect-[2/1]">
+        <div className="centered relative mb-20 mt-20 aspect-[2/1] lg:w-10/12">
           <Image
-            className="ed11y-ignore object-cover"
+            className="ed11y-ignore rounded-[2.5rem] object-cover"
             src={image.url}
             alt=""
             fill
@@ -53,9 +59,9 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
         </div>
       )}
       <div className="mx-auto mb-20 flex flex-col gap-20 lg:w-10/12 lg:flex-row">
-        <div className="lg:w-9/12">
+        <div className="px-10 lg:w-9/12 lg:px-0">
           {(node.suOppEligibility?.processed || node.suOppPrerequisites?.processed) && (
-            <div className="mb-20 flex flex-col gap-20 bg-black-10 bg-opacity-80 p-10">
+            <div className="mb-20 flex flex-col gap-20 rounded-[2.5rem] bg-black-10 bg-opacity-80 p-10">
               {node.suOppEligibility && (
                 <div>
                   <H2 className="text-3xl">Eligibility</H2>
@@ -74,9 +80,9 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
 
           <Wysiwyg html={node.body?.processed} />
         </div>
-        <div className="border-t border-black-30 lg:w-3/12">
+        <div className="lg:px-0border-t border-black-30 px-10 lg:w-3/12">
           {(node.suOppType || node.suOppCourseCode || node.suOppUnits) && (
-            <div className="flex flex-col gap-8 border-b border-black-30 px-5 py-16">
+            <div className="flex flex-col gap-8 border-b border-black-30 px-5 py-11">
               {node.suOppType && (
                 <div className="font-semibold">{node.suOppType.map(type => type.name).join(", ")}</div>
               )}
@@ -94,8 +100,8 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
           )}
 
           {node.suOppApplicationDeadline && (
-            <div className="border-b border-black-30 px-5 py-16">
-              <div className="font-semibold">Application Deadline</div>
+            <div className="border-b border-black-30 px-5 py-8">
+              <div className="mb-5 font-semibold">Application Deadline</div>
               {new Date(node.suOppApplicationDeadline.time)
                 .toLocaleString("en-us", {
                   day: "numeric",
@@ -107,10 +113,11 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
                 .replace(" at ", " ")}
             </div>
           )}
+
           {node.suOppTags && <FilterTerms terms={node.suOppTags} />}
 
           {(node.suOppContactEmail || node.suOppContactPhone || node.suOppContactName || node.suOppContactUrl) && (
-            <div className="flex flex-col gap-2 px-5 py-16">
+            <div className="flex flex-col gap-2 px-5 py-8">
               {node.suOppContactEmail && <div>{node.suOppContactEmail}</div>}
               {node.suOppContactName && <div>{node.suOppContactName}</div>}
               {node.suOppContactPhone && <Telephone tel={node.suOppContactPhone}>{node.suOppContactPhone}</Telephone>}
@@ -122,13 +129,13 @@ const StanfordOpportunityPage = async ({node, ...props}: Props) => {
             </div>
           )}
           {node.suOppCtaUrl?.url && (
-            <div className="px-5 py-16">
+            <div className="px-5 py-8">
               <Button href={node.suOppCtaUrl.url}>{node.suOppCtaUrl.title}</Button>
             </div>
           )}
         </div>
       </div>
-      <Rows components={node.suOppComponents} />
+      <Rows components={node.suOppComponents} className="mb-32" />
     </article>
   )
 }
@@ -143,10 +150,10 @@ const FilterTerms = async ({terms}: {terms: TermOpportunityTagFilter[]}) => {
     }
   })
   return (
-    <div className="flex flex-col gap-8 border-b border-black-30 px-5 py-16">
+    <div className="flex flex-col gap-8 border-b border-black-30 px-5 py-11">
       {groups.map(group => (
         <div key={group.uuid}>
-          <H2 className="text-3xl">{group.name}</H2>
+          <H2 className="text-3xl font-semibold">{group.name}</H2>
           {terms
             .filter(term => term.parent?.uuid === group.uuid)
             .map(term => term.name)

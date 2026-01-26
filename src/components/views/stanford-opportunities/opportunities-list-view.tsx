@@ -36,7 +36,7 @@ const OpportunitiesListView = async ({items, headingLevel, totalItems, loadPage,
       liProps={{
         className: "border-b border-black-20 last-of-type:border-0 pb-10 last:pb-0 pt-10 first:pt-0",
       }}
-      pageKey="news="
+      pageKey="opportunities="
       totalPages={Math.ceil(totalItems / 30)}
       loadPage={loadPage}
     >

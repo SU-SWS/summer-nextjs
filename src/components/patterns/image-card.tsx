@@ -26,9 +26,13 @@ type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
    * If checked, the card content should have a background color
    */
   hasBgColor?: Maybe<boolean>
+  /**
+   * Ratio class for the image container.
+   */
+  isSquare?: Maybe<boolean>
 }
 
-const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColor, ...props}: Props) => {
+const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColor, isSquare, ...props}: Props) => {
   const CardWrapper: ElementType = isArticle ? "article" : "div"
 
   return (
@@ -40,7 +44,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
       )}
     >
       {imageUrl && (
-        <div className="relative aspect-[16/9] w-full">
+        <div className={clsx("relative w-full", {"aspect-[16/9]": !isSquare, "aspect-[1/1]": isSquare})}>
           <Image
             className="rounded-t-[25px] object-cover object-center"
             src={imageUrl}

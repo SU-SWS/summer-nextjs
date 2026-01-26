@@ -33,8 +33,16 @@ const FilteredListViewClient = ({
   ...props
 }: Props) => {
   const {count: filteredTotalItems, setCount: setFilteredTotalItems} = useCounter(totalItems)
-  const [chosenFilters, setChosenFilters] = useState<Record<string, string>>({})
   const id = useId()
+  // 1. Initialize with empty strings for each filter group (LINES 40-46)
+  const [chosenFilters, setChosenFilters] = useState<Record<string, string>>(() => {
+    const initial: Record<string, string> = {}
+    filters.forEach(filter => {
+      initial[filter.label] = ""
+    })
+    return initial
+  })
+
   const {count: page, increment: incrementPage, reset: resetPage} = useCounter(0)
   const [items, setItems] = useState<JSX.Element[]>(children)
   const {value: focusOnElement, setTrue: enableFocusElement, setFalse: disableFocusElement} = useBoolean(false)
@@ -44,7 +52,7 @@ const FilteredListViewClient = ({
 
   const showMoreItems = () => {
     if (loadPage) {
-      runLoadPage(page + 1, {[filterKey]: Object.values(chosenFilters)})
+      runLoadPage(page + 1, {[filterKey]: Object.values(chosenFilters).filter(Boolean)})
         .then(results => {
           const resultChildren = results?.props.children
           setItems([...items, ...resultChildren])
@@ -66,13 +74,32 @@ const FilteredListViewClient = ({
     const newState = {...chosenFilters}
     newState[filterIndex] = event.target.value
 
+    setChosenFilters(newState)
     runLoadPage(0, {[filterKey]: Object.values(newState).filter(Boolean)})
       .then(results => {
         const resultChildren = results?.props.children
         setFilteredTotalItems(results?.props.totalItems)
         setItems([...resultChildren])
         resetPage()
-        setChosenFilters(newState)
+        enableFocusElement()
+      })
+      .catch(_e => console.warn("An error happened"))
+  }
+
+  const handleClearFilters = () => {
+    const clearedFilters: Record<string, string> = {}
+    filters.forEach(filter => {
+      clearedFilters[filter.label] = ""
+    })
+
+    setChosenFilters(clearedFilters)
+
+    runLoadPage(0, {[filterKey]: []})
+      .then(results => {
+        const resultChildren = results?.props.children
+        setFilteredTotalItems(results?.props.totalItems)
+        setItems([...resultChildren])
+        resetPage()
         enableFocusElement()
       })
       .catch(_e => console.warn("An error happened"))
@@ -87,8 +114,18 @@ const FilteredListViewClient = ({
           </div>
         </div>
       )}
-      <div className="flex flex-col gap-12 lg:flex-row">
+      <div className="flex flex-col gap-24 lg:flex-row">
         <form className="shrink-0 lg:w-1/4">
+          <div className="flex flex-row items-end justify-between">
+            <h3 className="type-1 mb-4 font-light">Filter by</h3>
+            <button
+              type="button"
+              onClick={handleClearFilters}
+              className="mb-4 block cursor-pointer text-3xl font-normal text-digital-blue no-underline hocus:text-black hocus:underline"
+            >
+              Clear all filters
+            </button>
+          </div>
           {filters.map((filterGroup, i) => (
             <InputGroup
               key={`filter-${filterGroup.label.toLowerCase().replaceAll(/[^a-z0-9-]/g, "-")}-${i}`}
@@ -98,7 +135,8 @@ const FilteredListViewClient = ({
                 value=""
                 name={`filter-${filterGroup.label.toLowerCase().replaceAll(/[^a-z0-9-]/g, "-")}`}
                 onRadioChange={onInputChange.bind(null, filterGroup.label)}
-                inputProps={{defaultChecked: true}}
+                inputProps={{checked: chosenFilters[filterGroup.label] === ""}}
+                className="pb-3"
               >
                 - Any -
               </RadioButton>
@@ -108,6 +146,7 @@ const FilteredListViewClient = ({
                   value={option.value}
                   name={`filter-${filterGroup.label.toLowerCase().replaceAll(/[^a-z0-9-]/g, "-")}`}
                   onRadioChange={onInputChange.bind(null, filterGroup.label)}
+                  className="pb-2"
                 >
                   {option.label}
                 </RadioButton>
@@ -116,7 +155,7 @@ const FilteredListViewClient = ({
           ))}
         </form>
 
-        <div className="flex-grow">
+        <div className="flex-grow @container">
           <ul {...ulProps}>
             {items.map((item, i) => (
               <li

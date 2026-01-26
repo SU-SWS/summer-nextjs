@@ -1,6 +1,6 @@
 "use client"
 
-import {HTMLAttributes, JSX, useId} from "react"
+import {HTMLAttributes, useId} from "react"
 import twMerge from "@lib/utils/twMergeConfig"
 import useAccordion from "@lib/hooks/useAccordion"
 import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid"

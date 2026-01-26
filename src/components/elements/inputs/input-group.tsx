@@ -3,7 +3,8 @@
 import {HTMLAttributes, useId} from "react"
 import twMerge from "@lib/utils/twMergeConfig"
 import useAccordion from "@lib/hooks/useAccordion"
-import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid"
+import {ChevronUpIcon} from "@heroicons/react/20/solid"
+import clsx from "clsx"
 
 type Props = HTMLAttributes<HTMLElement> & {
   label: string
@@ -32,13 +33,14 @@ const InputGroup = ({label, children, ...props}: Props) => {
           )}
         >
           {label}
-          {expanded && (
-            <ChevronUpIcon height={20} className="ml-auto shrink-0 text-black no-underline hocus:text-digital-blue" />
-          )}
 
-          {!expanded && (
-            <ChevronDownIcon height={20} className="ml-auto shrink-0 text-black no-underline hocus:text-digital-blue" />
-          )}
+          <ChevronUpIcon
+            height={20}
+            className={twMerge(
+              "ml-auto shrink-0 text-black no-underline transition-all duration-300 hocus:text-digital-blue",
+              clsx({"rotate-180": !expanded})
+            )}
+          />
         </button>
       </legend>
       <div {...panelProps}>

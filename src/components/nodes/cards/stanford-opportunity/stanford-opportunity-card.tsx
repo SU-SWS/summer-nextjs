@@ -8,7 +8,6 @@ import Wysiwyg from "@components/elements/wysiwyg"
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordOpportunity
   headingLevel?: "h2" | "h3"
-  imageRatioClass?: string
 }
 
 const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
@@ -18,18 +17,20 @@ const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
   return (
     <ImageCard {...props} aria-labelledby={node.uuid} imageUrl={image?.url} isArticle isSquare className="h-full">
       <div className="flex-start mb-5 flex flex-col">
-        <div className="mb-3 flex flex-row gap-3">
+        <Heading className="type-1 [&_a]:text-black" id={node.uuid}>
+          <Link className="stretched-link" href={node.suOppSource?.url || node.path || "#"}>
+            {node.title}
+          </Link>
+        </Heading>
+
+        <div className="order-first mb-3 flex flex-row gap-3">
           <span>{node.sumOppDay}</span>
           <span>
             {node.sumOppMonth && new Date(2000, node.sumOppMonth - 1).toLocaleString("en-us", {month: "long"})}
           </span>
           <span>{node.sumOppYear}</span>
         </div>
-        <Heading className="type-1 [&_a]:text-black" id={node.uuid}>
-          <Link className="stretched-link" href={node.suOppSource?.url || node.path || "#"}>
-            {node.title}
-          </Link>
-        </Heading>
+
         {node.suOppType && <div>{node.suOppType?.map(type => type.name).join(", ")}</div>}
       </div>
       <Wysiwyg html={node.suOppSummary?.processed || node.body?.summary} />

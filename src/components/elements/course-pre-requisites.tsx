@@ -13,6 +13,14 @@ const CoursePreRequisites = ({preReqs}: Props) => {
     )
   }
 
+  const reqCodesWithSpace = [...preReqs.matchAll(/\b([A-Z]+ \d+(-\d+|[A-Z])?)\b/g)]
+  for (let i = 0; i < reqCodesWithSpace.length; i++) {
+    preReqs = preReqs.replace(
+      reqCodesWithSpace[i][1],
+      `<a href="/courses?q=${encodeURIComponent(reqCodesWithSpace[i][1].trim())}#search-form">${reqCodesWithSpace[i][1]}</a>`
+    )
+  }
+
   return <Wysiwyg html={preReqs} disableDefaultStyles />
 }
 

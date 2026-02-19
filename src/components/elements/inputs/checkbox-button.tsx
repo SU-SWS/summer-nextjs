@@ -1,29 +1,33 @@
 import {CheckIcon} from "@heroicons/react/16/solid"
-import {ChangeEvent, HTMLAttributes} from "react"
+import {ChangeEvent, HTMLAttributes, InputHTMLAttributes} from "react"
 import twMerge from "@lib/utils/twMergeConfig"
 
 type Props = HTMLAttributes<HTMLLabelElement> & {
-  value: string | number
-  inputProps?: HTMLAttributes<HTMLInputElement>
+  value?: string | number
+  inputProps?: InputHTMLAttributes<HTMLInputElement>
   onChange?: (_e: ChangeEvent<HTMLInputElement>) => void
+  helpText?: string
 }
-const CheckboxButton = ({value, onChange, inputProps, children, ...props}: Props) => {
+const CheckboxButton = ({value, onChange, inputProps, helpText, children, ...props}: Props) => {
   return (
-    <label {...props} className={twMerge("group flex cursor-pointer items-center gap-5", props.className)}>
-      <input
-        {...inputProps}
-        onChange={onChange}
-        type="checkbox"
-        value={value}
-        className="peer relative -left-[999px] h-0 w-0"
-      />
-      <span className="block h-10 w-10 rounded border border-black peer-checked:hidden peer-focus-visible:bg-cardinal-red" />
-      <CheckIcon
-        className="hidden rounded border border-black peer-checked:block peer-focus-visible:bg-cardinal-red peer-focus-visible:text-white"
-        width={25}
-      />
-      <span className="block peer-hover:underline peer-focus-visible:underline">{children}</span>
-    </label>
+    <div>
+      <label {...props} className={twMerge("group flex cursor-pointer items-center gap-5", props.className)}>
+        <input
+          {...inputProps}
+          onChange={onChange}
+          type="checkbox"
+          value={value}
+          className="peer relative -left-[999px] h-0 w-0"
+        />
+        <span className="block h-10 w-10 rounded border border-black peer-checked:hidden peer-focus-visible:bg-cardinal-red" />
+        <CheckIcon
+          className="hidden rounded border border-black peer-checked:block peer-focus-visible:bg-cardinal-red peer-focus-visible:text-white"
+          width={25}
+        />
+        <span className="block peer-hover:underline peer-focus-visible:underline">{children}</span>
+      </label>
+      {helpText && <p className="text-3xl italic">{helpText}</p>}
+    </div>
   )
 }
 export default CheckboxButton

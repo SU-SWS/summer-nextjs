@@ -21,7 +21,7 @@ const InputGroup = ({label, children, ...props}: Props) => {
     <fieldset
       aria-labelledby={`${id}-button`}
       {...props}
-      className={twMerge("mb-10 max-h-96 space-y-3 overflow-y-auto overflow-x-hidden pb-5", props.className)}
+      className={twMerge("mb-10 space-y-3 overflow-x-hidden pb-5", props.className)}
     >
       <legend className="mb-10 w-full border-t border-black pt-10 font-semibold">
         <button

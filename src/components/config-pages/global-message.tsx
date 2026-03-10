@@ -4,20 +4,19 @@ import ActionLink from "@components/elements/action-link"
 import {twMerge} from "tailwind-merge"
 import {HTMLAttributes} from "react"
 import {H2} from "@components/elements/headers"
-import {unstable_cache as nextCache} from "next/cache"
+import {cacheTag} from "next/cache"
 import {graphqlClient} from "@lib/gql/gql-client"
 import GlobalMessageClient from "@components/config-pages/global-message.client"
 
 type Props = HTMLAttributes<HTMLElement> & {}
 
-const getGlobalMessage = nextCache(
-  async (): Promise<SummerGlobalMsg | undefined> => {
-    const messages = await graphqlClient().GlobalMessages()
-    if (messages.summerGlobalMsgs.nodes?.[0]?.label) return messages.summerGlobalMsgs.nodes[0] as SummerGlobalMsg
-  },
-  [],
-  {tags: ["global-message"]}
-)
+const getGlobalMessage = async (): Promise<SummerGlobalMsg | undefined> => {
+  "use cache"
+  cacheTag("global-message")
+
+  const messages = await graphqlClient().GlobalMessages()
+  if (messages.summerGlobalMsgs.nodes?.[0]?.label) return messages.summerGlobalMsgs.nodes[0] as SummerGlobalMsg
+}
 
 const GlobalMessage = async ({...props}: Props) => {
   const globalMessageConfig = await getGlobalMessage()

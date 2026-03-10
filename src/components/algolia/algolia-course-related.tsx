@@ -1,56 +1,57 @@
-import {unstable_cache as nextCache} from "next/cache"
 import {CourseHit} from "@components/algolia/results/summer-course/summer-course"
 import ImageCard from "@components/patterns/image-card"
 import {H2, H3} from "@components/elements/headers"
 import ActionLink from "@components/elements/action-link"
 import {getAlgoliaCredential} from "@lib/gql/gql-queries"
 import {RecommendHit} from "algoliasearch/lite"
+import {cacheLife, cacheTag} from "next/cache"
 
-const getRelatedContent = nextCache(
-  async (objectID: string): Promise<CourseHit[]> => {
-    const [appId, indexName, apiKey, useRelatedContent] = await getAlgoliaCredential()
+const getRelatedContent = async (objectID: string): Promise<CourseHit[]> => {
+  "use cache"
 
-    if (!appId || !indexName || !apiKey || !useRelatedContent) return []
+  cacheTag("related-courses", `related-courses:${objectID}`)
+  cacheLife("weeks")
 
-    const options: RequestInit = {
-      method: "POST",
-      cache: "no-store",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Algolia-Application-Id": appId,
-        "X-Algolia-API-Key": apiKey,
-      },
-      body: JSON.stringify({
-        requests: [
-          {
-            indexName: indexName,
-            model: "related-products",
-            maxRecommendations: 2,
-            threshold: 0,
-            objectID,
-            queryParameters: {
-              filters: "type:'Summer Courses'",
-            },
+  const [appId, indexName, apiKey, useRelatedContent] = await getAlgoliaCredential()
+
+  if (!appId || !indexName || !apiKey || !useRelatedContent) return []
+
+  const options: RequestInit = {
+    method: "POST",
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Algolia-Application-Id": appId,
+      "X-Algolia-API-Key": apiKey,
+    },
+    body: JSON.stringify({
+      requests: [
+        {
+          indexName: indexName,
+          model: "related-products",
+          maxRecommendations: 2,
+          threshold: 0,
+          objectID,
+          queryParameters: {
+            filters: "type:'Summer Courses'",
           },
-        ],
-      }),
-    }
+        },
+      ],
+    }),
+  }
 
-    const recommendations: {results: RecommendHit[]} = await fetch(
-      `https://${appId}-dsn.algolia.net/1/indexes/*/recommendations`,
-      options
-    ).then(res => res.json())
+  const recommendations: {results: RecommendHit[]} = await fetch(
+    `https://${appId}-dsn.algolia.net/1/indexes/*/recommendations`,
+    options
+  ).then(res => res.json())
 
-    const hits = (recommendations?.results?.[0].hits as CourseHit[]) || []
-    hits.map(hit => {
-      delete hit._highlightResult
-      delete hit._snippetResult
-    })
-    return hits
-  },
-  ["related-courses"],
-  {revalidate: 2592000, tags: ["related-courses"]}
-)
+  const hits = (recommendations?.results?.[0].hits as CourseHit[]) || []
+  hits.map(hit => {
+    delete hit._highlightResult
+    delete hit._snippetResult
+  })
+  return hits
+}
 
 const RelatedCourses = async ({objectId}: {objectId: string}) => {
   const recommendations = process.env.ALGOLIA_RECOMMENDATIONS === "true" ? await getRelatedContent(objectId) : []

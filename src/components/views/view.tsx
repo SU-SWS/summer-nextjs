@@ -27,7 +27,6 @@ import CoursesLearnerType from "@components/views/sum-courses/courses-learner-ty
 import OpportunitiesCardView from "@components/views/stanford-opportunities/opportunities-card-view"
 import OpportunitiesListView from "@components/views/stanford-opportunities/opportunities-list-view"
 import {ViewFilter} from "@lib/gql/gql-view-queries"
-import {cacheTag} from "next/cache"
 
 export type ViewDisplayProps<T extends NodeUnion = NodeUnion> = {
   /**
@@ -80,26 +79,9 @@ interface Props {
 }
 
 const View = async ({viewId, displayId, items, totalItems, loadPage, headingLevel = "h3"}: Props) => {
-  "use cache"
   const component = `${viewId}--${displayId}`
 
   const viewProps = {totalItems, headingLevel, loadPage, filtered: component.includes("filtered")}
-
-  const viewTags: Record<string, string> = {
-    search: "views:all",
-    stanford_shared_tags: "views:all",
-    stanford_basic_pages: "views:stanford_page",
-    stanford_courses: "views:stanford_course",
-    stanford_events: "views:stanford_event",
-    stanford_news: "views:stanford_news",
-    stanford_person: "views:stanford_person",
-    stanford_publications: "views:stanford_publication",
-    stanford_opportunities: "views:stanford_opportunities",
-    stanford_opportunities_filtered: "views:stanford_opportunities",
-    sum_courses: "views:sum_summer_courses",
-  }
-  cacheTag("views", viewTags[viewId] || "views:all")
-
   switch (component) {
     case "stanford_basic_pages--basic_page_type_list":
       return <PageListView items={items as NodeStanfordPage[]} {...viewProps} />

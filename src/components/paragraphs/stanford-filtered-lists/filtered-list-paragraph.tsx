@@ -57,7 +57,7 @@ const FilteredListParagraph = async ({paragraph, ...props}: Props) => {
       <Wysiwyg html={paragraph.suListDescription?.processed} />
 
       {viewId && displayId && viewItems && (
-        <Suspense>
+        <Suspense fallback={<div />}>
           <View
             viewId={viewId}
             displayId={displayId}

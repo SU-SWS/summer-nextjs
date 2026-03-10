@@ -66,6 +66,9 @@ export const getViewPagedItems = async (
     stanford_news: "views:stanford_news",
     stanford_person: "views:stanford_person",
     stanford_publications: "views:stanford_publication",
+    stanford_opportunities: "views:stanford_opportunities",
+    stanford_opportunities_filtered: "views:stanford_opportunities",
+    sum_courses: "views:sum_summer_courses",
   }
   cacheTag("views", viewTags[viewId] || "views:all")
 

@@ -6,7 +6,7 @@ import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behavi
 import {twMerge} from "tailwind-merge"
 import clsx from "clsx"
 import ActionLink from "@components/elements/action-link"
-import Link from "next/link"
+import Link from "@components/elements/link"
 import {ArrowRightIcon} from "@heroicons/react/24/outline"
 import Image from "next/image"
 import {getIdAttribute} from "@lib/utils/text-tools"

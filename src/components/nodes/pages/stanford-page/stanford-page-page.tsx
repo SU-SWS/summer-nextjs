@@ -13,6 +13,7 @@ import SumTopBannerParagraph from "@components/paragraphs/sum-top-banner/sum-top
 import clsx from "clsx"
 import NodePageMetadata from "@components/nodes/pages/node-page-metadata"
 import {getFirstText} from "@lib/utils/text-tools"
+import Wysiwyg from "@components/elements/wysiwyg"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordPage
@@ -72,11 +73,17 @@ const StanfordPagePage = ({node, ...props}: Props) => {
 
       {!fullWidth && (
         <InteriorPage currentPath={node.path || "#"}>
+          <Wysiwyg html={node.body?.processed} />
           <Rows components={node.suPageComponents} />
         </InteriorPage>
       )}
 
-      {fullWidth && <Rows components={node.suPageComponents} />}
+      {fullWidth && (
+        <>
+          <Wysiwyg html={node.body?.processed} />
+          <Rows components={node.suPageComponents} />
+        </>
+      )}
     </article>
   )
 }

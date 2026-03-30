@@ -1093,6 +1093,9 @@ export const FragmentNodeStanfordPageFragmentDoc = gql`
   layoutSelection {
     id
   }
+  body {
+    processed
+  }
   suBasicPageType {
     ...FragmentTermInterface
   }

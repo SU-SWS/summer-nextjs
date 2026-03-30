@@ -71,6 +71,9 @@ fragment FragmentNodeStanfordPage on NodeStanfordPage {
   layoutSelection {
     id
   }
+  body {
+    processed
+  }
   suBasicPageType {
     ...FragmentTermInterface
   }

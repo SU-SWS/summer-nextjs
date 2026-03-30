@@ -1039,8 +1039,6 @@ export type MediaVideo = MediaInterface &
     suMediaDescription?: Maybe<Scalars["String"]["output"]>
     /** Total length of the video in seconds. */
     suVideoDuration?: Maybe<Scalars["Int"]["output"]>
-    /** Subtitles */
-    suVideoSubtitles?: Maybe<File>
     /**
      * Upload an mp4 video. This will be used for the initial display as an
      * introduction when it comes into view for the user. The video will be trimmed
@@ -1573,7 +1571,7 @@ export type NodeStanfordMedia = EdgeNode &
     suMediaDuration?: Maybe<Scalars["Int"]["output"]>
     /** Episode */
     suMediaEpisode?: Maybe<Scalars["String"]["output"]>
-    /** Media Filters */
+    /** Audio/Visual Filters */
     suMediaFilters?: Maybe<Array<TermMediaContentFilter>>
     /** Featured Image */
     suMediaImage?: Maybe<MediaImage>
@@ -1585,9 +1583,11 @@ export type NodeStanfordMedia = EdgeNode &
     suMediaSeries?: Maybe<Scalars["String"]["output"]>
     /** External Source */
     suMediaSource?: Maybe<Link>
+    /** Subtitles */
+    suMediaSubtitles?: Maybe<File>
     /** Full Transcript */
     suMediaTranscript?: Maybe<Text>
-    /** Media Types */
+    /** Audio/Visual Types */
     suMediaTypes?: Maybe<Array<TermMediaContentType>>
     /** Title */
     title: Scalars["String"]["output"]
@@ -2851,7 +2851,7 @@ export type ParagraphStanfordStatCard = LayoutParagraphsInterface &
     status: Scalars["Boolean"]["output"]
     /** Background Color */
     suStatBgColor?: Maybe<ColorFieldType>
-    /** Body */
+    /** This field is option and can be used to provide additional data about the statistic. */
     suStatBody?: Maybe<Text>
     /** Button */
     suStatButton?: Maybe<Link>
@@ -2859,7 +2859,11 @@ export type ParagraphStanfordStatCard = LayoutParagraphsInterface &
     suStatCentered?: Maybe<Scalars["Boolean"]["output"]>
     /** Visually Hide Heading */
     suStatHeadingHide?: Maybe<Scalars["Boolean"]["output"]>
-    /** Headline */
+    /**
+     * The headline is the label that provides additional information about your
+     * statistic and let's the site visitor know what the number refers to. It
+     * displays right under the statistic number.
+     */
     suStatHeadline: Scalars["String"]["output"]
     /** Headling Level */
     suStatHeadlineLvl: Scalars["String"]["output"]
@@ -2874,11 +2878,14 @@ export type ParagraphStanfordStatCard = LayoutParagraphsInterface &
     suStatIcon?: Maybe<FontawesomeIconType>
     /** Icon Color */
     suStatIconColor?: Maybe<ColorFieldType>
-    /** Image */
+    /** This image will appear at the top of the card. */
     suStatImage?: Maybe<MediaImage>
     /** Choose how you would like the link to display.  */
     suStatLinkStyle: Scalars["String"]["output"]
-    /** Stat */
+    /**
+     * Enter a number that represents the statistic to highlight. Additional
+     * characters can be included.  Examples: 256, 20%, 1K, 72.5, $15.
+     */
     suStatStat: Scalars["String"]["output"]
     /** Stat Color */
     suStatStatColor?: Maybe<ColorFieldType>
@@ -3757,6 +3764,7 @@ export type QueryStanfordPersonArgs = {
 /** The schema's entry-point for queries. */
 export type QueryStanfordPublicationsArgs = {
   contextualFilter?: InputMaybe<StanfordPublicationsContextualFilterInput>
+  filter?: InputMaybe<StanfordPublicationsFilterInput>
   offset?: InputMaybe<Scalars["Int"]["input"]>
   page?: InputMaybe<Scalars["Int"]["input"]>
   pageSize?: InputMaybe<Scalars["Int"]["input"]>
@@ -4474,7 +4482,7 @@ export type StanfordMediaContextualFilterInput = {
 }
 
 export type StanfordMediaFilterInput = {
-  /** Media Filters  */
+  /** Audio/Visual Filters  */
   filter?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
   /** Related Person  */
   person?: InputMaybe<Scalars["Float"]["input"]>
@@ -4514,6 +4522,8 @@ export type StanfordNewsContextualFilterInput = {
 export type StanfordNewsFilterInput = {
   /** Layout  */
   layout?: InputMaybe<Scalars["String"]["input"]>
+  /** Related Person  */
+  person?: InputMaybe<Scalars["Float"]["input"]>
   /** Spotlight Filters  */
   spotlight?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>
 }
@@ -4642,6 +4652,11 @@ export enum StanfordPersonSortKeys {
 
 export type StanfordPublicationsContextualFilterInput = {
   term_node_taxonomy_name_depth?: InputMaybe<Scalars["String"]["input"]>
+}
+
+export type StanfordPublicationsFilterInput = {
+  /** Author Reference  */
+  person?: InputMaybe<Scalars["Float"]["input"]>
 }
 
 /** Result for view stanford_publications display list_graphql. */
@@ -5040,7 +5055,7 @@ export type TermInterface = {
   weight: Scalars["Int"]["output"]
 }
 
-/** For Media Content */
+/** For Audio/Visual Content */
 export type TermMediaContentFilter = EdgeNode &
   MetaTagInterface &
   TermInterface & {
@@ -5084,7 +5099,7 @@ export type TermMediaContentFilterEdge = Edge & {
   node: TermMediaContentFilter
 }
 
-/** For Media Content */
+/** For Audio/Visual Content */
 export type TermMediaContentType = MetaTagInterface &
   TermInterface & {
     __typename?: "TermMediaContentType"
@@ -7516,6 +7531,7 @@ export type NodeQuery = {
             }
         >
         layoutSelection?: {__typename?: "LayoutLibrary"; id: string} | null
+        body?: {__typename?: "TextSummary"; processed?: any | null} | null
         suBasicPageType?: Array<{
           __typename: "TermBasicPageType"
           uuid: string
@@ -10472,6 +10488,7 @@ export type BasicPagesQuery = {
       __typename?: "NodeStanfordPage"
       suPageDescription?: string | null
       layoutSelection?: {__typename?: "LayoutLibrary"; id: string} | null
+      body?: {__typename?: "TextSummary"; processed?: any | null} | null
       suBasicPageType?: Array<{
         __typename: "TermBasicPageType"
         uuid: string
@@ -16406,6 +16423,7 @@ export type FragmentNodeStanfordPageFragment = {
   __typename?: "NodeStanfordPage"
   suPageDescription?: string | null
   layoutSelection?: {__typename?: "LayoutLibrary"; id: string} | null
+  body?: {__typename?: "TextSummary"; processed?: any | null} | null
   suBasicPageType?: Array<{
     __typename: "TermBasicPageType"
     uuid: string
@@ -20852,6 +20870,7 @@ type FragmentNodeUnion_NodeStanfordPage_Fragment = {
       }
   >
   layoutSelection?: {__typename?: "LayoutLibrary"; id: string} | null
+  body?: {__typename?: "TextSummary"; processed?: any | null} | null
   suBasicPageType?: Array<{
     __typename: "TermBasicPageType"
     uuid: string
@@ -27808,6 +27827,7 @@ export type RouteQuery = {
                   }
               >
               layoutSelection?: {__typename?: "LayoutLibrary"; id: string} | null
+              body?: {__typename?: "TextSummary"; processed?: any | null} | null
               suBasicPageType?: Array<{
                 __typename: "TermBasicPageType"
                 uuid: string

@@ -1,11 +1,12 @@
 const VAULT_ENDPOINT = "https://vault.stanford.edu"
 const VAULT_PATH = "secret/data/projects/uit-webservices/decoupled-drupal/summer"
 
-export async function register() {
-  if (process.env.NEXT_RUNTIME !== "nodejs") return
-
+export const vaultEnvars = async (): Promise<Record<string, string>> => {
+  // @ts-expect-error Process is a global variable.
   const {VAULT_ROLE_ID, VAULT_SECRET_ID} = process.env
-  if (!VAULT_ROLE_ID || !VAULT_SECRET_ID) return
+  if (!VAULT_ROLE_ID || !VAULT_SECRET_ID) return {}
+
+  const vaultSecrets: Record<string, string> = {}
 
   try {
     // Authenticate with AppRole to obtain a client token.
@@ -41,17 +42,20 @@ export async function register() {
 
     if (secrets.length === 0) {
       console.warn("[Vault] No secrets found at path")
-      return
+      return {}
     }
 
     // Fetch each secret and add it to the environment, skipping local overrides.
     for (const key of Object.keys(secrets)) {
+      // @ts-expect-error Process is a global variable.
       if (process.env[key]) continue
-      process.env[key] = String(secrets[key])
+      vaultSecrets[key] = String(secrets[key])
     }
 
+    // eslint-disable-next-line
     console.log("[Vault] Secrets loaded successfully")
   } catch (error) {
     console.error("[Vault] Failed to load secrets during instrumentation:", error)
   }
+  return vaultSecrets
 }

@@ -19,6 +19,9 @@ export const buildHeaders = (headers?: HeadersInit, isPreviewMode?: boolean): He
     isPreviewMode ? process.env.DRUPAL_BASIC_AUTH_ADMIN || process.env.DRUPAL_BASIC_AUTH : process.env.DRUPAL_BASIC_AUTH
   ) as string
 
+  if (!authCreds) throw Error("Auth credentials are not available")
+  requestHeaders.set("Authorization", "Basic " + Buffer.from(authCreds).toString("base64"))
+
   if (process.env.DRUPAL_REQUEST_HEADERS) {
     const envRequestHeaders: Record<string, string> = JSON.parse(process.env.DRUPAL_REQUEST_HEADERS)
     Object.keys(envRequestHeaders).map(key => {
@@ -26,6 +29,5 @@ export const buildHeaders = (headers?: HeadersInit, isPreviewMode?: boolean): He
     })
   }
 
-  if (authCreds) requestHeaders.set("Authorization", "Basic " + Buffer.from(authCreds).toString("base64"))
   return requestHeaders
 }

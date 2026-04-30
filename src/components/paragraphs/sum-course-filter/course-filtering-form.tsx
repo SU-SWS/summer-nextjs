@@ -27,6 +27,7 @@ import {
 import {ApplyNowLink} from "@components/elements/apply-now-link"
 import {useBoolean} from "usehooks-ts"
 import {IndexUiState} from "instantsearch.js/es/types/ui-state"
+import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
 
 type Props = {
   appId: string
@@ -255,7 +256,7 @@ const RefinementInput = ({
 }
 
 const HitList = () => {
-  const {items: hits, currentPageHits, showMore, isLastPage} = useInfiniteHits<AlgoliaHit>()
+  const {items: hits, currentPageHits, showMore, isLastPage, sendEvent} = useInfiniteHits<AlgoliaHit>()
   const {nbHits} = usePagination({padding: 2})
 
   if (hits.length === 0) {
@@ -274,6 +275,7 @@ const HitList = () => {
             key={hit.objectID}
             focusOnItem={hit.objectID === currentPageHits[0].objectID && position > 0}
             hit={hit}
+            sendEvent={sendEvent}
           />
         ))}
       </ul>
@@ -288,7 +290,15 @@ const HitList = () => {
   )
 }
 
-const HitItem = ({focusOnItem, hit}: {focusOnItem?: boolean; hit: HitType<AlgoliaHit>}) => {
+const HitItem = ({
+  focusOnItem,
+  hit,
+  sendEvent,
+}: {
+  focusOnItem?: boolean
+  hit: HitType<AlgoliaHit>
+  sendEvent: SendEventForHits
+}) => {
   const ref = useRef<HTMLLIElement>(null)
   const {value: focus, setFalse: disableFocus} = useBoolean(focusOnItem)
 
@@ -301,7 +311,13 @@ const HitItem = ({focusOnItem, hit}: {focusOnItem?: boolean; hit: HitType<Algoli
   }, [focus])
 
   return (
-    <li tabIndex={focus ? 0 : undefined} ref={focus ? ref : undefined} onBlur={disableFocus}>
+    <li
+      tabIndex={focus ? 0 : undefined}
+      ref={focus ? ref : undefined}
+      onClick={() => sendEvent("click", hit, "Hit Clicked")}
+      onAuxClick={() => sendEvent("click", hit, "Hit Clicked")}
+      onBlur={disableFocus}
+    >
       <SummerCourse hit={hit} />
     </li>
   )

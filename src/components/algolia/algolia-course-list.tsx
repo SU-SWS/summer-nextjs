@@ -87,8 +87,8 @@ const HitItem = ({
   return (
     <li
       {...props}
-      onClick={() => sendEvent("click", hit, "course clicked")}
-      onAuxClick={() => sendEvent("click", hit, "course clicked")}
+      onClick={() => sendEvent("click", hit, "Hit Clicked")}
+      onAuxClick={() => sendEvent("click", hit, "Hit Clicked")}
       tabIndex={focus ? 0 : undefined}
       ref={focus ? ref : undefined}
       onBlur={disableFocus}

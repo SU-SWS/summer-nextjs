@@ -12,6 +12,7 @@ import DefaultResult, {AlgoliaHit} from "@components/algolia/results/default"
 import {H2} from "@components/elements/headers"
 import {useBoolean} from "usehooks-ts"
 import AlgoliaPager from "@components/algolia/algolia-pager"
+import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
 
 type Props = {
   appId: string
@@ -98,7 +99,7 @@ const SearchForm = () => {
 }
 
 const HitList = () => {
-  const {items: hits} = useHits<AlgoliaHit>({})
+  const {items: hits, sendEvent} = useHits<AlgoliaHit>({})
   const {currentRefinement: currentPage, nbHits} = usePagination({padding: 2})
 
   if (hits.length === 0) {
@@ -118,6 +119,7 @@ const HitList = () => {
             focusOnItem={position === 0 && currentPage > 0}
             className="border-b border-gray-300 last:border-0"
             hit={hit}
+            sendEvent={sendEvent}
           />
         ))}
       </ul>
@@ -130,8 +132,9 @@ const HitList = () => {
 const HitItem = ({
   focusOnItem,
   hit,
+  sendEvent,
   ...props
-}: HTMLAttributes<HTMLLIElement> & {focusOnItem?: boolean; hit: HitType<AlgoliaHit>}) => {
+}: HTMLAttributes<HTMLLIElement> & {focusOnItem?: boolean; hit: HitType<AlgoliaHit>; sendEvent: SendEventForHits}) => {
   const ref = useRef<HTMLLIElement>(null)
   const {value: focus, setFalse: disableFocus} = useBoolean(focusOnItem)
 
@@ -148,7 +151,14 @@ const HitItem = ({
   }, [focus])
 
   return (
-    <li {...props} tabIndex={focus ? 0 : undefined} ref={focus ? ref : undefined} onBlur={disableFocus}>
+    <li
+      {...props}
+      onClick={() => sendEvent("click", hit, "course clicked")}
+      onAuxClick={() => sendEvent("click", hit, "course clicked")}
+      tabIndex={focus ? 0 : undefined}
+      ref={focus ? ref : undefined}
+      onBlur={disableFocus}
+    >
       <DefaultResult hit={hit} />
     </li>
   )

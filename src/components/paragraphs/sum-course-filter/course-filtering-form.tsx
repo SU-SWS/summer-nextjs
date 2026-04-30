@@ -54,6 +54,7 @@ const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: false}}
       ignoreMultipleHooksWarning={true}
+      insights={true}
       routing={{
         router: {cleanUrlOnDispose: false},
         stateMapping: {

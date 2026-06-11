@@ -11,9 +11,8 @@ import {
   NodeUnion,
   StanfordBasicPagesSortKeys,
 } from "@lib/gql/__generated__/drupal.d"
-import {graphqlClient} from "@lib/gql/gql-client"
+import {graphqlClient, nextFetchConfig} from "@lib/gql/gql-client"
 import View from "@components/views/view"
-import {cacheTag} from "next/cache"
 
 export const VIEW_PAGE_SIZE = 21
 
@@ -50,8 +49,6 @@ export const getViewPagedItems = async (
   page?: Maybe<number>,
   filter?: ViewFilter
 ): Promise<{items: NodeUnion[]; totalItems: number}> => {
-  "use cache"
-
   let items: NodeUnion[] = []
   let totalItems = 0
   // View filters allow multiples of 3 for page sizes. If the user wants 4, we'll fetch 6 and then slice it at the end.
@@ -70,9 +67,8 @@ export const getViewPagedItems = async (
     stanford_opportunities_filtered: "views:stanford_opportunities",
     sum_courses: "views:sum_summer_courses",
   }
-  cacheTag("views", viewTags[viewId] || "views:all")
 
-  const client = graphqlClient()
+  const client = graphqlClient(nextFetchConfig("views", viewTags[viewId] || "views:all"))
   let contextualFilters = getContextualFilters(["term_node_taxonomy_name_depth"], contextualFilter)
   let graphqlResponse
   let sortKey

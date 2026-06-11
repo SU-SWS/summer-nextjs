@@ -1,5 +1,6 @@
 import {GraphQLClient} from "graphql-request"
 import {getSdk} from "@lib/gql/__generated__/queries"
+import {INFINITE_CACHE} from "next/dist/lib/constants"
 
 export const graphqlClient = (requestConfig: Omit<RequestInit, "method"> = {}, isPreviewMode?: boolean) => {
   const headers = buildHeaders(requestConfig.headers as HeadersInit, isPreviewMode)
@@ -28,4 +29,13 @@ export const buildHeaders = (headers?: HeadersInit, isPreviewMode?: boolean): He
 
   if (authCreds) requestHeaders.set("Authorization", "Basic " + Buffer.from(authCreds).toString("base64"))
   return requestHeaders
+}
+
+export const nextFetchConfig = (...tags: string[]) => {
+  return {
+    next: {
+      revalidate: INFINITE_CACHE,
+      tags: [...tags],
+    },
+  }
 }

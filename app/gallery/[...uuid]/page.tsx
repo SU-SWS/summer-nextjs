@@ -1,5 +1,5 @@
 import {H1} from "@components/elements/headers"
-import {graphqlClient} from "@lib/gql/gql-client"
+import {graphqlClient, nextFetchConfig} from "@lib/gql/gql-client"
 import {notFound} from "next/navigation"
 import {ParagraphStanfordGallery} from "@lib/gql/__generated__/drupal.d"
 import Image from "next/image"
@@ -19,7 +19,7 @@ const Page = async (props: Props) => {
   const params = await props.params
   const [paragraphId, mediaUuid] = params.uuid
 
-  const paragraphQuery = await graphqlClient().Paragraph({uuid: paragraphId})
+  const paragraphQuery = await graphqlClient(nextFetchConfig()).Paragraph({uuid: paragraphId})
   if (paragraphQuery.paragraph?.__typename !== "ParagraphStanfordGallery") notFound()
 
   const paragraph = paragraphQuery.paragraph as ParagraphStanfordGallery

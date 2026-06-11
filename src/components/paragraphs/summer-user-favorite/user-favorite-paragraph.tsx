@@ -1,4 +1,4 @@
-import {HtmlHTMLAttributes} from "react"
+import {HtmlHTMLAttributes, Suspense} from "react"
 import {getAlgoliaCredential} from "@lib/gql/gql-queries"
 import {ParagraphSumUserFavorite} from "@lib/gql/__generated__/drupal.d"
 import AlgoliaCourseList from "@components/algolia/algolia-course-list"
@@ -18,11 +18,16 @@ const UserFavoriteParagraph = async ({...props}: Props) => {
   return (
     <div {...props} className={twMerge("grid grid-cols-12 gap-12", props.className)}>
       <div className="col-span-12 md:col-span-4 xl:col-span-3">
-        <FavoritesList isDisplayOnly />
+        <Suspense>
+          <FavoritesList isDisplayOnly />
+        </Suspense>
       </div>
       <div className="col-span-12 md:col-span-8 xl:col-span-9">
-        <AlgoliaCourseList appId={appId} searchIndex={indexName} searchApiKey={apiKey} />
+        <Suspense>
+          <AlgoliaCourseList appId={appId} searchIndex={indexName} searchApiKey={apiKey} />
+        </Suspense>
       </div>
+
       <div className="rs-mt-6 col-span-12 md:col-span-6 md:col-start-7">
         <ApplyNowLink href="/apply-now">
           Ready to dive in? Kick off your application today – let&apos;s make things happen!

@@ -7,9 +7,6 @@ const drupalUrl = new URL(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL as string)
 module.exports = async (_phase: string, {defaultConfig}: {defaultConfig: NextConfig}) => {
   const nextConfig: NextConfig = {
     ...defaultConfig,
-    experimental: {
-      useCache: true,
-    },
     env: {...(await vaultEnvars())},
     cacheLife: {
       default: {

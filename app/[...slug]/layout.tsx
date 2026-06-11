@@ -6,6 +6,8 @@ type Props = Omit<PageProps, "searchParams"> & {
   children: ReactNode
 }
 
+export const dynamic = "force-static"
+
 const Layout = async (props: Props) => {
   const params = await props.params
   const currentPath = getPathFromContext(params.slug)

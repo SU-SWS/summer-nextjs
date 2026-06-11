@@ -4,10 +4,8 @@ import PageFooter from "@components/global/page-footer"
 import PageHeader from "@components/global/page-header"
 import {Icon} from "next/dist/lib/metadata/types/metadata-types"
 import {roboto, sourceSans3} from "../src/styles/fonts"
-import DrupalWindowSync from "@components/elements/drupal-window-sync"
 import UserAnalytics from "@components/elements/user-analytics"
 import clsx from "clsx"
-import Editori11y from "@components/tools/editorially"
 import localFont from "next/font/local"
 import Cookiebot from "@components/elements/cookiebot"
 import Zendesk from "@components/elements/zendesk"
@@ -47,16 +45,12 @@ const stanford = localFont({
 export const revalidate = false
 
 const RootLayout = ({children, modal}: {children: React.ReactNode; modal: React.ReactNode}) => {
-  const isDevMode = process.env.NODE_ENV === "development"
-
   return (
     <html lang="en" className={clsx(sourceSans3.className, roboto.variable, stanford.variable)}>
       <body className="text-archway-dark">
         <Cookiebot />
         <UserAnalytics />
-        <DrupalWindowSync />
         <Zendesk />
-        {isDevMode && <Editori11y />}
 
         <nav aria-label="Skip Links">
           <a href="#main-content" className="skiplink">
@@ -74,7 +68,7 @@ const RootLayout = ({children, modal}: {children: React.ReactNode; modal: React.
           </main>
           <PageFooter />
         </div>
-        {modal}
+        <div>{modal}</div>
       </body>
     </html>
   )

@@ -4,21 +4,18 @@ import {H2, H3} from "@components/elements/headers"
 import ActionLink from "@components/elements/action-link"
 import {getAlgoliaCredential} from "@lib/gql/gql-queries"
 import {RecommendHit} from "algoliasearch/lite"
-import {cacheLife, cacheTag} from "next/cache"
 
 const getRelatedContent = async (objectID: string): Promise<CourseHit[]> => {
-  "use cache"
-
-  cacheTag("related-courses", `related-courses:${objectID}`)
-  cacheLife("weeks")
-
   const [appId, indexName, apiKey, useRelatedContent] = await getAlgoliaCredential()
 
   if (!appId || !indexName || !apiKey || !useRelatedContent) return []
 
   const options: RequestInit = {
     method: "POST",
-    cache: "no-store",
+    next: {
+      revalidate: 60 * 60 * 24 * 7,
+      tags: ["related-courses", `related-courses:${objectID}`],
+    },
     headers: {
       "Content-Type": "application/json",
       "X-Algolia-Application-Id": appId,

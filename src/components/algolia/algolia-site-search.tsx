@@ -13,6 +13,7 @@ import {H2} from "@components/elements/headers"
 import {useBoolean} from "usehooks-ts"
 import AlgoliaPager from "@components/algolia/algolia-pager"
 import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
+import {usePathname} from "next/navigation"
 
 type Props = {
   appId: string
@@ -22,32 +23,32 @@ type Props = {
 }
 
 const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
+  const pathName = usePathname()
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
   return (
-    <div>
-      <InstantSearchNext
-        indexName={searchIndex}
-        searchClient={searchClient}
-        future={{preserveSharedStateOnUnmount: true}}
-        ignoreMultipleHooksWarning={true}
-        insights={true}
-        routing={{
-          stateMapping: {
-            stateToRoute(uiState): Record<string, string> {
-              const indexUiState = uiState[searchIndex]
-              return indexUiState.query ? {q: indexUiState.query} : {}
-            },
-            routeToState(routeState: Record<string, string>) {
-              return {
-                [searchIndex]: {query: routeState.q},
-              }
-            },
+    <InstantSearchNext
+      key={pathName}
+      indexName={searchIndex}
+      searchClient={searchClient}
+      future={{preserveSharedStateOnUnmount: true}}
+      ignoreMultipleHooksWarning={true}
+      insights={true}
+      routing={{
+        stateMapping: {
+          stateToRoute(uiState): Record<string, string> {
+            const indexUiState = uiState[searchIndex]
+            return indexUiState.query ? {q: indexUiState.query} : {}
           },
-        }}
-      >
-        <SearchForm />
-      </InstantSearchNext>
-    </div>
+          routeToState(routeState: Record<string, string>) {
+            return {
+              [searchIndex]: {query: routeState.q},
+            }
+          },
+        },
+      }}
+    >
+      <SearchForm />
+    </InstantSearchNext>
   )
 }
 

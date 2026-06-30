@@ -28,6 +28,7 @@ import {ApplyNowLink} from "@components/elements/apply-now-link"
 import {useBoolean} from "usehooks-ts"
 import {IndexUiState} from "instantsearch.js/es/types/ui-state"
 import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
+import {usePathname} from "next/navigation"
 
 type Props = {
   appId: string
@@ -36,6 +37,7 @@ type Props = {
 }
 
 const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
+  const pathname = usePathname()
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
   const queryKeys = new Map<string, string>([
     ["sum_course_interest", "interests"],
@@ -51,6 +53,7 @@ const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
 
   return (
     <InstantSearchNext
+      key={pathname}
       indexName={searchIndex}
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: false}}

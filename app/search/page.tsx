@@ -22,9 +22,11 @@ const Page = async () => {
     <div className="centered mt-32">
       <H1>Search</H1>
 
-      {appId && indexName && apiKey && (
-        <AlgoliaSiteSearch appId={appId} searchIndex={indexName} searchApiKey={apiKey} />
-      )}
+      <div>
+        {appId && indexName && apiKey && (
+          <AlgoliaSiteSearch appId={appId} searchIndex={indexName} searchApiKey={apiKey} />
+        )}
+      </div>
       <noscript>Please enable Javascript in your browser to view search results.</noscript>
     </div>
   )

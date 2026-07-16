@@ -21,7 +21,7 @@ module.exports = async (_phase: string) => {
     },
     images: {
       minimumCacheTTL: 2678400,
-      dangerouslyAllowLocalIP: !!(process.env.CI || process.env.NODE_ENV === "development"),
+      dangerouslyAllowLocalIP: !process.env.VERCEL_ENV,
       remotePatterns: [
         {
           // Allow any stanford domain for images, but require https.

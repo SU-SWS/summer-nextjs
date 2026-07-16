@@ -1,9 +1,8 @@
 import React, {HtmlHTMLAttributes} from "react"
 import {ParagraphSumTestimonial} from "@lib/gql/__generated__/drupal.d"
 
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
-import {clsx} from "clsx"
 import Image from "next/image"
 import {H2} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
@@ -43,20 +42,17 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
   return (
     <article
       {...props}
-      className={twMerge(
+      className={cn(
         "relative left-1/2 !mt-0 grid w-screen -translate-x-1/2 border-t-4 border-t-white @container lg:grid-cols-3",
         props.className
       )}
       aria-labelledby={id}
     >
       <div
-        className={twMerge(
-          "relative h-[257px] w-full border-white lg:col-span-1 lg:h-full",
-          clsx({
-            "order-last border-t-2 lg:border-l-2 lg:border-t-0": leftText,
-            "border-b-2 lg:border-b-0 lg:border-r-2": !leftText,
-          })
-        )}
+        className={cn("relative h-[257px] w-full border-white lg:col-span-1 lg:h-full", {
+          "order-last border-t-2 lg:border-l-2 lg:border-t-0": leftText,
+          "border-b-2 lg:border-b-0 lg:border-r-2": !leftText,
+        })}
       >
         <Image
           className="object-cover"
@@ -68,13 +64,10 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
 
         {paragraph.sumTestimonialHsVideo.__typename === "MediaImage" && (
           <div
-            className={twMerge(
-              "absolute flex h-fit w-full justify-center lg:h-full lg:w-fit lg:items-center",
-              clsx({
-                "left-0 top-[-75px] sm:top-[-100px] lg:top-0": leftText,
-                "bottom-[75px] right-0 sm:bottom-[100px] lg:bottom-0": !leftText,
-              })
-            )}
+            className={cn("absolute flex h-fit w-full justify-center lg:h-full lg:w-fit lg:items-center", {
+              "left-0 top-[-75px] sm:top-[-100px] lg:top-0": leftText,
+              "bottom-[75px] right-0 sm:bottom-[100px] lg:bottom-0": !leftText,
+            })}
           >
             <div className="absolute aspect-1 w-[150px] overflow-hidden rounded-full border-4 border-white sm:w-[200px] lg:w-[250px] xl:w-[300px] 2xl:w-[400px]">
               <Image
@@ -90,15 +83,12 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
 
         {paragraph.sumTestimonialHsVideo.__typename === "MediaVideo" && (
           <div
-            className={twMerge(
-              "absolute flex h-fit w-full justify-center lg:h-full lg:w-fit lg:items-center",
-              clsx({
-                "bottom-[30px] right-0 sm:bottom-[50px] lg:-left-[125px] lg:bottom-0 lg:top-0 xl:-left-[150px] 2xl:-left-[200px]":
-                  leftText,
-                "right-0 top-[30px] sm:top-[50px] lg:-right-[125px] lg:bottom-0 lg:top-0 xl:-right-[150px] 2xl:-right-[200px]":
-                  !leftText,
-              })
-            )}
+            className={cn("absolute flex h-fit w-full justify-center lg:h-full lg:w-fit lg:items-center", {
+              "bottom-[30px] right-0 sm:bottom-[50px] lg:-left-[125px] lg:bottom-0 lg:top-0 xl:-left-[150px] 2xl:-left-[200px]":
+                leftText,
+              "right-0 top-[30px] sm:top-[50px] lg:-right-[125px] lg:bottom-0 lg:top-0 xl:-right-[150px] 2xl:-right-[200px]":
+                !leftText,
+            })}
           >
             <YoutubeVideoPill
               videoUrl={paragraph.sumTestimonialHsVideo.mediaOembedVideo}
@@ -109,40 +99,34 @@ const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
       </div>
 
       <div
-        className={twMerge(
-          "border-white bg-poppy-light lg:col-span-2",
-          clsx({
-            "border-b-2 lg:border-b-0 lg:border-r-2": leftText,
-            "border-t-2 lg:border-l-2 lg:border-t-0": !leftText,
-            "rs-pt-10 pb-[150px] lg:rs-pb-9 md:pb-[200px]":
-              leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
-            "rs-pb-9 pt-[150px] lg:rs-pt-10 md:pt-[200px]":
-              !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
-            "rs-pt-9 pb-[250px] lg:rs-pb-10 sm:pb-[650px] md:pb-[520px] lg:pb-[250px]":
-              leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
-            "rs-pb-10 pt-[250px] lg:rs-pt-10 sm:pt-[650px] md:pt-[520px] lg:pt-[250px]":
-              !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
-            "bg-olive": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "olive",
-            "bg-spirited text-black-true":
-              behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited",
-            "bg-white": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "white",
-            "bg-spirited-dark text-white":
-              behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited_dark",
-          })
-        )}
+        className={cn("border-white bg-poppy-light lg:col-span-2", {
+          "border-b-2 lg:border-b-0 lg:border-r-2": leftText,
+          "border-t-2 lg:border-l-2 lg:border-t-0": !leftText,
+          "rs-pt-10 pb-[150px] lg:rs-pb-9 md:pb-[200px]":
+            leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
+          "rs-pb-9 pt-[150px] lg:rs-pt-10 md:pt-[200px]":
+            !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
+          "rs-pt-9 pb-[250px] lg:rs-pb-10 sm:pb-[650px] md:pb-[520px] lg:pb-[250px]":
+            leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
+          "rs-pb-10 pt-[250px] lg:rs-pt-10 sm:pt-[650px] md:pt-[520px] lg:pt-[250px]":
+            !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
+          "bg-olive": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "olive",
+          "bg-spirited text-black-true":
+            behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited",
+          "bg-white": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "white",
+          "bg-spirited-dark text-white":
+            behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "spirited_dark",
+        })}
       >
         <div
-          className={twMerge(
-            "centered sm:max-w-[440px] lg:max-w-full",
-            clsx({
-              "2xl:rs-pl-10 lg:mr-0 lg:pl-32 lg:pr-[200px] xl:pl-40 xl:pr-[250px] 4xl:ml-auto 4xl:w-2/3": leftText,
-              "2xl:rs-pr-10 lg:ml-0 lg:pl-[200px] lg:pr-32 xl:pl-[250px] xl:pr-40": !leftText,
-            })
-          )}
+          className={cn("centered sm:max-w-[440px] lg:max-w-full", {
+            "2xl:rs-pl-10 lg:mr-0 lg:pl-32 lg:pr-[200px] xl:pl-40 xl:pr-[250px] 4xl:ml-auto 4xl:w-2/3": leftText,
+            "2xl:rs-pr-10 lg:ml-0 lg:pl-[200px] lg:pr-32 xl:pl-[250px] xl:pr-40": !leftText,
+          })}
         >
           <H2
             id={id}
-            className={twMerge(
+            className={cn(
               "rs-mb-3 font-light",
               behaviors.sum_testimonial_banner?.sum_testimonial_banner_heading === "type_4" ? "type-4" : "type-5"
             )}

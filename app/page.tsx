@@ -5,15 +5,10 @@ import {NodeStanfordPage, StanfordBasicSiteSetting} from "@lib/gql/__generated__
 import PageTitleBannerParagraph from "@components/paragraphs/stanford-page-title-banner/page-title-banner-paragraph"
 import SumArcBannerParagraph from "@components/paragraphs/sum-arc-banner/sum-arc-banner-paragraph"
 import SumTopBannerParagraph from "@components/paragraphs/sum-top-banner/sum-top-banner-paragraph"
-import {isPreviewMode} from "@lib/drupal/is-preview-mode"
 import NodePageMetadata from "@components/nodes/pages/node-page-metadata"
 
-// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
-export const revalidate = false
-export const dynamic = "force-static"
-
-const Home = async () => {
-  const {entity} = await getEntityFromPath<NodeStanfordPage>("/", await isPreviewMode())
+const Home = async ({inPreview}: {inPreview?: boolean}) => {
+  const {entity} = await getEntityFromPath<NodeStanfordPage>("/", inPreview)
   if (!entity) notFound()
 
   const siteName =

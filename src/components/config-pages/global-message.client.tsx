@@ -1,8 +1,7 @@
 "use client"
 
-import twMerge from "@lib/utils/twMergeConfig"
+import cn from "@lib/utils/className"
 import {HTMLAttributes} from "react"
-import {clsx} from "clsx"
 import {usePathname} from "next/navigation"
 
 type Props = HTMLAttributes<HTMLElement> & {
@@ -13,7 +12,7 @@ const GlobalMessageClient = ({hidePaths, children, ...props}: Props) => {
   const pathName = usePathname()
   const hideOnPage = hidePaths?.includes(pathName)
   return (
-    <article {...props} className={twMerge(props.className, clsx({hidden: hideOnPage}))}>
+    <article {...props} className={cn(props.className, {hidden: hideOnPage})}>
       {children}
     </article>
   )

@@ -3,7 +3,7 @@
 import {InformationCircleIcon, XMarkIcon} from "@heroicons/react/24/solid"
 import useAccordion from "@lib/hooks/useAccordion"
 import React, {RefObject, useCallback, useRef} from "react"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {useEventListener} from "usehooks-ts"
 import useOutsideClick from "@lib/hooks/useOutsideClick"
 
@@ -31,7 +31,7 @@ const CourseInfo = () => {
       <button
         {...buttonProps}
         ref={buttonRef}
-        className={twMerge(
+        className={cn(
           "hocus-visible:outline-3 rounded-full border-2 border-transparent hocus-visible:outline hocus-visible:outline-digital-red",
           buttonProps.className
         )}
@@ -41,7 +41,7 @@ const CourseInfo = () => {
       </button>
       <div
         {...panelProps}
-        className={twMerge(
+        className={cn(
           "absolute right-0 top-full z-10 -mr-[110px] mt-5 w-[300px] rounded-[25px] border border-white bg-white p-12 drop-shadow-md sm:-mr-[350px] sm:w-[400px] lg:-mr-[30px]",
           expanded ? "block" : "tw-hidden",
           panelProps.className

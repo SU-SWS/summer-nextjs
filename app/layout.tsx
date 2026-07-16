@@ -5,11 +5,11 @@ import PageHeader from "@components/global/page-header"
 import {Icon} from "next/dist/lib/metadata/types/metadata-types"
 import {roboto, sourceSans3} from "../src/styles/fonts"
 import UserAnalytics from "@components/elements/user-analytics"
-import clsx from "clsx"
 import localFont from "next/font/local"
 import Cookiebot from "@components/elements/cookiebot"
 import Zendesk from "@components/elements/zendesk"
 import {ToastMessage} from "@components/elements/toast-message"
+import cn from "@lib/utils/className"
 
 const appleIcons: Icon[] = [60, 72, 76, 114, 120, 144, 152, 180].map(size => ({
   url: `https://www-media.stanford.edu/assets/favicon/apple-touch-icon-${size}x${size}.png`,
@@ -41,12 +41,9 @@ const stanford = localFont({
   variable: "--font-stanford",
 })
 
-// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
-export const revalidate = false
-
 const RootLayout = ({children, modal}: {children: React.ReactNode; modal: React.ReactNode}) => {
   return (
-    <html lang="en" className={clsx(sourceSans3.className, roboto.variable, stanford.variable)}>
+    <html lang="en" className={cn(sourceSans3.className, roboto.variable, stanford.variable)}>
       <body className="text-archway-dark">
         <Cookiebot />
         <UserAnalytics />

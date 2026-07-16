@@ -2,13 +2,13 @@ import {MetadataRoute} from "next"
 import {graphqlClient} from "@lib/gql/gql-client"
 import {NodeUnion} from "@lib/gql/__generated__/drupal.d"
 import {getHomePagePath} from "@lib/gql/gql-queries"
-
-// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
-export const revalidate = 604800
-export const dynamic = "force-static"
+import {cacheLife} from "next/cache"
+import {AllNodesDocument, AllNodesQuery} from "@lib/gql/__generated__/graphql"
 
 const Sitemap = async (): Promise<MetadataRoute.Sitemap> => {
-  const nodeQuery = await graphqlClient({cache: "no-cache"}).AllNodes()
+  "use cache: remote"
+  cacheLife("weeks")
+  const nodeQuery = await graphqlClient().request<AllNodesQuery>(AllNodesDocument)
   const nodes: NodeUnion[] = []
 
   nodeQuery.nodeStanfordPages.nodes.map(node => nodes.push(node as NodeUnion))

@@ -1,8 +1,9 @@
 import {H1} from "@components/elements/headers"
-import {graphqlClient, nextFetchConfig} from "@lib/gql/gql-client"
+import {graphqlClient} from "@lib/gql/gql-client"
 import {notFound} from "next/navigation"
 import {ParagraphStanfordGallery} from "@lib/gql/__generated__/drupal.d"
 import Image from "next/image"
+import {ParagraphDocument, ParagraphQuery, ParagraphQueryVariables} from "@lib/gql/__generated__/graphql"
 
 export const metadata = {
   title: "Gallery Image",
@@ -16,10 +17,14 @@ type Props = {
 }
 
 const Page = async (props: Props) => {
+  "use cache: remote"
+
   const params = await props.params
   const [paragraphId, mediaUuid] = params.uuid
 
-  const paragraphQuery = await graphqlClient(nextFetchConfig()).Paragraph({uuid: paragraphId})
+  const paragraphQuery = await graphqlClient().request<ParagraphQuery, ParagraphQueryVariables>(ParagraphDocument, {
+    uuid: paragraphId,
+  })
   if (paragraphQuery.paragraph?.__typename !== "ParagraphStanfordGallery") notFound()
 
   const paragraph = paragraphQuery.paragraph as ParagraphStanfordGallery
@@ -51,5 +56,7 @@ const Page = async (props: Props) => {
     </div>
   )
 }
+
+export const generateStaticParams = async (): Promise<Array<{uuid: string[]}>> => [{uuid: ["none"]}]
 
 export default Page

@@ -3,7 +3,7 @@ import Accordion from "@components/elements/accordion"
 import Wysiwyg from "@components/elements/wysiwyg"
 import {H2} from "@components/elements/headers"
 import {HTMLAttributes} from "react"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {getIdAttribute} from "@lib/utils/text-tools"
 
 type Props = HTMLAttributes<HTMLElement> & {
@@ -17,7 +17,7 @@ const SumAccordionParagraph = ({paragraph, ...props}: Props) => {
   return (
     <Element
       {...props}
-      className={twMerge("centered", props.className)}
+      className={cn("centered", props.className)}
       aria-labelledby={paragraph.sumAccordionsHeading ? id : undefined}
     >
       {paragraph.sumAccordionsHeading && (

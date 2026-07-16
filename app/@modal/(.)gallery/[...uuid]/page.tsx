@@ -2,18 +2,23 @@ import Image from "next/image"
 import InterceptionModal from "@components/elements/interception-modal"
 import Link from "@components/elements/link"
 import {ParagraphStanfordGallery} from "@lib/gql/__generated__/drupal.d"
-import {graphqlClient, nextFetchConfig} from "@lib/gql/gql-client"
+import {graphqlClient} from "@lib/gql/gql-client"
 import {notFound} from "next/navigation"
+import {ParagraphDocument, ParagraphQuery, ParagraphQueryVariables} from "@lib/gql/__generated__/graphql"
 
 type Props = {
   params: Promise<{uuid: string[]}>
 }
 
 const Page = async (props: Props) => {
+  "use cache: remote"
+
   const params = await props.params
   const [paragraphId, mediaUuid] = params.uuid
 
-  const paragraphQuery = await graphqlClient(nextFetchConfig()).Paragraph({uuid: paragraphId})
+  const paragraphQuery = await graphqlClient().request<ParagraphQuery, ParagraphQueryVariables>(ParagraphDocument, {
+    uuid: paragraphId,
+  })
   if (paragraphQuery.paragraph?.__typename !== "ParagraphStanfordGallery") notFound()
 
   const paragraph = paragraphQuery.paragraph as ParagraphStanfordGallery
@@ -87,4 +92,7 @@ const Page = async (props: Props) => {
     </InterceptionModal>
   )
 }
+
+export const generateStaticParams = async (): Promise<Array<{uuid: string[]}>> => [{uuid: ["none"]}]
+
 export default Page

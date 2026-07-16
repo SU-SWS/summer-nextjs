@@ -6,12 +6,11 @@ import {getMenuActiveTrail} from "@lib/drupal/utils"
 import useOutsideClick from "@lib/hooks/useOutsideClick"
 import {ArrowRightIcon, ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/20/solid"
 import {MenuItem as MenuItemType, StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
-import {clsx} from "clsx"
 import {useBoolean, useEventListener} from "usehooks-ts"
 import {RefObject, useCallback, useEffect, useId, useLayoutEffect, useRef, useState} from "react"
 import {usePathname} from "next/navigation"
 import Button from "@components/elements/button"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 
 const menuLevelsToShow = 2
 
@@ -59,31 +58,22 @@ const MainMenuClient = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props)
       >
         <span className="flex h-[30px] w-[30px] flex-col items-center justify-center">
           <span
-            className={twMerge(
-              "block h-[3px] w-full rounded-sm bg-black-true transition-all duration-300 ease-out",
-              clsx({
-                "translate-y-4 rotate-45": menuOpen,
-                "-translate-y-0.5": !menuOpen,
-              })
-            )}
+            className={cn("block h-[3px] w-full rounded-sm bg-black-true transition-all duration-300 ease-out", {
+              "translate-y-4 rotate-45": menuOpen,
+              "-translate-y-0.5": !menuOpen,
+            })}
           />
           <span
-            className={twMerge(
-              "my-3 block h-[3px] w-full rounded-sm bg-black-true transition-all duration-300 ease-out",
-              clsx({
-                "opacity-0": menuOpen,
-                "opacity-100": !menuOpen,
-              })
-            )}
+            className={cn("my-3 block h-[3px] w-full rounded-sm bg-black-true transition-all duration-300 ease-out", {
+              "opacity-0": menuOpen,
+              "opacity-100": !menuOpen,
+            })}
           />
           <span
-            className={twMerge(
-              "block h-[3px] w-full rounded-sm bg-black-true transition-all duration-300 ease-out",
-              clsx({
-                "-translate-y-4 -rotate-45": menuOpen,
-                "translate-y-0.5": !menuOpen,
-              })
-            )}
+            className={cn("block h-[3px] w-full rounded-sm bg-black-true transition-all duration-300 ease-out", {
+              "-translate-y-4 -rotate-45": menuOpen,
+              "translate-y-0.5": !menuOpen,
+            })}
           />
         </span>
         <span className="group-hocus:underline" aria-hidden>
@@ -92,9 +82,9 @@ const MainMenuClient = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props)
       </button>
 
       <div
-        className={twMerge(
+        className={cn(
           "top-100 absolute z-10 block w-full bg-fog-light lg:relative lg:flex lg:items-center lg:justify-end lg:bg-transparent",
-          clsx({"tw-hidden": !menuOpen})
+          {"tw-hidden": !menuOpen}
         )}
       >
         <SiteSearchForm className="px-10 lg:hidden" />
@@ -175,34 +165,33 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
   const isCurrent = activeTrail.at(-1) === id
   const inTrail = activeTrail.includes(id) && !isCurrent
 
-  const linkStyles = twMerge(
-    "group w-full relative flex flex-row font-normal text-black hocus:text-black no-underline py-5 border-b-[4px] hocus:border-[#F26845]",
-    clsx(
-      {
-        "pl-10": level === 0,
-        "pl-20": level === 1,
-        "pl-28": level === 2,
-        "pl-48": level === 3,
-      },
-      // Top menu item styles.
-      {
-        "lg:border-l-0 lg:border-b-[4px] lg:mr-0 lg:pb-10": level === 0,
-        "border-[#F26845]": level === 0 && isCurrent,
-        "border-transparent lg:border-[#F26845]": level === 0 && !isCurrent && inTrail,
-        "border-transparent": level === 0 && !isCurrent && !inTrail,
-        "lg:pr-10": level === 0 && children.length === 0,
-      },
-      // Child menu item styles.
-      {
-        "ml-5 lg:ml-0 lg:pl-5": level !== 0,
-        "border-[#F26845]": level !== 0 && isCurrent,
-        "border-transparent": level !== 0 && !isCurrent,
-      }
-    )
+  const linkStyles = cn(
+    "group relative flex w-full flex-row border-b-[4px] py-5 font-normal text-black no-underline hocus:border-[#F26845] hocus:text-black",
+
+    {
+      "pl-10": level === 0,
+      "pl-20": level === 1,
+      "pl-28": level === 2,
+      "pl-48": level === 3,
+    },
+    // Top menu item styles.
+    {
+      "lg:mr-0 lg:border-b-[4px] lg:border-l-0 lg:pb-10": level === 0,
+      "border-[#F26845]": level === 0 && isCurrent,
+      "border-transparent lg:border-[#F26845]": level === 0 && !isCurrent && inTrail,
+      "border-transparent": level === 0 && !isCurrent && !inTrail,
+      "lg:pr-10": level === 0 && children.length === 0,
+    },
+    // Child menu item styles.
+    {
+      "ml-5 lg:ml-0 lg:pl-5": level !== 0,
+      "border-[#F26845]": level !== 0 && isCurrent,
+      "border-transparent": level !== 0 && !isCurrent,
+    }
   )
 
-  const chevronBtnStyles = clsx(
-    "shrink-0 relative px-10 lg:right-0 text-black bg-transparent lg:bg-transparent lg:pr-5 lg:pb-6 lg:pl-2 hocus:border-b-[4px] lg:group-hover:border-b-[4px] hocus:border-[#F26845] lg:group-hover:border-[#F26845]",
+  const chevronBtnStyles = cn(
+    "relative shrink-0 bg-transparent px-10 text-black hocus:border-b-[4px] hocus:border-[#F26845] lg:right-0 lg:bg-transparent lg:pb-6 lg:pl-2 lg:pr-5 lg:group-hover:border-b-[4px] lg:group-hover:border-[#F26845]",
     // Top menu item styles.
     {
       "border-b-[4px]": level === 0,
@@ -212,37 +201,33 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
     }
   )
 
-  const subMenuStyles = twMerge(
-    "list-unstyled w-full min-w-[350px] lg:bg-fog-light lg:border lg:border-white lg:shadow-2xl lg:absolute lg:rounded-[25px] lg:px-12 lg:py-4 lg:mt-3",
-    clsx(
-      {
-        "z-[1]": level === 0,
-        "z-[2]": level === 1,
-        "z-[3]": level === 2,
-        "z-[4]": level === 3,
-        "z-[5]": level === 4,
-      },
-      {
-        "lg:top-full lg:left-0": level === 0,
-        "lg:top-0": level !== 0,
-        "lg:left-full": level !== 0 && positionRight,
-        "lg:right-full": level !== 0 && !positionRight,
-        block: submenuOpen,
-        "tw-hidden": !submenuOpen,
-      }
-    )
+  const subMenuStyles = cn(
+    "list-unstyled w-full min-w-[350px] lg:absolute lg:mt-3 lg:rounded-[25px] lg:border lg:border-white lg:bg-fog-light lg:px-12 lg:py-4 lg:shadow-2xl",
+
+    {
+      "z-[1]": level === 0,
+      "z-[2]": level === 1,
+      "z-[3]": level === 2,
+      "z-[4]": level === 3,
+      "z-[5]": level === 4,
+    },
+    {
+      "lg:left-0 lg:top-full": level === 0,
+      "lg:top-0": level !== 0,
+      "lg:left-full": level !== 0 && positionRight,
+      "lg:right-full": level !== 0 && !positionRight,
+      block: submenuOpen,
+      "tw-hidden": !submenuOpen,
+    }
   )
 
   return (
     <li
       ref={menuItemRef}
-      className={twMerge(
-        "relative m-0 border-b border-[#F26845] last:border-0 lg:relative lg:py-0",
-        clsx({
-          "first:border-t-0 lg:mr-10 lg:border-b-0 lg:last:mr-0": level === 0,
-          "hocus:border-transparent": level !== 0,
-        })
-      )}
+      className={cn("relative m-0 border-b border-[#F26845] last:border-0 lg:relative lg:py-0", {
+        "first:border-t-0 lg:mr-10 lg:border-b-0 lg:last:mr-0": level === 0,
+        "hocus:border-transparent": level !== 0,
+      })}
     >
       <div className="group flex lg:justify-end">
         <Link id={linkId} href={url || "#"} className={linkStyles} aria-current={isCurrent ? "true" : undefined}>
@@ -265,12 +250,9 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
           >
             <ChevronDownIcon
               height={25}
-              className={twMerge(
-                "transition duration-150 ease-in-out group-hocus:scale-125 group-hocus:text-black",
-                clsx({
-                  "rotate-180": submenuOpen,
-                })
-              )}
+              className={cn("transition duration-150 ease-in-out group-hocus:scale-125 group-hocus:text-black", {
+                "rotate-180": submenuOpen,
+              })}
             />
           </button>
         )}

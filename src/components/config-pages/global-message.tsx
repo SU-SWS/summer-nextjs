@@ -1,16 +1,20 @@
 import Wysiwyg from "@components/elements/wysiwyg"
 import {SummerGlobalMsg} from "@lib/gql/__generated__/drupal.d"
 import ActionLink from "@components/elements/action-link"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {HTMLAttributes} from "react"
 import {H2} from "@components/elements/headers"
-import {graphqlClient, nextFetchConfig} from "@lib/gql/gql-client"
+import {graphqlClient} from "@lib/gql/gql-client"
 import GlobalMessageClient from "@components/config-pages/global-message.client"
+import {cacheTag} from "next/cache"
+import {GlobalMessagesDocument, GlobalMessagesQuery} from "@lib/gql/__generated__/graphql"
 
 type Props = HTMLAttributes<HTMLElement> & {}
 
 const getGlobalMessage = async (): Promise<SummerGlobalMsg | undefined> => {
-  const messages = await graphqlClient(nextFetchConfig("global-message")).GlobalMessages()
+  "use cache: remote"
+  cacheTag("global-message")
+  const messages = await graphqlClient().request<GlobalMessagesQuery>(GlobalMessagesDocument)
   if (messages.summerGlobalMsgs.nodes?.[0]?.label) return messages.summerGlobalMsgs.nodes[0] as SummerGlobalMsg
 }
 
@@ -21,7 +25,7 @@ const GlobalMessage = async ({...props}: Props) => {
   return (
     <GlobalMessageClient
       {...props}
-      className={twMerge("bg-fog-light", props.className)}
+      className={cn("bg-fog-light", props.className)}
       aria-labelledby={globalMessageConfig.uuid}
       hidePaths={globalMessageConfig.sumGlobalMsgHide
         ?.replace(/\r/, "")

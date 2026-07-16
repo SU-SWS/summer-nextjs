@@ -4,9 +4,8 @@ import {H2} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
 import Image from "next/image"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
-import {clsx} from "clsx"
 import ActionLink from "@components/elements/action-link"
 import {getIdAttribute} from "@lib/utils/text-tools"
 
@@ -22,7 +21,7 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
   return (
     <Element
       {...props}
-      className={twMerge("relative left-1/2 !mt-0 w-screen -translate-x-1/2", props.className)}
+      className={cn("relative left-1/2 !mt-0 w-screen -translate-x-1/2", props.className)}
       aria-labelledby={paragraph.sumPillBannerHeadline ? id : undefined}
     >
       {paragraph.sumPillBannerBkgd && (
@@ -40,18 +39,15 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
       )}
       <div className="flex flex-col gap-20">
         <div
-          className={twMerge(
-            "rs-pt-10 w-full bg-poppy-light pb-96 text-center lg:last:*:rs-mb-5",
-            clsx({
-              "bg-olive": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "olive",
-              "bg-spirited text-black-true":
-                behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
-              "bg-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "white",
-              "bg-spirited-dark": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
-              "text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
-              "text-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
-            })
-          )}
+          className={cn("rs-pt-10 w-full bg-poppy-light pb-96 text-center lg:last:*:rs-mb-5", {
+            "bg-olive": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "olive",
+            "bg-spirited text-black-true":
+              behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
+            "bg-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "white",
+            "bg-spirited-dark": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
+            "text-black-true": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
+            "text-white": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
+          })}
         >
           <div className="gutters">
             <div className="flex flex-col">
@@ -74,13 +70,10 @@ const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
             {paragraph.sumPillBannerLink?.url && (
               <ActionLink
                 href={paragraph.sumPillBannerLink.url}
-                className={twMerge(
-                  "rs-mt-3 mx-auto text-black-true hocus:text-black-true",
-                  clsx({
-                    "text-white hocus:text-white":
-                      behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
-                  })
-                )}
+                className={cn("rs-mt-3 mx-auto text-black-true hocus:text-black-true", {
+                  "text-white hocus:text-white":
+                    behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
+                })}
               >
                 {paragraph.sumPillBannerLink.title}
               </ActionLink>

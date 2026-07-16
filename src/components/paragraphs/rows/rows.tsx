@@ -5,7 +5,7 @@ import {Maybe, ParagraphStanfordLayout, ParagraphUnion} from "@lib/gql/__generat
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {LayoutParagraphBehaviors} from "@lib/drupal/drupal-jsonapi.d"
 import {HTMLAttributes} from "react"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 
 type Layout = Record<
   string,
@@ -49,7 +49,7 @@ const Rows = async ({components, className, ...props}: Props) => {
   })
 
   return (
-    <div className={twMerge("space-y-32 @container", className)} {...props}>
+    <div className={cn("space-y-32 @container", className)} {...props}>
       {Object.keys(layouts).map(layoutId => (
         <Row
           key={layoutId}

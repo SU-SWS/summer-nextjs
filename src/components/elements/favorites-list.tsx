@@ -5,8 +5,7 @@ import {ChatBubbleLeftEllipsisIcon, ClipboardDocumentIcon, EnvelopeIcon, HeartIc
 import {useCopyToClipboard, useIsClient} from "usehooks-ts"
 import {XMarkIcon} from "@heroicons/react/20/solid"
 import {H2} from "./headers"
-import {clsx} from "clsx"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {toast} from "react-toastify"
 
 const ShareButtons = () => {
@@ -44,10 +43,9 @@ const ShareButtons = () => {
       >
         <ChatBubbleLeftEllipsisIcon
           width={30}
-          className={twMerge(
-            "mb-4 block w-full rounded-full bg-spirited-dark p-5 text-white",
-            clsx({"bg-black-40": !favs.length})
-          )}
+          className={cn("mb-4 block w-full rounded-full bg-spirited-dark p-5 text-white", {
+            "bg-black-40": !favs.length,
+          })}
         />
         Text
       </button>
@@ -59,10 +57,9 @@ const ShareButtons = () => {
       >
         <EnvelopeIcon
           width={30}
-          className={twMerge(
-            "mb-4 block w-full rounded-full bg-spirited-dark p-5 text-white",
-            clsx({"bg-black-40": !favs.length})
-          )}
+          className={cn("mb-4 block w-full rounded-full bg-spirited-dark p-5 text-white", {
+            "bg-black-40": !favs.length,
+          })}
         />
         Email
       </button>
@@ -74,10 +71,9 @@ const ShareButtons = () => {
       >
         <ClipboardDocumentIcon
           width={30}
-          className={twMerge(
-            "mb-4 block w-full rounded-full bg-spirited-dark p-5 text-white",
-            clsx({"bg-black-40": !favs.length})
-          )}
+          className={cn("mb-4 block w-full rounded-full bg-spirited-dark p-5 text-white", {
+            "bg-black-40": !favs.length,
+          })}
         />
         Copy
       </button>

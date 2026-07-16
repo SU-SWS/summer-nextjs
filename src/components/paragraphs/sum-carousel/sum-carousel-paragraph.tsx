@@ -11,8 +11,7 @@ import Slideshow from "@components/elements/slideshow"
 import ActionLink from "@components/elements/action-link"
 import ArcBanner from "@components/patterns/arc-banner"
 import {getParagraphBehaviors} from "../get-paragraph-behaviors"
-import clsx from "clsx"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
 import SumSlideTeaserParagraph from "@components/paragraphs/sum-slide-teaser/sum-slide-teaser-paragraph"
 import {getIdAttribute} from "@lib/utils/text-tools"
@@ -128,10 +127,10 @@ type TopProps = {
 
 const CarouselTop = ({header, superHeader, headingSize, description, link, className, headerId}: TopProps) => {
   return (
-    <div className={twMerge("centered mb-20 text-center", className)}>
+    <div className={cn("centered mb-20 text-center", className)}>
       <div className="flex flex-col">
         {header && (
-          <H2 id={headerId} className={clsx("mb-8 font-light", headingSize)}>
+          <H2 id={headerId} className={cn("mb-8 font-light", headingSize)}>
             {header}
           </H2>
         )}

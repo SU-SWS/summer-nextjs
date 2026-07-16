@@ -1,7 +1,7 @@
 import OneColumn from "@components/paragraphs/rows/one-column"
 import {ParagraphUnion} from "@lib/gql/__generated__/drupal.d"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 
 export type TwoColumnConfig = Record<string, string>
 type Props = {
@@ -22,7 +22,7 @@ const TwoColumn = ({items, config}: Props) => {
   const draftProps: Record<string, string> = {"data-columns": "2"}
 
   return (
-    <div className={twMerge("gutters grid gap-10 @6xl:gap-20", gridCols)} {...draftProps}>
+    <div className={cn("gutters grid gap-10 @6xl:gap-20", gridCols)} {...draftProps}>
       <OneColumn items={leftItems} />
       <OneColumn items={rightItems} />
     </div>

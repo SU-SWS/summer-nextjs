@@ -1,7 +1,7 @@
 import Link from "@components/elements/link"
 import {ArrowRightIcon} from "@heroicons/react/20/solid"
 import {HtmlHTMLAttributes} from "react"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 
 type Props = HtmlHTMLAttributes<HTMLAnchorElement> & {
   /**
@@ -14,7 +14,7 @@ const ActionLink = ({children, className, ...props}: Props) => {
   return (
     <Link
       {...props}
-      className={twMerge(
+      className={cn(
         "relative flex w-fit flex-row items-center no-underline hocus:underline",
         className?.replace("link--action", "")
       )}

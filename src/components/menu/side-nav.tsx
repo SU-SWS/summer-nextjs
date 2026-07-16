@@ -1,7 +1,7 @@
 import Link from "@components/elements/link"
-import {clsx} from "clsx"
 import {BookLink, MenuItem as MenuItemType} from "@lib/gql/__generated__/drupal.d"
 import {HTMLAttributes} from "react"
+import cn from "@lib/utils/className"
 
 type Props = HTMLAttributes<HTMLElement> & {
   /**
@@ -35,15 +35,15 @@ const MenuItem = ({id, url, title, children, activeTrail, level}: MenuItemProps)
   // Need to list them out each so tailwind will include each for styling.
   const leftPadding = ["pl-10", "pl-20", "pl-28", "pl-48"]
 
-  const linkClasses = clsx(
+  const linkClasses = cn(
     // Normal styles.
-    "w-full inline-block relative no-underline hocus:underline pl-10 py-5",
+    "relative inline-block w-full py-5 pl-10 no-underline hocus:underline",
     {
       // Non-active state.
-      "text-digital-red hocus:text-black hocus:before:content-[''] hocus:before:block hocus:before:w-[6px] hocus:before:h-full hocus:before:bg-black hocus:before:absolute hocus:before:left-0 hocus:before:top-0 before:scale-y-[1] before:transition":
+      "text-digital-red before:scale-y-[1] before:transition hocus:text-black hocus:before:absolute hocus:before:left-0 hocus:before:top-0 hocus:before:block hocus:before:h-full hocus:before:w-[6px] hocus:before:bg-black hocus:before:content-['']":
         activeTrail.at(-1) !== id,
       // Active state.
-      "text-black before:content-[''] before:block before:w-[6px] before:h-full before:bg-black before:absolute before:left-0 before:top-0":
+      "text-black before:absolute before:left-0 before:top-0 before:block before:h-full before:w-[6px] before:bg-black before:content-['']":
         activeTrail.at(-1) === id,
     }
   )

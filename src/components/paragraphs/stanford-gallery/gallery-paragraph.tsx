@@ -5,7 +5,7 @@ import {H2} from "@components/elements/headers"
 import {ElementType, HTMLAttributes, HtmlHTMLAttributes} from "react"
 import {MediaStanfordGalleryImage, ParagraphStanfordGallery} from "@lib/gql/__generated__/drupal.d"
 import Link from "@components/elements/link"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {getIdAttribute} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -19,7 +19,7 @@ const GalleryParagraph = ({paragraph, ...props}: Props) => {
   return (
     <GalleryWrapper
       {...props}
-      className={twMerge(
+      className={cn(
         "centered mb-20 flex flex-col gap-10 @container lg:max-w-[920px] xl:max-w-[980px]",
         props.className
       )}
@@ -121,7 +121,7 @@ const GalleryImage = ({
       <figure className="h-full w-full">
         <Link
           href={`/gallery/${galleryId}/${image.uuid}`}
-          className={twMerge(
+          className={cn(
             "relative block h-full w-full overflow-hidden border-5 border-white transition-colors hover:border-cardinal-red focus-visible:border-cardinal-red hocus:outline-none",
             linkClasses
           )}

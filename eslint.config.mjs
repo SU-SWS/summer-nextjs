@@ -21,6 +21,24 @@ const esLintConfig = defineConfig([
       "no-console": ["error", {allow: ["warn", "error"]}],
       "no-fallthrough": "off",
       "no-restricted-syntax": ["error", "Literal[value=/text-m[\\d]/i]"],
+      "no-restricted-imports": [
+        "error",
+        {
+          name: "tailwind-merge",
+          importNames: ["twMerge"],
+          message: "Use custom tailwind merge plugin cn() from @lib/utils/className.",
+        },
+        {
+          name: "clsx",
+          importNames: ["clsx"],
+          message: "Use custom tailwind merge plugin cn() from @lib/utils/className.",
+        },
+        {
+          name: "cnb",
+          importNames: ["cnbuilder"],
+          message: "Use custom tailwind merge plugin cn() from @lib/utils/className.",
+        },
+      ],
       "prettier/prettier": ["error"],
       "@typescript-eslint/no-unused-vars": [
         "error",

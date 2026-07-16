@@ -3,7 +3,7 @@
 import {ShareIcon} from "@heroicons/react/24/outline"
 import useAccordion from "@lib/hooks/useAccordion"
 import React, {RefObject, useCallback, useRef} from "react"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {useCopyToClipboard, useEventListener} from "usehooks-ts"
 import useOutsideClick from "@lib/hooks/useOutsideClick"
 import {toast} from "react-toastify"
@@ -53,7 +53,7 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
       <button
         {...buttonProps}
         ref={buttonRef}
-        className={twMerge(
+        className={cn(
           "hocus-visible:outline-3 rounded-full border-2 border-transparent pr-2 hocus-visible:outline hocus-visible:outline-poppy-dark",
           buttonProps.className
         )}
@@ -63,7 +63,7 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
       </button>
       <div
         {...panelProps}
-        className={twMerge(
+        className={cn(
           "absolute right-0 top-full z-10 -mr-[30px] mt-5 w-fit rounded-[25px] border border-white bg-white px-12 py-4",
           expanded ? "block" : "tw-hidden",
           panelProps.className

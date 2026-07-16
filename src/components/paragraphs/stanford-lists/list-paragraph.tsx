@@ -4,11 +4,10 @@ import {H2} from "@components/elements/headers"
 import {ElementType, HtmlHTMLAttributes} from "react"
 import {ParagraphStanfordList} from "@lib/gql/__generated__/drupal.d"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import Button from "@components/elements/button"
 import {getViewPagedItems, loadViewPage, VIEW_PAGE_SIZE} from "@lib/gql/gql-view-queries"
 import {getIdAttribute} from "@lib/utils/text-tools"
-import clsx from "clsx"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordList
@@ -40,14 +39,11 @@ const ListParagraph = async ({paragraph, ...props}: Props) => {
   return (
     <ListWrapper
       {...props}
-      className={twMerge("centered mb-20 flex flex-col gap-10 lg:max-w-[920px] xl:max-w-[980px]", props.className)}
+      className={cn("centered mb-20 flex flex-col gap-10 lg:max-w-[920px] xl:max-w-[980px]", props.className)}
       aria-labelledby={ListWrapper === "section" ? id : undefined}
     >
       {ListWrapper === "section" && (
-        <H2
-          id={id}
-          className={twMerge("text-center", clsx({"sr-only": behaviors.list_paragraph?.heading_behavior === "hide"}))}
-        >
+        <H2 id={id} className={cn("text-center", {"sr-only": behaviors.list_paragraph?.heading_behavior === "hide"})}>
           {paragraph.suListHeadline}
         </H2>
       )}

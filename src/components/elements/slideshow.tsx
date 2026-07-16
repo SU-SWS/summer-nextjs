@@ -3,16 +3,15 @@
 import {HTMLAttributes, JSX, useEffect, useRef} from "react"
 import Slider, {CustomArrowProps, Settings} from "react-slick"
 import {ArrowLongRightIcon, ArrowLongLeftIcon} from "@heroicons/react/16/solid"
-import {twMerge} from "tailwind-merge"
-import {clsx} from "clsx"
+import cn from "@lib/utils/className"
 
 const NextArrow = ({className, onClick}: CustomArrowProps) => {
   const slickDisabled = className?.includes("slick-disabled")
   return (
     <button
-      className={twMerge(
+      className={cn(
         "hocus:outline-3 absolute right-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:bg-digital-red hocus:outline hocus:outline-digital-red",
-        clsx({"bg-black-40 hocus:bg-black-40 hocus:outline-0": slickDisabled})
+        {"bg-black-40 hocus:bg-black-40 hocus:outline-0": slickDisabled}
       )}
       onClick={onClick}
       aria-label="Next"
@@ -27,9 +26,9 @@ const PrevArrow = ({className, onClick}: CustomArrowProps) => {
   const slickDisabled = className?.includes("slick-disabled")
   return (
     <button
-      className={twMerge(
+      className={cn(
         "hocus:outline-3 absolute left-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:bg-digital-red hocus:outline hocus:outline-digital-red",
-        clsx({"bg-black-40 hocus:bg-black-40 hocus:outline-0": slickDisabled})
+        {"bg-black-40 hocus:bg-black-40 hocus:outline-0": slickDisabled}
       )}
       onClick={onClick}
       aria-label="Previous"
@@ -101,12 +100,7 @@ const Slideshow = ({children, slideshowProps, ...props}: SlideshowProps) => {
     ...slideshowProps,
   }
   return (
-    <section
-      ref={slideShowRef}
-      {...props}
-      aria-roledescription="carousel"
-      className={twMerge("relative", props.className)}
-    >
+    <section ref={slideShowRef} {...props} aria-roledescription="carousel" className={cn("relative", props.className)}>
       <Slider {...settings}>{children}</Slider>
     </section>
   )

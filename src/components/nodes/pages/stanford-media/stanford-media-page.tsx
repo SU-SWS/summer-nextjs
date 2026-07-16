@@ -9,8 +9,8 @@ import Button from "@components/elements/button"
 import Link from "@components/elements/link"
 import Oembed from "@components/elements/ombed"
 import {graphqlClient} from "@lib/gql/gql-client"
-import twMerge from "@lib/utils/twMergeConfig"
-import {clsx} from "clsx"
+import {StanfordMediaDocument, StanfordMediaQuery, StanfordMediaQueryVariables} from "@lib/gql/__generated__/graphql"
+import cn from "@lib/utils/className"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordMedia
@@ -31,17 +31,16 @@ const StanfordMediaPage = async ({node, ...props}: Props) => {
 
   const topics = node.suMediaTypes?.slice(0, 3)
   const upNextMediaQuery = node.suMediaSeries
-    ? await graphqlClient().stanfordMedia({filter: {series: node.suMediaSeries}})
+    ? await graphqlClient().request<StanfordMediaQuery, StanfordMediaQueryVariables>(StanfordMediaDocument, {
+        filter: {series: node.suMediaSeries},
+      })
     : undefined
   const upNextMedia = upNextMediaQuery?.stanfordMedia?.results.filter(
     item => item.uuid !== node.uuid
   ) as Array<NodeStanfordMedia>
 
   return (
-    <article
-      className={twMerge("centered mt-32 gap-20", clsx({"grid grid-cols-3-1": upNextMedia.length > 0}))}
-      {...props}
-    >
+    <article className={cn("centered mt-32 gap-20", {"grid grid-cols-3-1": upNextMedia.length > 0})} {...props}>
       <NodePageMetadata pageTitle={node.title} metatags={node.metatag} backupDescription={node.suMediaDek} />
       <div>
         <ReverseVisualOrder className="mb-20 gap-20 border-b border-black-20 pb-20">

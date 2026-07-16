@@ -3,7 +3,7 @@ import SideNav from "@components/menu/side-nav"
 import {HtmlHTMLAttributes} from "react"
 import {BookLink, MenuAvailable, MenuItem} from "@lib/gql/__generated__/drupal.d"
 import {getMenuActiveTrail} from "@lib/drupal/utils"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
@@ -22,7 +22,7 @@ const InteriorPage = async ({children, currentPath, menuItems, ...props}: Props)
   const subTree = topMenuItem ? topMenuItem.children : []
 
   return (
-    <div {...props} className={twMerge("centered flex gap-20", props.className)}>
+    <div {...props} className={cn("centered flex gap-20", props.className)}>
       {(subTree.length > 1 || subTree[0]?.children) && (
         <aside className="tw-hidden w-1/4 shrink-0 lg:block">
           <a href="#page-content" className="skiplink">

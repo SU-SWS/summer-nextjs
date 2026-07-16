@@ -17,8 +17,7 @@ import {
 } from "react"
 import {ChevronDownIcon} from "@heroicons/react/20/solid"
 import {Maybe} from "@lib/gql/__generated__/drupal.d"
-import {clsx} from "clsx"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 
 interface OptionProps {
   rootRef: RefObject<HTMLUListElement | null>
@@ -158,7 +157,7 @@ const SelectList = ({
     <div className="relative h-fit">
       <button
         {...getButtonProps()}
-        className={twMerge(
+        className={cn(
           "w-full rounded border-2 border-fog-light bg-fog-light text-left",
           buttonClassName,
           !optionChosen && "rs-p-3"
@@ -167,12 +166,12 @@ const SelectList = ({
       >
         {label && (
           <span
-            className={clsx("relative block max-w-[calc(100%-30px)]", {
+            className={cn("relative block max-w-[calc(100%-30px)]", {
               "type-0 top-[-15px] w-full": optionChosen,
               "type-2": !optionChosen,
             })}
           >
-            <span id={labelId} className={twMerge("block w-fit bg-white px-5", clsx({"bg-black-20": props.disabled}))}>
+            <span id={labelId} className={cn("block w-fit bg-white px-5", {"bg-black-20": props.disabled})}>
               {label}
             </span>
           </span>

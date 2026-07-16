@@ -3,7 +3,7 @@ import {getAlgoliaCredential} from "@lib/gql/gql-queries"
 import {ParagraphSumUserFavorite} from "@lib/gql/__generated__/drupal.d"
 import AlgoliaCourseList from "@components/algolia/algolia-course-list"
 import FavoritesList from "@components/elements/favorites-list"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {ApplyNowLink} from "@components/elements/apply-now-link"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -16,7 +16,7 @@ const UserFavoriteParagraph = async ({...props}: Props) => {
   if (!appId || !indexName || !apiKey) return
 
   return (
-    <div {...props} className={twMerge("grid grid-cols-12 gap-12", props.className)}>
+    <div {...props} className={cn("grid grid-cols-12 gap-12", props.className)}>
       <div className="col-span-12 md:col-span-4 xl:col-span-3">
         <Suspense>
           <FavoritesList isDisplayOnly />

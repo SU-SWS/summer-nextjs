@@ -10,10 +10,10 @@ import {
 import PageTitleBannerParagraph from "@components/paragraphs/stanford-page-title-banner/page-title-banner-paragraph"
 import SumArcBannerParagraph from "@components/paragraphs/sum-arc-banner/sum-arc-banner-paragraph"
 import SumTopBannerParagraph from "@components/paragraphs/sum-top-banner/sum-top-banner-paragraph"
-import clsx from "clsx"
 import NodePageMetadata from "@components/nodes/pages/node-page-metadata"
 import {getFirstText} from "@lib/utils/text-tools"
 import Wysiwyg from "@components/elements/wysiwyg"
+import cn from "@lib/utils/className"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordPage
@@ -49,7 +49,7 @@ const StanfordPagePage = ({node, ...props}: Props) => {
   ].includes(lastComponent ?? "")
 
   return (
-    <article {...props} className={clsx({"mb-32": !hasBannerOrCalculator}, props.className)}>
+    <article {...props} className={cn({"mb-32": !hasBannerOrCalculator}, props.className)}>
       <NodePageMetadata
         pageTitle={node.title}
         metatags={node.metatag}

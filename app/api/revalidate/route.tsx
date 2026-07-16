@@ -2,8 +2,6 @@ import {NextRequest, NextResponse} from "next/server"
 import {revalidateTag} from "next/cache"
 import {getEntityFromPath, getHomePagePath} from "@lib/gql/gql-queries"
 
-export const revalidate = 0
-
 export const GET = async (request: NextRequest) => {
   const secret = request.nextUrl.searchParams.get("secret")
   if (secret !== process.env.DRUPAL_REVALIDATE_SECRET)
@@ -33,4 +31,17 @@ export const GET = async (request: NextRequest) => {
   tagsInvalidated.map(tag => revalidateTag(tag, "max"))
 
   return NextResponse.json({revalidated: true, tags: tagsInvalidated})
+}
+
+export const POST = async (request: NextRequest) => {
+  const auth = request.headers.get("Authorization")
+
+  if (auth !== `Bearer ${process.env.DRUPAL_REVALIDATE_SECRET}`)
+    return NextResponse.json({message: "Invalid token"}, {status: 403})
+
+  // Parse the incoming JSON body
+  const {paths, tags} = (await request.json()) as {paths?: string[]; tags?: string[]}
+  paths?.map(path => revalidateTag(`paths:${path}`, "max"))
+  tags?.map(tag => revalidateTag(tag, "max"))
+  return NextResponse.json({revalidated: true, paths, tags})
 }

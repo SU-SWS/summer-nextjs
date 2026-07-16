@@ -2,8 +2,7 @@
 
 import {usePagination} from "react-instantsearch"
 import {HTMLAttributes} from "react"
-import {twMerge} from "tailwind-merge"
-import {clsx} from "clsx"
+import cn from "@lib/utils/className"
 
 const AlgoliaPager = () => {
   const {currentRefinement: currentPage, pages, nbPages, refine: goToPage} = usePagination({padding: 2})
@@ -35,13 +34,9 @@ const PagerItem = ({
     <li
       {...props}
       aria-current={isCurrent}
-      className={twMerge(
-        "border-b-4 border-transparent",
-        props.className,
-        clsx({
-          "border-[#F26845]": isCurrent,
-        })
-      )}
+      className={cn("border-b-4 border-transparent", props.className, {
+        "border-[#F26845]": isCurrent,
+      })}
     >
       <button onClick={onClick} className="px-5 hocus:underline">
         {children}

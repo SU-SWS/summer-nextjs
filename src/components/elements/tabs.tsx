@@ -6,8 +6,7 @@ import {useTabPanel} from "@mui/base/useTabPanel"
 import {TabsListProvider, useTabsList} from "@mui/base/useTabsList"
 import {HTMLAttributes, ReactNode, SyntheticEvent, useRef} from "react"
 import {UseTabParameters} from "@mui/base/useTab/useTab.types"
-import {clsx} from "clsx"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {UseTabsParameters} from "@mui/base/useTabs/useTabs.types"
 import {UseTabsListParameters} from "@mui/base/useTabsList/useTabsList.types"
 import {UseTabPanelParameters} from "@mui/base/useTabPanel/useTabPanel.types"
@@ -76,11 +75,7 @@ export const TabsList = ({containerProps, className, children, ...props}: TabsLi
   const isVertical = orientation === "vertical"
   return (
     <TabsListProvider value={contextValue}>
-      <div
-        {...getRootProps()}
-        {...containerProps}
-        className={twMerge(clsx("flex", {"flex-col": isVertical}), className)}
-      >
+      <div {...getRootProps()} {...containerProps} className={cn("flex", {"flex-col": isVertical}, className)}>
         {children}
       </div>
     </TabsListProvider>
@@ -110,10 +105,7 @@ export const Tab = ({buttonProps, className, children, ...props}: TabProps) => {
     <button
       {...getRootProps()}
       {...buttonProps}
-      className={twMerge(
-        clsx("border-b-3 border-transparent p-3 text-left", {"border-cardinal-red": selected}),
-        className
-      )}
+      className={cn("border-b-3 border-transparent p-3 text-left", {"border-cardinal-red": selected}, className)}
     >
       {children}
     </button>

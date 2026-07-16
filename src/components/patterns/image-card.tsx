@@ -2,8 +2,7 @@ import Image from "next/image"
 import Oembed from "@components/elements/ombed"
 import {ElementType, HTMLAttributes} from "react"
 import {Maybe} from "@lib/gql/__generated__/drupal.d"
-import clsx from "clsx"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 
 type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {
   /**
@@ -38,13 +37,14 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
   return (
     <CardWrapper
       {...props}
-      className={twMerge(
+      className={cn(
         "rs-mb-5 centered relative w-full rounded-[25px] lg:mb-0 lg:max-w-[920px] lg:border-4 lg:border-white xl:max-w-[980px]",
-        clsx({"bg-transparent": hasBgColor, "bg-fog-light": !hasBgColor}, props.className)
+        {"bg-transparent": hasBgColor, "bg-fog-light": !hasBgColor},
+        props.className
       )}
     >
       {imageUrl && (
-        <div className={clsx("relative w-full", {"aspect-[16/9]": !isSquare, "aspect-[1/1]": isSquare})}>
+        <div className={cn("relative w-full", {"aspect-[16/9]": !isSquare, "aspect-[1/1]": isSquare})}>
           <Image
             className="rounded-t-[25px] object-cover object-center"
             src={imageUrl}
@@ -57,7 +57,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
 
       {videoUrl && <Oembed url={videoUrl} />}
 
-      <div className={clsx("flex flex-col", {"px-10 pb-20 pt-10 lg:px-20": !hasBgColor || (hasBgColor && imageUrl)})}>
+      <div className={cn("flex flex-col", {"px-10 pb-20 pt-10 lg:px-20": !hasBgColor || (hasBgColor && imageUrl)})}>
         {children}
       </div>
     </CardWrapper>

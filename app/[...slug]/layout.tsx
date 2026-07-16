@@ -1,12 +1,10 @@
 import {getPathFromContext, PageProps} from "@lib/drupal/utils"
 import FlushCache from "@components/elements/flush-cache"
-import {ReactNode} from "react"
+import {ReactNode, Suspense} from "react"
 
 type Props = Omit<PageProps, "searchParams"> & {
   children: ReactNode
 }
-
-export const dynamic = "force-static"
 
 const Layout = async (props: Props) => {
   const params = await props.params
@@ -15,7 +13,11 @@ const Layout = async (props: Props) => {
 
   return (
     <>
-      {process.env.VERCEL_ENV !== "production" && <FlushCache currentPath={currentPath} />}
+      {process.env.VERCEL_ENV !== "production" && (
+        <Suspense>
+          <FlushCache currentPath={currentPath} />
+        </Suspense>
+      )}
       {children}
     </>
   )

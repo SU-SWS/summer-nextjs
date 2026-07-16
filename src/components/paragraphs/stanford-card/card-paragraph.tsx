@@ -5,10 +5,9 @@ import {H2, H3, H4} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 import ActionLink from "@components/elements/action-link"
 import Button from "@components/elements/button"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import ImageCard from "@components/patterns/image-card"
 import PillCard from "@components/patterns/pill-card"
-import clsx from "clsx"
 import {getIdAttribute} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -37,23 +36,20 @@ const CardParagraph = ({paragraph, linkTabIndex, ...props}: Props) => {
   const headerSize = behaviors.su_card_styles?.sum_card_heading_size
   const headerTag = headerTagChoice[0] as "h2" | "h3" | "h4" | "div"
   const headerType = adjustHeadingType(headerTag, headerSize)
-  const headerClasses = twMerge(
-    headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "type-3 mb-12") || "mb-12",
-    clsx({
-      "type-4": headerType === 4,
-      "type-3": headerType === 3,
-      "type-2": headerType === 2,
-      "type-1": headerType === 1,
-      "type-0": headerType === 0,
-    })
-  )
+  const headerClasses = cn(headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "type-3 mb-12") || "mb-12", {
+    "type-4": headerType === 4,
+    "type-3": headerType === 3,
+    "type-2": headerType === 2,
+    "type-1": headerType === 1,
+    "type-0": headerType === 0,
+  })
   const cardVariant = behaviors.su_card_styles?.sum_card_variant
   const hasBgColor = behaviors.su_card_styles?.sum_card_bg_color_variant
   const cardBgColor = cardVariant === "pill" ? behaviors.su_card_styles?.sum_card_pill_bg_color_variant : undefined
 
   const Element = cardVariant === "pill" ? PillCard : ImageCard
   const id = paragraph.suCardHeader ? getIdAttribute(paragraph.suCardHeader) : undefined
-  const headerProps = {id, className: clsx(headerClasses, {"sr-only": behaviors.su_card_styles?.hide_heading})}
+  const headerProps = {id, className: cn(headerClasses, {"sr-only": behaviors.su_card_styles?.hide_heading})}
 
   return (
     <Element
@@ -65,10 +61,7 @@ const CardParagraph = ({paragraph, linkTabIndex, ...props}: Props) => {
       isArticle={!!paragraph.suCardHeader && headerTag !== "div"}
       bgColor={cardBgColor}
       hasBgColor={cardVariant !== "pill" ? hasBgColor : undefined}
-      className={twMerge(
-        "break-words sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
-        props.className
-      )}
+      className={cn("break-words sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]", props.className)}
     >
       {paragraph.suCardHeader && (
         <>
@@ -90,7 +83,7 @@ const CardParagraph = ({paragraph, linkTabIndex, ...props}: Props) => {
           {behaviors.su_card_styles?.link_style === "action" && (
             <ActionLink
               href={paragraph.suCardLink.url}
-              className={clsx("font-roboto text-18 font-medium no-underline hocus:underline", {
+              className={cn("font-roboto text-18 font-medium no-underline hocus:underline", {
                 "text-archway-dark": cardVariant === "pill",
               })}
               tabIndex={linkTabIndex}

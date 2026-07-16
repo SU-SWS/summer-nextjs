@@ -3,12 +3,10 @@ import UnpublishedBanner from "@components/elements/unpublished-banner"
 import {NodeUnion} from "@lib/gql/__generated__/drupal.d"
 import {getEntityFromPath} from "@lib/gql/gql-queries"
 import {notFound} from "next/navigation"
-import {getPathFromContext, PageProps} from "@lib/drupal/utils"
-import {isPreviewMode} from "@lib/drupal/is-preview-mode"
+import {getPathFromContext, PageProps, Slug} from "@lib/drupal/utils"
 
 const PreviewPage = async (props: PageProps) => {
   const params = await props.params
-  if (!(await isPreviewMode())) notFound()
   const {entity} = await getEntityFromPath<NodeUnion>(getPathFromContext(params.slug), true)
 
   if (!entity) notFound()
@@ -19,5 +17,7 @@ const PreviewPage = async (props: PageProps) => {
     </UnpublishedBanner>
   )
 }
+
+export const generateStaticParams = async (): Promise<Array<Slug>> => [{slug: ["home"]}]
 
 export default PreviewPage

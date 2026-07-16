@@ -15,7 +15,6 @@ import {useEffect, useId, useLayoutEffect, useMemo, useRef} from "react"
 import Button from "@components/elements/button"
 import {ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/20/solid"
 import useAccordion from "@lib/hooks/useAccordion"
-import {clsx} from "clsx"
 import SummerCourse from "@components/algolia/results/summer-course/summer-course"
 import FavoritesList from "@components/elements/favorites-list"
 import {AlgoliaHit} from "@components/algolia/results/default"
@@ -29,6 +28,7 @@ import {useBoolean} from "usehooks-ts"
 import {IndexUiState} from "instantsearch.js/es/types/ui-state"
 import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
 import {usePathname} from "next/navigation"
+import cn from "@lib/utils/className"
 
 type Props = {
   appId: string
@@ -237,7 +237,7 @@ const RefinementInput = ({
         <H3 className="my-5 pb-0 text-18">
           <button {...buttonProps} className="flex w-full items-center justify-between hocus:underline">
             {label}
-            <ChevronDownIcon width={20} className={clsx({"rotate-180": expanded})} />
+            <ChevronDownIcon width={20} className={cn({"rotate-180": expanded})} />
           </button>
         </H3>
       </legend>

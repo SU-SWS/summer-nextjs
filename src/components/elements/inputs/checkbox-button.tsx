@@ -1,6 +1,6 @@
 import {CheckIcon} from "@heroicons/react/16/solid"
 import {ChangeEvent, HTMLAttributes, InputHTMLAttributes} from "react"
-import twMerge from "@lib/utils/twMergeConfig"
+import cn from "@lib/utils/className"
 
 type Props = HTMLAttributes<HTMLLabelElement> & {
   value?: string | number
@@ -11,7 +11,7 @@ type Props = HTMLAttributes<HTMLLabelElement> & {
 const CheckboxButton = ({value, onChange, inputProps, helpText, children, ...props}: Props) => {
   return (
     <div>
-      <label {...props} className={twMerge("group flex cursor-pointer items-center gap-5", props.className)}>
+      <label {...props} className={cn("group flex cursor-pointer items-center gap-5", props.className)}>
         <input
           {...inputProps}
           onChange={onChange}

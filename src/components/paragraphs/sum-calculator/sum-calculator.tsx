@@ -5,10 +5,9 @@ import SelectList from "@components/elements/select-list"
 import {H2, H3} from "@components/elements/headers"
 import {formatCurrency} from "@lib/utils/format-currency"
 import useAccordion from "@lib/hooks/useAccordion"
-import {clsx} from "clsx"
 import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid"
 import useOutsideClick from "@lib/hooks/useOutsideClick"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   costPerStudentTypes: Map<string, Map<number, number>>
@@ -131,7 +130,7 @@ const SumCalculatorParagraph = ({
   }
 
   return (
-    <div {...props} className={twMerge("centered", props.className)}>
+    <div {...props} className={cn("centered", props.className)}>
       <div className="mx-auto -mb-36 max-w-7xl space-y-20">
         <div onFocus={onContainerFocus}>
           <div className="rs-mb-1 type-3" id="sum-student-type">
@@ -258,7 +257,7 @@ const SumCalculatorParagraph = ({
                     <span className="sr-only">{expanded ? "Close details" : "See details"}</span>
                     <ChevronUpIcon
                       width={33}
-                      className={twMerge("transition duration-300 ease-in-out", clsx({"rotate-180": expanded}))}
+                      className={cn("transition duration-300 ease-in-out", {"rotate-180": expanded})}
                     />
                   </span>
                 </button>
@@ -276,7 +275,7 @@ const SumCalculatorParagraph = ({
                 </p>
               </div>
 
-              <div {...panelProps} className={clsx("order-3 children:mt-12", {hidden: !expanded})}>
+              <div {...panelProps} className={cn("order-3 children:mt-12", {hidden: !expanded})}>
                 <p className="card-paragraph mb-0 border-b border-black pb-4 text-left md:hidden">
                   * Disclaimer: this is only an estimate. Actual fees are subject to change.
                 </p>
@@ -333,7 +332,7 @@ const SumCalculatorParagraph = ({
                   className="card-paragraph mb-3 ml-auto flex items-center text-digital-blue no-underline hocus:underline"
                 >
                   {expanded ? "Close" : "See"} details
-                  <ChevronDownIcon width={33} className={clsx("transition duration-150", {"rotate-180": expanded})} />
+                  <ChevronDownIcon width={33} className={cn("transition duration-150", {"rotate-180": expanded})} />
                 </button>
               </div>
             </div>

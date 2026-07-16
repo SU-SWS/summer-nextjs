@@ -3,7 +3,7 @@
 import {HTMLAttributes, JSX, useId} from "react"
 import {H2, H3, H4} from "@components/elements/headers"
 import {MinusIcon, PlusIcon} from "@heroicons/react/20/solid"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import useAccordion from "@lib/hooks/useAccordion"
 
 type Props = HTMLAttributes<HTMLElement> & {
@@ -51,7 +51,7 @@ const Accordion = ({button, children, headingLevel = "h2", ...props}: Props) => 
       <Heading className="rs-py-3 mb-0">
         <button
           {...buttonProps}
-          className={twMerge("group flex w-full items-center justify-between text-left", buttonProps?.className)}
+          className={cn("group flex w-full items-center justify-between text-left", buttonProps?.className)}
         >
           {button}
           <span className="grow-1 group-hocus:outline-3 m-4 rounded-full border-2 border-white bg-digital-red p-6 text-5xl font-normal text-white no-underline transition group-hocus:text-white group-hocus:underline group-hocus:outline group-hocus:outline-digital-red">

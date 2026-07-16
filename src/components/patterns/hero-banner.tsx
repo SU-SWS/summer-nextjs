@@ -1,8 +1,7 @@
 import React, {ElementType, HtmlHTMLAttributes} from "react"
 import Image from "next/image"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {Maybe} from "@lib/gql/__generated__/drupal.d"
-import {clsx} from "clsx"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
@@ -46,7 +45,7 @@ const HeroBanner = ({
   return (
     <BannerWrapper
       {...props}
-      className={twMerge(
+      className={cn(
         "rs-mb-5 relative left-1/2 flex w-screen -translate-x-1/2 flex-col @container lg:block lg:min-h-[400px]",
         props.className
       )}
@@ -66,12 +65,12 @@ const HeroBanner = ({
 
       {children && (
         <div
-          className={twMerge(
+          className={cn(
             "rs-px-5 rs-py-8 relative order-1 flex w-full flex-col bg-white lg:z-10 lg:w-[calc(50%_-_5rem)]",
-            clsx({
+            {
               "lg:ml-auto lg:mr-20": overlayPosition === "right",
               "lg:ml-20 lg:mr-auto": overlayPosition !== "right",
-            }),
+            },
             cardClassName
           )}
         >

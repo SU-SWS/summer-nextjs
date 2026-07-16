@@ -4,9 +4,6 @@ import {getAllNodes, getEntityFromPath} from "@lib/gql/gql-queries"
 import {notFound, redirect} from "next/navigation"
 import {getPathFromContext, PageProps, Slug} from "@lib/drupal/utils"
 
-// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
-export const revalidate = false
-export const dynamic = "force-static"
 // https://vercel.com/docs/functions/runtimes#max-duration
 export const maxDuration = 60
 

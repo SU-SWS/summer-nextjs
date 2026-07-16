@@ -23,11 +23,7 @@ export type CardParagraphBehaviors = {
   sum_card_bg_color_variant?: boolean
   sum_card_variant?: "pill"
   sum_card_pill_bg_color_variant?:
-    | "semitransparent_poppy"
-    | "olive"
-    | "semitransparent_olive"
-    | "spirited"
-    | "semitransparent_spirited"
+    "semitransparent_poppy" | "olive" | "semitransparent_olive" | "spirited" | "semitransparent_spirited"
 }
 
 export type SummerCarouselBehaviors = {

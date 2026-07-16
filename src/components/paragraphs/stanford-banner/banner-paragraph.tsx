@@ -3,8 +3,7 @@ import {ParagraphStanfordBanner} from "@lib/gql/__generated__/drupal.d"
 import {H2, H3, H4} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
-import {twMerge} from "tailwind-merge"
-import clsx from "clsx"
+import cn from "@lib/utils/className"
 import ActionLink from "@components/elements/action-link"
 import Link from "@components/elements/link"
 import {ArrowRightIcon} from "@heroicons/react/24/outline"
@@ -31,7 +30,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
   const BannerWrapper: ElementType = isSection ? "section" : "div"
 
   const id = paragraph.suBannerHeader ? getIdAttribute(paragraph.suBannerHeader) : undefined
-  const headerProps = {id, className: clsx(headerClasses, "rs-mb-3", {"sr-only": behaviors.hero_pattern?.hide_heading})}
+  const headerProps = {id, className: cn(headerClasses, "rs-mb-3", {"sr-only": behaviors.hero_pattern?.hide_heading})}
 
   return (
     <BannerWrapper
@@ -41,15 +40,15 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
     >
       {hasCard && (
         <div
-          className={twMerge(
+          className={cn(
             "rs-px-5 rs-pb-8 rs-pt-10 relative mb-0 flex h-full min-h-[400px] w-full flex-col border-b-4 border-white bg-poppy-light lg:z-10 lg:w-[calc(50%_-_5rem)] lg:border-4 lg:border-y-0",
-            clsx({
+            {
               "lg:ml-auto lg:mr-20": overlayPosition === "right",
               "lg:ml-20 lg:mr-auto": overlayPosition !== "right",
               "bg-olive-light": bgColor === "olive",
               "bg-spirited-light": bgColor === "spirited",
               "bg-spirited-dark text-white": bgColor === "spirited_dark",
-            })
+            }
           )}
         >
           {paragraph.suBannerHeader && (

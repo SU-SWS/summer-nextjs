@@ -4,12 +4,11 @@ import Button from "@components/elements/button"
 import {H2} from "@components/elements/headers"
 import {ElementType, HtmlHTMLAttributes, Suspense} from "react"
 import {NodeInterface, NodeUnion, ParagraphStanfordEntity} from "@lib/gql/__generated__/drupal.d"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {getEntityFromPath} from "@lib/gql/gql-queries"
 import {ImageCardSkeleton} from "@components/patterns/image-card"
 import {getIdAttribute} from "@lib/utils/text-tools"
-import clsx from "clsx"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordEntity
@@ -29,16 +28,13 @@ const EntityParagraph = async ({paragraph, ...props}: Props) => {
   return (
     <EntityWrapper
       {...props}
-      className={twMerge("centered mb-20 flex flex-col gap-10 lg:max-w-[920px] xl:max-w-[980px]", props.className)}
+      className={cn("centered mb-20 flex flex-col gap-10 lg:max-w-[920px] xl:max-w-[980px]", props.className)}
       aria-labelledby={EntityWrapper === "section" ? id : undefined}
     >
       {EntityWrapper === "section" && (
         <H2
           id={id}
-          className={twMerge(
-            "mb-0 text-center",
-            clsx({"sr-only": behaviors.stanford_teaser?.heading_behavior === "hide"})
-          )}
+          className={cn("mb-0 text-center", {"sr-only": behaviors.stanford_teaser?.heading_behavior === "hide"})}
         >
           {paragraph.suEntityHeadline}
         </H2>

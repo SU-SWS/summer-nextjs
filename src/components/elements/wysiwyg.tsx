@@ -5,13 +5,12 @@ import Image from "next/image"
 import Oembed from "@components/elements/ombed"
 import React, {ComponentProps, HtmlHTMLAttributes} from "react"
 import {H2, H3, H4, H5, H6} from "@components/elements/headers"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import {Maybe} from "@lib/gql/__generated__/drupal.d"
 import Mathjax from "@components/tools/mathjax"
 import Script from "next/script"
 import {ApplyNowLink} from "./apply-now-link"
 import "../../styles/form.css"
-import clsx from "clsx"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
@@ -32,10 +31,10 @@ const Wysiwyg = ({html, className, disableDefaultStyles, ...props}: Props) => {
   const addMathJax = html.match(/\$\$.*\$\$/) || html.match(/\\\[.*\\]/) || html.match(/\\\(.*\\\)/)
   return (
     <div
-      className={twMerge(
-        clsx({
+      className={cn(
+        {
           "wysiwyg w-full md:max-w-[440px] lg:max-w-[536px] xl:max-w-[653px] 2xl:max-w-[725px]": !disableDefaultStyles,
-        }),
+        },
         className
       )}
       {...props}
@@ -76,13 +75,13 @@ const options: HTMLReactParserOptions = {
 
         case "div":
           if (nodeProps.className && nodeProps.className.includes("left-bar")) {
-            nodeProps.className = twMerge(
+            nodeProps.className = cn(
               nodeProps.className,
-              "rs-pb-5 rs-pt-7 rs-px-1 border-l-3 border-archway-dark border-opacity-50"
+              "rs-px-1 rs-pb-5 rs-pt-7 border-l-3 border-archway-dark border-opacity-50"
             )
           }
           if (nodeProps.className?.includes("tight-spacing")) {
-            nodeProps.className = twMerge(nodeProps.className, "*:!mt-0 *:!mb-6")
+            nodeProps.className = cn(nodeProps.className, "*:!mb-6 *:!mt-0")
           }
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
@@ -100,12 +99,9 @@ const options: HTMLReactParserOptions = {
           return cleanMediaMarkup(domNode)
 
         case "p":
-          nodeProps.className = twMerge(
-            nodeProps.className,
-            clsx({
-              "type-0": !nodeProps?.className?.includes("type-"),
-            })
-          )
+          nodeProps.className = cn(nodeProps.className, {
+            "type-0": !nodeProps?.className?.includes("type-"),
+          })
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
         case "script":
@@ -132,15 +128,12 @@ const options: HTMLReactParserOptions = {
         case "tr":
           return <Tr {...nodeProps}>{domToReact(children, options)}</Tr>
         case "ol":
-          nodeProps.className = twMerge(
-            nodeProps.className,
-            clsx({
-              "list-lower-alpha": nodeProps?.type === "a",
-              "list-upper-alpha": nodeProps?.type === "A",
-              "list-lower-roman": nodeProps?.type === "i",
-              "list-upper-roman": nodeProps?.type === "I",
-            })
-          )
+          nodeProps.className = cn(nodeProps.className, {
+            "list-lower-alpha": nodeProps?.type === "a",
+            "list-upper-alpha": nodeProps?.type === "A",
+            "list-lower-roman": nodeProps?.type === "i",
+            "list-upper-roman": nodeProps?.type === "I",
+          })
           return <ol {...nodeProps}>{domToReact(children, options)}</ol>
         case "b":
         case "cite":
@@ -203,7 +196,7 @@ const fixClasses = (classes?: string | boolean): string => {
     .filter(className => className.trim().length >= 1)
     .join(" ")
 
-  return twMerge(classes.trim())
+  return cn(classes.trim())
 }
 
 const cleanMediaMarkup = (node: Element) => {
@@ -280,7 +273,7 @@ const cleanMediaMarkup = (node: Element) => {
     const figCaption = getFigCaption(node)
 
     if (figCaption) {
-      nodeProps.className = twMerge("table", nodeProps.className)
+      nodeProps.className = cn("table", nodeProps.className)
       if (nodeProps.className?.includes("mx-auto")) nodeProps.className += " w-full"
       delete nodeProps.role
       return (
@@ -314,7 +307,7 @@ const WysiwygImage = ({
   if (width && height) {
     return (
       <Image
-        className={twMerge(fixClasses(className), "mb-10")}
+        className={cn(fixClasses(className), "mb-10")}
         src={src.trim()}
         alt={alt ? alt.trim() : ""}
         height={parseInt(`${height}`)}

@@ -5,8 +5,7 @@ import {useBoolean, useIntersectionObserver} from "usehooks-ts"
 import {HTMLAttributes, useCallback, useEffect, useId, useRef} from "react"
 import {ErrorBoundary} from "react-error-boundary"
 import {PlayIcon} from "@heroicons/react/24/solid"
-import {twMerge} from "tailwind-merge"
-import {clsx} from "clsx"
+import cn from "@lib/utils/className"
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   videoUrl: string
@@ -42,31 +41,25 @@ const YoutubeVideoPillIntroBounded = ({videoUrl, intro, ...props}: Props) => {
   return (
     <div
       {...props}
-      className={twMerge(
+      className={cn(
         "relative mx-auto aspect-[9/16] sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
-        clsx({"border-transparent": isPlaying}),
+        {"border-transparent": isPlaying},
         props.className
       )}
       ref={ref}
     >
       <div
-        className={twMerge(
-          "h-full overflow-hidden bg-black transition-all duration-300 ease-in-out",
-          clsx({
-            "rounded-full outline outline-4 outline-offset-[-10px] outline-white": !isPlaying,
-          })
-        )}
+        className={cn("h-full overflow-hidden bg-black transition-all duration-300 ease-in-out", {
+          "rounded-full outline outline-4 outline-offset-[-10px] outline-white": !isPlaying,
+        })}
       >
         {isInitialPlay && isIntersecting && <video src={intro} autoPlay muted className="w-full" />}
         {!isInitialPlay && (
           <YouTube
             videoId={videoId || shortId}
-            className={twMerge(
-              "h-full overflow-hidden bg-black transition-all duration-300 ease-in-out",
-              clsx({
-                "rounded-full outline outline-4 outline-offset-[-10px] outline-white": !isPlaying,
-              })
-            )}
+            className={cn("h-full overflow-hidden bg-black transition-all duration-300 ease-in-out", {
+              "rounded-full outline outline-4 outline-offset-[-10px] outline-white": !isPlaying,
+            })}
             opts={{
               height: 530,
               width: 300,
@@ -149,7 +142,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
   return (
     <div
       {...props}
-      className={twMerge(
+      className={cn(
         "relative mx-auto aspect-[9/16] sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
         props.className,
         isPlaying && !isInitialPlay && "border-transparent"
@@ -159,7 +152,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
       <YouTube
         id={id}
         videoId={videoId || shortId}
-        className={twMerge(
+        className={cn(
           "h-full overflow-hidden bg-black transition-all duration-300 ease-in-out",
           isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white"
         )}

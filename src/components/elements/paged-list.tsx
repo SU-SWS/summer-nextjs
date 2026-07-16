@@ -7,9 +7,8 @@ import usePagination from "@lib/hooks/usePagination"
 import useFocusOnRender from "@lib/hooks/useFocusOnRender"
 import {ArrowLongLeftIcon, ArrowLongRightIcon} from "@heroicons/react/20/solid"
 import {ArrowPathIcon} from "@heroicons/react/16/solid"
-import {twMerge} from "tailwind-merge"
+import cn from "@lib/utils/className"
 import useServerAction from "@lib/hooks/useServerAction"
-import {clsx} from "clsx"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**
@@ -108,7 +107,7 @@ const PagedList = ({
   const paginationButtons = usePagination(totalPages * items.length, currentPage, items.length, pagerSiblingCount)
 
   return (
-    <div {...props} className={twMerge("relative", props.className)}>
+    <div {...props} className={cn("relative", props.className)}>
       {isRunning && (
         <div className="absolute left-0 top-0 z-10 h-full w-full rounded-2xl bg-black-20 bg-opacity-30">
           <div className="absolute bottom-20 left-1/2 -translate-x-1/2">
@@ -196,13 +195,10 @@ const PaginationButton = ({
         </span>
         <span
           aria-hidden
-          className={twMerge(
-            "block h-fit border-b-2 px-4",
-            clsx({
-              "border-stone-dark text-stone-dark": isCurrent,
-              "border-transparent text-cardinal-red": !isCurrent,
-            })
-          )}
+          className={cn("block h-fit border-b-2 px-4", {
+            "border-stone-dark text-stone-dark": isCurrent,
+            "border-transparent text-cardinal-red": !isCurrent,
+          })}
         >
           {page === "leftArrow" && <ArrowLongLeftIcon width={30} />}
           {page === "rightArrow" && <ArrowLongRightIcon width={30} />}

@@ -45,6 +45,7 @@ const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
     ["sum_course_availability", "availability"],
     ["sum_course_population", "population"],
     ["sum_course_units", "units"],
+    ["sum_course_weekday", "weekday"],
   ])
   const reverseQueryKeys = new Map<string, string>()
   for (const [key, value] of queryKeys.entries()) {
@@ -169,6 +170,8 @@ const SearchForm = () => {
             label="Filter by units"
             useRefinementProps={{transformItems: transformUnitItems}}
           />
+
+          <RefinementInput attribute="sum_course_weekday" label="Filter by weekday" />
 
           <CustomCurrentRefinements />
         </form>

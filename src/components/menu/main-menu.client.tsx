@@ -4,7 +4,7 @@ import Link from "@components/elements/link"
 import SiteSearchForm from "@components/search/site-search-form"
 import {getMenuActiveTrail} from "@lib/drupal/utils"
 import useOutsideClick from "@lib/hooks/useOutsideClick"
-import {ArrowRightIcon, ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/20/solid"
+import {ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/20/solid"
 import {MenuItem as MenuItemType, StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
 import {useBoolean, useEventListener} from "usehooks-ts"
 import {RefObject, useCallback, useEffect, useId, useLayoutEffect, useRef, useState} from "react"
@@ -232,12 +232,6 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
       <div className="group flex lg:justify-end">
         <Link id={linkId} href={url || "#"} className={linkStyles} aria-current={isCurrent ? "true" : undefined}>
           {title}
-          {level !== 0 && (
-            <ArrowRightIcon
-              width={20}
-              className="ml-2 text-transparent group-hover:text-black group-focus:text-black"
-            />
-          )}
         </Link>
 
         {children.length > 0 && level < menuLevelsToShow && (

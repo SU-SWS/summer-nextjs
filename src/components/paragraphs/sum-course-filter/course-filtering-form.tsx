@@ -165,13 +165,13 @@ const SearchForm = () => {
 
           <RefinementInput attribute="sum_course_population" label="Filter by population" />
 
+          <RefinementInput attribute="sum_course_weekday" label="Filter by weekday" />
+
           <RefinementInput
             attribute="sum_course_units"
             label="Filter by units"
             useRefinementProps={{transformItems: transformUnitItems}}
           />
-
-          <RefinementInput attribute="sum_course_weekday" label="Filter by weekday" />
 
           <CustomCurrentRefinements />
         </form>

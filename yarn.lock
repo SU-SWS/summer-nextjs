@@ -7727,21 +7727,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-react-parser@npm:^6.1.4":
-  version: 6.1.4
-  resolution: "html-react-parser@npm:6.1.4"
+"html-react-parser@npm:^6.1.5":
+  version: 6.1.5
+  resolution: "html-react-parser@npm:6.1.5"
   dependencies:
     domhandler: "npm:6.0.1"
     html-dom-parser: "npm:8.0.0"
     react-property: "npm:2.0.2"
-    style-to-js: "npm:2.0.1"
+    style-to-js: "npm:2.0.2"
   peerDependencies:
     "@types/react": 0.14 || 15 || 16 || 17 || 18 || 19
     react: 0.14 || 15 || 16 || 17 || 18 || 19
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/bac1d82c5de0b3cb822cc1dd4a033ca8cdac5088efb2622ff3412dc59f4ff1f0d0e2a7189be61afc28cfe96baf66d9117762e329c6d2118495baa391c75aa738
+  checksum: 10c0/2e3607ee7f82f29f16d7389bcc4694c669d5d215615fdc21ce8b224c74e138c189ddc6a6b11d0ba1281e0176161c76a230e3d3249c990962689a587ff8368ec5
   languageName: node
   linkType: hard
 
@@ -7885,10 +7885,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inline-style-parser@npm:0.2.7":
-  version: 0.2.7
-  resolution: "inline-style-parser@npm:0.2.7"
-  checksum: 10c0/d884d76f84959517430ae6c22f0bda59bb3f58f539f99aac75a8d786199ec594ed648c6ab4640531f9fc244b0ed5cd8c458078e592d016ef06de793beb1debff
+"inline-style-parser@npm:0.2.9":
+  version: 0.2.9
+  resolution: "inline-style-parser@npm:0.2.9"
+  checksum: 10c0/1ec6b096dec6b0da02c81082704c03c6c22b3361f98ab61656cce1f18b0eaaded5719011b8581fbc872a6773be4cba8b90b2a01f3f4f2eeec2402f5be6799c80
   languageName: node
   linkType: hard
 
@@ -9234,12 +9234,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.3.12":
-  version: 3.3.12
-  resolution: "nanoid@npm:3.3.12"
+"nanoid@npm:^3.3.16":
+  version: 3.3.16
+  resolution: "nanoid@npm:3.3.16"
   bin:
     nanoid: bin/nanoid.cjs
-  checksum: 10c0/ba142b7b39e11e80c16dd74b0365d407880c87c1cf7e1480956981ae940ee36060fa5b6f092cd1e315184dd19244c657bd017d03327bd3c62247d691c5e8edfb
+  checksum: 10c0/bbf2dcffe22d2b62d16de2711752070b539c0f644c7916f823ad6521986b2078cbe524f2d6240f58c46e9141ea0c7b87a029e100c0f7f175228cacaf30e41bba
   languageName: node
   linkType: hard
 
@@ -9995,14 +9995,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.5.19":
-  version: 8.5.19
-  resolution: "postcss@npm:8.5.19"
+"postcss@npm:^8.5.20":
+  version: 8.5.20
+  resolution: "postcss@npm:8.5.20"
   dependencies:
-    nanoid: "npm:^3.3.12"
+    nanoid: "npm:^3.3.16"
     picocolors: "npm:^1.1.1"
     source-map-js: "npm:^1.2.1"
-  checksum: 10c0/302af9e4dfa8cce4f43af1798576b3a77ab7b23abac5522328c6c7a830d49b31281cba9d6071e478e6970a05ef82346d1570b8fbffae912f26a4f1a1a07f0a44
+  checksum: 10c0/9c7a0e32c77ac54c5613f974e6ccc97d4a70fdb3bf242617f3fb4d652e5c62a37c86c589e6e7a2d1e7120f80bc169cdf673482b88bd75020d2a44899fa569c13
   languageName: node
   linkType: hard
 
@@ -11603,21 +11603,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"style-to-js@npm:2.0.1":
-  version: 2.0.1
-  resolution: "style-to-js@npm:2.0.1"
+"style-to-js@npm:2.0.2":
+  version: 2.0.2
+  resolution: "style-to-js@npm:2.0.2"
   dependencies:
-    style-to-object: "npm:2.0.0"
-  checksum: 10c0/77f247ae76b539a7b6f85cc58945b48748e2ce126d4495cc2d6764ce4d88c6fb49e37614fd51cac55ae5804e6a03c73ed04748f8ac1cd8bc6e0b82ef6b6e2cbb
+    style-to-object: "npm:2.0.2"
+  checksum: 10c0/4a25069f451c2a6fe3fb20daf46d4585547734280d0711c53df8d34e6c4f08e28c6fef099f24eb1d6435d39d1f8c74df2950f19cfea0ea073b8c000713f8b310
   languageName: node
   linkType: hard
 
-"style-to-object@npm:2.0.0":
-  version: 2.0.0
-  resolution: "style-to-object@npm:2.0.0"
+"style-to-object@npm:2.0.2":
+  version: 2.0.2
+  resolution: "style-to-object@npm:2.0.2"
   dependencies:
-    inline-style-parser: "npm:0.2.7"
-  checksum: 10c0/566950322ce1f87f6066830960de4f64ff3f89722537437fb165d3e25aee233f71d48fa3427717090071aabdb9d8b9a2be5d111f11e4f80a3c1ac464a4abc4ba
+    inline-style-parser: "npm:0.2.9"
+  checksum: 10c0/112362357d75d16f58985af36927a95f67214b6279ddbb43292a1d030dbda3f8774dee9aa70e9d422ebad07d23de9a8468c265ee915ed7bafc811722a6de2fec
   languageName: node
   linkType: hard
 
@@ -11689,9 +11689,9 @@ __metadata:
     graphql-request: "npm:^7.4.0"
     graphql-tag: "npm:^2.12.7"
     html-entities: "npm:^2.6.0"
-    html-react-parser: "npm:^6.1.4"
+    html-react-parser: "npm:^6.1.5"
     next: "npm:16.2.10"
-    postcss: "npm:^8.5.19"
+    postcss: "npm:^8.5.20"
     prettier: "npm:^3.9.5"
     prettier-plugin-tailwindcss: "npm:^0.8.1"
     qs: "npm:^6.15.3"

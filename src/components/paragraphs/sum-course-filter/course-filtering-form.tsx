@@ -111,6 +111,23 @@ const transformUnitItems = (items: RefinementListItem[]) => {
     }))
 }
 
+const transformWeekdayItem = (items: RefinementListItem[]) => {
+  return items.map(item => ({
+    ...item,
+    label: item.label.toUpperCase(),
+  }))
+}
+
+const weekdays = new Map([
+  ["sunday", 0],
+  ["monday", 1],
+  ["tuesday", 2],
+  ["wednesday", 3],
+  ["thursday", 4],
+  ["friday", 5],
+  ["saturday", 6],
+])
+
 const SearchForm = () => {
   const id = useId()
 
@@ -165,7 +182,14 @@ const SearchForm = () => {
 
           <RefinementInput attribute="sum_course_population" label="Filter by population" />
 
-          <RefinementInput attribute="sum_course_weekday" label="Filter by weekday" />
+          <RefinementInput
+            attribute="sum_course_weekday"
+            label="Filter by weekday"
+            useRefinementProps={{
+              transformItems: transformWeekdayItem,
+              sortBy: (a, b) => (weekdays.get(a.name) ?? 0) - (weekdays.get(b.name) ?? 0),
+            }}
+          />
 
           <RefinementInput
             attribute="sum_course_units"

@@ -7,8 +7,8 @@ import SumArcBannerParagraph from "@components/paragraphs/sum-arc-banner/sum-arc
 import SumTopBannerParagraph from "@components/paragraphs/sum-top-banner/sum-top-banner-paragraph"
 import NodePageMetadata from "@components/nodes/pages/node-page-metadata"
 
-const Home = async ({inPreview}: {inPreview?: boolean}) => {
-  const {entity} = await getEntityFromPath<NodeStanfordPage>("/", inPreview)
+const Home = async () => {
+  const {entity} = await getEntityFromPath<NodeStanfordPage>("/")
   if (!entity) notFound()
 
   const siteName =

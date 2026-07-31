@@ -6,7 +6,7 @@ import {InstantSearchNext} from "react-instantsearch-nextjs"
 import {HTMLAttributes, useLayoutEffect, useMemo, useRef} from "react"
 import Button from "@components/elements/button"
 import {Hit as HitType} from "instantsearch.js"
-import {IndexUiState} from "instantsearch.js/es/types/ui-state"
+import {IndexUiState, UiState} from "instantsearch.js/es/types/ui-state"
 import {MagnifyingGlassIcon} from "@heroicons/react/20/solid"
 import DefaultResult, {AlgoliaHit} from "@components/algolia/results/default"
 import {H2} from "@components/elements/headers"
@@ -25,6 +25,24 @@ type Props = {
 const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
   const pathName = usePathname()
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
+
+  const routing = useMemo(
+    () => ({
+      stateMapping: {
+        stateToRoute(uiState: UiState): Record<string, string> {
+          const indexUiState = uiState[searchIndex] ?? {}
+          return indexUiState.query ? {q: indexUiState.query} : {}
+        },
+        routeToState(routeState: Record<string, string>) {
+          return {
+            [searchIndex]: {query: routeState.q},
+          }
+        },
+      },
+    }),
+    [searchIndex]
+  )
+
   return (
     <InstantSearchNext
       key={pathName}
@@ -33,19 +51,7 @@ const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
       future={{preserveSharedStateOnUnmount: true}}
       ignoreMultipleHooksWarning={true}
       insights={true}
-      routing={{
-        stateMapping: {
-          stateToRoute(uiState): Record<string, string> {
-            const indexUiState = uiState[searchIndex]
-            return indexUiState.query ? {q: indexUiState.query} : {}
-          },
-          routeToState(routeState: Record<string, string>) {
-            return {
-              [searchIndex]: {query: routeState.q},
-            }
-          },
-        },
-      }}
+      routing={routing}
     >
       <SearchForm />
     </InstantSearchNext>

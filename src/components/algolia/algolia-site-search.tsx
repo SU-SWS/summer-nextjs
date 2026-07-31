@@ -109,28 +109,26 @@ const HitList = () => {
   const {items: hits, sendEvent} = useHits<AlgoliaHit>({})
   const {currentRefinement: currentPage, nbHits} = usePagination({padding: 2})
 
-  if (hits.length === 0) {
-    return <p>No results for your search. Please try another search.</p>
-  }
-
   return (
     <div>
       <H2 className="rs-ml-1 big-paragraph font-normal" aria-live="polite" aria-atomic>
-        {nbHits} {nbHits > 1 ? "Results" : "Result"}
+        {hits.length === 0 && "No results for your search. Please try another search."}
+        {hits.length > 0 && `${nbHits} ${nbHits > 1 ? "Results" : "Result"}`}
       </H2>
 
-      <ul className="list-unstyled">
-        {hits.map((hit, position) => (
-          <HitItem
-            key={hit.objectID}
-            focusOnItem={position === 0 && currentPage > 0}
-            className="border-b border-gray-300 last:border-0"
-            hit={hit}
-            sendEvent={sendEvent}
-          />
-        ))}
-      </ul>
-
+      {hits.length > 0 && (
+        <ul className="list-unstyled">
+          {hits.map((hit, position) => (
+            <HitItem
+              key={hit.objectID}
+              focusOnItem={position === 0 && currentPage > 0}
+              className="border-b border-gray-300 last:border-0"
+              hit={hit}
+              sendEvent={sendEvent}
+            />
+          ))}
+        </ul>
+      )}
       <AlgoliaPager />
     </div>
   )

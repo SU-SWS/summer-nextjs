@@ -22,7 +22,7 @@ export type CourseHit = AlgoliaHit & {
   sum_course_catalog_number?: string
   sum_course_class_number?: string
   sum_course_course_cost?: number
-  sum_course_cross_listing?: string
+  sum_course_cross_listing?: string | string[]
   sum_course_end_date?: number
   sum_course_format?: string
   sum_course_interest?: string[]
@@ -233,7 +233,9 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
             {hit.sum_course_cross_listing && (
               <div>
                 <span className="font-semibold">Cross Listings: </span>
-                {hit.sum_course_cross_listing}
+                {Array.isArray(hit.sum_course_cross_listing)
+                  ? hit.sum_course_cross_listing.join(", ")
+                  : hit.sum_course_cross_listing}
               </div>
             )}
 

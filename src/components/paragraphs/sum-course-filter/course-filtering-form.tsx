@@ -6,7 +6,7 @@ import {
   useRefinementList,
   useClearRefinements,
   useInfiniteHits,
-  usePagination,
+  useInstantSearch,
   Configure,
 } from "react-instantsearch"
 import {InstantSearchNext} from "react-instantsearch-nextjs"
@@ -24,8 +24,9 @@ import {
   RefinementListItem,
 } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList"
 import {ApplyNowLink} from "@components/elements/apply-now-link"
+import type {SearchResults} from "algoliasearch-helper"
 import {useBoolean} from "usehooks-ts"
-import {IndexUiState} from "instantsearch.js/es/types/ui-state"
+import {IndexUiState, UiState} from "instantsearch.js/es/types/ui-state"
 import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
 import {usePathname} from "next/navigation"
 import cn from "@lib/utils/className"
@@ -36,21 +37,66 @@ type Props = {
   searchApiKey: string
 }
 
+const queryKeys = new Map<string, string>([
+  ["sum_course_interest", "interests"],
+  ["sum_course_format", "format"],
+  ["sum_course_availability", "availability"],
+  ["sum_course_population", "population"],
+  ["sum_course_units", "units"],
+  ["sum_course_weekday", "weekday"],
+])
+const reverseQueryKeys = new Map<string, string>()
+for (const [key, value] of queryKeys.entries()) {
+  reverseQueryKeys.set(value, key)
+}
+
 const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
   const pathname = usePathname()
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
-  const queryKeys = new Map<string, string>([
-    ["sum_course_interest", "interests"],
-    ["sum_course_format", "format"],
-    ["sum_course_availability", "availability"],
-    ["sum_course_population", "population"],
-    ["sum_course_units", "units"],
-    ["sum_course_weekday", "weekday"],
-  ])
-  const reverseQueryKeys = new Map<string, string>()
-  for (const [key, value] of queryKeys.entries()) {
-    reverseQueryKeys.set(value, key)
-  }
+
+  const routing = useMemo(
+    () => ({
+      router: {cleanUrlOnDispose: false},
+      stateMapping: {
+        stateToRoute(uiState: UiState): Record<string, string> {
+          const indexUiState = uiState[searchIndex] ?? {}
+          const route: Record<string, string> = {}
+
+          if (indexUiState.query) {
+            route.q = indexUiState.query
+          }
+
+          for (const [attribute, values] of Object.entries(indexUiState.refinementList ?? {})) {
+            const param = queryKeys.get(attribute)
+            if (param && values.length) {
+              route[param] = values.join(",")
+            }
+          }
+
+          return route
+        },
+        routeToState(routeState: Record<string, string>) {
+          const {q, ...refinementParams} = routeState
+          const refinementList: IndexUiState["refinementList"] = {}
+
+          for (const [param, value] of Object.entries(refinementParams)) {
+            const attribute = reverseQueryKeys.get(param)
+            if (attribute && value) {
+              refinementList[attribute] = value.split(",")
+            }
+          }
+
+          return {
+            [searchIndex]: {
+              query: q,
+              refinementList,
+            },
+          }
+        },
+      },
+    }),
+    [searchIndex]
+  )
 
   return (
     <InstantSearchNext
@@ -60,40 +106,7 @@ const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
       future={{preserveSharedStateOnUnmount: false}}
       ignoreMultipleHooksWarning={true}
       insights={true}
-      routing={{
-        router: {cleanUrlOnDispose: false},
-        stateMapping: {
-          stateToRoute(uiState): Record<string, string> {
-            const indexUiState = uiState[searchIndex]
-            const refinements: Record<string, string> = {}
-
-            if (indexUiState?.refinementList) {
-              Object.keys(indexUiState.refinementList).map(refinementKey => {
-                const queryKey = queryKeys.get(refinementKey)
-
-                if (queryKey && indexUiState.refinementList?.[refinementKey]) {
-                  refinements[queryKey] = indexUiState.refinementList[refinementKey].join(",")
-                }
-              })
-            }
-
-            if (indexUiState.query) refinements.q = indexUiState.query
-            return refinements
-          },
-          routeToState(routeState: Record<string, string>) {
-            const refinementList: IndexUiState["refinementList"] = {}
-            Object.keys(routeState).map(key => {
-              const refinementKey = reverseQueryKeys.get(key)
-              if (refinementKey && routeState[key]) {
-                refinementList[refinementKey] = routeState[key].split(",")
-              }
-            })
-            return {
-              [searchIndex]: {query: routeState.q, refinementList},
-            }
-          },
-        },
-      }}
+      routing={routing}
     >
       <Configure filters="type:'Summer Courses'" />
       <SearchForm />
@@ -127,6 +140,14 @@ const weekdays = new Map([
   ["friday", 5],
   ["saturday", 6],
 ])
+
+const sortByWeekday = (a: SearchResults.FacetValue, b: SearchResults.FacetValue) =>
+  (weekdays.get(a.name) ?? 0) - (weekdays.get(b.name) ?? 0)
+
+const weekdayRefinementProps = {
+  transformItems: transformWeekdayItem,
+  sortBy: sortByWeekday,
+}
 
 const SearchForm = () => {
   const id = useId()
@@ -185,10 +206,7 @@ const SearchForm = () => {
           <RefinementInput
             attribute="sum_course_weekday"
             label="Filter by weekday"
-            useRefinementProps={{
-              transformItems: transformWeekdayItem,
-              sortBy: (a, b) => (weekdays.get(a.name) ?? 0) - (weekdays.get(b.name) ?? 0),
-            }}
+            useRefinementProps={weekdayRefinementProps}
           />
 
           <RefinementInput
@@ -287,7 +305,8 @@ const RefinementInput = ({
 
 const HitList = () => {
   const {items: hits, currentPageHits, showMore, isLastPage, sendEvent} = useInfiniteHits<AlgoliaHit>()
-  const {nbHits} = usePagination({padding: 2})
+  const {results} = useInstantSearch()
+  const nbHits = results?.nbHits ?? 0
 
   if (hits.length === 0) {
     return <p>No results for your search. Please try another search.</p>

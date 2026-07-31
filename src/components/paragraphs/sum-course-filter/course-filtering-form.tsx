@@ -1,14 +1,7 @@
 "use client"
 
 import {liteClient} from "algoliasearch/lite"
-import {
-  useSearchBox,
-  useRefinementList,
-  useClearRefinements,
-  useInfiniteHits,
-  useInstantSearch,
-  Configure,
-} from "react-instantsearch"
+import {useSearchBox, useRefinementList, useClearRefinements, useInfiniteHits, Configure} from "react-instantsearch"
 import {InstantSearchNext} from "react-instantsearch-nextjs"
 import {H2, H3} from "@components/elements/headers"
 import {useEffect, useId, useLayoutEffect, useMemo, useRef} from "react"
@@ -304,30 +297,28 @@ const RefinementInput = ({
 }
 
 const HitList = () => {
-  const {items: hits, currentPageHits, showMore, isLastPage, sendEvent} = useInfiniteHits<AlgoliaHit>()
-  const {results} = useInstantSearch()
+  const {items: hits, results, currentPageHits, showMore, isLastPage, sendEvent} = useInfiniteHits<AlgoliaHit>()
   const nbHits = results?.nbHits ?? 0
-
-  if (hits.length === 0) {
-    return <p>No results for your search. Please try another search.</p>
-  }
 
   return (
     <div>
       <H2 className="rs-ml-1 big-paragraph font-normal" aria-live="polite" aria-atomic>
-        {nbHits} {nbHits > 1 ? "results" : "result"}
+        {hits.length === 0 && "No results for your search. Please try another search."}
+        {hits.length > 0 && `${nbHits} ${nbHits > 1 ? "results" : "result"}`}
       </H2>
 
-      <ul className="list-unstyled">
-        {hits.map((hit, position) => (
-          <HitItem
-            key={hit.objectID}
-            focusOnItem={hit.objectID === currentPageHits[0].objectID && position > 0}
-            hit={hit}
-            sendEvent={sendEvent}
-          />
-        ))}
-      </ul>
+      {hits.length > 0 && (
+        <ul className="list-unstyled">
+          {hits.map((hit, position) => (
+            <HitItem
+              key={hit.objectID}
+              focusOnItem={hit.objectID === currentPageHits[0].objectID && position > 0}
+              hit={hit}
+              sendEvent={sendEvent}
+            />
+          ))}
+        </ul>
+      )}
 
       {!isLastPage && (
         <Button big centered onClick={showMore}>

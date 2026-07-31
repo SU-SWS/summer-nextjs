@@ -6,7 +6,7 @@ import cn from "@lib/utils/className"
 
 const AlgoliaPager = () => {
   const {currentRefinement: currentPage, pages, nbPages, refine: goToPage} = usePagination({padding: 2})
-  if (pages.length === 0) return null
+  if (nbPages <= 1) return null
   return (
     <nav aria-label="Search results pager">
       <ul className="list-unstyled mx-auto flex w-fit justify-around gap-10">
@@ -18,7 +18,9 @@ const AlgoliaPager = () => {
           </PagerItem>
         ))}
 
-        {pages[pages.length - 1] !== nbPages && <PagerItem onClick={() => goToPage(nbPages - 1)}>Last</PagerItem>}
+        {pages[pages.length - 1] !== nbPages && nbPages > 5 && (
+          <PagerItem onClick={() => goToPage(nbPages - 1)}>Last</PagerItem>
+        )}
       </ul>
     </nav>
   )

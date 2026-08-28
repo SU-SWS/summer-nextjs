@@ -5,15 +5,18 @@ import {getEntityFromPath} from "@lib/gql/gql-queries"
 import {notFound} from "next/navigation"
 import {getPathFromContext, PageProps, Slug} from "@lib/drupal/utils"
 
+export const instant = false
+
 const PreviewPage = async (props: PageProps) => {
   const params = await props.params
-  const {entity} = await getEntityFromPath<NodeUnion>(getPathFromContext(params.slug), true)
+  const path = getPathFromContext(params.slug || "/")
+  const {entity} = await getEntityFromPath<NodeUnion>(path, true)
 
   if (!entity) notFound()
 
   return (
     <UnpublishedBanner status={entity.status} message="Unpublished Page">
-      <NodePage node={entity} />
+      <NodePage node={entity} isHome={path == "/"} />
     </UnpublishedBanner>
   )
 }

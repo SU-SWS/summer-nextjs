@@ -16,6 +16,8 @@ type Props = {
   params: Promise<{uuid: string[]}>
 }
 
+export const instant = false
+
 const Page = async (props: Props) => {
   "use cache: remote"
 

@@ -9,13 +9,13 @@ export const maxDuration = 60
 
 const Page = async (props: PageProps) => {
   const params = await props.params
-  const path = getPathFromContext(params.slug)
+  const path = getPathFromContext(params.slug || "")
   const {redirect: redirectPath, entity} = await getEntityFromPath<NodeUnion>(path)
 
   if (redirectPath) redirect(redirectPath)
   if (!entity) notFound()
 
-  return <NodePage node={entity} />
+  return <NodePage node={entity} isHome={path === "/"} />
 }
 
 export const generateStaticParams = async (): Promise<Array<Slug>> => {

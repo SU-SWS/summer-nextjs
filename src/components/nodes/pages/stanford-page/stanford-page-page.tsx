@@ -17,9 +17,10 @@ import cn from "@lib/utils/className"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordPage
+  isHome?: boolean
 }
 
-const StanfordPagePage = ({node, ...props}: Props) => {
+const StanfordPagePage = ({node, isHome, ...props}: Props) => {
   // If the page contains any of the following components, force the page to be full width. This prevents the need to
   // address the large components on "interior" pages that contain a left sidebar. It's more effort than it's worth.
   const fullWidthComponents: NodeStanfordPageSuPageComponentsUnion["__typename"][] = [
@@ -58,18 +59,20 @@ const StanfordPagePage = ({node, ...props}: Props) => {
       {node.suPageBanner && (
         <header>
           {node.suPageBanner.__typename === "ParagraphStanfordPageTitleBanner" && (
-            <PageTitleBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title} />
+            <PageTitleBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title} isHome={isHome} />
           )}
           {node.suPageBanner.__typename === "ParagraphSumArcBanner" && (
-            <SumArcBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title} />
+            <SumArcBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title} isHome={isHome} />
           )}
           {node.suPageBanner?.__typename === "ParagraphSumTopBanner" && (
-            <SumTopBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title} />
+            <SumTopBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title} isHome={isHome} />
           )}
         </header>
       )}
 
-      {!pageTitleBanners.includes(node.suPageBanner?.__typename) && <H1 className="centered mt-32">{node.title}</H1>}
+      {!pageTitleBanners.includes(node.suPageBanner?.__typename) && (
+        <H1 className={cn("centered mt-32", {"sr-only": isHome})}>{node.title}</H1>
+      )}
 
       {!fullWidth && (
         <InteriorPage currentPath={node.path || "#"}>

@@ -3,6 +3,8 @@ import {StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
 import Script from "next/script"
 import {GoogleAnalytics, GoogleTagManager} from "@next/third-parties/google"
 import Vwo from "@components/elements/vwo"
+import Cookiebot from "@components/elements/cookiebot"
+import Zendesk from "@components/elements/zendesk"
 
 const UserAnalytics = async () => {
   const googleAnalytics = await getConfigPageField<
@@ -13,6 +15,8 @@ const UserAnalytics = async () => {
   if (!googleAnalytics && !process.env.NEXT_PUBLIC_GTM) return
   return (
     <>
+      <Cookiebot />
+      <Zendesk />
       <Vwo />
       <Script async src="//siteimproveanalytics.com/js/siteanalyze_80352.js" />
       {googleAnalytics && <GoogleAnalytics gaId={googleAnalytics} />}

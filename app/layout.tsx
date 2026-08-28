@@ -6,8 +6,6 @@ import {Icon} from "next/dist/lib/metadata/types/metadata-types"
 import {roboto, sourceSans3} from "../src/styles/fonts"
 import UserAnalytics from "@components/elements/user-analytics"
 import localFont from "next/font/local"
-import Cookiebot from "@components/elements/cookiebot"
-import Zendesk from "@components/elements/zendesk"
 import {ToastMessage} from "@components/elements/toast-message"
 import cn from "@lib/utils/className"
 
@@ -45,10 +43,7 @@ const RootLayout = ({children, modal}: {children: React.ReactNode; modal: React.
   return (
     <html lang="en" className={cn(sourceSans3.className, roboto.variable, stanford.variable)}>
       <body className="text-archway-dark">
-        <Cookiebot />
-        <UserAnalytics />
-        <Zendesk />
-
+        {process.env.VERCEL_ENV === "production" && <UserAnalytics />}
         <nav aria-label="Skip Links">
           <a href="#main-content" className="skiplink">
             Skip to main content

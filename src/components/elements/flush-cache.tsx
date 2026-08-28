@@ -1,6 +1,11 @@
-import {revalidatePath, revalidateTag} from "next/cache"
+"use client"
 
-const FlushCache = ({currentPath}: {currentPath: string}) => {
+import {revalidatePath, revalidateTag} from "next/cache"
+import {usePathname} from "next/navigation"
+
+const FlushCache = () => {
+  const currentPath = usePathname()
+
   const clearCache = async () => {
     "use server"
 

@@ -13,9 +13,10 @@ import SumVideoParagraph from "@components/paragraphs/sum-video/video-paragraph"
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumTopBanner
   pageTitle: string
+  isHome?: boolean
 }
 
-const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
+const SumTopBannerParagraph = ({paragraph, pageTitle, isHome, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const bgColor = behaviors.sum_top_banner_behavior?.sum_top_banner_overlay_bkg
 
@@ -37,11 +38,9 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, ...props}: Props) => {
         eagerLoadImage
       >
         <div className={cn("flex flex-col lg:min-h-[400px]")}>
-          {pageTitle && (
-            <div className="order-2">
-              <H1 className="rs-mb-3 type-5 font-normal">{pageTitle}</H1>
-            </div>
-          )}
+          <div className={cn("order-2", {"sr-only": isHome})}>
+            <H1 className="rs-mb-3 type-5 font-normal">{pageTitle}</H1>
+          </div>
 
           {paragraph.sumTopBannerSuperhead && (
             <div className="rs-mb-1 order-1 text-09em font-normal uppercase">{paragraph.sumTopBannerSuperhead}</div>

@@ -105,7 +105,7 @@
   div {
     &.form_page select {
       appearance: none;
-      background-image: url(~/public/images/summer-chevron-down.svg);
+      background-image: url(/public/images/summer-chevron-down.svg);
       background-position: 100% 0;
       background-repeat: no-repeat;
       background-size: contain;

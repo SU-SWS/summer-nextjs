@@ -1,6 +1,7 @@
 import {H1} from "@components/elements/headers"
 import {graphqlClient} from "@lib/gql/gql-client"
 import {notFound} from "next/navigation"
+import {cacheTag} from "next/cache"
 import {ParagraphStanfordGallery} from "@lib/gql/__generated__/drupal.d"
 import Image from "next/image"
 import {ParagraphDocument, ParagraphQuery, ParagraphQueryVariables} from "@lib/gql/__generated__/graphql"
@@ -23,6 +24,7 @@ const Page = async (props: Props) => {
 
   const params = await props.params
   const [paragraphId, mediaUuid] = params.uuid
+  cacheTag("all-cache", "paragraphs", `paragraph:${paragraphId}`)
 
   const paragraphQuery = await graphqlClient().request<ParagraphQuery, ParagraphQueryVariables>(ParagraphDocument, {
     uuid: paragraphId,

@@ -26,11 +26,13 @@ import LinkedInIcon from "@components/elements/icons/LinkedInIcon"
 import {getConfigPage, getConfigPageField} from "@lib/gql/gql-queries"
 
 const LocalFooter = async () => {
-  const siteName = await getConfigPageField<StanfordBasicSiteSetting, StanfordBasicSiteSetting["suSiteName"]>(
-    "StanfordBasicSiteSetting",
-    "suSiteName"
-  )
-  const localFooterConfig = await getConfigPage<StanfordLocalFooter>("StanfordLocalFooter")
+  const [siteName, localFooterConfig] = await Promise.all([
+    getConfigPageField<StanfordBasicSiteSetting, StanfordBasicSiteSetting["suSiteName"]>(
+      "StanfordBasicSiteSetting",
+      "suSiteName"
+    ),
+    getConfigPage<StanfordLocalFooter>("StanfordLocalFooter"),
+  ])
   if (!localFooterConfig?.suFooterEnabled) return
 
   const lockupProps = {

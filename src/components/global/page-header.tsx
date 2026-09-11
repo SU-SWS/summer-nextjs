@@ -1,20 +1,14 @@
 import MainMenu from "@components/menu/main-menu"
 import Lockup from "@components/elements/lockup/lockup"
-import {getConfigPageField} from "@lib/gql/gql-queries"
+import {getConfigPage} from "@lib/gql/gql-queries"
 import {StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
 import Button from "@components/elements/button"
 import GlobalMessage from "@components/config-pages/global-message"
 
 const PageHeader = async () => {
-  const primaryButton = await getConfigPageField<
-    StanfordBasicSiteSetting,
-    StanfordBasicSiteSetting["sumSiteHeaderPrim"]
-  >("StanfordBasicSiteSetting", "sumSiteHeaderPrim")
-
-  const secondaryButton = await getConfigPageField<
-    StanfordBasicSiteSetting,
-    StanfordBasicSiteSetting["sumSiteHeaderSec"]
-  >("StanfordBasicSiteSetting", "sumSiteHeaderSec")
+  const siteSettings = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
+  const primaryButton = siteSettings?.sumSiteHeaderPrim
+  const secondaryButton = siteSettings?.sumSiteHeaderSec
 
   return (
     <header className="shadow-lg">

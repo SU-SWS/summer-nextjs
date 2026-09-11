@@ -9,8 +9,9 @@ module.exports = async (_phase: string) => {
     env: {...(await vaultEnvars())},
     cacheComponents: true,
     cacheLife: {
+      // Safety net for any `use cache` scope that doesn't name a profile.
       default: {
-        stale: undefined,
+        stale: INFINITE_CACHE,
         revalidate: INFINITE_CACHE,
         expire: INFINITE_CACHE,
       },
@@ -31,13 +32,14 @@ module.exports = async (_phase: string) => {
         {
           protocol: drupalUrl.protocol === "https:" ? "https" : "http",
           hostname: drupalUrl.hostname,
+          // Drupal serves uploaded files out of /sites/*/files, so don't let the optimizer be
+          // pointed at arbitrary paths or query strings on the CMS host.
+          pathname: "/sites/**",
+          search: "",
         },
         {
           protocol: "https",
           hostname: "localist-images.azureedge.net",
-        },
-        {
-          hostname: "**.gitpod.io",
         },
       ],
     },

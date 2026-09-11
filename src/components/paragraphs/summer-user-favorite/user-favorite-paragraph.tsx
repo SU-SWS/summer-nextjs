@@ -1,6 +1,6 @@
 import {HtmlHTMLAttributes, Suspense} from "react"
 import {getAlgoliaCredential} from "@lib/gql/gql-queries"
-import {ParagraphSumUserFavorite} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphSumUserFavorite} from "@lib/gql/__generated__/graphql"
 import AlgoliaCourseList from "@components/algolia/algolia-course-list"
 import FavoritesList from "@components/elements/favorites-list"
 import cn from "@lib/utils/className"

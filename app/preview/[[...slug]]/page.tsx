@@ -1,6 +1,6 @@
 import NodePage from "@components/nodes/pages/node-page"
 import UnpublishedBanner from "@components/elements/unpublished-banner"
-import {NodeUnion} from "@lib/gql/__generated__/drupal.d"
+import {NodeUnion} from "@lib/gql/__generated__/graphql"
 import {getEntityFromPath} from "@lib/gql/gql-queries"
 import {notFound} from "next/navigation"
 import {getPathFromContext, PageProps, Slug} from "@lib/drupal/utils"

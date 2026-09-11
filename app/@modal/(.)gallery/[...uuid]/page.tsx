@@ -1,11 +1,15 @@
 import Image from "next/image"
 import InterceptionModal from "@components/elements/interception-modal"
 import Link from "@components/elements/link"
-import {ParagraphStanfordGallery} from "@lib/gql/__generated__/drupal.d"
 import {graphqlClient} from "@lib/gql/gql-client"
 import {notFound} from "next/navigation"
 import {cacheTag} from "next/cache"
-import {ParagraphDocument, ParagraphQuery, ParagraphQueryVariables} from "@lib/gql/__generated__/graphql"
+import {
+  ParagraphDocument,
+  ParagraphQuery,
+  ParagraphQueryVariables,
+  ParagraphStanfordGallery,
+} from "@lib/gql/__generated__/graphql"
 
 type Props = {
   params: Promise<{uuid: string[]}>

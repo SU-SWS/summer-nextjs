@@ -31,7 +31,7 @@ import {
   RouteRedirect,
   StanfordBasicSiteSetting,
   TermInterface,
-} from "@lib/gql/__generated__/drupal.d"
+} from "@lib/gql/__generated__/graphql"
 import {graphqlClient} from "@lib/gql/gql-client"
 import {cacheTag} from "next/cache"
 import {ClientError} from "graphql-request"

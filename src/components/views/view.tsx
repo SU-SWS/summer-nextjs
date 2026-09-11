@@ -22,7 +22,7 @@ import {
   NodeStanfordPublication,
   NodeSumSummerCourse,
   NodeUnion,
-} from "@lib/gql/__generated__/drupal.d"
+} from "@lib/gql/__generated__/graphql"
 import CoursesLearnerType from "@components/views/sum-courses/courses-learner-type-view"
 import OpportunitiesCardView from "@components/views/stanford-opportunities/opportunities-card-view"
 import OpportunitiesListView from "@components/views/stanford-opportunities/opportunities-list-view"

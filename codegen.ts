@@ -37,7 +37,8 @@ const config: CodegenConfig = {
           PhoneNumber: "string",
           Time: "string",
           TimeZone: "string",
-          Timestamp: "string",
+          // Drupal serializes timestamps as integers, and the app does arithmetic on them.
+          Timestamp: "number",
           UntypedStructuredData: "unknown",
           UtcOffset: "string",
         },

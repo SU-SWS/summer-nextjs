@@ -1,5 +1,5 @@
 import Link from "@components/elements/link"
-import {BookLink, MenuItem as MenuItemType} from "@lib/gql/__generated__/drupal.d"
+import {BookLink, MenuItem as MenuItemType} from "@lib/gql/__generated__/graphql"
 import {HTMLAttributes} from "react"
 import cn from "@lib/utils/className"
 

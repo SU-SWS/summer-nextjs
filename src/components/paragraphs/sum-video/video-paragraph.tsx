@@ -1,4 +1,4 @@
-import {ParagraphSumVideo} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphSumVideo} from "@lib/gql/__generated__/graphql"
 import {HTMLAttributes} from "react"
 import cn from "@lib/utils/className"
 import Oembed from "@components/elements/ombed"

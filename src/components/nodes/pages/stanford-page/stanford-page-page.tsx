@@ -6,7 +6,7 @@ import {
   NodeStanfordPage,
   NodeStanfordPageSuPageBannerUnion,
   NodeStanfordPageSuPageComponentsUnion,
-} from "@lib/gql/__generated__/drupal.d"
+} from "@lib/gql/__generated__/graphql"
 import PageTitleBannerParagraph from "@components/paragraphs/stanford-page-title-banner/page-title-banner-paragraph"
 import SumArcBannerParagraph from "@components/paragraphs/sum-arc-banner/sum-arc-banner-paragraph"
 import SumTopBannerParagraph from "@components/paragraphs/sum-top-banner/sum-top-banner-paragraph"

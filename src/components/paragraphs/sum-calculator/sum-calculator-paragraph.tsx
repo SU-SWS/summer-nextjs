@@ -1,5 +1,5 @@
 import {HtmlHTMLAttributes} from "react"
-import {ParagraphSumCalculator} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphSumCalculator} from "@lib/gql/__generated__/graphql"
 import SumCalculator from "@components/paragraphs/sum-calculator/sum-calculator"
 import Wysiwyg from "@components/elements/wysiwyg"
 

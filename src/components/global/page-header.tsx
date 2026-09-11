@@ -1,11 +1,20 @@
 import MainMenu from "@components/menu/main-menu"
 import Lockup from "@components/elements/lockup/lockup"
 import {getConfigPage} from "@lib/gql/gql-queries"
-import {StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
+import {StanfordBasicSiteSetting} from "@lib/gql/__generated__/graphql"
 import Button from "@components/elements/button"
 import GlobalMessage from "@components/config-pages/global-message"
+import cn from "@lib/utils/className"
 
-const PageHeader = async () => {
+type Props = {
+  /**
+   * Reduce the header to the university bar, any global message, and the site lockup. Set from the
+   * node's `sumMinimalHeadFoot` flag by the header slot.
+   */
+  minimal?: boolean
+}
+
+const PageHeader = async ({minimal}: Props) => {
   const siteSettings = await getConfigPage<StanfordBasicSiteSetting>("StanfordBasicSiteSetting")
   const primaryButton = siteSettings?.sumSiteHeaderPrim
   const secondaryButton = siteSettings?.sumSiteHeaderSec
@@ -24,22 +33,25 @@ const PageHeader = async () => {
       </div>
       <GlobalMessage />
       <div className="relative border-b-4 border-white bg-fog-light">
-        <div className="w-full border-b-2 lg:border-b-0">
-          <div className="min-h-50 rs-py-2 centered pr-24 lg:pr-0">
+        <div className={cn("w-full", {"border-b-2 lg:border-b-0": !minimal})}>
+          <div className={cn("min-h-50 rs-py-2 centered lg:pr-0", {"pr-24": !minimal})}>
             <div className="flex w-full justify-between">
               <Lockup />
-              <div className="tw-hidden lg:flex">
-                {primaryButton?.url && (
-                  <Button href={primaryButton.url} secondary>
-                    {primaryButton.title}
-                  </Button>
-                )}
-                {secondaryButton?.url && <Button href={secondaryButton.url}>{secondaryButton.title}</Button>}
-              </div>
+              {!minimal && (
+                <div className="tw-hidden lg:flex">
+                  {primaryButton?.url && (
+                    <Button href={primaryButton.url} secondary>
+                      {primaryButton.title}
+                    </Button>
+                  )}
+                  {secondaryButton?.url && <Button href={secondaryButton.url}>{secondaryButton.title}</Button>}
+                </div>
+              )}
             </div>
           </div>
         </div>
-        <MainMenu />
+        {/* Also holds the mobile site search and the mobile calls to action. */}
+        {!minimal && <MainMenu />}
       </div>
     </header>
   )

@@ -1,5 +1,5 @@
 import React, {HtmlHTMLAttributes} from "react"
-import {ParagraphSumTopBanner} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphSumTopBanner} from "@lib/gql/__generated__/graphql"
 import {H1} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"

@@ -2,7 +2,7 @@ import cn from "@lib/utils/className"
 import Image from "next/image"
 import Oembed from "@components/elements/ombed"
 import {ElementType, HTMLAttributes} from "react"
-import {Maybe} from "@lib/gql/__generated__/drupal.d"
+import {Maybe} from "@lib/gql/__generated__/graphql"
 import YoutubeVideoPill from "@components/elements/youtube-video-pill"
 
 type Props = HTMLAttributes<HTMLElement | HTMLDivElement> & {

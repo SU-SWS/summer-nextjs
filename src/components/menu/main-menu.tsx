@@ -1,4 +1,4 @@
-import {MenuAvailable, StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
+import {MenuAvailable, StanfordBasicSiteSetting} from "@lib/gql/__generated__/graphql"
 import {getConfigPage, getMenu} from "@lib/gql/gql-queries"
 import MainMenuClient from "@components/menu/main-menu.client"
 import {Suspense} from "react"

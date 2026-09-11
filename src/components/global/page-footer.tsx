@@ -2,13 +2,19 @@ import LocalFooter from "@components/config-pages/local-footer"
 import SuperFooter from "@components/config-pages/super-footer"
 import {HTMLAttributes} from "react"
 
-type Props = HTMLAttributes<HTMLElement>
+type Props = HTMLAttributes<HTMLElement> & {
+  /**
+   * Hide the local footer's secondary link column. Set from the node's `sumMinimalHeadFoot` flag
+   * by the footer slot.
+   */
+  minimal?: boolean
+}
 
-const PageFooter = ({...props}: Props) => {
+const PageFooter = ({minimal, ...props}: Props) => {
   return (
     <footer {...props}>
       <SuperFooter />
-      <LocalFooter />
+      <LocalFooter minimal={minimal} />
 
       <div className="bg-cardinal-red py-10 [&_a:focus]:text-white [&_a:hover]:text-white [&_a]:text-white [&_a]:no-underline">
         <div className="centered lg:flex lg:items-start lg:gap-20">

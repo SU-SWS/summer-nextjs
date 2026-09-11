@@ -1,5 +1,5 @@
 import Wysiwyg from "@components/elements/wysiwyg"
-import {SummerGlobalMsg} from "@lib/gql/__generated__/drupal.d"
+import {SummerGlobalMsg} from "@lib/gql/__generated__/graphql"
 import ActionLink from "@components/elements/action-link"
 import cn from "@lib/utils/className"
 import {HTMLAttributes} from "react"

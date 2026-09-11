@@ -1,5 +1,5 @@
 import React, {HtmlHTMLAttributes} from "react"
-import {ParagraphSumTestimonial} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphSumTestimonial} from "@lib/gql/__generated__/graphql"
 
 import cn from "@lib/utils/className"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"

@@ -1,5 +1,5 @@
 import React, {HtmlHTMLAttributes, ElementType} from "react"
-import {ParagraphStanfordBanner} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphStanfordBanner} from "@lib/gql/__generated__/graphql"
 import {H2, H3, H4} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"

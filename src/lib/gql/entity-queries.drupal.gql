@@ -293,6 +293,10 @@ query ConfigPages {
         title
         url
       }
+      sumMinLocalFootSecond {
+        title
+        url
+      }
       suLocalFootSecondH
       suLocalFootSocial {
         title

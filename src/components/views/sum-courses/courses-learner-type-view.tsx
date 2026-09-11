@@ -1,4 +1,4 @@
-import {NodeSumSummerCourse} from "@lib/gql/__generated__/drupal.d"
+import {NodeSumSummerCourse} from "@lib/gql/__generated__/graphql"
 import LoadMoreList from "@components/elements/load-more-list"
 import {ViewDisplayProps} from "@components/views/view"
 import ReverseVisualOrder from "@components/elements/reverse-visual-order"

@@ -1,5 +1,5 @@
 import React, {HtmlHTMLAttributes} from "react"
-import {ParagraphStanfordCard, ParagraphSumPillBanner} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphStanfordCard, ParagraphSumPillBanner} from "@lib/gql/__generated__/graphql"
 import {H2} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"

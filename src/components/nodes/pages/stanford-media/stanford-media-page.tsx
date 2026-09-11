@@ -1,7 +1,7 @@
 import {redirect} from "next/navigation"
 import {H1, H2} from "@components/elements/headers"
 import {HtmlHTMLAttributes} from "react"
-import {NodeStanfordMedia} from "@lib/gql/__generated__/drupal.d"
+import {NodeStanfordMedia} from "@lib/gql/__generated__/graphql"
 import ReverseVisualOrder from "@components/elements/reverse-visual-order"
 import NodePageMetadata from "@components/nodes/pages/node-page-metadata"
 import Wysiwyg from "@components/elements/wysiwyg"

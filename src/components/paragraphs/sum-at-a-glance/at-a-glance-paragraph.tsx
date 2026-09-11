@@ -1,4 +1,4 @@
-import {ParagraphSumAtAGlance} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphSumAtAGlance} from "@lib/gql/__generated__/graphql"
 import {HTMLAttributes} from "react"
 import cn from "@lib/utils/className"
 import {H2, H3} from "@components/elements/headers"

@@ -2,9 +2,13 @@ import {H1} from "@components/elements/headers"
 import {graphqlClient} from "@lib/gql/gql-client"
 import {notFound} from "next/navigation"
 import {cacheTag} from "next/cache"
-import {ParagraphStanfordGallery} from "@lib/gql/__generated__/drupal.d"
 import Image from "next/image"
-import {ParagraphDocument, ParagraphQuery, ParagraphQueryVariables} from "@lib/gql/__generated__/graphql"
+import {
+  ParagraphDocument,
+  ParagraphQuery,
+  ParagraphQueryVariables,
+  ParagraphStanfordGallery,
+} from "@lib/gql/__generated__/graphql"
 
 export const metadata = {
   title: "Gallery Image",

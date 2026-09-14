@@ -35,7 +35,6 @@ module.exports = async (_phase: string) => {
           // Drupal serves uploaded files out of /sites/*/files, so don't let the optimizer be
           // pointed at arbitrary paths or query strings on the CMS host.
           pathname: "/sites/**",
-          search: "",
         },
         {
           protocol: "https",

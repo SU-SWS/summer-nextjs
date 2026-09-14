@@ -13,9 +13,9 @@ jobs:
       env:
         NEXT_PUBLIC_DRUPAL_BASE_URL: http://localhost
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Restore Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             node_modules
@@ -64,20 +64,20 @@ jobs:
         # skipped because both repositories use `N.x` names for unrelated major versions.
         run: |
           REF=4.x
-          if [[ ! "$BRANCH" =~ ^[0-9]+\.x$ ]] && git ls-remote --exit-code --heads https://github.com/SU-SWS/ace-stanfordlagunita.git "$BRANCH" > /dev/null 2>&1; then
+          if ! echo "$BRANCH" | grep -qE '^[0-9]+\.x$' && git ls-remote --exit-code --heads https://github.com/SU-SWS/ace-stanfordlagunita.git "$BRANCH" > /dev/null 2>&1; then
             REF="$BRANCH"
           fi
           echo "Building against ace-stanfordlagunita $REF"
           echo "ref=$REF" >> "$GITHUB_OUTPUT"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: "SU-SWS/ace-stanfordlagunita"
           ref: ${{ steps.drupal-branch.outputs.ref }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: frontend
       - name: Restore Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             vendor

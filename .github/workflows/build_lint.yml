@@ -9,7 +9,7 @@ jobs:
     name: Lint & TS Check
     runs-on: ubuntu-latest
     container:
-      image: node:20
+      image: node:24
       env:
         NEXT_PUBLIC_DRUPAL_BASE_URL: http://localhost
     steps:

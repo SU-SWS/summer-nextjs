@@ -1,7 +1,7 @@
 import React, {ElementType, HtmlHTMLAttributes} from "react"
 import Image from "next/image"
 import cn from "@lib/utils/className"
-import {Maybe} from "@lib/gql/__generated__/drupal.d"
+import {Maybe} from "@lib/gql/__generated__/graphql"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   /**

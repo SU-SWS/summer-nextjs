@@ -1,4 +1,4 @@
-import {ParagraphSumAccordion} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphSumAccordion} from "@lib/gql/__generated__/graphql"
 import Accordion from "@components/elements/accordion"
 import Wysiwyg from "@components/elements/wysiwyg"
 import {H2} from "@components/elements/headers"

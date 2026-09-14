@@ -3,7 +3,7 @@ import {
   Maybe,
   ParagraphSumCarousel,
   ParagraphSumCarouselSumCarouselSlidesUnion,
-} from "@lib/gql/__generated__/drupal.d"
+} from "@lib/gql/__generated__/graphql"
 import {HTMLAttributes} from "react"
 import Wysiwyg from "@components/elements/wysiwyg"
 import {H2} from "@components/elements/headers"

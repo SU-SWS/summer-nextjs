@@ -10,7 +10,7 @@ import {
   NodeStanfordPublication,
   NodeUnion,
   StanfordBasicPagesSortKeys,
-} from "@lib/gql/__generated__/drupal.d"
+} from "@lib/gql/__generated__/graphql"
 import {graphqlClient} from "@lib/gql/gql-client"
 import View from "@components/views/view"
 import {cacheTag} from "next/cache"

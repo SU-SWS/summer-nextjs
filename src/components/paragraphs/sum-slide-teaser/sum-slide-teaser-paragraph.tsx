@@ -1,4 +1,4 @@
-import {ParagraphSumSlideTeaser} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphSumSlideTeaser} from "@lib/gql/__generated__/graphql"
 import {HTMLAttributes} from "react"
 import NodeCard from "@components/nodes/cards/node-card"
 

@@ -6,7 +6,7 @@ import SpacerParagraph from "@components/paragraphs/stanford-spacer/spacer-parag
 import WysiwygParagraph from "@components/paragraphs/stanford-wysiwyg/wysiwyg-paragraph"
 import BannerParagraph from "@components/paragraphs/stanford-banner/banner-paragraph"
 import ListParagraph from "@components/paragraphs/stanford-lists/list-paragraph"
-import {ParagraphUnion} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphUnion} from "@lib/gql/__generated__/graphql"
 import {Suspense} from "react"
 import UserFavoriteParagraph from "@components/paragraphs/summer-user-favorite/user-favorite-paragraph"
 import SumCalculatorParagraph from "@components/paragraphs/sum-calculator/sum-calculator-paragraph"

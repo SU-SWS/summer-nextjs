@@ -9,13 +9,13 @@ jobs:
     name: Lint & TS Check
     runs-on: ubuntu-latest
     container:
-      image: node:20
+      image: node:24
       env:
         NEXT_PUBLIC_DRUPAL_BASE_URL: http://localhost
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Restore Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             node_modules
@@ -55,15 +55,29 @@ jobs:
           name: id_rsa
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
           if_key_exists: fail
-      - uses: actions/checkout@v4
+      - name: Find Drupal Branch
+        id: drupal-branch
+        env:
+          # The frontend branch this workflow is running on.
+          BRANCH: ${{ github.ref_name }}
+        # Pair the build with the matching Drupal branch when there is one. Release branches are
+        # skipped because both repositories use `N.x` names for unrelated major versions.
+        run: |
+          REF=4.x
+          if ! echo "$BRANCH" | grep -qE '^[0-9]+\.x$' && git ls-remote --exit-code --heads https://github.com/SU-SWS/ace-stanfordlagunita.git "$BRANCH" > /dev/null 2>&1; then
+            REF="$BRANCH"
+          fi
+          echo "Building against ace-stanfordlagunita $REF"
+          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v7
         with:
           repository: "SU-SWS/ace-stanfordlagunita"
-          ref: '3.x'
-      - uses: actions/checkout@v4
+          ref: ${{ steps.drupal-branch.outputs.ref }}
+      - uses: actions/checkout@v7
         with:
           path: frontend
       - name: Restore Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             vendor

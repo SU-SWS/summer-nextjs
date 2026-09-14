@@ -1,5 +1,5 @@
 import Paragraph from "@components/paragraphs/paragraph"
-import {ParagraphUnion} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphUnion} from "@lib/gql/__generated__/graphql"
 
 const OneColumn = ({items}: {items: ParagraphUnion[]}) => {
   const draftProps: Record<string, string> = {"data-columns": "1"}

@@ -5,7 +5,7 @@ import SiteSearchForm from "@components/search/site-search-form"
 import {getMenuActiveTrail} from "@lib/drupal/utils"
 import useOutsideClick from "@lib/hooks/useOutsideClick"
 import {ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/20/solid"
-import {MenuItem as MenuItemType, StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
+import {MenuItem as MenuItemType, StanfordBasicSiteSetting} from "@lib/gql/__generated__/graphql"
 import {useBoolean, useEventListener} from "usehooks-ts"
 import {RefObject, useCallback, useEffect, useId, useLayoutEffect, useRef, useState} from "react"
 import {usePathname} from "next/navigation"
@@ -144,7 +144,6 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
       x: 0,
       width: 0,
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (x + width > window.innerWidth) setPositionRight(false)
   }, [submenuOpen])
 

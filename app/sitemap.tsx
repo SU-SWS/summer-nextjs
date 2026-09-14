@@ -1,9 +1,8 @@
 import {MetadataRoute} from "next"
 import {graphqlClient} from "@lib/gql/gql-client"
-import {NodeUnion} from "@lib/gql/__generated__/drupal.d"
 import {getHomePagePath} from "@lib/gql/gql-queries"
 import {cacheLife} from "next/cache"
-import {AllNodesDocument, AllNodesQuery} from "@lib/gql/__generated__/graphql"
+import {AllNodesDocument, AllNodesQuery, NodeUnion} from "@lib/gql/__generated__/graphql"
 
 const Sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   "use cache: remote"

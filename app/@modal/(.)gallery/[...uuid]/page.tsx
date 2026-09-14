@@ -1,10 +1,15 @@
 import Image from "next/image"
 import InterceptionModal from "@components/elements/interception-modal"
 import Link from "@components/elements/link"
-import {ParagraphStanfordGallery} from "@lib/gql/__generated__/drupal.d"
 import {graphqlClient} from "@lib/gql/gql-client"
 import {notFound} from "next/navigation"
-import {ParagraphDocument, ParagraphQuery, ParagraphQueryVariables} from "@lib/gql/__generated__/graphql"
+import {cacheTag} from "next/cache"
+import {
+  ParagraphDocument,
+  ParagraphQuery,
+  ParagraphQueryVariables,
+  ParagraphStanfordGallery,
+} from "@lib/gql/__generated__/graphql"
 
 type Props = {
   params: Promise<{uuid: string[]}>
@@ -15,6 +20,7 @@ const Page = async (props: Props) => {
 
   const params = await props.params
   const [paragraphId, mediaUuid] = params.uuid
+  cacheTag("all-cache", "paragraphs", `paragraph:${paragraphId}`)
 
   const paragraphQuery = await graphqlClient().request<ParagraphQuery, ParagraphQueryVariables>(ParagraphDocument, {
     uuid: paragraphId,

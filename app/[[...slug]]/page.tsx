@@ -1,21 +1,22 @@
 import NodePage from "@components/nodes/pages/node-page"
-import {NodeUnion} from "@lib/gql/__generated__/drupal.d"
+import {NodeUnion} from "@lib/gql/__generated__/graphql"
 import {getAllNodes, getEntityFromPath} from "@lib/gql/gql-queries"
 import {notFound, redirect} from "next/navigation"
 import {getPathFromContext, PageProps, Slug} from "@lib/drupal/utils"
 
 // https://vercel.com/docs/functions/runtimes#max-duration
 export const maxDuration = 60
+export const instant = false
 
 const Page = async (props: PageProps) => {
   const params = await props.params
-  const path = getPathFromContext(params.slug)
+  const path = getPathFromContext(params.slug || "")
   const {redirect: redirectPath, entity} = await getEntityFromPath<NodeUnion>(path)
 
   if (redirectPath) redirect(redirectPath)
   if (!entity) notFound()
 
-  return <NodePage node={entity} />
+  return <NodePage node={entity} isHome={path === "/"} />
 }
 
 export const generateStaticParams = async (): Promise<Array<Slug>> => {

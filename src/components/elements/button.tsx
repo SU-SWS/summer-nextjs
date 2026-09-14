@@ -1,7 +1,7 @@
 import Link from "@components/elements/link"
 import cn from "@lib/utils/className"
 import {HtmlHTMLAttributes, MouseEventHandler} from "react"
-import {Maybe} from "@lib/gql/__generated__/drupal.d"
+import {Maybe} from "@lib/gql/__generated__/graphql"
 import {ArrowRightIcon} from "@heroicons/react/20/solid"
 import {LinkProps} from "next/dist/client/link"
 

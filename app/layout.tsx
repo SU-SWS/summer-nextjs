@@ -1,15 +1,12 @@
 import "../src/styles/index.css"
 import BackToTop from "@components/elements/back-to-top"
-import PageFooter from "@components/global/page-footer"
-import PageHeader from "@components/global/page-header"
 import {Icon} from "next/dist/lib/metadata/types/metadata-types"
 import {roboto, sourceSans3} from "../src/styles/fonts"
 import UserAnalytics from "@components/elements/user-analytics"
 import localFont from "next/font/local"
-import Cookiebot from "@components/elements/cookiebot"
-import Zendesk from "@components/elements/zendesk"
 import {ToastMessage} from "@components/elements/toast-message"
 import cn from "@lib/utils/className"
+import {ReactNode} from "react"
 
 const appleIcons: Icon[] = [60, 72, 76, 114, 120, 144, 152, 180].map(size => ({
   url: `https://www-media.stanford.edu/assets/favicon/apple-touch-icon-${size}x${size}.png`,
@@ -41,14 +38,26 @@ const stanford = localFont({
   variable: "--font-stanford",
 })
 
-const RootLayout = ({children, modal}: {children: React.ReactNode; modal: React.ReactNode}) => {
+/**
+ * The header and footer arrive as parallel route slots rather than as components rendered here:
+ * they need the current node's `sumMinimalHeadFoot` flag, which this layout can't read because it
+ * has no dynamic segment. See `app/@header` and `app/@footer`.
+ */
+const RootLayout = ({
+  children,
+  modal,
+  header,
+  footer,
+}: {
+  children: ReactNode
+  modal: ReactNode
+  header: ReactNode
+  footer: ReactNode
+}) => {
   return (
     <html lang="en" className={cn(sourceSans3.className, roboto.variable, stanford.variable)}>
       <body className="text-archway-dark">
-        <Cookiebot />
-        <UserAnalytics />
-        <Zendesk />
-
+        {process.env.VERCEL_ENV === "production" && <UserAnalytics />}
         <nav aria-label="Skip Links">
           <a href="#main-content" className="skiplink">
             Skip to main content
@@ -56,14 +65,14 @@ const RootLayout = ({children, modal}: {children: React.ReactNode; modal: React.
         </nav>
 
         <div className="flex min-h-dvh flex-col">
-          <PageHeader />
+          {header}
           <main id="main-content" className="flex-grow">
             {children}
 
             <ToastMessage />
             <BackToTop />
           </main>
-          <PageFooter />
+          {footer}
         </div>
         <div>{modal}</div>
       </body>

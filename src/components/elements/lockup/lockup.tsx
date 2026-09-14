@@ -12,15 +12,17 @@ import LockupR from "@components/elements/lockup/lockup-r"
 import LockupS from "@components/elements/lockup/lockup-s"
 import LockupT from "@components/elements/lockup/lockup-t"
 import LockupLogo from "@components/elements/lockup/lockup-logo"
-import {LockupSetting, StanfordBasicSiteSetting} from "@lib/gql/__generated__/drupal.d"
+import {LockupSetting, StanfordBasicSiteSetting} from "@lib/gql/__generated__/graphql"
 import {getConfigPage, getConfigPageField} from "@lib/gql/gql-queries"
 
 export const Lockup = async () => {
-  const siteName = await getConfigPageField<StanfordBasicSiteSetting, StanfordBasicSiteSetting["suSiteName"]>(
-    "StanfordBasicSiteSetting",
-    "suSiteName"
-  )
-  const lockupSettingsConfig = await getConfigPage<LockupSetting>("LockupSetting")
+  const [siteName, lockupSettingsConfig] = await Promise.all([
+    getConfigPageField<StanfordBasicSiteSetting, StanfordBasicSiteSetting["suSiteName"]>(
+      "StanfordBasicSiteSetting",
+      "suSiteName"
+    ),
+    getConfigPage<LockupSetting>("LockupSetting"),
+  ])
 
   const logoUrl = !lockupSettingsConfig?.suUseThemeLogo ? lockupSettingsConfig?.suUploadLogoImage?.url : undefined
   const lockupProps = {

@@ -19,18 +19,28 @@ import {H2} from "@components/elements/headers"
 import TwitterIcon from "@components/elements/icons/TwitterIcon"
 import YoutubeIcon from "@components/elements/icons/YoutubeIcon"
 import FacebookIcon from "@components/elements/icons/FacebookIcon"
-import {Maybe, StanfordBasicSiteSetting, StanfordLocalFooter} from "@lib/gql/__generated__/drupal.d"
 import {buildUrl} from "@lib/drupal/utils"
 import InstagramIcon from "@components/elements/icons/InstagramIcon"
 import LinkedInIcon from "@components/elements/icons/LinkedInIcon"
 import {getConfigPage, getConfigPageField} from "@lib/gql/gql-queries"
+import {Maybe, StanfordBasicSiteSetting, StanfordLocalFooter, Link as GraphqlLink} from "@lib/gql/__generated__/graphql"
 
-const LocalFooter = async () => {
-  const siteName = await getConfigPageField<StanfordBasicSiteSetting, StanfordBasicSiteSetting["suSiteName"]>(
-    "StanfordBasicSiteSetting",
-    "suSiteName"
-  )
-  const localFooterConfig = await getConfigPage<StanfordLocalFooter>("StanfordLocalFooter")
+type Props = {
+  /**
+   * Hide the secondary link column's heading and links. Set from the node's `sumMinimalHeadFoot`
+   * flag by the footer slot.
+   */
+  minimal?: boolean
+}
+
+const LocalFooter = async ({minimal}: Props) => {
+  const [siteName, localFooterConfig] = await Promise.all([
+    getConfigPageField<StanfordBasicSiteSetting, StanfordBasicSiteSetting["suSiteName"]>(
+      "StanfordBasicSiteSetting",
+      "suSiteName"
+    ),
+    getConfigPage<StanfordLocalFooter>("StanfordLocalFooter"),
+  ])
   if (!localFooterConfig?.suFooterEnabled) return
 
   const lockupProps = {
@@ -47,6 +57,10 @@ const LocalFooter = async () => {
         ? buildUrl(localFooterConfig.suLocalFootLocImg?.url).toString()
         : undefined,
   }
+
+  const secondaryLinks: Maybe<Array<GraphqlLink>> | undefined = minimal
+    ? localFooterConfig.sumMinLocalFootSecond
+    : localFooterConfig.suLocalFootSecond
 
   return (
     <div className="local-footer bg-foggy-light py-20">
@@ -112,13 +126,13 @@ const LocalFooter = async () => {
           </div>
 
           <div className="font-roboto lg:w-1/4">
-            {localFooterConfig.suLocalFootSecondH && (
+            {localFooterConfig.suLocalFootSecondH && !!secondaryLinks?.length && (
               <H2 className="type-2 font-normal">{localFooterConfig.suLocalFootSecondH}</H2>
             )}
 
-            {localFooterConfig.suLocalFootSecond && (
+            {!!secondaryLinks?.length && (
               <ul className="list-unstyled flex-1">
-                {localFooterConfig.suLocalFootSecond.map((link, index) => {
+                {secondaryLinks.map((link, index) => {
                   if (!link.url) return
                   return (
                     <li key={`footer-second-link-${index}`}>

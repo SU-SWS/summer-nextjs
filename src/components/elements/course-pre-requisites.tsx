@@ -1,7 +1,8 @@
 import Wysiwyg from "@components/elements/wysiwyg"
+import {Maybe} from "@lib/gql/__generated__/graphql"
 
 type Props = {
-  preReqs?: string
+  preReqs?: Maybe<string>
 }
 const CoursePreRequisites = ({preReqs}: Props) => {
   if (!preReqs) return null

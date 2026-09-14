@@ -6,7 +6,7 @@ import StanfordPolicyPage from "@components/nodes/pages/stanford-policy/stanford
 import StanfordPublicationPage from "@components/nodes/pages/stanford-publication/stanford-publication-page"
 import StanfordCoursePage from "@components/nodes/pages/stanford-course/stanford-course-page"
 import StanfordEventSeriesPage from "@components/nodes/pages/stanford-event-series/stanford-event-series-page"
-import {NodeUnion} from "@lib/gql/__generated__/drupal.d"
+import {NodeUnion} from "@lib/gql/__generated__/graphql"
 import SummerCoursePage from "./summer-course/summer-course-page"
 import StanfordOpportunityPage from "@components/nodes/pages/stanford-opportunity/stanford-opportunity-page"
 

@@ -89,6 +89,7 @@ fragment FragmentNodeStanfordPage on NodeStanfordPage {
   suPageImage {
     ...FragmentMediaUnion
   }
+  sumMinimalHeadFoot
 }
 
 fragment FragmentNodeStanfordCourse on NodeStanfordCourse {

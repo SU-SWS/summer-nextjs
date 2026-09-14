@@ -1,5 +1,5 @@
 import {HtmlHTMLAttributes} from "react"
-import {ParagraphSumArcBanner} from "@lib/gql/__generated__/drupal.d"
+import {ParagraphSumArcBanner} from "@lib/gql/__generated__/graphql"
 import ArcBanner from "@components/patterns/arc-banner"
 import {H1} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"

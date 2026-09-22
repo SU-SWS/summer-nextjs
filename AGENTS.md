@@ -74,6 +74,29 @@ This is a Next.js application that serves as a frontend for a Drupal backend CMS
 
 ## Key Components
 
+### Site Chrome
+
+`src/components/global/site-chrome.tsx` renders the header, the `<main id="main-content">` region,
+and the footer. **The root layout deliberately does not render it.** `app/layout.tsx` is only the
+document shell (`<html>`/`<body>`, analytics, skip link, and the `@modal` slot); every other route
+directory supplies the chrome from its own layout.
+
+The chrome is per-segment because `PageHeader`/`PageFooter` need the current node's
+`sumMinimalHeadFoot` flag (see `src/lib/drupal/chrome.ts`), and the root layout has no dynamic
+segment to read `params` from.
+
+Do **not** reintroduce `@header` / `@footer` parallel route slots to solve this. That was tried in
+ba98f80 and reverted: on Vercel it produced
+
+```
+Couldn't find all resumable slots by key/index during replaying
+```
+
+on unpublished/preview urls. Each slot adds its own keyed replay slot to a partially prerendered
+route's postponed state, and `notFound()` at resume time tears the slots out of the tree (Next
+re-renders the root layout with only `children`), so the replay can no longer match them. It also
+meant 404 pages rendered with no header or footer at all.
+
 ### Paragraph Components
 
 Each Drupal paragraph type has a corresponding React component:
@@ -186,6 +209,46 @@ yarn lint
 3. Create corresponding React component in `src/components/paragraphs/`
 4. Add type definition to `src/lib/@types/drupal`
 5. Register in Paragraph Renderer
+
+### Adding New Route Directories
+
+Any new directory under `app/` that renders a user facing page needs its own `layout.tsx` wrapping
+`children` in `SiteChrome`, otherwise the page renders with no header, footer, or `<main>` landmark.
+
+```tsx
+// app/[new-route]/layout.tsx
+import SiteChrome from "@components/global/site-chrome"
+import {ReactNode} from "react"
+
+const Layout = ({children}: {children: ReactNode}) => <SiteChrome>{children}</SiteChrome>
+
+export default Layout
+```
+
+If the route resolves a Drupal node and should honour the reduced chrome, await the flag and pass
+it down, the way `app/[[...slug]]/layout.tsx` and `app/preview/[[...slug]]/layout.tsx` do:
+
+```tsx
+const Layout = async ({children, params}: Props) => (
+  <SiteChrome minimal={await hasMinimalChrome((await params).slug)}>{children}</SiteChrome>
+)
+```
+
+Rules for these layouts:
+
+- Await the flag in the layout body. Don't wrap `PageHeader`/`PageFooter` in `<Suspense>` or hand
+  `SiteChrome` an unresolved promise: it leaves the footer boundary pending in the static shell and
+  adds keyed replay slots to the route's postponed state.
+- Don't add a parallel route slot for chrome. See **Site Chrome** above for why.
+- Error and not-found boundaries replace the segment they sit above, layout included, so any
+  `not-found.tsx` at the root of `app/` has to render its own `SiteChrome`.
+
+Exceptions that should **not** get chrome: API route handlers under `app/api`, `app/sitemap.tsx`,
+and anything rendered into the `@modal` slot.
+
+After adding a route, run `yarn build` and check the route table. A node route should stay `◐`
+(Partial Prerender) or `ƒ` (Dynamic); an unexpected change here usually means the chrome is
+blocking or streaming differently than intended.
 
 ## Styling Guidelines
 

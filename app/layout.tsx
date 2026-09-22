@@ -1,10 +1,8 @@
 import "../src/styles/index.css"
-import BackToTop from "@components/elements/back-to-top"
 import {Icon} from "next/dist/lib/metadata/types/metadata-types"
 import {roboto, sourceSans3} from "../src/styles/fonts"
 import UserAnalytics from "@components/elements/user-analytics"
 import localFont from "next/font/local"
-import {ToastMessage} from "@components/elements/toast-message"
 import cn from "@lib/utils/className"
 import {ReactNode} from "react"
 
@@ -39,21 +37,13 @@ const stanford = localFont({
 })
 
 /**
- * The header and footer arrive as parallel route slots rather than as components rendered here:
- * they need the current node's `sumMinimalHeadFoot` flag, which this layout can't read because it
- * has no dynamic segment. See `app/@header` and `app/@footer`.
+ * The document shell only.
+ *
+ * The header and footer are rendered by each segment's layout through `SiteChrome`, because the
+ * reduced chrome depends on the node behind the current url and this layout has no dynamic
+ * segment to read it from.
  */
-const RootLayout = ({
-  children,
-  modal,
-  header,
-  footer,
-}: {
-  children: ReactNode
-  modal: ReactNode
-  header: ReactNode
-  footer: ReactNode
-}) => {
+const RootLayout = ({children, modal}: {children: ReactNode; modal: ReactNode}) => {
   return (
     <html lang="en" className={cn(sourceSans3.className, roboto.variable, stanford.variable)}>
       <body className="text-archway-dark">
@@ -64,16 +54,7 @@ const RootLayout = ({
           </a>
         </nav>
 
-        <div className="flex min-h-dvh flex-col">
-          {header}
-          <main id="main-content" className="flex-grow">
-            {children}
-
-            <ToastMessage />
-            <BackToTop />
-          </main>
-          {footer}
-        </div>
+        <div className="flex min-h-dvh flex-col">{children}</div>
         <div>{modal}</div>
       </body>
     </html>

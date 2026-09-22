@@ -96,6 +96,51 @@ If a field is added in the Drupal environment that is "required", that field mus
 is strict and will throw an error if you include that field in a query, but the data is null. To solve this, either
 populate the data in Drupal or make the field optional.
 
+## Route Directories and Site Chrome
+
+The header, the `<main id="main-content">` region, and the footer are all rendered by
+[SiteChrome](./src/components/global/site-chrome.tsx). The root [app/layout.tsx](./app/layout.tsx) deliberately does
+**not** render it: that file is only the document shell (`<html>`/`<body>`, analytics, the skip link, and the `@modal`
+slot). Every route directory supplies the chrome from its own `layout.tsx`.
+
+The reason is the reduced header/footer. Basic pages carry a `sumMinimalHeadFoot` flag, and reading it requires the
+current node, which requires `params`. The root layout has no dynamic segment, so it can never see the path.
+
+**When you add a new route directory under `app/`, add a `layout.tsx` alongside it.** Without one the page renders with
+no header, no footer, and no `<main>` landmark.
+
+```tsx
+// app/[new-route]/layout.tsx
+import SiteChrome from "@components/global/site-chrome"
+import {ReactNode} from "react"
+
+const Layout = ({children}: {children: ReactNode}) => <SiteChrome>{children}</SiteChrome>
+
+export default Layout
+```
+
+If the route resolves a Drupal node and should honour the reduced chrome, resolve the flag with
+[hasMinimalChrome](./src/lib/drupal/chrome.ts) and pass it down, as
+[app/[[...slug]]/layout.tsx](./app/%5B%5B...slug%5D%5D/layout.tsx) and
+[app/preview/[[...slug]]/layout.tsx](./app/preview/%5B%5B...slug%5D%5D/layout.tsx) do. For published content this reads
+the cache entry the page itself populates, so it costs no extra request to Drupal.
+
+Three things to keep in mind:
+
+1. **Await the flag in the layout body.** Do not wrap `PageHeader`/`PageFooter` in a `<Suspense>` boundary or hand
+   `SiteChrome` an unresolved promise. Doing so leaves the footer boundary unresolved in the static shell on some
+   routes, and it adds keyed replay slots to the route's partial prerender state.
+2. **Do not use parallel route slots (`@header`, `@footer`) for this.** It was tried and reverted. On Vercel it caused
+   `Couldn't find all resumable slots by key/index during replaying` on unpublished and preview urls: each slot adds its
+   own keyed replay slot to a partially prerendered route's postponed state, and a `notFound()` during the resume pulls
+   those slots out of the tree so the replay can no longer match them. It also meant 404 pages rendered with no header
+   or footer.
+3. **Error and not-found boundaries replace the segment they sit above, including its layout.** That is why the root
+   [app/not-found.tsx](./app/not-found.tsx) renders its own `SiteChrome`.
+
+API route handlers under `app/api`, [app/sitemap.tsx](./app/sitemap.tsx), and anything rendered into the `@modal` slot
+should not have chrome.
+
 ## Cache
 
 This project uses [Next.JS "use cache" directive](https://nextjs.org/docs/app/api-reference/directives/use-cache).
@@ -120,6 +165,9 @@ implement our own logic.
 The layout consists of the global elements on all pages. This consists of the global header, footer, and the menu. Any
 site wide settings should also be used in the layout. The main menu in the header has cache tags: `menus` & `menu:main`.
 The config pages have the cache tag `config-pages` since all config pages are fetched with a single request.
+
+Those global elements live in [SiteChrome](./src/components/global/site-chrome.tsx) rather than in the root layout, and
+each route directory renders it from its own `layout.tsx`. See [Route Directories and Site Chrome](#route-directories-and-site-chrome).
 
 When a layout cache is invalidated, it has no impact on the route caches below. However, it will trigger every route to
 be rebuilt upon the next request. This shouldn't impact the CMS system since the route caches are still available.

@@ -8,9 +8,9 @@ import {getPathFromContext} from "@lib/drupal/utils"
  * Only basic pages carry `sumMinimalHeadFoot`, so every other bundle - and every route that isn't
  * a node at all, like the search page - keeps the full chrome.
  *
- * The header and footer slots call this for the same path the page itself resolves. For published
- * content that is a read of the cache entry {@link getEntityFromPath} already populated rather
- * than a second request to Drupal.
+ * The segment layouts call this for the same path the page itself resolves. For published content
+ * that is a read of the cache entry {@link getEntityFromPath} already populated rather than a
+ * second request to Drupal.
  *
  * @param slug         Route segments of the current url.
  * @param previewMode  When `true`, reads the draft revision so editors see the flag they just set.

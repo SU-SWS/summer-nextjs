@@ -1,6 +1,7 @@
 import SiteChrome from "@components/global/site-chrome"
 import {hasMinimalChrome} from "@lib/drupal/chrome"
 import {ReactNode} from "react"
+import WindowSync from "./window-sync"
 
 type Props = {
   children: ReactNode
@@ -14,7 +15,10 @@ type Props = {
  * costs no extra request to Drupal.
  */
 const Layout = async ({children, params}: Props) => (
-  <SiteChrome minimal={await hasMinimalChrome((await params).slug)}>{children}</SiteChrome>
+  <SiteChrome minimal={await hasMinimalChrome((await params).slug)}>
+    <WindowSync />
+    {children}
+  </SiteChrome>
 )
 
 export default Layout

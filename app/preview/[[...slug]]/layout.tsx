@@ -1,8 +1,8 @@
-import Editori11y from "@components/tools/editorially"
 import SiteChrome from "@components/global/site-chrome"
 import UnpublishedBanner from "@components/elements/unpublished-banner"
 import {hasMinimalChrome} from "@lib/drupal/chrome"
 import {ReactNode} from "react"
+import EditorTools from "./editor-tools"
 
 type Props = {
   children: ReactNode
@@ -19,7 +19,7 @@ type Props = {
  */
 const Layout = async ({children, params}: Props) => (
   <SiteChrome minimal={await hasMinimalChrome((await params).slug, true)}>
-    <Editori11y />
+    <EditorTools />
     <UnpublishedBanner status={false} message="Preview Mode" />
 
     {children}

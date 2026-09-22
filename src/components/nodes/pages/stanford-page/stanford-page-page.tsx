@@ -52,7 +52,7 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
   return (
     <article {...props} className={cn({"mb-32": !hasBannerOrCalculator}, props.className)}>
       <NodePageMetadata
-        pageTitle={node.title}
+        pageTitle={isHome ? undefined : node.title}
         metatags={node.metatag}
         backupDescription={getFirstText(node.suPageComponents)}
       />

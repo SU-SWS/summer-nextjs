@@ -137,7 +137,7 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
           )}
           {!!toArray(hit.sum_course_not_available).length && (
             <div>
-              <span className="font-semibold">Unavailable to: </span>
+              <span className="font-semibold">Course not open to: </span>
               {toArray(hit.sum_course_not_available).join(", ")}
             </div>
           )}

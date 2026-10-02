@@ -4,15 +4,16 @@ import Wysiwyg from "@components/elements/wysiwyg"
 import {H2} from "@components/elements/headers"
 import {HTMLAttributes} from "react"
 import cn from "@lib/utils/className"
-import {getIdAttribute} from "@lib/utils/text-tools"
+import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
 
 type Props = HTMLAttributes<HTMLElement> & {
   paragraph: ParagraphSumAccordion
+  headingIds?: HeadingIds
 }
 
-const SumAccordionParagraph = ({paragraph, ...props}: Props) => {
+const SumAccordionParagraph = ({paragraph, headingIds, ...props}: Props) => {
   const Element = paragraph.sumAccordionsHeading ? "article" : "div"
-  const id = paragraph.sumAccordionsHeading ? getIdAttribute(paragraph.sumAccordionsHeading) : undefined
+  const id = getHeadingId(paragraph.uuid, paragraph.sumAccordionsHeading, headingIds)
 
   return (
     <Element

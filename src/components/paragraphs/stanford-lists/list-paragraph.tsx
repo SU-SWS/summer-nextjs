@@ -7,13 +7,14 @@ import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behavi
 import cn from "@lib/utils/className"
 import Button from "@components/elements/button"
 import {getViewPagedItems, loadViewPage, VIEW_PAGE_SIZE} from "@lib/gql/gql-view-queries"
-import {getIdAttribute} from "@lib/utils/text-tools"
+import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordList
+  headingIds?: HeadingIds
 }
 
-const ListParagraph = async ({paragraph, ...props}: Props) => {
+const ListParagraph = async ({paragraph, headingIds, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const viewId = paragraph.suListView?.view || ""
   const displayId = paragraph.suListView?.display || ""
@@ -34,7 +35,7 @@ const ListParagraph = async ({paragraph, ...props}: Props) => {
   const ListWrapper: ElementType =
     paragraph.suListHeadline && behaviors.list_paragraph?.heading_behavior !== "remove" ? "section" : "div"
 
-  const id = paragraph.suListHeadline ? getIdAttribute(paragraph.suListHeadline) : undefined
+  const id = getHeadingId(paragraph.uuid, paragraph.suListHeadline, headingIds)
 
   return (
     <ListWrapper

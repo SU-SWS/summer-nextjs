@@ -5,14 +5,15 @@ import {ElementType, HtmlHTMLAttributes, Suspense} from "react"
 import {ParagraphStanfordFilteredList} from "@lib/gql/__generated__/graphql"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {getViewPagedItems, loadViewPage, VIEW_PAGE_SIZE} from "@lib/gql/gql-view-queries"
-import {getIdAttribute} from "@lib/utils/text-tools"
+import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
 import cn from "@lib/utils/className"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordFilteredList
+  headingIds?: HeadingIds
 }
 
-const FilteredListParagraph = async ({paragraph, ...props}: Props) => {
+const FilteredListParagraph = async ({paragraph, headingIds, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const viewId = paragraph.suFilteredListView?.view || ""
   const displayId = paragraph.suFilteredListView?.display || ""
@@ -35,7 +36,7 @@ const FilteredListParagraph = async ({paragraph, ...props}: Props) => {
 
   const ListWrapper: ElementType =
     paragraph.suListHeadline && behaviors.list_paragraph?.heading_behavior !== "remove" ? "section" : "div"
-  const id = paragraph.suListHeadline ? getIdAttribute(paragraph.suListHeadline) : undefined
+  const id = getHeadingId(paragraph.uuid, paragraph.suListHeadline, headingIds)
 
   return (
     <ListWrapper

@@ -9,14 +9,16 @@ import HeroBanner from "@components/patterns/hero-banner"
 import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
 import ActionLink from "@components/elements/action-link"
 import SumVideoParagraph from "@components/paragraphs/sum-video/video-paragraph"
+import {HeadingIds} from "@components/paragraphs/get-heading-ids"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumTopBanner
   pageTitle: string
   isHome?: boolean
+  headingIds?: HeadingIds
 }
 
-const SumTopBannerParagraph = ({paragraph, pageTitle, isHome, ...props}: Props) => {
+const SumTopBannerParagraph = ({paragraph, pageTitle, isHome, headingIds, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const bgColor = behaviors.sum_top_banner_behavior?.sum_top_banner_overlay_bkg
 
@@ -72,6 +74,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, isHome, ...props}: Props) 
                 <CardParagraph
                   key={card.uuid}
                   paragraph={card}
+                  headingIds={headingIds}
                   className={behaviors.su_card_styles?.sum_card_bg_color_variant ? "lg:mt-96" : ""}
                 />
               )

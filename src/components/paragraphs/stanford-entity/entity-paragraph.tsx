@@ -8,13 +8,14 @@ import cn from "@lib/utils/className"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {getEntityFromPath} from "@lib/gql/gql-queries"
 import {ImageCardSkeleton} from "@components/patterns/image-card"
-import {getIdAttribute} from "@lib/utils/text-tools"
+import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordEntity
+  headingIds?: HeadingIds
 }
 
-const EntityParagraph = async ({paragraph, ...props}: Props) => {
+const EntityParagraph = async ({paragraph, headingIds, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const entities = paragraph.suEntityItem || []
   const gridCols = ["lg:grid-cols-3", "lg:grid-cols-1", "lg:grid-cols-2"]
@@ -23,7 +24,7 @@ const EntityParagraph = async ({paragraph, ...props}: Props) => {
   const EntityWrapper: ElementType =
     paragraph.suEntityHeadline && behaviors.stanford_teaser?.heading_behavior !== "remove" ? "section" : "div"
 
-  const id = paragraph.suEntityHeadline ? getIdAttribute(paragraph.suEntityHeadline) : undefined
+  const id = getHeadingId(paragraph.uuid, paragraph.suEntityHeadline, headingIds)
 
   return (
     <EntityWrapper

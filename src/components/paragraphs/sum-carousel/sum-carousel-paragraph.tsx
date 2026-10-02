@@ -14,18 +14,19 @@ import {getParagraphBehaviors} from "../get-paragraph-behaviors"
 import cn from "@lib/utils/className"
 import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
 import SumSlideTeaserParagraph from "@components/paragraphs/sum-slide-teaser/sum-slide-teaser-paragraph"
-import {getIdAttribute} from "@lib/utils/text-tools"
+import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
 
 type Props = HTMLAttributes<HTMLElement> & {
   paragraph: ParagraphSumCarousel
+  headingIds?: HeadingIds
 }
 
-const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
+const SumCarouselParagraph = ({paragraph, headingIds, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const isArcBanner = behaviors.sum_carousel?.sum_carousel_arc
   const headingSize = behaviors.sum_carousel?.sum_carousel_text_size ? "type-3" : "type-4"
   const Element = paragraph.sumCarouselHeader ? "article" : "div"
-  const id = paragraph.sumCarouselHeader ? getIdAttribute(paragraph.sumCarouselHeader) : undefined
+  const id = getHeadingId(paragraph.uuid, paragraph.sumCarouselHeader, headingIds)
 
   return (
     <Element {...props} aria-labelledby={paragraph.sumCarouselHeader ? id : undefined}>
@@ -65,6 +66,7 @@ const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
                   slideNumber={slideIndex + 1}
                   totalSlides={paragraph.sumCarouselSlides?.length || 0}
                   slideHeader={paragraph.sumCarouselHeader ? "h3" : "h2"}
+                  headingIds={headingIds}
                 />
               )
             })}
@@ -80,11 +82,13 @@ const CarouselSlide = ({
   slideNumber,
   totalSlides,
   slideHeader,
+  headingIds,
 }: {
   slide: ParagraphSumCarouselSumCarouselSlidesUnion
   slideNumber: number
   totalSlides: number
   slideHeader?: "h2" | "h3"
+  headingIds?: HeadingIds
 }) => {
   const slideCopy = {...slide}
 
@@ -97,7 +101,7 @@ const CarouselSlide = ({
     }
     slideCopy.behaviors = JSON.stringify(slideBehaviors)
 
-    if (slideCopy.suCardHeader) labelId = slideCopy.uuid
+    labelId = getHeadingId(slideCopy.uuid, slideCopy.suCardHeader, headingIds)
   }
 
   if (slideCopy.__typename === "ParagraphSumSlideTeaser") labelId = slideCopy.sumSlideTeaserEntity.uuid
@@ -109,7 +113,9 @@ const CarouselSlide = ({
       aria-labelledby={labelId}
       aria-label={labelId ? undefined : `${slideNumber} of ${totalSlides}`}
     >
-      {slideCopy.__typename === "ParagraphStanfordCard" && <CardParagraph paragraph={slideCopy} linkTabIndex={-1} />}
+      {slideCopy.__typename === "ParagraphStanfordCard" && (
+        <CardParagraph paragraph={slideCopy} linkTabIndex={-1} headingIds={headingIds} />
+      )}
       {slideCopy.__typename === "ParagraphSumSlideTeaser" && <SumSlideTeaserParagraph paragraph={slideCopy} />}
     </div>
   )

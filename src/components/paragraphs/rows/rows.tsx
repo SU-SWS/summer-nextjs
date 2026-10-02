@@ -6,6 +6,7 @@ import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behavi
 import {LayoutParagraphBehaviors} from "@lib/drupal/drupal-jsonapi.d"
 import {HTMLAttributes} from "react"
 import cn from "@lib/utils/className"
+import {getHeadingIds, HeadingIds} from "@components/paragraphs/get-heading-ids"
 
 type Layout = Record<
   string,
@@ -19,10 +20,15 @@ type Layout = Record<
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   components?: Maybe<ParagraphUnion[]>
+  /**
+   * Unique heading ids, when the page displays other paragraphs outside of the rows.
+   */
+  headingIds?: HeadingIds
 }
 
-const Rows = async ({components, className, ...props}: Props) => {
+const Rows = async ({components, headingIds, className, ...props}: Props) => {
   if (!components) return
+  const uniqueHeadingIds = headingIds || getHeadingIds(components)
   const layouts: Layout = {}
 
   // Set the layouts first.
@@ -56,6 +62,7 @@ const Rows = async ({components, className, ...props}: Props) => {
           layout={layouts[layoutId].layout}
           layoutSettings={layouts[layoutId].config}
           items={layouts[layoutId].children}
+          headingIds={uniqueHeadingIds}
         />
       ))}
     </div>
@@ -66,17 +73,19 @@ const Row = ({
   layout,
   layoutSettings,
   items,
+  headingIds,
 }: {
   layout: LayoutParagraphBehaviors["layout"]
   layoutSettings?: Record<string, unknown>
   items: ParagraphUnion[]
+  headingIds: HeadingIds
 }) => {
   if (layout === "layout_paragraphs_2_column")
-    return <TwoColumn config={layoutSettings as TwoColumnConfig} items={items} />
-  if (layout === "layout_paragraphs_3_column") return <ThreeColumn items={items} />
+    return <TwoColumn config={layoutSettings as TwoColumnConfig} items={items} headingIds={headingIds} />
+  if (layout === "layout_paragraphs_3_column") return <ThreeColumn items={items} headingIds={headingIds} />
 
   // Fall back to one column if the layout is unknown.
-  return <OneColumn items={items} />
+  return <OneColumn items={items} headingIds={headingIds} />
 }
 
 export default Rows

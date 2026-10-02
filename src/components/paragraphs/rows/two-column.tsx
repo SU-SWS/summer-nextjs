@@ -2,13 +2,15 @@ import OneColumn from "@components/paragraphs/rows/one-column"
 import {ParagraphUnion} from "@lib/gql/__generated__/graphql"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import cn from "@lib/utils/className"
+import {HeadingIds} from "@components/paragraphs/get-heading-ids"
 
 export type TwoColumnConfig = Record<string, string>
 type Props = {
   items: ParagraphUnion[]
   config?: TwoColumnConfig
+  headingIds?: HeadingIds
 }
-const TwoColumn = ({items, config}: Props) => {
+const TwoColumn = ({items, config, headingIds}: Props) => {
   const leftItems = items.filter(item => getParagraphBehaviors(item).layout_paragraphs?.region === "left")
   const rightItems = items.filter(item => getParagraphBehaviors(item).layout_paragraphs?.region !== "left")
 
@@ -23,8 +25,8 @@ const TwoColumn = ({items, config}: Props) => {
 
   return (
     <div className={cn("gutters grid gap-10 @6xl:gap-20", gridCols)} {...draftProps}>
-      <OneColumn items={leftItems} />
-      <OneColumn items={rightItems} />
+      <OneColumn items={leftItems} headingIds={headingIds} />
+      <OneColumn items={rightItems} headingIds={headingIds} />
     </div>
   )
 }

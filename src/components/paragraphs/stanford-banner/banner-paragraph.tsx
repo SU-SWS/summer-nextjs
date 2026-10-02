@@ -8,14 +8,15 @@ import ActionLink from "@components/elements/action-link"
 import Link from "@components/elements/link"
 import {ArrowRightIcon} from "@heroicons/react/24/outline"
 import Image from "next/image"
-import {getIdAttribute} from "@lib/utils/text-tools"
+import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordBanner
+  headingIds?: HeadingIds
   eagerLoadImage?: boolean
 }
 
-const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
+const BannerParagraph = ({paragraph, eagerLoadImage, headingIds, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const hasCard =
     paragraph.suBannerHeader || paragraph.suBannerButton || paragraph.suBannerBody || paragraph.suBannerSupHeader
@@ -29,7 +30,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, ...props}: Props) => {
   const isSection = !!paragraph.suBannerHeader
   const BannerWrapper: ElementType = isSection ? "section" : "div"
 
-  const id = paragraph.suBannerHeader ? getIdAttribute(paragraph.suBannerHeader) : undefined
+  const id = getHeadingId(paragraph.uuid, paragraph.suBannerHeader, headingIds)
   const headerProps = {id, className: cn(headerClasses, "rs-mb-3", {"sr-only": behaviors.hero_pattern?.hide_heading})}
 
   return (

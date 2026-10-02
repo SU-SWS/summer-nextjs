@@ -63,12 +63,12 @@ const DrupalLink = ({href, children, ...props}: Props) => {
       </Button>
     )
   }
-
+  const Component = href.startsWith("#") ? "a" : Link
   return (
-    <Link href={href} className={props.className} {...props}>
+    <Component href={href} className={props.className} {...props}>
       {children}
       {href.startsWith("mailto") && <EnvelopeIcon width={20} className="ml-4 inline-block" />}
-    </Link>
+    </Component>
   )
 }
 

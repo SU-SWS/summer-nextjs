@@ -120,7 +120,7 @@ const transformUnitItems = (items: RefinementListItem[]) => {
 const transformWeekdayItem = (items: RefinementListItem[]) => {
   return items.map(item => ({
     ...item,
-    label: item.label.toUpperCase(),
+    label: item.label.charAt(0).toUpperCase() + item.label.slice(1),
   }))
 }
 

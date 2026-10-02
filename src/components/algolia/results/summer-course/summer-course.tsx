@@ -35,6 +35,8 @@ export type CourseHit = AlgoliaHit & {
   sum_course_units?: number
   sum_course_instructors?: string | string[]
   sum_course_grading?: string | string[]
+  sum_course_weekday?: ("monday" | "tuesday" | "wednesday" | "thursday" | "friday")[]
+  sum_course_not_available?: string | string[]
 }
 
 type Props = {
@@ -66,6 +68,8 @@ const CourseAvailability = ({availabilityStatus}: Props) => {
       )
   }
 }
+
+const toArray = (input?: string | Array<string>) => (Array.isArray(input) ? input : [input]).filter(Boolean)
 
 const SummerCourse = ({hit}: {hit: CourseHit}) => {
   const {buttonProps, panelProps, expanded} = useAccordion()
@@ -131,10 +135,10 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
               {formatCurrency(hit.sum_course_course_cost)}
             </div>
           )}
-          {hit.sum_course_population && (
+          {!!toArray(hit.sum_course_not_available).length && (
             <div>
-              <span className="font-semibold">Population: </span>
-              {hit.sum_course_population.join(", ")}
+              <span className="font-semibold">Unavailable to: </span>
+              {toArray(hit.sum_course_not_available).join(", ")}
             </div>
           )}
         </div>

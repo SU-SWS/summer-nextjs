@@ -19,7 +19,7 @@ const FavoriteButton = ({uuid, title, path, units, ...props}: Props) => {
       role="switch"
       aria-checked={isFavorite}
       className={cn(
-        "hocus-visible:outline-3 rounded-full border-2 border-transparent hocus-visible:outline hocus-visible:outline-spirited-dark",
+        "rounded-full border-2 border-transparent hocus-visible:outline-spirited-dark hocus-visible:outline-solid",
         props.className
       )}
     >

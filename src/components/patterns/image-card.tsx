@@ -38,7 +38,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
     <CardWrapper
       {...props}
       className={cn(
-        "rs-mb-5 centered relative w-full rounded-[25px] lg:mb-0 lg:max-w-[920px] lg:border-4 lg:border-white xl:max-w-[980px]",
+        "relative centered rs-mb-5 w-full rounded-[25px] lg:mb-0 lg:max-w-[920px] lg:border-4 lg:border-white xl:max-w-[980px]",
         {"bg-transparent": hasBgColor, "bg-fog-light": !hasBgColor},
         props.className
       )}
@@ -57,7 +57,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
 
       {videoUrl && <Oembed url={videoUrl} />}
 
-      <div className={cn("flex flex-col", {"px-10 pb-20 pt-10 lg:px-20": !hasBgColor || (hasBgColor && imageUrl)})}>
+      <div className={cn("flex flex-col", {"px-25 pt-25 pb-50 lg:px-50": !hasBgColor || (hasBgColor && imageUrl)})}>
         {children}
       </div>
     </CardWrapper>
@@ -66,7 +66,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
 
 export const ImageCardSkeleton = () => {
   return (
-    <div className="centered w-full border border-black-10 pb-20 shadow-lg lg:max-w-[920px] xl:max-w-[980px]">
+    <div className="centered w-full border border-black-10 pb-50 shadow-lg lg:max-w-[920px] xl:max-w-[980px]">
       <div className="aspect-[16/9] w-full bg-black-10"></div>
     </div>
   )

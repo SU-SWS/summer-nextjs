@@ -22,7 +22,7 @@ const InteriorPage = async ({children, currentPath, menuItems, ...props}: Props)
   const subTree = topMenuItem ? topMenuItem.children : []
 
   return (
-    <div {...props} className={cn("centered flex gap-20", props.className)}>
+    <div {...props} className={cn("centered flex gap-50", props.className)}>
       {(subTree.length > 1 || subTree[0]?.children) && (
         <aside className="tw-hidden w-1/4 shrink-0 lg:block">
           <a href="#page-content" className="skiplink">
@@ -32,7 +32,7 @@ const InteriorPage = async ({children, currentPath, menuItems, ...props}: Props)
         </aside>
       )}
 
-      <div className="flex-grow" id="page-content">
+      <div className="grow" id="page-content">
         {children}
       </div>
     </div>

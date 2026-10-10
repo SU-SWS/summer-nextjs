@@ -16,7 +16,7 @@ const UserFavoriteParagraph = async ({...props}: Props) => {
   if (!appId || !indexName || !apiKey) return
 
   return (
-    <div {...props} className={cn("grid grid-cols-12 gap-12", props.className)}>
+    <div {...props} className={cn("grid grid-cols-12 gap-30", props.className)}>
       <div className="col-span-12 md:col-span-4 xl:col-span-3">
         <Suspense>
           <FavoritesList isDisplayOnly />
@@ -28,7 +28,7 @@ const UserFavoriteParagraph = async ({...props}: Props) => {
         </Suspense>
       </div>
 
-      <div className="rs-mt-6 col-span-12 md:col-span-6 md:col-start-7">
+      <div className="col-span-12 rs-mt-6 md:col-span-6 md:col-start-7">
         <ApplyNowLink href="/apply-now">
           Ready to dive in? Kick off your application today – let&apos;s make things happen!
         </ApplyNowLink>

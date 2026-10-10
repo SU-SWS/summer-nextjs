@@ -56,16 +56,16 @@ const RelatedCourses = async ({objectId}: {objectId: string}) => {
   return (
     <section
       aria-labelledby={`${objectId}-related`}
-      className="flex flex-col items-center justify-between gap-10 md:flex-row"
+      className="flex flex-col items-center justify-between gap-25 md:flex-row"
     >
       <ImageCard hasBgColor className="w-full p-0 text-center md:w-1/3 md:text-left lg:pt-0">
-        <H2 id={`${objectId}-related`} className="rs-mb-0 type-0 font-roboto font-normal uppercase">
+        <H2 id={`${objectId}-related`} className="rs-mb-0 font-roboto type-0 font-normal uppercase">
           Related Courses
         </H2>
         <p className="rs-mb-0 type-2 font-normal">Explore more courses</p>
       </ImageCard>
 
-      <ul className="list-unstyled grid grid-cols-1 gap-10 md:grid-cols-2">
+      <ul className="list-unstyled grid grid-cols-1 gap-25 md:grid-cols-2">
         {recommendations.map(rec => (
           <li key={rec.objectID}>
             <RelatedCourseItem item={rec} />
@@ -81,7 +81,7 @@ const RelatedCourseItem = ({item}: {item: CourseHit}) => {
   return (
     <ImageCard imageUrl={item.photo} imageAlt="" id={item.objectID}>
       <div className="flex flex-col">
-        <H3 className="rs-mb-0 order-2">
+        <H3 className="order-2 rs-mb-0">
           <ActionLink
             aria-labelledby={item.objectID}
             className="font-roboto font-normal"
@@ -90,7 +90,7 @@ const RelatedCourseItem = ({item}: {item: CourseHit}) => {
             {item.title}
           </ActionLink>
         </H3>
-        <div className="rs-mb-0 order-1 font-normal">{item.sum_course_catalog_number}</div>
+        <div className="order-1 rs-mb-0 font-normal">{item.sum_course_catalog_number}</div>
       </div>
     </ImageCard>
   )

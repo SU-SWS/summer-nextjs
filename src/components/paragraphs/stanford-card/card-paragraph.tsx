@@ -37,7 +37,7 @@ const CardParagraph = ({paragraph, linkTabIndex, headingIds, ...props}: Props) =
   const headerSize = behaviors.su_card_styles?.sum_card_heading_size
   const headerTag = headerTagChoice[0] as "h2" | "h3" | "h4" | "div"
   const headerType = adjustHeadingType(headerTag, headerSize)
-  const headerClasses = cn(headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "type-3 mb-12") || "mb-12", {
+  const headerClasses = cn(headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "mb-30 type-3") || "mb-30", {
     "type-4": headerType === 4,
     "type-3": headerType === 3,
     "type-2": headerType === 2,
@@ -62,7 +62,10 @@ const CardParagraph = ({paragraph, linkTabIndex, headingIds, ...props}: Props) =
       isArticle={!!paragraph.suCardHeader && headerTag !== "div"}
       bgColor={cardBgColor}
       hasBgColor={cardVariant !== "pill" ? hasBgColor : undefined}
-      className={cn("break-words sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]", props.className)}
+      className={cn(
+        "wrap-anywhere sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
+        props.className
+      )}
     >
       {paragraph.suCardHeader && (
         <>
@@ -74,7 +77,7 @@ const CardParagraph = ({paragraph, linkTabIndex, headingIds, ...props}: Props) =
       )}
 
       {paragraph.suCardSuperHeader && (
-        <div className="order-first mb-5 text-20 font-normal uppercase">{paragraph.suCardSuperHeader}</div>
+        <div className="order-first mb-12.5 text-20 font-normal uppercase">{paragraph.suCardSuperHeader}</div>
       )}
 
       <Wysiwyg html={paragraph.suCardBody?.processed} className="*:big-paragraph" />

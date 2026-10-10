@@ -2,6 +2,7 @@ import {H1} from "@components/elements/headers"
 import {graphqlClient} from "@lib/gql/gql-client"
 import {notFound} from "next/navigation"
 import {cacheTag} from "next/cache"
+import {cacheFailure} from "@lib/gql/gql-queries"
 import Image from "next/image"
 import {
   ParagraphDocument,
@@ -30,10 +31,15 @@ const Page = async (props: Props) => {
   const [paragraphId, mediaUuid] = params.uuid
   cacheTag("all-cache", "paragraphs", `paragraph:${paragraphId}`)
 
-  const paragraphQuery = await graphqlClient().request<ParagraphQuery, ParagraphQueryVariables>(ParagraphDocument, {
-    uuid: paragraphId,
-  })
-  if (paragraphQuery.paragraph?.__typename !== "ParagraphStanfordGallery") notFound()
+  let paragraphQuery: ParagraphQuery | undefined
+  try {
+    paragraphQuery = await graphqlClient().request<ParagraphQuery, ParagraphQueryVariables>(ParagraphDocument, {
+      uuid: paragraphId,
+    })
+  } catch (e) {
+    cacheFailure(`Unable to fetch gallery ${paragraphId}`, e)
+  }
+  if (paragraphQuery?.paragraph?.__typename !== "ParagraphStanfordGallery") notFound()
 
   const paragraph = paragraphQuery.paragraph as ParagraphStanfordGallery
   let galleryImages = mediaUuid
@@ -43,7 +49,7 @@ const Page = async (props: Props) => {
   galleryImages = galleryImages?.filter(image => !!image.suGalleryImage?.url)
 
   return (
-    <div className="centered my-32">
+    <div className="my-80 centered">
       <H1>{paragraph.suGalleryHeadline || "Media"}</H1>
       {galleryImages?.map(galleryImage => {
         if (!galleryImage.suGalleryImage?.url) return

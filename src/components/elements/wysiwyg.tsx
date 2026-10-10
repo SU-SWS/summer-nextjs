@@ -75,13 +75,10 @@ const options: HTMLReactParserOptions = {
 
         case "div":
           if (nodeProps.className && nodeProps.className.includes("left-bar")) {
-            nodeProps.className = cn(
-              nodeProps.className,
-              "rs-px-1 rs-pb-5 rs-pt-7 border-l-3 border-archway-dark border-opacity-50"
-            )
+            nodeProps.className = cn(nodeProps.className, "border-l-3 border-archway-dark/50 rs-pt-7 rs-px-1 rs-pb-5")
           }
           if (nodeProps.className?.includes("tight-spacing")) {
-            nodeProps.className = cn(nodeProps.className, "*:!mb-6 *:!mt-0")
+            nodeProps.className = cn(nodeProps.className, "*:mt-0! *:mb-15!")
           }
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
@@ -176,15 +173,15 @@ const fixClasses = (classes?: string | boolean): string => {
     .replaceAll(" text-align-center ", " text-center [&_a]:mx-auto ")
     .replace(" text-align-right ", " text-right ")
     .replaceAll(" align-center ", " mx-auto ")
-    .replaceAll(" align-left ", " float-left mr-10 mb-10 ")
-    .replaceAll(" align-right ", " float-right ml-10 mb-10 ")
+    .replaceAll(" align-left ", " float-left mr-25 mb-25 ")
+    .replaceAll(" align-right ", " float-right ml-25 mb-25 ")
     .replaceAll(" visually-hidden ", " sr-only ")
-    .replaceAll(" font-splash ", " splash-text type-5 ")
+    .replaceAll(" font-splash ", " splash-text ")
     .replaceAll(" callout-text ", " font-bold type-3 ")
-    .replaceAll(" related-text ", " shadow-lg border border-black-20 p-16 ")
+    .replaceAll(" related-text ", " shadow-lg border border-black-20 p-40 ")
     .replaceAll(
       " drop-cap ",
-      " type-2 first-letter:font-bold first-letter:type-5 first-letter:float-left first-letter:mt-2 first-letter:mb-1 first-letter:mr-4 first-letter:leading-[0.9] "
+      " type-2 first-letter:font-bold first-letter:type-5 first-letter:float-left first-letter:mt-5 first-letter:mb-2.5 first-letter:mr-10 first-letter:leading-[0.9] "
     )
     .replaceAll(" intro-text ", " type-3 ")
     .replace(/ tablesaw.*? /g, " ")
@@ -307,7 +304,7 @@ const WysiwygImage = ({
   if (width && height) {
     return (
       <Image
-        className={cn(fixClasses(className), "mb-10")}
+        className={cn(fixClasses(className), "mb-25")}
         src={src.trim()}
         alt={alt ? alt.trim() : ""}
         height={parseInt(`${height}`)}
@@ -316,7 +313,7 @@ const WysiwygImage = ({
     )
   }
   return (
-    <div className="relative mb-10 aspect-[16/9] w-full overflow-hidden">
+    <div className="relative mb-25 aspect-[16/9] w-full overflow-hidden">
       <Image
         className="object-cover object-center"
         src={src.trim()}

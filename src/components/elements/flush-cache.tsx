@@ -17,7 +17,7 @@ const FlushCache = () => {
     <form action={clearCache} className="fixed bottom-0 z-50">
       <button
         type="submit"
-        className="rounded-full border border-black-80 bg-white p-4 shadow hocus:bg-black-10 hocus:underline"
+        className="rounded-full border border-black-80 bg-white p-10 shadow-sm hocus:bg-black-10 hocus:underline"
       >
         Clear this page cache
       </button>

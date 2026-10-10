@@ -33,17 +33,17 @@ type MenuItemProps = (MenuItemType | BookLink) & {
 
 const MenuItem = ({id, url, title, children, activeTrail, level}: MenuItemProps) => {
   // Need to list them out each so tailwind will include each for styling.
-  const leftPadding = ["pl-10", "pl-20", "pl-28", "pl-48"]
+  const leftPadding = ["pl-25", "pl-50", "pl-70", "pl-120"]
 
   const linkClasses = cn(
     // Normal styles.
-    "relative inline-block w-full py-5 pl-10 no-underline hocus:underline",
+    "relative inline-block w-full py-12.5 pl-25 no-underline hocus:underline",
     {
       // Non-active state.
-      "text-digital-red before:scale-y-[1] before:transition hocus:text-black hocus:before:absolute hocus:before:left-0 hocus:before:top-0 hocus:before:block hocus:before:h-full hocus:before:w-[6px] hocus:before:bg-black hocus:before:content-['']":
+      "text-digital-red before:scale-y-[1] before:transition hocus:text-black hocus:before:absolute hocus:before:top-0 hocus:before:left-0 hocus:before:block hocus:before:h-full hocus:before:w-[6px] hocus:before:bg-black hocus:before:content-['']":
         activeTrail.at(-1) !== id,
       // Active state.
-      "text-black before:absolute before:left-0 before:top-0 before:block before:h-full before:w-[6px] before:bg-black before:content-['']":
+      "text-black before:absolute before:top-0 before:left-0 before:block before:h-full before:w-[6px] before:bg-black before:content-['']":
         activeTrail.at(-1) === id,
     }
   )

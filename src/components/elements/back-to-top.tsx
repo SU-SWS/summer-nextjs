@@ -19,9 +19,12 @@ const BackToTop = () => {
   return (
     <Button
       buttonElem
-      className={cn("tw-hidden invisible fixed bottom-24 right-4 z-50 opacity-0 transition-all duration-300 xl:block", {
-        "visible opacity-100": value,
-      })}
+      className={cn(
+        "invisible fixed right-10 bottom-60 z-50 tw-hidden opacity-0 transition-all duration-300 xl:block",
+        {
+          "visible opacity-100": value,
+        }
+      )}
       onClick={() => {
         const mainContent = document.getElementById("main-content")
         mainContent?.setAttribute("tabindex", "-1")
@@ -33,7 +36,7 @@ const BackToTop = () => {
         })
       }}
     >
-      <span className="flex items-center gap-2">
+      <span className="flex items-center gap-5">
         <ChevronUpIcon width={30} />
         Return to Top
       </span>

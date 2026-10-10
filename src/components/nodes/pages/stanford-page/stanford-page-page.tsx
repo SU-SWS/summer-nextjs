@@ -57,7 +57,7 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
   ])
 
   return (
-    <article {...props} className={cn({"mb-32": !hasBannerOrCalculator}, props.className)}>
+    <article {...props} className={cn({"mb-80": !hasBannerOrCalculator}, props.className)}>
       <NodePageMetadata
         pageTitle={isHome ? undefined : node.title}
         metatags={node.metatag}
@@ -83,7 +83,7 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
       )}
 
       {!pageTitleBanners.includes(node.suPageBanner?.__typename) && (
-        <H1 className={cn("centered mt-32", {"sr-only": isHome})}>{node.title}</H1>
+        <H1 className={cn("mt-80 centered", {"sr-only": isHome})}>{node.title}</H1>
       )}
 
       {!fullWidth && (

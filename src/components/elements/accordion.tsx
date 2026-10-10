@@ -45,16 +45,16 @@ const Accordion = ({button, children, headingLevel = "h2", ...props}: Props) => 
   return (
     <section
       aria-labelledby={`${id}-button`}
-      className="rs-px-3 centered border border-fog-light bg-fog-light even:border-transparent even:bg-white lg:max-w-[920px] xl:max-w-[980px]"
+      className="centered border border-fog-light bg-fog-light rs-px-3 even:border-transparent even:bg-white lg:max-w-[920px] xl:max-w-[980px]"
       {...props}
     >
-      <Heading className="rs-py-3 mb-0">
+      <Heading className="mb-0 rs-py-3">
         <button
           {...buttonProps}
           className={cn("group flex w-full items-center justify-between text-left", buttonProps?.className)}
         >
           {button}
-          <span className="grow-1 group-hocus:outline-3 m-4 rounded-full border-2 border-white bg-digital-red p-6 text-5xl font-normal text-white no-underline transition group-hocus:text-white group-hocus:underline group-hocus:outline group-hocus:outline-digital-red">
+          <span className="m-10 rounded-full border-2 border-white bg-digital-red p-15 text-5xl font-normal text-white no-underline transition group-hocus:text-white group-hocus:underline group-hocus:outline-digital-red group-hocus:outline-solid">
             {expanded && <MinusIcon height={30} className="ml-auto shrink-0" />}
 
             {!expanded && <PlusIcon height={30} className="ml-auto shrink-0" />}
@@ -63,7 +63,7 @@ const Accordion = ({button, children, headingLevel = "h2", ...props}: Props) => 
       </Heading>
 
       <div {...panelProps}>
-        <div className="mt-10 pb-24">{children}</div>
+        <div className="mt-25 pb-60">{children}</div>
       </div>
     </section>
   )

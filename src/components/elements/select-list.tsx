@@ -1,37 +1,21 @@
 "use client"
 
-import {JSX} from "react"
-import {useSelect, SelectOptionDefinition, SelectProvider, SelectValue} from "@mui/base/useSelect"
-import {useOption} from "@mui/base/useOption"
-import {
-  FocusEvent,
-  KeyboardEvent,
-  MouseEvent,
-  ReactNode,
-  RefObject,
-  useEffect,
-  useId,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react"
+import {JSX, ReactNode, useId, useRef, useState} from "react"
+import {Select} from "@base-ui/react/select"
 import {ChevronDownIcon} from "@heroicons/react/20/solid"
 import {Maybe} from "@lib/gql/__generated__/graphql"
 import cn from "@lib/utils/className"
 
-interface OptionProps {
-  rootRef: RefObject<HTMLUListElement | null>
-  children?: ReactNode
-  value: string
-  disabled?: boolean
-}
+// View the API for the select component here: https://base-ui.com/react/components/select.
+export type SelectOptionDefinition = {value: string; label: string}
+export type SelectValue = string | string[] | null
 
-const renderSelectedValue = (value: SelectValue<string, boolean>, options: SelectOptionDefinition<string>[]) => {
+const renderSelectedValue = (value: SelectValue, options: SelectOptionDefinition[]): ReactNode => {
   if (Array.isArray(value)) {
     return value.map(item => (
       <span
         key={item}
-        className="overflow-tw-hidden mb-2 block max-w-full text-ellipsis whitespace-nowrap rounded bg-archway p-5 text-white"
+        className="mb-5 block max-w-full rounded-[0.3rem] bg-archway p-12.5 text-ellipsis whitespace-nowrap text-white"
       >
         {renderSelectedValue(item, options)}
       </span>
@@ -41,62 +25,34 @@ const renderSelectedValue = (value: SelectValue<string, boolean>, options: Selec
   return selectedOption ? selectedOption.label : null
 }
 
-const CustomOption = (props: OptionProps) => {
-  const {children, value, rootRef, disabled = false} = props
-  const {getRootProps, highlighted, selected} = useOption({
-    rootRef: rootRef,
-    value,
-    disabled,
-    label: children,
-  })
-
-  const {id, ...otherProps}: {id: string} = getRootProps()
-  const selectedStyles = "bg-archway text-white " + (highlighted ? "underline" : "")
-  const highlightedStyles = "bg-black-10 text-black underline"
-
-  useEffect(() => {
-    if (highlighted && id && rootRef?.current?.parentElement) {
-      const item = document.getElementById(id)
-      if (item) {
-        const itemTop = item?.offsetTop
-        const itemHeight = item?.offsetHeight
-        const parentScrollTop = rootRef.current.parentElement.scrollTop
-        const parentHeight = rootRef.current.parentElement.offsetHeight
-
-        if (itemTop < parentScrollTop) {
-          rootRef.current.parentElement.scrollTop = itemTop
-        }
-
-        if (itemTop + itemHeight > parentScrollTop + parentHeight) {
-          rootRef.current.parentElement.scrollTop = itemTop - parentHeight + itemHeight
-        }
-      }
+const CustomOption = ({value, children}: {value: string | null; children: string}) => (
+  <Select.Item
+    value={value}
+    label={children}
+    className={({selected, highlighted}) =>
+      cn(
+        "m-0 mb-5 cursor-pointer overflow-hidden px-25 py-5 hocus:underline",
+        selected
+          ? cn("bg-archway text-white", {underline: highlighted})
+          : highlighted
+            ? "bg-black-10 text-black underline"
+            : "hocus:bg-black-10 hocus:text-black"
+      )
     }
-  }, [rootRef, id, highlighted])
-
-  return (
-    <li
-      {...otherProps}
-      id={id}
-      className={
-        "m-0 mb-2 cursor-pointer overflow-hidden px-10 py-2 hocus:underline " +
-        (selected ? selectedStyles : highlighted ? highlightedStyles : "hocus:bg-black-10 hocus:text-black")
-      }
-    >
-      {children}
-    </li>
-  )
-}
+  >
+    <Select.ItemText>{children}</Select.ItemText>
+  </Select.Item>
+)
 
 interface Props {
-  options: SelectOptionDefinition<string>[]
+  options: SelectOptionDefinition[]
   label?: Maybe<string>
   ariaLabelledby?: Maybe<string>
-  defaultValue?: SelectValue<string, boolean>
-  onChange?: (_event: MouseEvent | KeyboardEvent | FocusEvent | null, _value: SelectValue<string, boolean>) => void
+  defaultValue?: SelectValue
+  onChange?: (_event: Event | null, _value: SelectValue) => void
   multiple?: boolean
   disabled?: boolean
-  value?: SelectValue<string, boolean>
+  value?: SelectValue
   required?: boolean
   emptyValue?: Maybe<string>
   emptyLabel?: Maybe<string>
@@ -120,106 +76,87 @@ const SelectList = ({
   downIcon,
   buttonClassName,
   placeholder,
+  onChange,
+  onFocus,
+  disabled,
   ...props
 }: Props) => {
   const labelId = useId()
   const labeledBy = ariaLabelledby || labelId
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const inputRef = useRef<HTMLInputElement>(null)
-  const listboxRef = useRef<HTMLUListElement>(null)
-  const [listboxVisible, setListboxVisible] = useState<boolean>(false)
-
-  const {getButtonProps, getListboxProps, contextValue, value} = useSelect<string, boolean>({
-    listboxRef,
-    onOpenChange: setListboxVisible,
-    open: listboxVisible,
-    defaultValue,
-    multiple,
-    ...props,
-  })
-
-  useEffect(() => listboxRef.current?.focus(), [listboxVisible])
-
-  useLayoutEffect(() => {
-    const parentContainer = listboxRef.current?.parentElement?.getBoundingClientRect()
-    if (parentContainer && (parentContainer.bottom > window.innerHeight || parentContainer.top < 0)) {
-      listboxRef.current?.parentElement?.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      })
-    }
-  }, [listboxVisible, value])
-
-  const optionChosen = multiple && value ? value.length > 0 : !!value
+  // The trigger's layout depends on whether something is chosen, so track the value even when uncontrolled.
+  const [internalValue, setInternalValue] = useState<SelectValue>(defaultValue ?? (multiple ? [] : null))
+  const value = props.value !== undefined ? props.value : internalValue
+  const optionChosen = Array.isArray(value) ? value.length > 0 : !!value
 
   return (
-    <div className="relative h-fit">
-      <button
-        {...getButtonProps()}
-        className={cn(
-          "w-full rounded border-2 border-fog-light bg-fog-light text-left",
-          buttonClassName,
-          !optionChosen && "rs-p-3"
-        )}
-        aria-labelledby={labeledBy}
-      >
-        {label && (
-          <span
-            className={cn("relative block max-w-[calc(100%-30px)]", {
-              "type-0 top-[-15px] w-full": optionChosen,
-              "type-2": !optionChosen,
-            })}
-          >
-            <span id={labelId} className={cn("block w-fit bg-white px-5", {"bg-black-20": props.disabled})}>
-              {label}
-            </span>
-          </span>
-        )}
-
-        {optionChosen && (
-          <div className="rs-p-3 type-2 block max-w-[calc(100%-50px)] overflow-hidden">
-            {renderSelectedValue(value, options)}
-          </div>
-        )}
-        {!optionChosen && placeholder && <span className="type-2 block max-w-[calc(100%-60px)]">{placeholder}</span>}
-
-        <span className="rs-pr-3 absolute right-0 top-0 flex h-full items-center">
-          {downIcon || <ChevronDownIcon width={50} />}
-        </span>
-      </button>
-
-      <div
-        className={
-          "absolute left-0 top-full z-[10] max-h-[300px] w-full overflow-y-scroll border border-black-20 bg-white pb-5 shadow-lg " +
-          (listboxVisible ? "" : "tw-hidden")
-        }
-      >
-        <ul
-          {...getListboxProps()}
-          className={"list-unstyled " + (listboxVisible ? "" : "tw-hidden")}
-          aria-hidden={!listboxVisible}
+    <Select.Root<string | null, boolean>
+      value={value}
+      onValueChange={(newValue, eventDetails) => {
+        setInternalValue(newValue as SelectValue)
+        onChange?.(eventDetails.event, newValue as SelectValue)
+      }}
+      multiple={multiple}
+      required={required}
+      disabled={disabled}
+      name={name || undefined}
+      // Leave the page scrollable while the list is open, the same as a native select.
+      modal={false}
+    >
+      <div ref={containerRef} className="relative h-fit">
+        <Select.Trigger
+          className={cn(
+            "w-full rounded-[0.3rem] border-2 border-fog-light bg-fog-light text-left",
+            buttonClassName,
+            !optionChosen && "rs-p-3"
+          )}
           aria-labelledby={labeledBy}
+          onFocus={onFocus}
         >
-          <SelectProvider value={contextValue}>
-            {!required && !multiple && (
-              <CustomOption value={emptyValue || ""} rootRef={listboxRef}>
-                {emptyLabel}
-              </CustomOption>
-            )}
+          {label && (
+            <span
+              className={cn("relative block max-w-[calc(100%-30px)]", {
+                "top-[-15px] w-full type-0": optionChosen,
+                "type-2": !optionChosen,
+              })}
+            >
+              <span id={labelId} className={cn("block w-fit bg-white px-12.5", {"bg-black-20": disabled})}>
+                {label}
+              </span>
+            </span>
+          )}
 
-            {options.map(option => {
-              return (
-                <CustomOption key={option.value} value={option.value} rootRef={listboxRef}>
-                  {option.label}
-                </CustomOption>
-              )
-            })}
-          </SelectProvider>
-        </ul>
+          {optionChosen && (
+            <div className="block max-w-[calc(100%-50px)] overflow-hidden rs-p-3 type-2">
+              {renderSelectedValue(value, options)}
+            </div>
+          )}
+          {!optionChosen && placeholder && <span className="block max-w-[calc(100%-60px)] type-2">{placeholder}</span>}
+
+          <Select.Icon className="absolute top-0 right-0 flex h-full items-center rs-pr-3">
+            {downIcon || <ChevronDownIcon width={50} />}
+          </Select.Icon>
+        </Select.Trigger>
+
+        {/* Portal into the wrapper so the list inherits the surrounding typography. */}
+        <Select.Portal container={containerRef}>
+          <Select.Positioner alignItemWithTrigger={false} side="bottom" align="start" className="z-[10]">
+            <Select.Popup className="max-h-[min(300px,var(--available-height))] w-[var(--anchor-width)] overflow-y-auto border border-black-20 bg-white pb-12.5 shadow-lg outline-hidden">
+              <Select.List className="list-unstyled" aria-labelledby={labeledBy}>
+                {!required && !multiple && <CustomOption value={emptyValue || null}>{emptyLabel || ""}</CustomOption>}
+
+                {options.map(option => (
+                  <CustomOption key={option.value} value={option.value}>
+                    {option.label}
+                  </CustomOption>
+                ))}
+              </Select.List>
+            </Select.Popup>
+          </Select.Positioner>
+        </Select.Portal>
       </div>
-      {name && <input ref={inputRef} name={name} type="tw-hidden" value={value || ""} />}
-    </div>
+    </Select.Root>
   )
 }
 

@@ -56,7 +56,7 @@ const SumCarouselParagraph = ({paragraph, headingIds, ...props}: Props) => {
       )}
 
       {paragraph.sumCarouselSlides && (
-        <div className="relative left-1/2 mb-32 mt-0 w-screen -translate-x-1/2 overflow-x-hidden">
+        <div className="relative left-1/2 mt-0 mb-80 w-screen -translate-x-1/2 overflow-x-hidden">
           <Slideshow className="mx-auto w-[calc(100%-50px)] xl:w-[calc(100%-150px)]">
             {paragraph.sumCarouselSlides.map((slide, slideIndex) => {
               return (
@@ -133,14 +133,14 @@ type TopProps = {
 
 const CarouselTop = ({header, superHeader, headingSize, description, link, className, headerId}: TopProps) => {
   return (
-    <div className={cn("centered mb-20 text-center", className)}>
+    <div className={cn("centered mb-50 text-center", className)}>
       <div className="flex flex-col">
         {header && (
-          <H2 id={headerId} className={cn("mb-8 font-light", headingSize)}>
+          <H2 id={headerId} className={cn("mb-20 font-light", headingSize)}>
             {header}
           </H2>
         )}
-        {superHeader && <div className="order-first mb-8">{superHeader}</div>}
+        {superHeader && <div className="order-first mb-20">{superHeader}</div>}
       </div>
 
       <Wysiwyg
@@ -149,7 +149,7 @@ const CarouselTop = ({header, superHeader, headingSize, description, link, class
       />
 
       {link?.url && (
-        <ActionLink className="rs-mt-3 mx-auto no-underline hocus:underline" href={link.url}>
+        <ActionLink className="mx-auto rs-mt-3 no-underline hocus:underline" href={link.url}>
           {link.title}
         </ActionLink>
       )}

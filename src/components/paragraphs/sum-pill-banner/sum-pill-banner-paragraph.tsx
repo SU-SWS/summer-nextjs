@@ -22,11 +22,11 @@ const SumPillBannerParagraph = ({paragraph, headingIds, ...props}: Props) => {
   return (
     <Element
       {...props}
-      className={cn("relative left-1/2 !mt-0 w-screen -translate-x-1/2", props.className)}
+      className={cn("relative left-1/2 mt-0! w-screen -translate-x-1/2", props.className)}
       aria-labelledby={paragraph.sumPillBannerHeadline ? id : undefined}
     >
       {paragraph.sumPillBannerBkgd && (
-        <div className="absolute left-0 top-0 -z-10 h-full w-full">
+        <div className="absolute top-0 left-0 -z-10 h-full w-full">
           <div className="relative h-full w-full">
             <Image
               className="object-cover"
@@ -38,9 +38,9 @@ const SumPillBannerParagraph = ({paragraph, headingIds, ...props}: Props) => {
           </div>
         </div>
       )}
-      <div className="flex flex-col gap-20">
+      <div className="flex flex-col gap-50">
         <div
-          className={cn("rs-pt-10 w-full bg-poppy-light pb-96 text-center lg:last:*:rs-mb-5", {
+          className={cn("w-full bg-poppy-light rs-pt-10 pb-240 text-center lg:*:last:rs-mb-5", {
             "bg-olive": behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "olive",
             "bg-spirited text-black-true":
               behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited",
@@ -53,13 +53,13 @@ const SumPillBannerParagraph = ({paragraph, headingIds, ...props}: Props) => {
           <div className="gutters">
             <div className="flex flex-col">
               {paragraph.sumPillBannerHeadline && (
-                <H2 id={id} className="mb-8 font-light">
+                <H2 id={id} className="mb-20 font-light">
                   {paragraph.sumPillBannerHeadline}
                 </H2>
               )}
 
               {paragraph.sumPillBannerSuphead && (
-                <div className="order-first mb-8">{paragraph.sumPillBannerSuphead}</div>
+                <div className="order-first mb-20">{paragraph.sumPillBannerSuphead}</div>
               )}
             </div>
 
@@ -71,7 +71,7 @@ const SumPillBannerParagraph = ({paragraph, headingIds, ...props}: Props) => {
             {paragraph.sumPillBannerLink?.url && (
               <ActionLink
                 href={paragraph.sumPillBannerLink.url}
-                className={cn("rs-mt-3 mx-auto text-black-true hocus:text-black-true", {
+                className={cn("mx-auto rs-mt-3 text-black-true hocus:text-black-true", {
                   "text-white hocus:text-white":
                     behaviors.sum_pill_banner_behaviors?.sum_pill_banner_overlay_bkg === "spirited_dark",
                 })}
@@ -83,7 +83,7 @@ const SumPillBannerParagraph = ({paragraph, headingIds, ...props}: Props) => {
         </div>
 
         {paragraph.sumPillBannerCards && (
-          <div className="rs-mb-8 centered -mt-96 flex w-full flex-col gap-20 lg:flex-row">
+          <div className="-mt-240 centered rs-mb-8 flex w-full flex-col gap-50 lg:flex-row">
             {paragraph.sumPillBannerCards.map(card => (
               <PillBannerCard
                 key={card.uuid}

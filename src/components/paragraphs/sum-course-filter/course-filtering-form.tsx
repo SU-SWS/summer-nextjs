@@ -113,7 +113,7 @@ const transformUnitItems = (items: RefinementListItem[]) => {
     .filter(item => parseInt(item.label) > 0)
     .map(item => ({
       ...item,
-      label: item.label + (parseInt(item.label) > 1 ? " units" : " unit"),
+      label: item.label + (parseInt(item.label) > 1 ? "units" : "unit"),
     }))
 }
 
@@ -154,18 +154,18 @@ const SearchForm = () => {
   }, [query])
 
   return (
-    <div id="search-form" className="grid grid-cols-12 sm:gap-12">
+    <div id="search-form" className="grid grid-cols-12 sm:gap-30">
       <div className="col-span-12 flex flex-col lg:col-span-4 xl:col-span-3">
         <form className="flex flex-col" role="search" aria-label="Search Courses" onSubmit={e => e.preventDefault()}>
           <H2 className="sr-only">Search and filter course results</H2>
-          <div className="mb-10">
+          <div className="mb-25">
             <label className="text-18 font-semibold" htmlFor={`${id}-search-input`}>
               Search courses<span className="sr-only">&nbsp;by keywords</span>
             </label>
-            <div className="relative mt-4">
+            <div className="relative mt-10">
               <input
                 id={`${id}-search-input`}
-                className="type-0 w-full flex-grow border-3 border-fog px-8 py-5"
+                className="w-full grow border-3 border-fog px-20 py-12.5 type-0"
                 ref={inputRef}
                 autoComplete="on"
                 spellCheck={false}
@@ -176,13 +176,13 @@ const SearchForm = () => {
               />
               <button
                 type="submit"
-                className="group absolute right-0 top-0 mr-[1rem] flex h-full items-center"
+                className="group absolute top-0 right-0 mr-[1rem] flex h-full items-center"
                 onClick={() => refine(inputRef.current?.value || "")}
               >
                 <span className="sr-only">Submit Search</span>
                 <MagnifyingGlassIcon
                   width={40}
-                  className="group-hocus:outline-3 block rounded-full border-2 border-white bg-digital-red p-3 text-white group-hocus:outline group-hocus:outline-digital-red"
+                  className="block rounded-full border-2 border-white bg-digital-red p-7.5 text-white group-hocus:outline-digital-red group-hocus:outline-solid"
                 />
               </button>
             </div>
@@ -211,14 +211,14 @@ const SearchForm = () => {
           <CustomCurrentRefinements />
         </form>
 
-        <div className="rs-mb-2 order-first">
+        <div className="order-first rs-mb-2">
           <FavoritesList />
         </div>
       </div>
       <div className="col-span-12 lg:col-span-8 xl:col-span-9">
         <HitList />
       </div>
-      <div className="rs-mt-8 col-span-12 lg:col-span-8 lg:col-start-5 xl:col-span-6 xl:col-start-6">
+      <div className="col-span-12 rs-mt-8 lg:col-span-8 lg:col-start-5 xl:col-span-6 xl:col-start-6">
         <ApplyNowLink href="/apply-now">
           Ready to dive in? Kick off your application today – let&apos;s make things happen!
         </ApplyNowLink>
@@ -233,7 +233,7 @@ const CustomCurrentRefinements = () => {
 
   return (
     <Button
-      className="my-16"
+      className="my-40"
       centered
       buttonElem
       secondary
@@ -272,7 +272,7 @@ const RefinementInput = ({
   return (
     <fieldset className="rs-mb-1">
       <legend className="w-full border-t border-black">
-        <H3 className="my-5 pb-0 text-18">
+        <H3 className="my-12.5 pb-0 text-18">
           <button {...buttonProps} className="flex w-full items-center justify-between hocus:underline">
             {label}
             <ChevronDownIcon width={20} className={cn({"rotate-180": expanded})} />
@@ -281,14 +281,17 @@ const RefinementInput = ({
       </legend>
       <div {...panelProps}>
         {refinementOptions.map(refinementOption => (
-          <label key={refinementOption.value} className="group mb-5 flex cursor-pointer items-center gap-5 last:mb-0">
+          <label
+            key={refinementOption.value}
+            className="group mb-12.5 flex cursor-pointer items-center gap-12.5 last:mb-0"
+          >
             <input
-              className="peer block h-[2.4rem] w-[2.4rem] cursor-pointer border-2 border-black-70 outline-none transition-all checked:border-lagunita-light checked:text-lagunita hocus:border-lagunita hocus:bg-[#99D7E1] hocus:text-lagunita-dark hocus:ring-4 hocus:ring-[#99D7E1]"
+              className="peer block h-[2.4rem] w-[2.4rem] cursor-pointer border-2 border-black-70 outline-hidden transition-all checked:border-lagunita-light checked:text-lagunita hocus:border-lagunita hocus:bg-[#99D7E1] hocus:text-lagunita-dark hocus:ring-4 hocus:ring-[#99D7E1]"
               type="checkbox"
               checked={refinementOption.isRefined}
               onChange={() => refineOption(refinementOption.value)}
             />
-            <span className="peer-focus:underline group-hocus:underline">{refinementOption.label}</span>
+            <span className="group-hocus:underline peer-focus:underline">{refinementOption.label}</span>
           </label>
         ))}
       </div>
@@ -302,7 +305,7 @@ const HitList = () => {
 
   return (
     <div>
-      <H2 className="rs-ml-1 big-paragraph font-normal" aria-live="polite" aria-atomic>
+      <H2 className="rs-ml-1 big-paragraph! font-normal" aria-live="polite" aria-atomic>
         {hits.length === 0 && "No results for your search. Please try another search."}
         {hits.length > 0 && `${nbHits} ${nbHits > 1 ? "results" : "result"}`}
       </H2>
@@ -323,7 +326,7 @@ const HitList = () => {
       {!isLastPage && (
         <Button big centered onClick={showMore}>
           Load more<span className="sr-only">results</span>
-          <ChevronDownIcon className="ml-5 inline-block" width={30} />
+          <ChevronDownIcon className="ml-12.5 inline-block" width={30} />
         </Button>
       )}
     </div>

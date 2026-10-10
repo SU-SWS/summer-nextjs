@@ -46,11 +46,11 @@ const HeroBanner = ({
     <BannerWrapper
       {...props}
       className={cn(
-        "rs-mb-5 relative left-1/2 flex w-screen -translate-x-1/2 flex-col @container lg:block lg:min-h-[400px]",
+        "@container relative left-1/2 rs-mb-5 flex w-screen -translate-x-1/2 flex-col lg:block lg:min-h-[400px]",
         props.className
       )}
     >
-      <div className="lg:aspect-auto relative order-2 aspect-[16/9] w-full bg-cool-grey lg:absolute lg:h-full">
+      <div className="relative order-2 aspect-[16/9] w-full bg-cool-grey lg:absolute lg:h-full">
         {imageUrl && (
           <Image
             className="object-cover"
@@ -66,10 +66,10 @@ const HeroBanner = ({
       {children && (
         <div
           className={cn(
-            "rs-px-5 rs-py-8 relative order-1 flex w-full flex-col bg-white lg:z-10 lg:w-[calc(50%_-_5rem)]",
+            "relative order-1 flex w-full flex-col bg-white rs-py-8 rs-px-5 lg:z-10 lg:w-[calc(50%_-_5rem)]",
             {
-              "lg:ml-auto lg:mr-20": overlayPosition === "right",
-              "lg:ml-20 lg:mr-auto": overlayPosition !== "right",
+              "lg:mr-50 lg:ml-auto": overlayPosition === "right",
+              "lg:mr-auto lg:ml-50": overlayPosition !== "right",
             },
             cardClassName
           )}

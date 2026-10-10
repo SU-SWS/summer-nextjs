@@ -16,14 +16,14 @@ const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
 
   return (
     <ImageCard {...props} aria-labelledby={node.uuid} imageUrl={image?.url} isArticle isSquare className="h-full">
-      <div className="flex-start mb-5 flex flex-col">
+      <div className="flex-start mb-12.5 flex flex-col">
         <Heading className="type-1 [&_a]:text-black" id={node.uuid}>
           <Link className="stretched-link" href={node.suOppSource?.url || node.path || "#"}>
             {node.title}
           </Link>
         </Heading>
 
-        <div className="order-first mb-3 flex flex-row gap-3">
+        <div className="order-first mb-7.5 flex flex-row gap-7.5">
           <span>{node.sumOppDay}</span>
           <span>
             {node.sumOppMonth && new Date(2000, node.sumOppMonth - 1).toLocaleString("en-us", {month: "long"})}
@@ -37,7 +37,7 @@ const StanfordOpportunityCard = ({node, headingLevel, ...props}: Props) => {
       {node.suOppCardFooter && <Wysiwyg html={node.suOppCardFooter.processed} />}
       {node.suOppIcon && (
         <div
-          className={`absolute bottom-[1.9rem] right-0 mr-10 text-[30px] text-lagunita ${node.suOppIcon.style} fa-${node.suOppIcon.iconName}`}
+          className={`absolute right-0 bottom-[1.9rem] mr-25 text-[30px] text-lagunita ${node.suOppIcon.style} fa-${node.suOppIcon.iconName}`}
         />
       )}
     </ImageCard>

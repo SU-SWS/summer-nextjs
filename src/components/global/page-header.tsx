@@ -22,7 +22,7 @@ const PageHeader = async ({minimal}: Props) => {
   return (
     <header className="shadow-lg">
       <div className="border-b-4 border-white bg-cardinal-red">
-        <div className="centered py-3">
+        <div className="centered py-7.5">
           <a
             className="logo text-20 text-white no-underline hocus:text-white hocus:underline"
             href="https://www.stanford.edu"
@@ -34,7 +34,7 @@ const PageHeader = async ({minimal}: Props) => {
       <GlobalMessage />
       <div className="relative border-b-4 border-white bg-fog-light">
         <div className={cn("w-full", {"border-b-2 lg:border-b-0": !minimal})}>
-          <div className={cn("min-h-50 rs-py-2 centered lg:pr-0", {"pr-24": !minimal})}>
+          <div className={cn("centered rs-py-2 lg:pr-0", {"pr-60": !minimal})}>
             <div className="flex w-full justify-between">
               <Lockup />
               {!minimal && (

@@ -23,19 +23,19 @@ const SumAtAGlanceParagraph = ({paragraph, headingIds, ...props}: Props) => {
   return (
     <Element
       {...props}
-      className={cn("centered flex flex-col gap-20 @container", props.className)}
+      className={cn("@container centered flex flex-col gap-50", props.className)}
       aria-labelledby={paragraph.sumAtAGlanceHeadline ? id : undefined}
     >
-      <div className="grid gap-y-10 @6xl:grid-cols-2">
+      <div className="grid gap-y-25 @6xl:grid-cols-2">
         <div className="mt-auto h-fit">
           <div
-            className={cn("h-40 border-archway-dark border-opacity-50", {
+            className={cn("h-100 border-archway-dark/50", {
               "border-l-3": !headingOnLeft,
               "border-r-3": headingOnLeft,
             })}
           />
           <div
-            className={cn("h-fit border-archway-dark border-opacity-50 p-20", {
+            className={cn("h-fit border-archway-dark/50 p-50", {
               "border-l-3": !headingOnLeft,
               "border-r-3": headingOnLeft,
             })}
@@ -49,27 +49,27 @@ const SumAtAGlanceParagraph = ({paragraph, headingIds, ...props}: Props) => {
           </div>
         </div>
         <div
-          className={cn("items-ba grid grid-cols-1 md:grid-cols-2", {
+          className={cn("grid grid-cols-1 md:grid-cols-2", {
             "@6xl:order-first": !headingOnLeft,
           })}
         >
           <div
-            className={cn("mt-auto border-archway-dark border-opacity-50", {
-              "border-l-3 md:h-80": !headingOnLeft,
-              "h-40 border-r-3 md:h-60": headingOnLeft,
+            className={cn("mt-auto border-archway-dark/50", {
+              "border-l-3 md:h-200": !headingOnLeft,
+              "h-100 border-r-3 md:h-150": headingOnLeft,
             })}
           />
           <div
-            className={cn("mt-auto border-archway-dark border-opacity-50", {
-              "h-40 border-l-3 md:h-60": !headingOnLeft,
-              "border-r-3 md:h-80": headingOnLeft,
+            className={cn("mt-auto border-archway-dark/50", {
+              "h-100 border-l-3 md:h-150": !headingOnLeft,
+              "border-r-3 md:h-200": headingOnLeft,
             })}
           />
 
           {paragraph.sumAtAGlanceFacts.map((fact, i) => (
             <div
               key={fact.uuid}
-              className={cn("border-archway-dark border-opacity-50 p-10", {
+              className={cn("border-archway-dark/50 p-25", {
                 "border-l-3": !headingOnLeft,
                 "border-r-3": headingOnLeft,
                 "md:order-last": i % 2 === 1,
@@ -82,7 +82,7 @@ const SumAtAGlanceParagraph = ({paragraph, headingIds, ...props}: Props) => {
 
           {paragraph.sumAtAGlanceFacts.length % 2 === 1 && (
             <div
-              className={cn("border-archway-dark border-opacity-50 p-10", {
+              className={cn("border-archway-dark/50 p-25", {
                 "border-l-3": !headingOnLeft,
                 "border-r-3": headingOnLeft,
               })}

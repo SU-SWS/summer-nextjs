@@ -12,7 +12,7 @@ const CoursesLearnerType = async ({items, totalItems, loadPage}: ViewDisplayProp
           Load More<span className="sr-only">&nbsp;Courses</span>
         </>
       }
-      ulProps={{className: "list-unstyled mb-20 lg:grid lg:grid-cols-3 gap-20"}}
+      ulProps={{className: "list-unstyled mb-50 lg:grid lg:grid-cols-3 gap-50"}}
       totalItems={totalItems}
       loadPage={loadPage}
     >

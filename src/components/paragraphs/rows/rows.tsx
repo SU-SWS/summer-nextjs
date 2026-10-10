@@ -55,7 +55,13 @@ const Rows = async ({components, headingIds, className, ...props}: Props) => {
   })
 
   return (
-    <div className={cn("space-y-32 @container", className)} {...props}>
+    <div
+      className={cn(
+        "@container [&>:not([hidden])~:not([hidden])]:mt-80 [&>:not([hidden])~:not([hidden])]:mb-0",
+        className
+      )}
+      {...props}
+    >
       {Object.keys(layouts).map(layoutId => (
         <Row
           key={layoutId}

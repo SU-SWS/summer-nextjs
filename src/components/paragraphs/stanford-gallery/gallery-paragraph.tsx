@@ -21,7 +21,7 @@ const GalleryParagraph = ({paragraph, headingIds, ...props}: Props) => {
     <GalleryWrapper
       {...props}
       className={cn(
-        "centered mb-20 flex flex-col gap-10 @container lg:max-w-[920px] xl:max-w-[980px]",
+        "@container centered mb-50 flex flex-col gap-25 lg:max-w-[920px] xl:max-w-[980px]",
         props.className
       )}
       aria-labelledby={paragraph.suGalleryHeadline ? id : undefined}
@@ -45,7 +45,7 @@ const GalleryParagraph = ({paragraph, headingIds, ...props}: Props) => {
       <div className="relative left-1/2 mt-[150px] w-screen -translate-x-1/2 md:mt-[250px] lg:mt-[300px]">
         <Image className="object-cover" src="/images/temp-bg.jpg" alt="/" fill sizes="100vw" />
 
-        <ul className="list-unstyled gutters -mt-[150px] mb-32 grid grid-cols-1-2 *:w-full *:overflow-hidden md:-mt-[250px] lg:-mt-[300px] xl:max-w-900">
+        <ul className="list-unstyled -mt-[150px] gutters mb-80 grid grid-cols-1-2 *:w-full *:overflow-hidden md:-mt-[250px] lg:-mt-[300px] xl:max-w-900">
           {paragraph.suGalleryImages?.[0] && (
             <>
               <GalleryImage
@@ -56,7 +56,7 @@ const GalleryParagraph = ({paragraph, headingIds, ...props}: Props) => {
               <GalleryImage
                 galleryId={paragraph.uuid}
                 image={paragraph.suGalleryImages[0]}
-                linkClasses="aspect-1 rounded-full"
+                linkClasses="aspect-square rounded-full"
               />
             </>
           )}
@@ -66,7 +66,7 @@ const GalleryParagraph = ({paragraph, headingIds, ...props}: Props) => {
               <GalleryImage
                 galleryId={paragraph.uuid}
                 image={paragraph.suGalleryImages[3]}
-                linkClasses="aspect-1 rounded-bl-full"
+                linkClasses="aspect-square rounded-bl-full"
               />
               <GalleryImage
                 galleryId={paragraph.uuid}
@@ -81,7 +81,7 @@ const GalleryParagraph = ({paragraph, headingIds, ...props}: Props) => {
               <GalleryImage
                 galleryId={paragraph.uuid}
                 image={paragraph.suGalleryImages[5]}
-                linkClasses="aspect-1 w-full rounded-bl-full"
+                linkClasses="aspect-square w-full rounded-bl-full"
               />
               <GalleryImage
                 galleryId={paragraph.uuid}
@@ -89,8 +89,8 @@ const GalleryParagraph = ({paragraph, headingIds, ...props}: Props) => {
                 linkClasses="rounded-b-full"
               >
                 {paragraph.suGalleryImages.length > 6 && (
-                  <div className="absolute left-0 top-0 flex h-full w-full items-center justify-around rounded-b-full bg-black-true bg-opacity-55">
-                    <div className="type-5 font-roboto text-white" aria-hidden>
+                  <div className="absolute top-0 left-0 flex h-full w-full items-center justify-around rounded-b-full bg-black-true/55">
+                    <div className="font-roboto type-5 text-white" aria-hidden>
                       + {paragraph.suGalleryImages.length - 6}
                     </div>
                     <div className="sr-only">{`${paragraph.suGalleryImages.length - 6} More images available`}</div>
@@ -123,7 +123,7 @@ const GalleryImage = ({
         <Link
           href={`/gallery/${galleryId}/${image.uuid}`}
           className={cn(
-            "relative block h-full w-full overflow-hidden border-5 border-white transition-colors hover:border-cardinal-red focus-visible:border-cardinal-red hocus:outline-none",
+            "relative block h-full w-full overflow-hidden border-5 border-white transition-colors hover:border-cardinal-red focus-visible:border-cardinal-red hocus:outline-hidden",
             linkClasses
           )}
         >

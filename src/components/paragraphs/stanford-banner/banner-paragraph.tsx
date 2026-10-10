@@ -25,7 +25,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, headingIds, ...props}: Prop
   const bgColor = behaviors.sum_banner_behaviors?.sum_banner_overlay_bkg
   const semiCircleButton = behaviors.sum_banner_behaviors?.sum_banner_button
   const headerTag = headerTagChoice[0]
-  const headerClasses = headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "type-3 font-bold")
+  const headerClasses = headerTagChoice[1]?.replace(".", "").replace("su-font-splash", "type-3 font-bold")
   const overlayPosition = behaviors.hero_pattern?.overlay_position
   const isSection = !!paragraph.suBannerHeader
   const BannerWrapper: ElementType = isSection ? "section" : "div"
@@ -37,15 +37,15 @@ const BannerParagraph = ({paragraph, eagerLoadImage, headingIds, ...props}: Prop
     <BannerWrapper
       {...props}
       aria-labelledby={paragraph.suBannerHeader ? id : undefined}
-      className="relative left-1/2 !mt-0 flex w-screen -translate-x-1/2 flex-col border-t-4 border-t-white @container md:min-h-[400px] lg:block"
+      className="@container relative left-1/2 mt-0! flex w-screen -translate-x-1/2 flex-col border-t-4 border-t-white md:min-h-[400px] lg:block"
     >
       {hasCard && (
         <div
           className={cn(
-            "rs-px-5 rs-pb-8 rs-pt-10 relative mb-0 flex h-full min-h-[400px] w-full flex-col border-b-4 border-white bg-poppy-light lg:z-10 lg:w-[calc(50%_-_5rem)] lg:border-4 lg:border-y-0",
+            "relative mb-0 flex h-full min-h-[400px] w-full flex-col border-b-4 border-white bg-poppy-light rs-pt-10 rs-px-5 rs-pb-8 lg:z-10 lg:w-[calc(50%_-_5rem)] lg:border-4 lg:border-y-0",
             {
-              "lg:ml-auto lg:mr-20": overlayPosition === "right",
-              "lg:ml-20 lg:mr-auto": overlayPosition !== "right",
+              "lg:mr-50 lg:ml-auto": overlayPosition === "right",
+              "lg:mr-auto lg:ml-50": overlayPosition !== "right",
               "bg-olive-light": bgColor === "olive",
               "bg-spirited-light": bgColor === "spirited",
               "bg-spirited-dark text-white": bgColor === "spirited_dark",
@@ -62,7 +62,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, headingIds, ...props}: Prop
           )}
 
           {paragraph.suBannerSupHeader && (
-            <div className="rs-mb-1 order-first text-09em font-normal uppercase">{paragraph.suBannerSupHeader}</div>
+            <div className="order-first rs-mb-1 text-[.9em] font-normal uppercase">{paragraph.suBannerSupHeader}</div>
           )}
 
           <Wysiwyg html={paragraph.suBannerBody?.processed} className="big-paragraph" />
@@ -70,7 +70,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, headingIds, ...props}: Prop
           {paragraph.suBannerButton?.url && !semiCircleButton && (
             <div className="rs-pt-2">
               <ActionLink
-                className="btn rounded-full border-2 border-transparent bg-digital-red px-8 py-4 font-normal text-white transition hocus:border-white hocus:text-white"
+                className="btn rounded-full border-2 border-transparent bg-digital-red px-20 py-10 font-normal text-white transition hocus:border-white hocus:text-white"
                 href={paragraph.suBannerButton.url}
               >
                 {paragraph.suBannerButton.title}
@@ -79,7 +79,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, headingIds, ...props}: Prop
           )}
         </div>
       )}
-      <div className="lg:aspect-auto relative aspect-[16/9] w-full bg-cool-grey lg:absolute lg:top-0 lg:h-full">
+      <div className="relative aspect-[16/9] w-full bg-cool-grey lg:absolute lg:top-0 lg:h-full">
         {paragraph.suBannerImage?.mediaImage && (
           <Image
             className="object-cover"
@@ -90,16 +90,16 @@ const BannerParagraph = ({paragraph, eagerLoadImage, headingIds, ...props}: Prop
             sizes="100vw"
           />
         )}
-        <div className="rs-pr-1 absolute top-0 z-50 flex w-screen justify-end lg:bottom-0 lg:left-0 lg:top-auto lg:justify-center lg:p-0">
+        <div className="absolute top-0 z-50 flex w-screen justify-end rs-pr-1 lg:top-auto lg:bottom-0 lg:left-0 lg:justify-center lg:p-0">
           {paragraph.suBannerButton?.url && semiCircleButton && (
             <Link
-              className="group flex aspect-[2/1] h-fit w-[210px] items-start justify-center rounded-bl-full rounded-br-full border-4 border-b-4 border-t-0 border-white bg-spirited-dark text-white hocus:text-white md:w-[250px] lg:items-end lg:rounded-b-none lg:rounded-tl-full lg:rounded-tr-full lg:border-b-0 lg:border-t-4 2xl:w-[300px]"
+              className="group flex aspect-[2/1] h-fit w-[210px] items-start justify-center rounded-br-full rounded-bl-full border-4 border-t-0 border-b-4 border-white bg-spirited-dark text-white md:w-[250px] lg:items-end lg:rounded-tl-full lg:rounded-tr-full lg:rounded-b-none lg:border-t-4 lg:border-b-0 2xl:w-[300px] hocus:text-white"
               href={paragraph.suBannerButton.url}
             >
               <span className="sr-only">{paragraph.suBannerButton.title}</span>
               <ArrowRightIcon
                 width={60}
-                className="mt-10 inline-block w-[45px] border-b-2 border-transparent group-hocus:border-white lg:mb-10 lg:mt-0 2xl:mb-16 2xl:w-[60px]"
+                className="mt-25 inline-block w-[45px] border-b-2 border-transparent group-hocus:border-white lg:mt-0 lg:mb-25 2xl:mb-40 2xl:w-[60px]"
               />
             </Link>
           )}

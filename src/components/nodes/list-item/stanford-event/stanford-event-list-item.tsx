@@ -21,14 +21,14 @@ const StanfordEventListItem = ({node, headingLevel, ...props}: Props) => {
   const startDay = parseInt(start.toLocaleDateString("en-US", {day: "numeric", timeZone}))
 
   // Fix difference between server side render and client side render. Replace any strange characters.
-  const dateTimeString = getEventTimeString(start, end, timeZone).replace(/[^a-zA-Z0-9 ,:\-|]/, " ")
+  const dateTimeString = getEventTimeString(start, end, timeZone).replace(/[^a-zA-Z0-9 ,:\-|]/, "")
   const Heading = headingLevel === "h3" ? H3 : H2
 
   return (
-    <article {...props} aria-labelledby={node.uuid} className={cn("mx-auto flex w-full gap-10 py-10", props.className)}>
+    <article {...props} aria-labelledby={node.uuid} className={cn("mx-auto flex w-full gap-25 py-25", props.className)}>
       <div aria-hidden className="flex w-fit flex-col items-start">
-        <div className="type-0 mb-4 w-full text-center font-semibold">{startMonth.toUpperCase()}</div>
-        <div className="type-5 w-full text-center font-bold">{startDay}</div>
+        <div className="mb-10 w-full text-center type-0 font-semibold">{startMonth.toUpperCase()}</div>
+        <div className="w-full text-center type-5 font-bold">{startDay}</div>
       </div>
       <div>
         <div className="flex flex-col">
@@ -41,20 +41,20 @@ const StanfordEventListItem = ({node, headingLevel, ...props}: Props) => {
             </Link>
           </Heading>
 
-          {node.suEventType && <div className="su-digital-red order-first">{node.suEventType[0].name}</div>}
+          {node.suEventType && <div className="order-first">{node.suEventType[0].name}</div>}
         </div>
 
-        {node.suEventSubheadline && <div className="type-2 mb-5 font-bold">{node.suEventSubheadline}</div>}
+        {node.suEventSubheadline && <div className="mb-12.5 type-2 font-bold">{node.suEventSubheadline}</div>}
         {node.suEventDek && <p>{node.suEventDek}</p>}
 
-        <time className="mb-5 flex items-center gap-5" dateTime={start.toISOString()}>
+        <time className="mb-12.5 flex items-center gap-12.5" dateTime={start.toISOString()}>
           <CalendarDaysIcon width={30} className="shrink-0" />
           {dateTimeString}
         </time>
 
         {node.suEventLocation && (
           <div>
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-12.5">
               <MapPinIcon width={30} className="shrink-0" />
               <Address {...node.suEventLocation} />
             </div>
@@ -62,7 +62,7 @@ const StanfordEventListItem = ({node, headingLevel, ...props}: Props) => {
         )}
 
         {node.suEventAltLoc && (
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-12.5">
             <MapPinIcon width={30} className="shrink-0" />
             {node.suEventAltLoc}
           </div>

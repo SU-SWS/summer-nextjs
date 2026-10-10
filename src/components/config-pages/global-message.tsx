@@ -8,13 +8,20 @@ import {graphqlClient} from "@lib/gql/gql-client"
 import GlobalMessageClient from "@components/config-pages/global-message.client"
 import {cacheTag} from "next/cache"
 import {GlobalMessagesDocument, GlobalMessagesQuery} from "@lib/gql/__generated__/graphql"
+import {cacheFailure} from "@lib/gql/gql-queries"
 
 type Props = HTMLAttributes<HTMLElement> & {}
 
 const getGlobalMessage = async (): Promise<SummerGlobalMsg | undefined> => {
   "use cache: remote"
   cacheTag("global-message")
-  const messages = await graphqlClient().request<GlobalMessagesQuery>(GlobalMessagesDocument)
+  let messages: GlobalMessagesQuery
+  try {
+    messages = await graphqlClient().request<GlobalMessagesQuery>(GlobalMessagesDocument)
+  } catch (e) {
+    cacheFailure("Unable to fetch the global message", e)
+    return
+  }
   if (messages.summerGlobalMsgs.nodes?.[0]?.label) return messages.summerGlobalMsgs.nodes[0] as SummerGlobalMsg
 }
 
@@ -33,9 +40,9 @@ const GlobalMessage = async ({...props}: Props) => {
         .map(path => path.trim())}
     >
       <div className="md:centered">
-        <div className="flex w-full flex-col items-center justify-between gap-10 rounded-b-[25px] bg-illuminating-dark px-16 py-10 md:flex-row lg:w-3/4">
+        <div className="flex w-full flex-col items-center justify-between gap-25 rounded-b-[25px] bg-illuminating-dark px-40 py-25 md:flex-row lg:w-3/4">
           <div>
-            <H2 id={globalMessageConfig.uuid} className="mb-3 text-23">
+            <H2 id={globalMessageConfig.uuid} className="mb-7.5 text-23">
               {globalMessageConfig.label}
             </H2>
             <Wysiwyg html={globalMessageConfig.sumGlobalMsgBody?.processed} />

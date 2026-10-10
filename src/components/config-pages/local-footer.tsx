@@ -63,12 +63,12 @@ const LocalFooter = async ({minimal}: Props) => {
     : localFooterConfig.suLocalFootSecond
 
   return (
-    <div className="local-footer bg-foggy-light py-20">
+    <div className="local-footer bg-fog-light py-50">
       <div className="centered">
         <div className="md:rs-mb-4">
           <FooterLockup {...lockupProps} />
         </div>
-        <div className="flex flex-col gap-32 lg:flex-row lg:gap-0 [&_a:focus]:underline [&_a:hover]:underline [&_a]:font-semibold [&_a]:no-underline [&_a]:transition">
+        <div className="flex flex-col gap-80 lg:flex-row lg:gap-0 [&_a]:font-semibold [&_a]:no-underline [&_a]:transition [&_a:focus]:underline [&_a:hover]:underline">
           <div className="mr-auto lg:w-1/4">
             {localFooterConfig.suLocalFootAddress && <Address {...localFooterConfig.suLocalFootAddress} />}
 
@@ -88,7 +88,7 @@ const LocalFooter = async ({minimal}: Props) => {
             <Wysiwyg html={localFooterConfig.suLocalFootPrCo?.processed} className="text-archway" />
 
             {localFooterConfig.suLocalFootSocial && (
-              <ul className="list-unstyled rs-mt-4 flex items-center gap-11 children:mb-0">
+              <ul className="list-unstyled rs-mt-4 flex items-center gap-27.5 *:mb-0">
                 {localFooterConfig.suLocalFootSocial.map((link, index) => {
                   if (!link.url) return
                   return (
@@ -186,8 +186,8 @@ const FooterLockup = ({useDefault = true, siteName, lockupOption, ...props}: Foo
   switch (lockupOption) {
     case "none":
       return (
-        <div className="w-fit py-10">
-          <Link href="/" className="flex flex-row gap-4 font-roboto no-underline">
+        <div className="w-fit py-25">
+          <Link href="/" className="flex flex-row gap-10 font-roboto no-underline">
             <LockupLogo {...lockupProps} />
           </Link>
         </div>
@@ -231,12 +231,12 @@ const FooterLockup = ({useDefault = true, siteName, lockupOption, ...props}: Foo
   }
 
   return (
-    <div className="py-10">
+    <div className="py-25">
       <Link href="/" className="flex flex-col text-black no-underline lg:flex-row lg:items-end">
-        <div className="border-black py-2 pr-4 lg:border-r">
+        <div className="border-black py-5 pr-10 lg:border-r">
           <LockupLogo {...lockupProps} />
         </div>
-        <div className="font-roboto text-28 font-light text-black lg:pl-4">{siteName || "University"}</div>
+        <div className="font-roboto text-28 font-light text-black lg:pl-10">{siteName || "University"}</div>
       </Link>
     </div>
   )

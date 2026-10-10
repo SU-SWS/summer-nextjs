@@ -27,7 +27,7 @@ const SumAccordionParagraph = ({paragraph, headingIds, ...props}: Props) => {
         </H2>
       )}
 
-      {paragraph.sumAccordionsDesc && <Wysiwyg html={paragraph.sumAccordionsDesc.processed} className="mb-20" />}
+      {paragraph.sumAccordionsDesc && <Wysiwyg html={paragraph.sumAccordionsDesc.processed} className="mb-50" />}
 
       {paragraph.sumAccordionsAccords.map(accordion => (
         <Accordion

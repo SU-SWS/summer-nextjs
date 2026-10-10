@@ -26,6 +26,9 @@ const config: CodegenConfig = {
         fragmentMasking: false,
       },
       config: {
+        // Emit operations as plain query strings rather than parsed AST, so the fetch client in
+        // gql-client.tsx can send them directly and `graphql` stays out of the runtime bundle.
+        documentMode: "string",
         // Emit enums as const objects for exhaustive type narrowing
         enumsAsConst: true,
         // Map Drupal custom scalars to appropriate TypeScript types

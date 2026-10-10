@@ -38,10 +38,10 @@ export const Lockup = async () => {
   if (!lockupSettingsConfig?.suLockupEnabled) {
     return (
       <Link href="/" className="flex flex-col text-black no-underline lg:flex-row lg:items-end">
-        <div className="border-black py-2 pr-4 lg:border-r">
+        <div className="border-black py-5 pr-10 lg:border-r">
           <LockupLogo {...lockupProps} />
         </div>
-        <div className="font-roboto text-28 font-light text-black lg:pl-4">{siteName || "University"}</div>
+        <div className="font-roboto text-28 font-light text-black lg:pl-10">{siteName || "University"}</div>
       </Link>
     )
   }
@@ -86,7 +86,7 @@ export const Lockup = async () => {
     case "none":
     default:
       return (
-        <Link href="/" className="flex flex-col gap-4 no-underline lg:flex-row">
+        <Link href="/" className="flex flex-col gap-10 no-underline lg:flex-row">
           <LockupLogo {...lockupProps} />
         </Link>
       )

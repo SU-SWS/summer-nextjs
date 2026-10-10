@@ -1,20 +1,147 @@
-import {GraphQLClient} from "graphql-request"
+/** A single error entry from Drupal's GraphQL endpoint. Drupal adds `debugMessage` to the spec fields. */
+export type DrupalGraphqlError = {
+  message: string
+  debugMessage?: string
+  path?: (string | number)[]
+  locations?: {line: number; column: number}[]
+  extensions?: Record<string, unknown>
+}
+
+/** Parsed body of a GraphQL response. */
+type GraphqlResponseBody<TResult> = {data?: TResult | null; errors?: DrupalGraphqlError[]}
+
+/** Drupal is given this long to answer before the request is abandoned, so a hung backend can't stall a render. */
+const REQUEST_TIMEOUT_MS = 15000
+
+/** Base class for every failed GraphQL request. Check for a subclass to tell the causes apart. */
+export class ClientError extends Error {
+  // Names are literal strings: production builds minify class names, which would turn logs into "f: ...".
+  name = "ClientError"
+}
+
+/** Drupal could not be reached: connection refused, DNS failure, or no answer within the timeout. */
+export class NetworkError extends ClientError {
+  name = "NetworkError"
+
+  constructor(
+    message: string,
+    readonly timedOut: boolean,
+    options?: ErrorOptions
+  ) {
+    super(message, options)
+  }
+}
+
+/** Drupal answered with an error status or a non-JSON body, such as a proxy or WAF error page. */
+export class HttpError extends ClientError {
+  name = "HttpError"
+
+  constructor(
+    message: string,
+    readonly status: number,
+    readonly errors?: DrupalGraphqlError[]
+  ) {
+    super(message)
+  }
+}
+
+/** Drupal answered, but the response carried GraphQL errors or no data. */
+export class GraphqlError extends ClientError {
+  name = "GraphqlError"
+
+  constructor(
+    message: string,
+    readonly errors: DrupalGraphqlError[] = []
+  ) {
+    super(message)
+  }
+}
+
+/**
+ * A readable summary of a failed request, for logs. Drupal's `debugMessage` is preferred and repeated
+ * messages are deduplicated.
+ */
+export const describeError = (error: unknown): string => {
+  const errors = error instanceof GraphqlError || error instanceof HttpError ? error.errors : undefined
+  const messages = errors?.map(e => e.debugMessage || e.message).filter(Boolean)
+  if (messages?.length) return [...new Set(messages)].join(" ")
+  return error instanceof Error ? error.message : String(error)
+}
 
 /**
  * Creates a configured GraphQL client for communicating with the Drupal backend.
  *
- * @param requestConfig - Optional fetch `RequestInit` options (excluding `method`) to pass to the client.
- * @param isPreviewMode - When `true`, admin credentials are preferred so draft/unpublished content is accessible.
- * @returns A `GraphQLClient` instance pointed at the Drupal GraphQL endpoint.
+ * Requests go through the global `fetch`. Caching is handled by the `"use cache"` functions that call
+ * the client (see gql-queries.ts and gql-views.ts), not by the fetch cache.
+ *
+ * @param requestConfig - Optional fetch `RequestInit` options (`method` and `body` are set by the
+ *   client) applied to every request, e.g. `signal`.
+ * @param isPreviewMode - When `true`, admin credentials are used so draft/unpublished content is accessible.
+ * @returns A client exposing `request()` for executing generated operations.
  */
-export const graphqlClient = (requestConfig: Omit<RequestInit, "method"> = {}, isPreviewMode?: boolean) => {
-  requestConfig.headers = buildHeaders(requestConfig.headers as HeadersInit, isPreviewMode)
+export const graphqlClient = (requestConfig: Omit<RequestInit, "method" | "body"> = {}, isPreviewMode?: boolean) => {
+  const baseHeaders = new Headers(requestConfig.headers)
+  // Set before buildHeaders so DRUPAL_REQUEST_HEADERS can still override it.
+  if (!baseHeaders.has("Content-Type")) baseHeaders.set("Content-Type", "application/json")
+  const headers = buildHeaders(baseHeaders, isPreviewMode)
+  const endpoint = process.env.NEXT_PUBLIC_DRUPAL_BASE_URL + "/graphql"
 
-  return new GraphQLClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL + "/graphql", {
-    ...requestConfig,
-    // Use fetch function so Next.js will be able to cache it normally.
-    fetch: async (input: URL | RequestInfo, init?: RequestInit) => fetch(input, init),
-  })
+  return {
+    /**
+     * Executes a generated operation against the Drupal endpoint.
+     *
+     * @param document - A generated `TypedDocumentString` (or any value that serializes to a query).
+     * @param variables - Variables for the operation.
+     * @returns The `data` payload of the response.
+     * @throws {NetworkError} When Drupal can't be reached or doesn't answer in time.
+     * @throws {HttpError} When Drupal answers with an error status or a non-JSON body.
+     * @throws {GraphqlError} When the response carries GraphQL errors or no data.
+     */
+    async request<TResult = unknown, TVariables = Record<string, unknown>>(
+      document: {toString(): string},
+      variables?: TVariables
+    ): Promise<TResult> {
+      const timeout = AbortSignal.timeout(REQUEST_TIMEOUT_MS)
+      let response: Response
+      try {
+        response = await fetch(endpoint, {
+          ...requestConfig,
+          method: "POST",
+          headers,
+          body: JSON.stringify({query: document.toString(), variables}),
+          signal: requestConfig.signal ? AbortSignal.any([requestConfig.signal, timeout]) : timeout,
+        })
+      } catch (e) {
+        const timedOut = timeout.aborted
+        throw new NetworkError(
+          timedOut
+            ? `Drupal did not respond within ${REQUEST_TIMEOUT_MS / 1000}s`
+            : `Unable to reach Drupal: ${e instanceof Error ? e.message : e}`,
+          timedOut,
+          {cause: e}
+        )
+      }
+
+      let body: GraphqlResponseBody<TResult> | undefined
+      try {
+        body = (await response.json()) as GraphqlResponseBody<TResult>
+      } catch {
+        // Non-JSON body, such as a proxy or WAF error page. Reported below by status.
+      }
+
+      if (!response.ok || !body)
+        throw new HttpError(
+          `GraphQL request failed: HTTP ${response.status}${body ? "" : " with a non-JSON response"}`,
+          response.status,
+          body?.errors
+        )
+
+      if (body.errors?.length || !body.data)
+        throw new GraphqlError(body.errors?.length ? "GraphQL errors" : "GraphQL response had no data", body.errors)
+
+      return body.data
+    },
+  }
 }
 
 /**
@@ -38,11 +165,13 @@ export const buildHeaders = (headers?: HeadersInit, isPreviewMode?: boolean): He
   ) as string
 
   if (process.env.DRUPAL_REQUEST_HEADERS) {
-    // Parse and apply any extra headers defined at the environment/infrastructure level.
-    const envRequestHeaders: Record<string, string> = JSON.parse(process.env.DRUPAL_REQUEST_HEADERS)
-    Object.keys(envRequestHeaders).map(key => {
-      requestHeaders.set(key, envRequestHeaders[key])
-    })
+    try {
+      // Parse and apply any extra headers defined at the environment/infrastructure level.
+      const envRequestHeaders: Record<string, string> = JSON.parse(process.env.DRUPAL_REQUEST_HEADERS)
+      Object.entries(envRequestHeaders).forEach(([name, value]) => requestHeaders.set(name, value))
+    } catch (_e) {
+      console.warn("DRUPAL_REQUEST_HEADERS is not valid JSON, skipping.")
+    }
   }
 
   if (authCreds) requestHeaders.set("Authorization", "Basic " + Buffer.from(authCreds).toString("base64"))

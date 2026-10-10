@@ -20,9 +20,12 @@ const InputGroup = ({label, children, ...props}: Props) => {
     <fieldset
       aria-labelledby={`${id}-button`}
       {...props}
-      className={cn("mb-10 space-y-3 overflow-x-hidden pb-5", props.className)}
+      className={cn(
+        "mb-25 overflow-x-hidden pb-12.5 [&>:not([hidden])~:not([hidden])]:mt-7.5 [&>:not([hidden])~:not([hidden])]:mb-0",
+        props.className
+      )}
     >
-      <legend className="mb-10 w-full border-t border-black pt-10 font-semibold">
+      <legend className="mb-25 w-full border-t border-black pt-25 font-semibold">
         <button
           type="button"
           {...buttonProps}
@@ -43,7 +46,7 @@ const InputGroup = ({label, children, ...props}: Props) => {
         </button>
       </legend>
       <div {...panelProps}>
-        <div className="mt-10 pb-24">{children}</div>
+        <div className="mt-25 pb-60">{children}</div>
       </div>
     </fieldset>
   )

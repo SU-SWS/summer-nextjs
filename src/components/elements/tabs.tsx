@@ -1,18 +1,13 @@
 "use client"
 
-import {TabsProvider, useTabs} from "@mui/base/useTabs"
-import {useTab} from "@mui/base/useTab"
-import {useTabPanel} from "@mui/base/useTabPanel"
-import {TabsListProvider, useTabsList} from "@mui/base/useTabsList"
-import {HTMLAttributes, ReactNode, SyntheticEvent, useRef} from "react"
-import {UseTabParameters} from "@mui/base/useTab/useTab.types"
+import {Tabs as BaseTabs} from "@base-ui/react/tabs"
+import {HTMLAttributes, ReactNode} from "react"
 import cn from "@lib/utils/className"
-import {UseTabsParameters} from "@mui/base/useTabs/useTabs.types"
-import {UseTabsListParameters} from "@mui/base/useTabsList/useTabsList.types"
-import {UseTabPanelParameters} from "@mui/base/useTabPanel/useTabPanel.types"
 import {useRouter, useSearchParams} from "next/navigation"
 
-// View the API for all the tab components here: https://mui.com/base-ui/react-tabs/hooks-api/.
+// View the API for all the tab components here: https://base-ui.com/react/components/tabs.
+type TabValue = BaseTabs.Tab.Value
+
 type TabsProps = HTMLAttributes<HTMLDivElement> & {
   /**
    * The query parameter in the URL for sharing or reloading.
@@ -21,17 +16,19 @@ type TabsProps = HTMLAttributes<HTMLDivElement> & {
   /**
    * Default tab for initial rendering.
    */
-  defaultTab?: UseTabsParameters["defaultValue"]
+  defaultTab?: TabValue
   /**
    * Which direction the tabs are displayed.
    */
-  orientation?: UseTabsParameters["orientation"]
+  orientation?: BaseTabs.Root.Orientation
 }
 
 export const Tabs = ({paramId = "tab", orientation, defaultTab, children, ...props}: TabsProps) => {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const onChange = (_e: SyntheticEvent | null, value: number | string | null) => {
+  const onValueChange = (value: TabValue, {reason}: BaseTabs.Root.ChangeEventDetails) => {
+    // Only a user's choice belongs in the url, not Base UI's automatic fallbacks.
+    if (reason !== "none") return
     const params = new URLSearchParams(searchParams)
     params.delete(paramId)
     if (value) params.set(paramId, `${value}`)
@@ -40,21 +37,14 @@ export const Tabs = ({paramId = "tab", orientation, defaultTab, children, ...pro
   const paramValue = searchParams.get(paramId)
   const initialTab = defaultTab || (paramValue && parseInt(paramValue))
 
-  const {contextValue} = useTabs({
-    orientation,
-    defaultValue: initialTab || 0,
-    onChange,
-    selectionFollowsFocus: true,
-  })
-
   return (
-    <TabsProvider value={contextValue}>
-      <div {...props}>{children}</div>
-    </TabsProvider>
+    <BaseTabs.Root {...props} orientation={orientation} defaultValue={initialTab || 0} onValueChange={onValueChange}>
+      {children}
+    </BaseTabs.Root>
   )
 }
 
-type TabsListProps = Omit<UseTabsListParameters, "rootRef"> & {
+type TabsListProps = {
   /**
    * <Tab> components.
    */
@@ -69,20 +59,25 @@ type TabsListProps = Omit<UseTabsListParameters, "rootRef"> & {
   containerProps?: Omit<HTMLAttributes<HTMLDivElement>, "className">
 }
 
-export const TabsList = ({containerProps, className, children, ...props}: TabsListProps) => {
-  const rootRef = useRef<HTMLDivElement>(null)
-  const {contextValue, orientation, getRootProps} = useTabsList({...props, rootRef})
-  const isVertical = orientation === "vertical"
-  return (
-    <TabsListProvider value={contextValue}>
-      <div {...getRootProps()} {...containerProps} className={cn("flex", {"flex-col": isVertical}, className)}>
-        {children}
-      </div>
-    </TabsListProvider>
-  )
-}
+export const TabsList = ({containerProps, className, children}: TabsListProps) => (
+  <BaseTabs.List
+    {...containerProps}
+    activateOnFocus
+    className={cn("flex data-[orientation=vertical]:flex-col", className)}
+  >
+    {children}
+  </BaseTabs.List>
+)
 
-type TabProps = UseTabParameters & {
+type TabProps = {
+  /**
+   * Value that pairs the tab with its <TabPanel>.
+   */
+  value: TabValue
+  /**
+   * Whether the tab can be selected.
+   */
+  disabled?: boolean
   /**
    * React node or string for the tab.
    */
@@ -97,22 +92,21 @@ type TabProps = UseTabParameters & {
   buttonProps?: HTMLAttributes<HTMLButtonElement>
 }
 
-export const Tab = ({buttonProps, className, children, ...props}: TabProps) => {
-  const rootRef = useRef<HTMLButtonElement>(null)
-  const {selected, getRootProps} = useTab({...props, rootRef})
+export const Tab = ({buttonProps, className, children, ...props}: TabProps) => (
+  <BaseTabs.Tab
+    {...buttonProps}
+    {...props}
+    className={cn("border-b-3 border-transparent p-7.5 text-left data-[active]:border-cardinal-red", className)}
+  >
+    {children}
+  </BaseTabs.Tab>
+)
 
-  return (
-    <button
-      {...getRootProps()}
-      {...buttonProps}
-      className={cn("border-b-3 border-transparent p-3 text-left", {"border-cardinal-red": selected}, className)}
-    >
-      {children}
-    </button>
-  )
-}
-
-type TabPanelProps = UseTabPanelParameters & {
+type TabPanelProps = {
+  /**
+   * Value of the <Tab> that shows this panel.
+   */
+  value: TabValue
   /**
    * Panel contents.
    */
@@ -127,12 +121,8 @@ type TabPanelProps = UseTabPanelParameters & {
   panelProps?: HTMLAttributes<HTMLElement>
 }
 
-export const TabPanel = ({panelProps, className, children}: TabPanelProps) => {
-  const rootRef = useRef<HTMLDivElement>(null)
-  const {getRootProps} = useTabPanel({rootRef})
-  return (
-    <section {...getRootProps()} {...panelProps} role="tabpanel" className={className}>
-      {children}
-    </section>
-  )
-}
+export const TabPanel = ({panelProps, className, value, children}: TabPanelProps) => (
+  <BaseTabs.Panel {...panelProps} value={value} render={<section />} className={className}>
+    {children}
+  </BaseTabs.Panel>
+)

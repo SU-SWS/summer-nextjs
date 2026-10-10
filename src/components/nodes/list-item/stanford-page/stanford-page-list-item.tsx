@@ -20,8 +20,8 @@ const StanfordPageListItem = ({node, headingLevel, ...props}: Props) => {
 
   const Heading = headingLevel === "h3" ? H3 : H2
   return (
-    <article {...props} aria-labelledby={node.uuid} className={cn("py-10 @container", props.className)}>
-      <div className="flex flex-col justify-between gap-20 @4xl:flex-row" {...props}>
+    <article {...props} aria-labelledby={node.uuid} className={cn("@container py-25", props.className)}>
+      <div className="flex flex-col justify-between gap-50 @4xl:flex-row" {...props}>
         <div className="order-2 @4xl:order-1">
           <Heading className="type-3" id={node.uuid}>
             <Link href={node.path || "#"}>{node.title}</Link>

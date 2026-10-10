@@ -22,15 +22,15 @@ const DefaultResult = ({hit}: {hit: HitType<AlgoliaHit>}) => {
   const hitDomain = new URL(hit.url).origin
 
   return (
-    <article className="flex justify-between gap-20 py-12 @container">
+    <article className="@container flex justify-between gap-50 py-30">
       <div>
         <H3 className="type-3">
           <Link href={hit.url.replace(hitDomain, "")}>{hit.title}</Link>
         </H3>
 
-        {hit.summary && <p className="mb-10">{hit.summary}</p>}
+        {hit.summary && <p className="mb-25">{hit.summary}</p>}
         {hit.html && !hit.summary && (
-          <p className="mb-10">
+          <p className="mb-25">
             <Snippet hit={hit} attribute="html" />
           </p>
         )}

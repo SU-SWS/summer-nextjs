@@ -25,7 +25,7 @@ const CacheClearForm = () => {
   return (
     <div>
       <form action={handleSubmit}>
-        <fieldset className="space-y-20">
+        <fieldset className="[&>:not([hidden])~:not([hidden])]:mt-50 [&>:not([hidden])~:not([hidden])]:mb-0">
           <legend className="sr-only">Cache Clearing Options</legend>
           <CheckboxButton
             helpText="This will revalidate the menu system and cause every page to rebuild."
@@ -41,8 +41,8 @@ const CacheClearForm = () => {
           </CheckboxButton>
         </fieldset>
 
-        <div className="mb-20">
-          <label className="mb-3 flex flex-col gap-5">
+        <div className="mb-50">
+          <label className="mb-7.5 flex flex-col gap-12.5">
             <span className="block font-semibold">Specific Path</span>
             <input type="text" name="path" placeholder="/example-path" size={20} className="max-w-300 text-4xl" />
           </label>
@@ -52,7 +52,7 @@ const CacheClearForm = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="btn border-2 border-cardinal-red bg-digital-red px-8 py-4 font-normal text-white no-underline transition disabled:bg-gray-600 hocus:bg-cardinal-red hocus:text-white hocus:underline"
+          className="btn border-2 border-cardinal-red bg-digital-red px-20 py-10 font-normal text-white no-underline transition disabled:bg-gray-600 hocus:bg-cardinal-red hocus:text-white hocus:underline"
         >
           {isLoading ? "Clearing Cache..." : "Clear Cache"}
         </button>
@@ -60,7 +60,7 @@ const CacheClearForm = () => {
 
       {message && (
         <div
-          className={cn("mt-4 rounded-md p-4 font-semibold text-white", {
+          className={cn("mt-10 rounded-md p-10 font-semibold text-white", {
             "bg-green-800": message.success,
             "bg-red-800": !message.success,
           })}

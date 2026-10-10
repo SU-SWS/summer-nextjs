@@ -67,7 +67,7 @@ const DrupalLink = ({href, children, ...props}: Props) => {
   return (
     <Component href={href} className={props.className} {...props}>
       {children}
-      {href.startsWith("mailto") && <EnvelopeIcon width={20} className="ml-4 inline-block" />}
+      {href.startsWith("mailto") && <EnvelopeIcon width={20} className="ml-10 inline-block" />}
     </Component>
   )
 }

@@ -1,18 +1,142 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css");
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Decanter 8 is a CSS-first Tailwind v4 preset; it pulls in Tailwind itself. */
+@import "decanter";
+/* Decanter 7 always loaded the form reset; v8 makes it opt-in. */
+@import "decanter/forms";
 
-@layer utilities {
-  .tw-hidden {
-    @apply hidden;
+@import "./centered-container.css";
+@import "./typography/global-message.css";
+@import "./typography/local-footer.css";
+@import "./typography/wysiwyg.css";
+
+/*
+  Decanter's `@import 'tailwindcss'` lives in node_modules, so point automatic source detection
+  back at the application code.
+*/
+@source "../../app";
+@source "../../src";
+
+@theme {
+  /* Decanter ships 3xl at 1700px; this project has always used 1600px. */
+  --breakpoint-3xl: 1600px;
+
+  /* Container query sizes above Tailwind's built-in 7xl (80rem). */
+  --container-8xl: 80rem;
+  --container-9xl: 90rem;
+  --container-10xl: 100rem;
+  --container-11xl: 110rem;
+  --container-12xl: 120rem;
+  --container-13xl: 130rem;
+  --container-14xl: 140rem;
+  --container-15xl: 150rem;
+
+  /* Two column layouts, e.g. grid-cols-1-2 => 33%/67%. */
+  --grid-template-columns-1-1: minmax(0, 1fr) minmax(0, 1fr);
+  --grid-template-columns-1-2: minmax(0, 1fr) minmax(0, 2fr);
+  --grid-template-columns-2-1: minmax(0, 2fr) minmax(0, 1fr);
+  --grid-template-columns-1-3: minmax(0, 1fr) minmax(0, 3fr);
+  --grid-template-columns-3-1: minmax(0, 3fr) minmax(0, 1fr);
+  --grid-template-columns-1-4: minmax(0, 1fr) minmax(0, 4fr);
+  --grid-template-columns-4-1: minmax(0, 4fr) minmax(0, 1fr);
+
+  /* Three column layouts, e.g. grid-cols-1-2-1. */
+  --grid-template-columns-1-1-1: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  --grid-template-columns-2-1-1: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+  --grid-template-columns-1-2-1: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+  --grid-template-columns-1-1-2: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr);
+  --grid-template-columns-3-1-1: minmax(0, 3fr) minmax(0, 1fr) minmax(0, 1fr);
+  --grid-template-columns-1-3-1: minmax(0, 1fr) minmax(0, 3fr) minmax(0, 1fr);
+  --grid-template-columns-1-1-3: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 3fr);
+  --grid-template-columns-4-1-1: minmax(0, 4fr) minmax(0, 1fr) minmax(0, 1fr);
+  --grid-template-columns-1-4-1: minmax(0, 1fr) minmax(0, 4fr) minmax(0, 1fr);
+  --grid-template-columns-1-1-4: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 4fr);
+
+
+  /*
+    Tailwind 4 moved its palette to oklch and changed some defaults. Pin what the site uses to the
+    Tailwind 3 / Decanter 7 values so nothing shifts.
+  */
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-blue-600: #2563eb;
+  --color-green-800: #166534;
+  --color-red-800: #991b1b;
+  --font-mono: "Roboto Mono", Menlo, "Courier New", monospace;
+
+  --list-style-type-lower-alpha: lower-alpha;
+  --list-style-type-upper-alpha: upper-alpha;
+  --list-style-type-lower-roman: lower-roman;
+  --list-style-type-upper-roman: upper-roman;
+}
+
+/* next/font defines these variables, so reference them directly instead of redefining them. */
+@theme inline {
+  --font-roboto: var(--font-roboto), sans-serif;
+  --font-stanford: var(--font-stanford), sans-serif;
+}
+
+/*
+  Tailwind 4's preflight sets `opacity: 1` on form controls, which drops the browser's dimming of
+  disabled selects. Tailwind 3 left it alone.
+*/
+@layer base {
+  button,
+  input,
+  select,
+  optgroup,
+  textarea,
+  ::file-selector-button {
+    opacity: revert-layer;
   }
 }
 
-body button:focus {
-  background-color: initial;
-  color: initial;
+/*
+  Decanter 7 kept the first row of each table section borderless; Decanter 8 dropped the rule. It is
+  unlayered so it still outranks react-super-responsive-table's own unlayered row borders on
+  specificity, as it did in Tailwind 3.
+*/
+table thead tr:first-of-type,
+table tbody tr:first-of-type {
+  border-top: 0;
+}
+
+/*
+  Use instead of `hidden`: a third party library loads its own `.hidden` styles that behave
+  differently.
+*/
+@utility tw-hidden {
+  display: none;
+}
+
+@utility clip-arc {
+  clip-path: circle(55vw at 50% 113%);
+
+  @media (min-width: 2000px) {
+    clip-path: ellipse(51% 90% at 50% 110%);
+  }
+}
+
+/*
+  Kept in the utilities layer so it competes on specificity, as it did in Tailwind 3. Unlayered,
+  it would override every focus utility on a button.
+*/
+@layer utilities {
+  body button:focus {
+    background-color: initial;
+    color: initial;
+  }
+
+  /*
+    Decanter's base resets the last list item's margin, and in Tailwind 3 that outranked a single
+    margin utility on specificity. Decanter 8's copy sits in the base layer, where it always loses.
+  */
+  li:last-child,
+  dd:last-child {
+    margin-bottom: 0;
+  }
 }
 
 /* Styles for react-tiny-oembed containers */
@@ -26,18 +150,6 @@ body button:focus {
 .aspect-\[16\/9\] .__embed_column iframe {
   width: 100%;
   height: 100%;
-}
-
-@layer utilities {
-  .clip-arc {
-    clip-path: circle(55vw at 50% 113%);
-  }
-
-  @media (min-width: 2000px) {
-    .clip-arc {
-      clip-path: ellipse(51% 90% at 50% 110%);
-    }
-  }
 }
 
 .slick-slide {

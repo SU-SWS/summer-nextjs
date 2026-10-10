@@ -24,7 +24,7 @@ const TwoColumn = ({items, config, headingIds}: Props) => {
   const draftProps: Record<string, string> = {"data-columns": "2"}
 
   return (
-    <div className={cn("gutters grid gap-10 @6xl:gap-20", gridCols)} {...draftProps}>
+    <div className={cn("gutters grid gap-25 @6xl:gap-50", gridCols)} {...draftProps}>
       <OneColumn items={leftItems} headingIds={headingIds} />
       <OneColumn items={rightItems} headingIds={headingIds} />
     </div>

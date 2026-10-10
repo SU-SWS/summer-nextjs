@@ -14,6 +14,7 @@ import {
 import {graphqlClient} from "@lib/gql/gql-client"
 import View from "@components/views/view"
 import {cacheTag} from "next/cache"
+import {cacheFailure} from "@lib/gql/gql-queries"
 import {
   StanfordBasicPagesDocument,
   StanfordBasicPagesQuery,
@@ -290,7 +291,7 @@ export const getViewPagedItems = async (
         break
     }
   } catch (e) {
-    if (e instanceof Error) console.warn(e.message)
+    cacheFailure(`Unable to fetch view ${viewId}--${displayId}`, e)
     return {items: [], totalItems: 0}
   }
   return {items, totalItems}

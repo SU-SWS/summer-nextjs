@@ -44,15 +44,15 @@ const SumTestimonialBannerParagraph = ({paragraph, headingIds, ...props}: Props)
     <article
       {...props}
       className={cn(
-        "relative left-1/2 !mt-0 grid w-screen -translate-x-1/2 border-t-4 border-t-white @container lg:grid-cols-3",
+        "@container relative left-1/2 mt-0! grid w-screen -translate-x-1/2 border-t-4 border-t-white lg:grid-cols-3",
         props.className
       )}
       aria-labelledby={id}
     >
       <div
         className={cn("relative h-[257px] w-full border-white lg:col-span-1 lg:h-full", {
-          "order-last border-t-2 lg:border-l-2 lg:border-t-0": leftText,
-          "border-b-2 lg:border-b-0 lg:border-r-2": !leftText,
+          "order-last border-t-2 lg:border-t-0 lg:border-l-2": leftText,
+          "border-b-2 lg:border-r-2 lg:border-b-0": !leftText,
         })}
       >
         <Image
@@ -66,11 +66,11 @@ const SumTestimonialBannerParagraph = ({paragraph, headingIds, ...props}: Props)
         {paragraph.sumTestimonialHsVideo.__typename === "MediaImage" && (
           <div
             className={cn("absolute flex h-fit w-full justify-center lg:h-full lg:w-fit lg:items-center", {
-              "left-0 top-[-75px] sm:top-[-100px] lg:top-0": leftText,
-              "bottom-[75px] right-0 sm:bottom-[100px] lg:bottom-0": !leftText,
+              "top-[-75px] left-0 sm:top-[-100px] lg:top-0": leftText,
+              "right-0 bottom-[75px] sm:bottom-[100px] lg:bottom-0": !leftText,
             })}
           >
-            <div className="absolute aspect-1 w-[150px] overflow-hidden rounded-full border-4 border-white sm:w-[200px] lg:w-[250px] xl:w-[300px] 2xl:w-[400px]">
+            <div className="absolute aspect-square w-[150px] overflow-hidden rounded-full border-4 border-white sm:w-[200px] lg:w-[250px] xl:w-[300px] 2xl:w-[400px]">
               <Image
                 className="object-cover"
                 src={paragraph.sumTestimonialHsVideo.mediaImage.url}
@@ -85,9 +85,9 @@ const SumTestimonialBannerParagraph = ({paragraph, headingIds, ...props}: Props)
         {paragraph.sumTestimonialHsVideo.__typename === "MediaVideo" && (
           <div
             className={cn("absolute flex h-fit w-full justify-center lg:h-full lg:w-fit lg:items-center", {
-              "bottom-[30px] right-0 sm:bottom-[50px] lg:-left-[125px] lg:bottom-0 lg:top-0 xl:-left-[150px] 2xl:-left-[200px]":
+              "right-0 bottom-[30px] sm:bottom-[50px] lg:top-0 lg:bottom-0 lg:-left-[125px] xl:-left-[150px] 2xl:-left-[200px]":
                 leftText,
-              "right-0 top-[30px] sm:top-[50px] lg:-right-[125px] lg:bottom-0 lg:top-0 xl:-right-[150px] 2xl:-right-[200px]":
+              "top-[30px] right-0 sm:top-[50px] lg:top-0 lg:-right-[125px] lg:bottom-0 xl:-right-[150px] 2xl:-right-[200px]":
                 !leftText,
             })}
           >
@@ -101,15 +101,13 @@ const SumTestimonialBannerParagraph = ({paragraph, headingIds, ...props}: Props)
 
       <div
         className={cn("border-white bg-poppy-light lg:col-span-2", {
-          "border-b-2 lg:border-b-0 lg:border-r-2": leftText,
-          "border-t-2 lg:border-l-2 lg:border-t-0": !leftText,
-          "rs-pt-10 pb-[150px] lg:rs-pb-9 md:pb-[200px]":
-            leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
-          "rs-pb-9 pt-[150px] lg:rs-pt-10 md:pt-[200px]":
-            !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
-          "rs-pt-9 pb-[250px] lg:rs-pb-10 sm:pb-[650px] md:pb-[520px] lg:pb-[250px]":
+          "border-b-2 lg:border-r-2 lg:border-b-0": leftText,
+          "border-t-2 lg:border-t-0 lg:border-l-2": !leftText,
+          "rs-pt-10 pb-[150px] md:pb-[200px]": leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
+          "pt-[150px] rs-pb-9 md:pt-[200px]": !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaImage",
+          "rs-pt-9 pb-[250px] sm:pb-[650px] md:pb-[520px] lg:rs-pb-10 lg:pb-[250px]":
             leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
-          "rs-pb-10 pt-[250px] lg:rs-pt-10 sm:pt-[650px] md:pt-[520px] lg:pt-[250px]":
+          "pt-[250px] rs-pb-10 sm:pt-[650px] md:pt-[520px] lg:rs-pt-10 lg:pt-[250px]":
             !leftText && paragraph.sumTestimonialHsVideo.__typename === "MediaVideo",
           "bg-olive": behaviors.sum_testimonial_banner?.sum_testimonial_banner_overlay_bkg === "olive",
           "bg-spirited text-black-true":
@@ -121,8 +119,8 @@ const SumTestimonialBannerParagraph = ({paragraph, headingIds, ...props}: Props)
       >
         <div
           className={cn("centered sm:max-w-[440px] lg:max-w-full", {
-            "2xl:rs-pl-10 lg:mr-0 lg:pl-32 lg:pr-[200px] xl:pl-40 xl:pr-[250px] 4xl:ml-auto 4xl:w-2/3": leftText,
-            "2xl:rs-pr-10 lg:ml-0 lg:pl-[200px] lg:pr-32 xl:pl-[250px] xl:pr-40": !leftText,
+            "lg:mr-0 lg:pr-[200px] lg:pl-80 xl:pr-[250px] xl:pl-100 4xl:ml-auto 4xl:w-2/3": leftText,
+            "lg:ml-0 lg:pr-80 lg:pl-[200px] xl:pr-100 xl:pl-[250px]": !leftText,
           })}
         >
           <H2
@@ -137,16 +135,16 @@ const SumTestimonialBannerParagraph = ({paragraph, headingIds, ...props}: Props)
 
           <Wysiwyg className="rs-mb-3" html={paragraph.sumTestimonialDescrip.processed} />
 
-          {paragraph.sumTestimonialName && <div className="font-19">{paragraph.sumTestimonialName}</div>}
+          {paragraph.sumTestimonialName && <div>{paragraph.sumTestimonialName}</div>}
 
           {(paragraph.sumTestimonialUniv || studentType) && (
-            <div className="font-19">{`${paragraph.sumTestimonialUniv || ""} ${studentType || ""}`.trim()}</div>
+            <div>{`${paragraph.sumTestimonialUniv || ""} ${studentType || ""}`.trim()}</div>
           )}
-          {paragraph.sumTestimonialAffi && <div className="font-19">{paragraph.sumTestimonialAffi}</div>}
+          {paragraph.sumTestimonialAffi && <div>{paragraph.sumTestimonialAffi}</div>}
 
           {paragraph.sumTestimonialButton?.url && (
             <ActionLink
-              className="btn rs-mt-5 rounded-full border-2 border-transparent bg-digital-red px-8 py-4 font-normal text-white transition hocus:border-white hocus:text-white"
+              className="btn rs-mt-5 rounded-full border-2 border-transparent bg-digital-red px-20 py-10 font-normal text-white transition hocus:border-white hocus:text-white"
               href={paragraph.sumTestimonialButton.url}
             >
               {paragraph.sumTestimonialButton.title}

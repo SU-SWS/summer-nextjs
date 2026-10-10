@@ -20,7 +20,7 @@ const ActionLink = ({children, className, ...props}: Props) => {
       )}
     >
       {children}
-      <ArrowRightIcon width={20} className="ml-2 inline-block shrink-0" />
+      <ArrowRightIcon width={20} className="ml-5 inline-block shrink-0" />
     </Link>
   )
 }

@@ -6,7 +6,10 @@ const OneColumn = ({items, headingIds}: {items: ParagraphUnion[]; headingIds?: H
   const draftProps: Record<string, string> = {"data-columns": "1"}
 
   return (
-    <div className="space-y-16 @container" {...draftProps}>
+    <div
+      className="@container [&>:not([hidden])~:not([hidden])]:mt-40 [&>:not([hidden])~:not([hidden])]:mb-0"
+      {...draftProps}
+    >
       {items.map(item => (
         <Paragraph paragraph={item} headingIds={headingIds} key={item.uuid} />
       ))}

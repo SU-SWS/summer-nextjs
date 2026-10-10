@@ -54,7 +54,7 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
         {...buttonProps}
         ref={buttonRef}
         className={cn(
-          "hocus-visible:outline-3 rounded-full border-2 border-transparent pr-2 hocus-visible:outline hocus-visible:outline-poppy-dark",
+          "rounded-full border-2 border-transparent pr-5 hocus-visible:outline-poppy-dark hocus-visible:outline-solid",
           buttonProps.className
         )}
       >
@@ -64,39 +64,39 @@ const ShareCourses = ({courseName, courseUrl, courseNum}: Props) => {
       <div
         {...panelProps}
         className={cn(
-          "absolute right-0 top-full z-10 -mr-[30px] mt-5 w-fit rounded-[25px] border border-white bg-white px-12 py-4",
+          "absolute top-full right-0 z-10 mt-12.5 -mr-[30px] w-fit rounded-[25px] border border-white bg-white px-30 py-10",
           expanded ? "block" : "tw-hidden",
           panelProps.className
         )}
       >
-        <div className="absolute -top-3 left-3/4 z-0 h-10 w-10 rotate-45 bg-white" />
+        <div className="absolute -top-7.5 left-3/4 z-0 h-25 w-25 rotate-45 bg-white" />
         <ul className="list-unstyled bg-white">
-          <li className="relative m-0 text-nowrap py-0">
+          <li className="relative m-0 py-0 text-nowrap">
             <a
               href={emailCopy}
               className="group block border-b-4 border-transparent font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
               data-course-shared={courseNum}
             >
-              <span className="block border-b border-spirited-light px-6 py-5 group-hocus:border-transparent">
+              <span className="block border-b border-spirited-light px-15 py-12.5 group-hocus:border-transparent">
                 Share via email
               </span>
             </a>
           </li>
-          <li className="relative m-0 text-nowrap py-0">
+          <li className="relative m-0 py-0 text-nowrap">
             <a
               href={smsCopy}
               className="group block border-b-4 border-transparent font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
               data-course-shared={courseNum}
             >
-              <span className="block border-b border-spirited-light px-6 py-5 group-hocus:border-transparent">
+              <span className="block border-b border-spirited-light px-15 py-12.5 group-hocus:border-transparent">
                 Share via text
               </span>
             </a>
           </li>
-          <li className="relative m-0 text-nowrap py-0">
+          <li className="relative m-0 py-0 text-nowrap">
             <button
               onClick={() => copyToClip(copyUrl)}
-              className="block border-b-4 border-transparent px-6 py-5 font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
+              className="block border-b-4 border-transparent px-15 py-12.5 font-normal text-black no-underline hocus:border-spirited-light hocus:text-black"
               data-course-shared={courseNum}
             >
               Copy share link

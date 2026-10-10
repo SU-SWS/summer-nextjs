@@ -37,20 +37,20 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, .
     <CardWrapper
       {...props}
       className={cn(
-        "centered w-full rounded-full border-4 border-white bg-poppy-light outline outline-4 outline-poppy-light @container",
+        "@container centered w-full rounded-full border-4 border-white bg-poppy-light outline-4 outline-poppy-light outline-solid",
         props.className,
         {
-          "bg-poppy-light bg-opacity-80 outline-poppy-light/[80%]": bgColor === "semitransparent_poppy",
+          "bg-poppy-light/80 outline-poppy-light/[80%]": bgColor === "semitransparent_poppy",
           "bg-olive-light outline-olive-light": bgColor === "olive",
-          "bg-olive-light bg-opacity-80 outline-olive-light/[80%]": bgColor === "semitransparent_olive",
+          "bg-olive-light/80 outline-olive-light/[80%]": bgColor === "semitransparent_olive",
           "bg-spirited-light outline-spirited-light": bgColor === "spirited",
-          "bg-spirited-light bg-opacity-80 outline-spirited-light/[80%]": bgColor === "semitransparent_spirited",
+          "bg-spirited-light/80 outline-spirited-light/[80%]": bgColor === "semitransparent_spirited",
           "bg-transparent": bgColor === "transparent",
         }
       )}
     >
       {imageUrl && (
-        <div className="relative aspect-1 w-full">
+        <div className="relative aspect-square w-full">
           <Image
             className="rounded-full object-cover object-center"
             src={imageUrl}
@@ -65,7 +65,7 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, .
 
       <div
         className={cn(
-          "rs-px-3 flex flex-col pb-[125px] pt-20 @7xl:rs-px-4 @2xl:pb-[175px] @3xl:pb-[225px] @4xl:pb-[300px] [&_p>a]:text-black-true hocus:[&_p>a]:text-[#001829]",
+          "flex flex-col pt-50 rs-px-3 pb-[125px] @2xl:pb-[175px] @3xl:pb-[225px] @4xl:pb-[300px] @7xl:rs-px-4 [&_p>a]:text-black-true [&_p>a]:hocus:text-[#001829]",
           {
             "pt-[115px] @sm:pt-[115px] @md:pt-[135px] @lg:pt-[155px] @2xl:pt-[220px] @3xl:pt-[220px] @4xl:pt-[270px] @5xl:pt-[300px] @7xl:pt-[350px]":
               !imageUrl,
@@ -80,7 +80,7 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, .
 
 export const PillCardSkeleton = () => {
   return (
-    <div className="centered w-full rounded-full border border-black-10 pb-20 shadow-lg lg:max-w-[920px] xl:max-w-[980px]">
+    <div className="centered w-full rounded-full border border-black-10 pb-50 shadow-lg lg:max-w-[920px] xl:max-w-[980px]">
       <div className="aspect-[16/9] w-full bg-black-10"></div>
     </div>
   )

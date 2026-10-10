@@ -29,7 +29,7 @@ const EntityParagraph = async ({paragraph, headingIds, ...props}: Props) => {
   return (
     <EntityWrapper
       {...props}
-      className={cn("centered mb-20 flex flex-col gap-10 lg:max-w-[920px] xl:max-w-[980px]", props.className)}
+      className={cn("centered mb-50 flex flex-col gap-25 lg:max-w-[920px] xl:max-w-[980px]", props.className)}
       aria-labelledby={EntityWrapper === "section" ? id : undefined}
     >
       {EntityWrapper === "section" && (
@@ -43,7 +43,7 @@ const EntityParagraph = async ({paragraph, headingIds, ...props}: Props) => {
 
       <Wysiwyg html={paragraph.suEntityDescription?.processed} />
 
-      <div className={`grid ${gridClass} mb-20 gap-20 [&>*]:w-full`}>
+      <div className={`grid ${gridClass} mb-50 gap-50 [&>*]:w-full`}>
         {entities.map(entity => (
           <Suspense key={`${paragraph.uuid}-${entity.uuid}`} fallback={<ImageCardSkeleton />}>
             <EntityCard path={entity.path} headingLevel={paragraph.suEntityHeadline ? "h3" : "h2"} />

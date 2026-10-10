@@ -51,28 +51,28 @@ const MainMenuClient = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props)
     <nav id={navId} aria-label="Main Navigation" className="lg:centered" ref={menuRef}>
       <button
         ref={buttonRef}
-        className="group rs-py-2 absolute right-10 top-5 flex flex-col items-center lg:hidden"
+        className="group absolute top-12.5 right-25 flex flex-col items-center rs-py-2 lg:hidden"
         onClick={toggleMenu}
         aria-expanded={menuOpen}
         aria-label={menuOpen ? "Close Main Navigation Menu" : "Open Main Navigation Menu"}
       >
         <span className="flex h-[30px] w-[30px] flex-col items-center justify-center">
           <span
-            className={cn("block h-[3px] w-full rounded-sm bg-black-true transition-all duration-300 ease-out", {
-              "translate-y-4 rotate-45": menuOpen,
-              "-translate-y-0.5": !menuOpen,
+            className={cn("block h-[3px] w-full rounded-xs bg-black-true transition-all duration-300 ease-out", {
+              "translate-y-10 rotate-45": menuOpen,
+              "-translate-y-1.25": !menuOpen,
             })}
           />
           <span
-            className={cn("my-3 block h-[3px] w-full rounded-sm bg-black-true transition-all duration-300 ease-out", {
+            className={cn("my-7.5 block h-[3px] w-full rounded-xs bg-black-true transition-all duration-300 ease-out", {
               "opacity-0": menuOpen,
               "opacity-100": !menuOpen,
             })}
           />
           <span
-            className={cn("block h-[3px] w-full rounded-sm bg-black-true transition-all duration-300 ease-out", {
-              "-translate-y-4 -rotate-45": menuOpen,
-              "translate-y-0.5": !menuOpen,
+            className={cn("block h-[3px] w-full rounded-xs bg-black-true transition-all duration-300 ease-out", {
+              "-translate-y-10 -rotate-45": menuOpen,
+              "translate-y-1.25": !menuOpen,
             })}
           />
         </span>
@@ -83,12 +83,12 @@ const MainMenuClient = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props)
 
       <div
         className={cn(
-          "top-100 absolute z-10 block w-full bg-fog-light lg:relative lg:flex lg:items-center lg:justify-end lg:bg-transparent",
+          "absolute z-10 block w-full bg-fog-light lg:relative lg:flex lg:items-center lg:justify-end lg:bg-transparent",
           {"tw-hidden": !menuOpen}
         )}
       >
-        <SiteSearchForm className="px-10 lg:hidden" />
-        <div className="mt-10 flex flex-col items-center border-b border-[#F26845] children:centered children:w-full lg:hidden">
+        <SiteSearchForm className="px-25 lg:hidden" />
+        <div className="mt-25 flex flex-col items-center border-b border-[#F26845] *:centered *:w-full lg:hidden">
           {sumSiteHeaderSec && (
             <Button href={sumSiteHeaderSec.url} secondary>
               {sumSiteHeaderSec.title}
@@ -101,12 +101,12 @@ const MainMenuClient = ({menuItems, sumSiteHeaderPrim, sumSiteHeaderSec}: Props)
             <MenuItem key={item.id} {...item} activeTrail={activeTrail} level={0} />
           ))}
 
-          <li className="tw-hidden mb-0 pb-0 lg:block">
+          <li className="mb-0 tw-hidden pb-0 lg:block">
             <Link
               id="search"
               href="/search"
               prefetch={false}
-              className="inline-block h-full border-b-[4px] border-transparent px-5 pb-10 pt-5 no-underline hocus:border-[#F26845]"
+              className="inline-block h-full border-b-[4px] border-transparent px-12.5 pt-12.5 pb-25 no-underline hocus:border-[#F26845]"
               aria-label="Search Summer Session"
             >
               <MagnifyingGlassIcon width={25} className="text-archway-dark" />
@@ -165,32 +165,32 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
   const inTrail = activeTrail.includes(id) && !isCurrent
 
   const linkStyles = cn(
-    "group relative flex w-full flex-row border-b-[4px] py-5 font-normal text-black no-underline hocus:border-[#F26845] hocus:text-black",
+    "group relative flex w-full flex-row border-b-[4px] py-12.5 font-normal text-black no-underline hocus:border-[#F26845] hocus:text-black",
 
     {
-      "pl-10": level === 0,
-      "pl-20": level === 1,
-      "pl-28": level === 2,
-      "pl-48": level === 3,
+      "pl-25": level === 0,
+      "pl-50": level === 1,
+      "pl-70": level === 2,
+      "pl-120": level === 3,
     },
     // Top menu item styles.
     {
-      "lg:mr-0 lg:border-b-[4px] lg:border-l-0 lg:pb-10": level === 0,
+      "lg:mr-0 lg:border-b-[4px] lg:border-l-0 lg:pb-25": level === 0,
       "border-[#F26845]": level === 0 && isCurrent,
       "border-transparent lg:border-[#F26845]": level === 0 && !isCurrent && inTrail,
       "border-transparent": level === 0 && !isCurrent && !inTrail,
-      "lg:pr-10": level === 0 && children.length === 0,
+      "lg:pr-25": level === 0 && children.length === 0,
     },
     // Child menu item styles.
     {
-      "ml-5 lg:ml-0 lg:pl-5": level !== 0,
+      "ml-12.5 lg:ml-0 lg:pl-12.5": level !== 0,
       "border-[#F26845]": level !== 0 && isCurrent,
       "border-transparent": level !== 0 && !isCurrent,
     }
   )
 
   const chevronBtnStyles = cn(
-    "relative shrink-0 bg-transparent px-10 text-black hocus:border-b-[4px] hocus:border-[#F26845] lg:right-0 lg:bg-transparent lg:pb-6 lg:pl-2 lg:pr-5 lg:group-hover:border-b-[4px] lg:group-hover:border-[#F26845]",
+    "relative shrink-0 bg-transparent px-25 text-black lg:right-0 lg:bg-transparent lg:pr-12.5 lg:pb-15 lg:pl-5 lg:group-hover:border-b-[4px] lg:group-hover:border-[#F26845] hocus:border-b-[4px] hocus:border-[#F26845]",
     // Top menu item styles.
     {
       "border-b-[4px]": level === 0,
@@ -201,7 +201,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
   )
 
   const subMenuStyles = cn(
-    "list-unstyled w-full min-w-[350px] lg:absolute lg:mt-3 lg:rounded-[25px] lg:border lg:border-white lg:bg-fog-light lg:px-12 lg:py-4 lg:shadow-2xl",
+    "list-unstyled w-full min-w-[350px] lg:absolute lg:mt-7.5 lg:rounded-[25px] lg:border lg:border-white lg:bg-fog-light lg:px-30 lg:py-10 lg:shadow-2xl",
 
     {
       "z-[1]": level === 0,
@@ -211,7 +211,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
       "z-[5]": level === 4,
     },
     {
-      "lg:left-0 lg:top-full": level === 0,
+      "lg:top-full lg:left-0": level === 0,
       "lg:top-0": level !== 0,
       "lg:left-full": level !== 0 && positionRight,
       "lg:right-full": level !== 0 && !positionRight,
@@ -224,7 +224,7 @@ const MenuItem = ({id, url, title, activeTrail, children, level}: MenuItemProps)
     <li
       ref={menuItemRef}
       className={cn("relative m-0 border-b border-[#F26845] last:border-0 lg:relative lg:py-0", {
-        "first:border-t-0 lg:mr-10 lg:border-b-0 lg:last:mr-0": level === 0,
+        "first:border-t-0 lg:mr-25 lg:border-b-0 lg:last:mr-0": level === 0,
         "hocus:border-transparent": level !== 0,
       })}
     >

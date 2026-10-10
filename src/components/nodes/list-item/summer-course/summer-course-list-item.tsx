@@ -21,13 +21,13 @@ const SummerCourseListItem = ({node, headingLevel, ...props}: Props) => {
       imageAlt={node.sumCourseImage?.mediaImage.alt}
     >
       <div className="flex flex-col">
-        <Heading className="type-3 order-2 mb-0" id={node.uuid}>
+        <Heading className="order-2 mb-0 type-3" id={node.uuid}>
           <ActionLink className="font-roboto font-normal" href={node.path || "#"}>
             {node.title}
           </ActionLink>
         </Heading>
         {node.sumCourseCatalogNumber && (
-          <div className="rs-mb-0 order-1 font-normal">{node.sumCourseCatalogNumber}</div>
+          <div className="order-1 rs-mb-0 font-normal">{node.sumCourseCatalogNumber}</div>
         )}
       </div>
     </ImageCard>

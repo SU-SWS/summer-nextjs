@@ -40,22 +40,22 @@ const StanfordNewsPage = ({node, ...props}: Props) => {
   const topics = node.suNewsTopics?.slice(0, 3)
 
   return (
-    <article className="centered mt-32" {...props}>
+    <article className="mt-80 centered" {...props}>
       <NodePageMetadata
         pageTitle={node.title}
         metatags={node.metatag}
         backupDescription={node.suNewsDek || getFirstText(node.suNewsComponents)}
       />
-      <div className="mx-auto mb-48 lg:w-10/12">
+      <div className="mx-auto mb-120 lg:w-10/12">
         <ReverseVisualOrder>
           <H1>{node.title}</H1>
 
           {topics && <div>{topics.map(topic => topic.name).join(", ")}</div>}
         </ReverseVisualOrder>
 
-        {node.suNewsDek && <div className="mb-10">{node.suNewsDek}</div>}
+        {node.suNewsDek && <div className="mb-25">{node.suNewsDek}</div>}
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-12.5">
           {node.suNewsPublishingDate && (
             <time dateTime={new Date(node.suNewsPublishingDate.time).toISOString().substring(0, 10)}>
               {publishDate}
@@ -63,12 +63,12 @@ const StanfordNewsPage = ({node, ...props}: Props) => {
           )}
           {node.suNewsByline && <div>{node.suNewsByline}</div>}
 
-          {!node.suNewsHideSocial && <SocialIcons className="flex gap-4" />}
+          {!node.suNewsHideSocial && <SocialIcons className="flex gap-10" />}
         </div>
       </div>
 
       {bannerImageUrl && (
-        <figure className="mb-32">
+        <figure className="mb-80">
           <div className="relative aspect-[16/9] w-full">
             <Image
               className="object-cover"
@@ -80,12 +80,12 @@ const StanfordNewsPage = ({node, ...props}: Props) => {
             />
           </div>
           {node.suNewsBannerMediaCaption && (
-            <figcaption className="px-20 text-center">{node.suNewsBannerMediaCaption}</figcaption>
+            <figcaption className="px-50 text-center">{node.suNewsBannerMediaCaption}</figcaption>
           )}
         </figure>
       )}
 
-      <Wysiwyg html={node.body?.processed} className="centered mb-32 xl:max-w-[980px]" />
+      <Wysiwyg html={node.body?.processed} className="centered mb-80 xl:max-w-[980px]" />
       <Rows components={node.suNewsComponents} className="mx-auto lg:w-8/12" />
     </article>
   )

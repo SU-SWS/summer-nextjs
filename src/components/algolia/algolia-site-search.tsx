@@ -65,13 +65,13 @@ const SearchForm = () => {
   return (
     <div>
       <form role="search" aria-labelledby="page-title" onSubmit={e => e.preventDefault()}>
-        <div className="mx-auto mb-20 flex max-w-6xl items-center gap-5">
+        <div className="mx-auto mb-50 flex max-w-6xl items-center gap-12.5">
           <label className="sr-only" htmlFor="search-input">
             Keywords Search
           </label>
           <input
             id="search-input"
-            className="type-3 flex-grow border-0 border-b border-black-30 px-8 py-5"
+            className="grow border-0 border-b border-black-30 px-20 py-12.5 type-3"
             ref={inputRef}
             autoComplete="on"
             spellCheck={false}
@@ -81,14 +81,14 @@ const SearchForm = () => {
             defaultValue={query}
           />
 
-          <Button className="rounded-full p-3" type="submit" onClick={() => refine(inputRef.current?.value || "")}>
+          <Button className="rounded-full p-7.5" type="submit" onClick={() => refine(inputRef.current?.value || "")}>
             <span className="sr-only">Submit Search</span>
             <MagnifyingGlassIcon width={30} className="block text-white" />
           </Button>
 
           <Button
             secondary
-            className="my-16"
+            className="my-40"
             centered
             buttonElem
             onClick={() => {
@@ -111,7 +111,7 @@ const HitList = () => {
 
   return (
     <div>
-      <H2 className="rs-ml-1 big-paragraph font-normal" aria-live="polite" aria-atomic>
+      <H2 className="rs-ml-1 big-paragraph! font-normal" aria-live="polite" aria-atomic>
         {hits.length === 0 && "No results for your search. Please try another search."}
         {hits.length > 0 && `${nbHits} ${nbHits > 1 ? "Results" : "Result"}`}
       </H2>

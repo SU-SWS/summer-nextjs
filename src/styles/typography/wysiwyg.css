@@ -1,0 +1,6 @@
+/* In the utilities layer so it still beats a single margin utility, as it did in Tailwind 3. */
+@layer utilities {
+  .wysiwyg > :first-child {
+    margin-top: 0;
+  }
+}

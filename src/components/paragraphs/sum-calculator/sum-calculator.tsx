@@ -131,7 +131,7 @@ const SumCalculatorParagraph = ({
 
   return (
     <div {...props} className={cn("centered", props.className)}>
-      <div className="mx-auto -mb-36 max-w-7xl space-y-20">
+      <div className="mx-auto -mb-90 max-w-7xl [&>:not([hidden])~:not([hidden])]:mt-50 [&>:not([hidden])~:not([hidden])]:mb-0">
         <div onFocus={onContainerFocus}>
           <div className="rs-mb-1 type-3" id="sum-student-type">
             Tell us who you are
@@ -241,19 +241,19 @@ const SumCalculatorParagraph = ({
         </div>
       </div>
 
-      <div className="sticky bottom-0 mt-72">
+      <div className="sticky bottom-0 mt-180">
         <div
           ref={summaryRef}
           className="relative left-1/2 max-h-dvh w-screen -translate-x-1/2 overflow-x-hidden overflow-y-scroll border-t-2 bg-fog-light"
         >
-          <div className="pb-12 md:pt-20">
+          <div className="pb-30 md:pt-50">
             <div className="centered flex flex-col lg:mx-auto lg:max-w-7xl">
-              <div className="relative order-1 pt-20">
+              <div className="relative order-1 pt-50">
                 <button
                   {...buttonProps}
-                  className="group absolute left-0 top-0 z-50 h-full w-full text-archway-dark md:hidden"
+                  className="group absolute top-0 left-0 z-50 h-full w-full text-archway-dark md:hidden"
                 >
-                  <span className="type-2 relative -top-6 mx-auto block w-fit border-b-2 border-transparent group-hocus:border-black">
+                  <span className="relative -top-15 mx-auto block w-fit border-b-2 border-transparent type-2 group-hocus:border-black">
                     <span className="sr-only">{expanded ? "Close details" : "See details"}</span>
                     <ChevronUpIcon
                       width={33}
@@ -263,26 +263,26 @@ const SumCalculatorParagraph = ({
                 </button>
 
                 <H2
-                  className="type-2 mt-4 flex justify-between font-semibold md:type-3 md:mt-0 md:font-normal"
+                  className="mt-10 flex justify-between type-2 font-semibold md:mt-0 md:type-3 md:font-normal"
                   aria-live="polite"
                   aria-atomic
                 >
                   <span>Estimated total cost</span>
                   <span>{formatCurrency(totalCost)}</span>
                 </H2>
-                <p className="tw-hidden card-paragraph mb-0 text-left md:block">
+                <p className="mb-0 tw-hidden text-left card-paragraph md:block">
                   * Disclaimer: this is only an estimate. Actual fees are subject to change.
                 </p>
               </div>
 
-              <div {...panelProps} className={cn("order-3 children:mt-12", {hidden: !expanded})}>
-                <p className="card-paragraph mb-0 border-b border-black pb-4 text-left md:hidden">
+              <div {...panelProps} className={cn("order-3 *:mt-30", {hidden: !expanded})}>
+                <p className="mb-0 border-b border-black pb-10 text-left card-paragraph md:hidden">
                   * Disclaimer: this is only an estimate. Actual fees are subject to change.
                 </p>
                 {!!units && (
                   <div>
-                    <div className="flex items-baseline gap-5">
-                      <H3 className="card-paragraph font-semibold">Tuition</H3>(Based on the total number of units)
+                    <div className="flex items-baseline gap-12.5">
+                      <H3 className="card-paragraph! font-semibold">Tuition</H3>(Based on the total number of units)
                     </div>
                     <ul className="list-none">
                       <SummaryCost label={`${units} Units`} cost={unitsCost} />
@@ -292,7 +292,7 @@ const SumCalculatorParagraph = ({
 
                 {studentType && (
                   <div>
-                    <H3 className="card-paragraph font-semibold">General Fees</H3>
+                    <H3 className="card-paragraph! font-semibold">General Fees</H3>
                     <ul className="list-none">
                       <SummaryCost label="Application Fee" cost={appFee} />
                       <SummaryCost label="Program Fee" cost={progFee} />
@@ -304,7 +304,7 @@ const SumCalculatorParagraph = ({
 
                 {onCampus && (
                   <div>
-                    <H3 className="card-paragraph font-semibold">On-campus Fees</H3>
+                    <H3 className="card-paragraph! font-semibold">On-campus Fees</H3>
                     <ul className="list-none">
                       <SummaryCost label="Housing Fee" cost={housingFee} />
                       <SummaryCost label="Meal Plan" cost={mealPlan} />
@@ -315,7 +315,7 @@ const SumCalculatorParagraph = ({
                 )}
 
                 <div>
-                  <H3 className="card-paragraph font-semibold">Extra Fees</H3>
+                  <H3 className="card-paragraph! font-semibold">Extra Fees</H3>
                   <ul className="list-none">
                     <SummaryCost label="Books and Supplies (optional)" cost={booksSuppliesCost} />
                     <SummaryCost label="Document Fee" cost={documentsCost} />
@@ -326,10 +326,10 @@ const SumCalculatorParagraph = ({
                 </div>
               </div>
 
-              <div className="tw-hidden order-2 mt-20 border-b border-black md:block">
+              <div className="order-2 mt-50 tw-hidden border-b border-black md:block">
                 <button
                   {...buttonProps}
-                  className="card-paragraph mb-3 ml-auto flex items-center text-digital-blue no-underline hocus:underline"
+                  className="mb-7.5 ml-auto flex items-center card-paragraph text-digital-blue no-underline hocus:underline"
                 >
                   {expanded ? "Close" : "See"} details
                   <ChevronDownIcon width={33} className={cn("transition duration-150", {"rotate-180": expanded})} />
@@ -347,14 +347,14 @@ const ComboBoxChevron = () => {
   return (
     <ChevronDownIcon
       width={50}
-      className="group-hocus:outline-3 rounded-full border-3 border-fog-light bg-digital-red text-white group-hocus:outline group-hocus:outline-digital-red"
+      className="rounded-full border-3 border-fog-light bg-digital-red text-white group-hocus:outline-digital-red group-hocus:outline-solid"
     />
   )
 }
 
 const SummaryCost = ({label, cost}: {label: string; cost: number}) => {
   return (
-    <li className="mb-4 flex items-center justify-between">
+    <li className="mb-10 flex items-center justify-between">
       <span>{label}</span>
       <span>{formatCurrency(cost)}</span>
     </li>

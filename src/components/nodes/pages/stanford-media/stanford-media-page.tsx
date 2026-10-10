@@ -8,7 +8,7 @@ import Wysiwyg from "@components/elements/wysiwyg"
 import Button from "@components/elements/button"
 import Link from "@components/elements/link"
 import Oembed from "@components/elements/ombed"
-import {graphqlClient} from "@lib/gql/gql-client"
+import {describeError, graphqlClient} from "@lib/gql/gql-client"
 import {StanfordMediaDocument, StanfordMediaQuery, StanfordMediaQueryVariables} from "@lib/gql/__generated__/graphql"
 import cn from "@lib/utils/className"
 
@@ -30,27 +30,32 @@ const StanfordMediaPage = async ({node, ...props}: Props) => {
     : undefined
 
   const topics = node.suMediaTypes?.slice(0, 3)
-  const upNextMediaQuery = node.suMediaSeries
-    ? await graphqlClient().request<StanfordMediaQuery, StanfordMediaQueryVariables>(StanfordMediaDocument, {
-        filter: {series: node.suMediaSeries},
-      })
-    : undefined
-  const upNextMedia = upNextMediaQuery?.stanfordMedia?.results.filter(
-    item => item.uuid !== node.uuid
-  ) as Array<NodeStanfordMedia>
+  let upNextMediaQuery: StanfordMediaQuery | undefined
+  try {
+    upNextMediaQuery = node.suMediaSeries
+      ? await graphqlClient().request<StanfordMediaQuery, StanfordMediaQueryVariables>(StanfordMediaDocument, {
+          filter: {series: node.suMediaSeries},
+        })
+      : undefined
+  } catch (e) {
+    // The media itself still renders, just without the "up next" list.
+    console.warn(`Unable to fetch the next media in ${node.path}: ${describeError(e)}`)
+  }
+  const upNextMedia = (upNextMediaQuery?.stanfordMedia?.results.filter(item => item.uuid !== node.uuid) ??
+    []) as Array<NodeStanfordMedia>
 
   return (
-    <article className={cn("centered mt-32 gap-20", {"grid grid-cols-3-1": upNextMedia.length > 0})} {...props}>
+    <article className={cn("mt-80 centered gap-50", {"grid grid-cols-3-1": upNextMedia.length > 0})} {...props}>
       <NodePageMetadata pageTitle={node.title} metatags={node.metatag} backupDescription={node.suMediaDek} />
       <div>
-        <ReverseVisualOrder className="mb-20 gap-20 border-b border-black-20 pb-20">
+        <ReverseVisualOrder className="mb-50 gap-50 border-b border-black-20 pb-50">
           <div className="flex">
-            <div className="flex-grow">
+            <div className="grow">
               <H1>{node.title}</H1>
 
               {topics && <div>{topics.map(topic => topic.name).join(", ")}</div>}
 
-              {node.suMediaDek && <div className="mb-10">{node.suMediaDek}</div>}
+              {node.suMediaDek && <div className="mb-25">{node.suMediaDek}</div>}
               {node.suMediaPerson && (
                 <div>
                   {node.suMediaPerson.map((person, i) => (
@@ -96,14 +101,14 @@ const StanfordMediaPage = async ({node, ...props}: Props) => {
           </div>
         </ReverseVisualOrder>
 
-        <Wysiwyg html={node.body?.processed} className="centered mb-32 xl:max-w-[980px]" />
+        <Wysiwyg html={node.body?.processed} className="centered mb-80 xl:max-w-[980px]" />
 
         {node.suMediaAudioVideo.length > 1 && (
           <div>
             <H2>Video clips from: {node.title}</H2>
             <ul className="list-unstyled">
               {node.suMediaAudioVideo.slice(1).map(clip => (
-                <li key={clip.uuid} className="mt-10 border-t border-black-20 pt-10">
+                <li key={clip.uuid} className="mt-25 border-t border-black-20 pt-25">
                   <Link href="#">{clip.name}</Link>
                 </li>
               ))}

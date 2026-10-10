@@ -10,7 +10,7 @@ const NextArrow = ({className, onClick}: CustomArrowProps) => {
   return (
     <button
       className={cn(
-        "hocus:outline-3 absolute right-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:bg-digital-red hocus:outline hocus:outline-digital-red",
+        "absolute top-1/2 right-12.5 z-50 flex h-50 w-50 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:bg-digital-red hocus:outline-digital-red hocus:outline-solid",
         {"bg-black-40 hocus:bg-black-40 hocus:outline-0": slickDisabled}
       )}
       onClick={onClick}
@@ -27,7 +27,7 @@ const PrevArrow = ({className, onClick}: CustomArrowProps) => {
   return (
     <button
       className={cn(
-        "hocus:outline-3 absolute left-5 top-1/2 z-50 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:bg-digital-red hocus:outline hocus:outline-digital-red",
+        "absolute top-1/2 left-12.5 z-50 flex h-50 w-50 items-center justify-center rounded-full border-2 border-white bg-digital-red hocus:bg-digital-red hocus:outline-digital-red hocus:outline-solid",
         {"bg-black-40 hocus:bg-black-40 hocus:outline-0": slickDisabled}
       )}
       onClick={onClick}

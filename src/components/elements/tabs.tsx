@@ -3,7 +3,7 @@
 import {Tabs as BaseTabs} from "@base-ui/react/tabs"
 import {HTMLAttributes, ReactNode} from "react"
 import cn from "@lib/utils/className"
-import {useRouter, useSearchParams} from "next/navigation"
+import {useSearchParams} from "next/navigation"
 
 // View the API for all the tab components here: https://base-ui.com/react/components/tabs.
 type TabValue = BaseTabs.Tab.Value
@@ -25,14 +25,14 @@ type TabsProps = HTMLAttributes<HTMLDivElement> & {
 
 export const Tabs = ({paramId = "tab", orientation, defaultTab, children, ...props}: TabsProps) => {
   const searchParams = useSearchParams()
-  const router = useRouter()
   const onValueChange = (value: TabValue, {reason}: BaseTabs.Root.ChangeEventDetails) => {
     // Only a user's choice belongs in the url, not Base UI's automatic fallbacks.
     if (reason !== "none") return
     const params = new URLSearchParams(searchParams)
     params.delete(paramId)
     if (value) params.set(paramId, `${value}`)
-    router.replace(`?${params.toString()}`, {scroll: false})
+    // Native History API instead of router.replace, so a tab change doesn't fetch the page from the server.
+    window.history.replaceState(null, "", `?${params.toString()}`)
   }
   const paramValue = searchParams.get(paramId)
   const initialTab = defaultTab || (paramValue && parseInt(paramValue))

@@ -8,8 +8,10 @@ import Wysiwyg from "@components/elements/wysiwyg"
 import Button from "@components/elements/button"
 import Link from "@components/elements/link"
 import Oembed from "@components/elements/ombed"
-import {describeError, graphqlClient} from "@lib/gql/gql-client"
+import {graphqlClient} from "@lib/gql/gql-client"
 import {StanfordMediaDocument, StanfordMediaQuery, StanfordMediaQueryVariables} from "@lib/gql/__generated__/graphql"
+import {cacheFailure} from "@lib/gql/gql-queries"
+import {cacheLife, cacheTag} from "next/cache"
 import cn from "@lib/utils/className"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -30,19 +32,7 @@ const StanfordMediaPage = async ({node, ...props}: Props) => {
     : undefined
 
   const topics = node.suMediaTypes?.slice(0, 3)
-  let upNextMediaQuery: StanfordMediaQuery | undefined
-  try {
-    upNextMediaQuery = node.suMediaSeries
-      ? await graphqlClient().request<StanfordMediaQuery, StanfordMediaQueryVariables>(StanfordMediaDocument, {
-          filter: {series: node.suMediaSeries},
-        })
-      : undefined
-  } catch (e) {
-    // The media itself still renders, just without the "up next" list.
-    console.warn(`Unable to fetch the next media in ${node.path}: ${describeError(e)}`)
-  }
-  const upNextMedia = (upNextMediaQuery?.stanfordMedia?.results.filter(item => item.uuid !== node.uuid) ??
-    []) as Array<NodeStanfordMedia>
+  const upNextMedia = node.suMediaSeries ? await getUpNextMedia(node.suMediaSeries, node.uuid, node.path) : []
 
   return (
     <article className={cn("mt-80 centered gap-50", {"grid grid-cols-3-1": upNextMedia.length > 0})} {...props}>
@@ -143,3 +133,27 @@ const StanfordMediaPage = async ({node, ...props}: Props) => {
 }
 
 export default StanfordMediaPage
+
+/**
+ * Other media in the same series, for the "Next" list.
+ *
+ * Cached so media pages can be served fully static. The page's own path tag clears it when this media
+ * is saved; the daily lifetime picks up other items added to the series, which don't carry this tag.
+ */
+const getUpNextMedia = async (series: string, uuid: string, path?: string | null): Promise<NodeStanfordMedia[]> => {
+  "use cache: remote"
+  cacheTag("all-cache", `paths:${path}`)
+
+  try {
+    const query = await graphqlClient().request<StanfordMediaQuery, StanfordMediaQueryVariables>(
+      StanfordMediaDocument,
+      {filter: {series}}
+    )
+    cacheLife("days")
+    return (query.stanfordMedia?.results.filter(item => item.uuid !== uuid) ?? []) as NodeStanfordMedia[]
+  } catch (e) {
+    // The media itself still renders, just without the "Next" list, and tries again within minutes.
+    cacheFailure(`Unable to fetch the next media in ${path}`, e)
+    return []
+  }
+}

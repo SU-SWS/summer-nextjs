@@ -39,3 +39,37 @@ const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{
  * @returns Whether the value is a UUID.
  */
 export const isUuid = (value?: string | null): value is string => !!value && UUID_PATTERN.test(value)
+
+/**
+ * Check an HTTP Basic `Authorization` header against the cache-clear credentials.
+ *
+ * Used by proxy.ts to gate `/system/cache-clear`, and again inside the cache-clear server action:
+ * server actions are POST endpoints, so they check authorization themselves rather than relying on the
+ * route they are rendered on.
+ *
+ * @param authorization - The request's `Authorization` header.
+ * @returns Whether the header carries the configured username and password.
+ */
+export const isCacheClearAuthorized = async (authorization?: string | null): Promise<boolean> => {
+  const validUsername = process.env.CACHE_CLEAR_USERNAME
+  const validPassword = process.env.CACHE_CLEAR_PASSWORD
+
+  if (!validUsername || !validPassword) {
+    console.error("CACHE_CLEAR_USERNAME or CACHE_CLEAR_PASSWORD not set")
+    return false
+  }
+
+  const [scheme, encoded] = authorization?.split(" ") || []
+  if (scheme?.toLowerCase() !== "basic" || !encoded) return false
+
+  // Split on the first colon only; the password itself may contain colons.
+  const credentials = Buffer.from(encoded, "base64").toString()
+  const separator = credentials.indexOf(":")
+  if (separator < 0) return false
+
+  const [usernameOk, passwordOk] = await Promise.all([
+    secretsMatch(credentials.slice(0, separator), validUsername),
+    secretsMatch(credentials.slice(separator + 1), validPassword),
+  ])
+  return usernameOk && passwordOk
+}

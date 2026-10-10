@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from "next/server"
-import {secretsMatch} from "./src/lib/utils/security"
+import {isCacheClearAuthorized, secretsMatch} from "./src/lib/utils/security"
 
 // Draft content must never be indexed or held in a shared cache, and the preview url carries the
 // shared secret in its query string, so keep that url out of any outbound Referer header.
@@ -94,39 +94,10 @@ const isSafePreviewSlug = (slug: string | null): slug is string => {
   )
 }
 
-const isAuthenticated = async (req: NextRequest) => {
-  const authHeader = req.headers.get("authorization") || req.headers.get("Authorization")
-
-  const [scheme, encoded] = authHeader?.split(" ") || []
-  if (scheme?.toLowerCase() !== "basic" || !encoded) return false
-
-  // Check for cache-clear specific route
-  if (req.nextUrl.pathname.startsWith("/system/cache-clear")) {
-    // Split on the first colon only; the password itself may contain colons.
-    const credentials = Buffer.from(encoded, "base64").toString()
-    const separator = credentials.indexOf(":")
-    if (separator < 0) return false
-
-    return await checkCacheClearAuth(credentials.slice(0, separator), credentials.slice(separator + 1))
-  }
-  return false
-}
-
-export const checkCacheClearAuth = async (username: string, password: string): Promise<boolean> => {
-  const validUsername = process.env.CACHE_CLEAR_USERNAME
-  const validPassword = process.env.CACHE_CLEAR_PASSWORD
-
-  if (!validUsername || !validPassword) {
-    console.error("CACHE_CLEAR_USERNAME or CACHE_CLEAR_PASSWORD not set")
-    return false
-  }
-
-  const [usernameOk, passwordOk] = await Promise.all([
-    secretsMatch(username, validUsername),
-    secretsMatch(password, validPassword),
-  ])
-  return usernameOk && passwordOk
-}
+// Only the cache-clear page is behind Basic Auth; anything else the matcher sends here is refused.
+const isAuthenticated = async (req: NextRequest) =>
+  req.nextUrl.pathname.startsWith("/system/cache-clear") &&
+  (await isCacheClearAuthorized(req.headers.get("authorization")))
 
 // Configure "Matching Paths" below to protect routes with HTTP Basic Auth or the preview secret.
 export const config = {

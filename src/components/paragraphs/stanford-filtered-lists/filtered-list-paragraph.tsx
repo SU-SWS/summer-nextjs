@@ -5,6 +5,7 @@ import {ElementType, HtmlHTMLAttributes, Suspense} from "react"
 import {ParagraphStanfordFilteredList} from "@lib/gql/__generated__/graphql"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {getViewPagedItems, loadViewPage, VIEW_PAGE_SIZE} from "@lib/gql/gql-view-queries"
+import {signViewConfig} from "@lib/utils/view-config"
 import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
 import cn from "@lib/utils/className"
 
@@ -34,6 +35,18 @@ const FilteredListParagraph = async ({paragraph, headingIds, ...props}: Props) =
 
   if (behaviors.list_paragraph?.hide_empty && viewItems.length === 0) return null
 
+  // Signed so the public "load more" action can't be called with arbitrary views or filters.
+  const signedConfig =
+    addLoadMore && viewId && displayId
+      ? signViewConfig({
+          viewId,
+          displayId,
+          contextualFilter: paragraph.suFilteredListView?.contextualFilter || [],
+          hasHeadline: !!paragraph.suListHeadline,
+          pageSize: VIEW_PAGE_SIZE,
+        })
+      : undefined
+
   const ListWrapper: ElementType =
     paragraph.suListHeadline && behaviors.list_paragraph?.heading_behavior !== "remove" ? "section" : "div"
   const id = getHeadingId(paragraph.uuid, paragraph.suListHeadline, headingIds)
@@ -60,18 +73,7 @@ const FilteredListParagraph = async ({paragraph, headingIds, ...props}: Props) =
             displayId={displayId}
             items={viewItems}
             headingLevel={paragraph.suListHeadline ? "h3" : "h2"}
-            loadPage={
-              addLoadMore
-                ? loadViewPage.bind(
-                    null,
-                    viewId,
-                    displayId,
-                    !!paragraph.suListHeadline,
-                    VIEW_PAGE_SIZE,
-                    paragraph.suFilteredListView?.contextualFilter || []
-                  )
-                : undefined
-            }
+            loadPage={signedConfig ? loadViewPage.bind(null, signedConfig) : undefined}
             totalItems={totalItems}
           />
         </Suspense>

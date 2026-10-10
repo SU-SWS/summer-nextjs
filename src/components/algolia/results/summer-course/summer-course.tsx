@@ -106,7 +106,15 @@ const SummerCourse = ({hit}: {hit: CourseHit}) => {
 
         {imageUrl && (
           <div className="relative order-first aspect-square w-1/4 shrink-0">
-            <Image className="rounded-[25px] object-cover" src={imageUrl} alt={""} fill sizes="500px" />
+            {/* An image style derivative (`?itok=`) is already sized by Drupal and needs its token intact. */}
+            <Image
+              className="rounded-[25px] object-cover"
+              src={imageUrl}
+              alt=""
+              fill
+              sizes="500px"
+              unoptimized={imageUrl.includes("?")}
+            />
           </div>
         )}
 

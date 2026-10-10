@@ -19,6 +19,7 @@ export const ApplyNowLink = ({className, href, children}: ApplyNowLinkProps) => 
           className
         )}
         href={href}
+        prefetch={false}
       >
         {children}
         <ArrowRightIcon width={60} className="ml-5 shrink-0" />

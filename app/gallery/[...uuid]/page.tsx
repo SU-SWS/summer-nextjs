@@ -3,6 +3,7 @@ import {graphqlClient} from "@lib/gql/gql-client"
 import {notFound} from "next/navigation"
 import {cacheTag} from "next/cache"
 import {cacheFailure} from "@lib/gql/gql-queries"
+import {isUuid} from "@lib/utils/security"
 import Image from "next/image"
 import {
   ParagraphDocument,
@@ -29,6 +30,10 @@ const Page = async (props: Props) => {
 
   const params = await props.params
   const [paragraphId, mediaUuid] = params.uuid
+
+  // Reject malformed ids before they reach Drupal.
+  if (!isUuid(paragraphId) || (mediaUuid && !isUuid(mediaUuid))) notFound()
+
   cacheTag("all-cache", "paragraphs", `paragraph:${paragraphId}`)
 
   let paragraphQuery: ParagraphQuery | undefined

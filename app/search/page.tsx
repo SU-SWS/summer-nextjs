@@ -3,6 +3,8 @@ import {getAlgoliaCredential} from "@lib/gql/gql-queries"
 import AlgoliaSiteSearch from "@components/algolia/algolia-site-search"
 import {Suspense} from "react"
 
+export const instant = false
+
 export const metadata = {
   title: "Search",
   description: "Search the site",

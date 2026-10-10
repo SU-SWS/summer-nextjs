@@ -40,12 +40,14 @@ export const getLinkHref = (href: string = "#") => {
   return href
 }
 
-const DrupalLink = ({href, children, ...props}: Props) => {
+// Prefetching is disabled by default. Every in-viewport link prefetch is a request to Vercel, and prefetching a page
+// that hasn't been rendered yet triggers a background render and cache write.
+const DrupalLink = ({href, children, prefetch = false, ...props}: Props) => {
   href = getLinkHref(href)
 
   if (props.className?.includes("link--action")) {
     return (
-      <ActionLink href={href} {...props}>
+      <ActionLink href={href} prefetch={prefetch} {...props}>
         {children}
       </ActionLink>
     )
@@ -55,6 +57,7 @@ const DrupalLink = ({href, children, ...props}: Props) => {
     return (
       <Button
         href={href}
+        prefetch={prefetch}
         big={props.className.includes("--big")}
         secondary={props.className.includes("--secondary")}
         {...props}
@@ -63,12 +66,19 @@ const DrupalLink = ({href, children, ...props}: Props) => {
       </Button>
     )
   }
-  const Component = href.startsWith("#") ? "a" : Link
+  if (href.startsWith("#")) {
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    )
+  }
+
   return (
-    <Component href={href} className={props.className} {...props}>
+    <Link href={href} prefetch={prefetch} {...props}>
       {children}
       {href.startsWith("mailto") && <EnvelopeIcon width={20} className="ml-10 inline-block" />}
-    </Component>
+    </Link>
   )
 }
 

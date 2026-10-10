@@ -107,8 +107,11 @@ const getCachedEntityFromPath = async <T extends NodeUnion>(
 
   cacheTag("all-cache", "paths", `paths:${path}`)
   try {
-    // A path Drupal doesn't know resolves without an error, so a real "not found" is cached normally.
-    return await requestEntityFromPath<T>(path, false, teaser)
+    // A path Drupal doesn't know resolves without an error. Caching that "not found" keeps junk URLs from
+    // reaching Drupal, but for days rather than forever, so scanners can't grow the cache without bound.
+    const result = await requestEntityFromPath<T>(path, false, teaser)
+    if (!result.entity && !result.redirect) cacheLife("days")
+    return result
   } catch (e) {
     // A teaser is a card within some other page: show the page without it, and retry soon.
     if (teaser) {

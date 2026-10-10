@@ -9,6 +9,8 @@ type Props = {
   params: Promise<{slug?: string[]}>
 }
 
+export const instant = false
+
 /**
  * Chrome for preview urls.
  *

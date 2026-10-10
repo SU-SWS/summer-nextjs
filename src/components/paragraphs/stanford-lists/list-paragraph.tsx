@@ -7,6 +7,7 @@ import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behavi
 import cn from "@lib/utils/className"
 import Button from "@components/elements/button"
 import {getViewPagedItems, loadViewPage, VIEW_PAGE_SIZE} from "@lib/gql/gql-view-queries"
+import {signViewConfig} from "@lib/utils/view-config"
 import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -31,6 +32,18 @@ const ListParagraph = async ({paragraph, headingIds, ...props}: Props) => {
   const addLoadMore = (limit || 3) >= VIEW_PAGE_SIZE && totalItems > viewItems.length
 
   if (behaviors.list_paragraph?.hide_empty && viewItems.length === 0) return null
+
+  // Signed so the public "load more" action can't be called with arbitrary views or filters.
+  const signedConfig =
+    addLoadMore && viewId && displayId
+      ? signViewConfig({
+          viewId,
+          displayId,
+          contextualFilter: paragraph.suListView?.contextualFilter || [],
+          hasHeadline: !!paragraph.suListHeadline,
+          pageSize: VIEW_PAGE_SIZE,
+        })
+      : undefined
 
   const ListWrapper: ElementType =
     paragraph.suListHeadline && behaviors.list_paragraph?.heading_behavior !== "remove" ? "section" : "div"
@@ -57,18 +70,7 @@ const ListParagraph = async ({paragraph, headingIds, ...props}: Props) => {
           displayId={displayId}
           items={viewItems}
           headingLevel={paragraph.suListHeadline ? "h3" : "h2"}
-          loadPage={
-            addLoadMore
-              ? loadViewPage.bind(
-                  null,
-                  viewId,
-                  displayId,
-                  !!paragraph.suListHeadline,
-                  VIEW_PAGE_SIZE,
-                  paragraph.suListView?.contextualFilter || []
-                )
-              : undefined
-          }
+          loadPage={signedConfig ? loadViewPage.bind(null, signedConfig) : undefined}
           totalItems={totalItems}
         />
       )}

@@ -31,7 +31,7 @@ type Props = HtmlHTMLAttributes<HTMLAnchorElement | HTMLButtonElement> & {
    */
   onClick?: MouseEventHandler
   /**
-   * Next.js prefetch functionality.
+   * Next.js prefetch functionality. Disabled by default.
    */
   prefetch?: LinkProps["prefetch"]
   /**
@@ -52,6 +52,7 @@ export const Button = ({
   centered = false,
   children,
   className,
+  prefetch = false,
   ...props
 }: Props) => {
   const standardClasses = cn("flex w-fit items-center", {
@@ -76,7 +77,7 @@ export const Button = ({
   }
 
   return (
-    <Link href={href} className={cn(standardClasses, className?.replace("button", ""))} {...props}>
+    <Link href={href} className={cn(standardClasses, className?.replace("button", ""))} prefetch={prefetch} {...props}>
       {children}
       <ArrowRightIcon width={20} className="ml-5 inline-block" />
     </Link>

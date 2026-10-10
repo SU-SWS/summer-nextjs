@@ -7,7 +7,7 @@ The `/system/cache-clear` route provides a web interface for clearing Next.js ca
 ## Access
 
 - **URL**: `/system/cache-clear`
-- **Authentication**: HTTP Basic Auth (handled by proxy.tsx middleware)
+- **Authentication**: HTTP Basic Auth (handled by proxy.ts middleware)
 
 ## Environment Variables
 
@@ -50,7 +50,7 @@ CACHE_CLEAR_PASSWORD=your_secure_password
 - `page.tsx` - Route page component
 - `form.tsx` - Client component with form UI
 - `actions.ts` - Server action for cache clearing
-- `/proxy.tsx` - Middleware with basic auth protection (`checkCacheClearAuth` function)
+- `/proxy.ts` - Middleware with basic auth protection (`checkCacheClearAuth` function)
 
 ### Server Actions
 
@@ -61,6 +61,6 @@ The form uses Next.js Server Actions (`clearCache` function) to handle:
 ### Security
 
 - Protected by HTTP Basic Authentication via Next.js proxy middleware
-- Authentication logic in `/proxy.tsx` (`checkCacheClearAuth` function)
+- Authentication logic in `/proxy.ts` (`checkCacheClearAuth` function)
 - Credentials stored in environment variables
 - Route is dynamic (not statically generated)

@@ -24,6 +24,9 @@ export const generateStaticParams = async (): Promise<Array<Slug>> => {
   if (pagesToBuild === 0) return [{slug: ["home"]}]
   const paths = (await getAllNodes()).map(node => node.path).filter(path => !!path) as Array<string>
   const nodePaths = paths.map(path => ({slug: path.split("/").filter(part => !!part)}))
+
+  // If Drupal couldn't be reached, build the placeholder and let every page render on its first request.
+  if (!nodePaths.length) return [{slug: ["home"]}]
   return pagesToBuild < 0 ? nodePaths : nodePaths.slice(0, pagesToBuild)
 }
 

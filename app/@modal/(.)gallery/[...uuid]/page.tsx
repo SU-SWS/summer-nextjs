@@ -5,6 +5,7 @@ import {graphqlClient} from "@lib/gql/gql-client"
 import {notFound} from "next/navigation"
 import {cacheTag} from "next/cache"
 import {cacheFailure} from "@lib/gql/gql-queries"
+import {isUuid} from "@lib/utils/security"
 import {
   ParagraphDocument,
   ParagraphQuery,
@@ -16,11 +17,17 @@ type Props = {
   params: Promise<{uuid: string[]}>
 }
 
+export const instant = false
+
 const Page = async (props: Props) => {
   "use cache: remote"
 
   const params = await props.params
   const [paragraphId, mediaUuid] = params.uuid
+
+  // Reject malformed ids before they reach Drupal.
+  if (!isUuid(paragraphId) || (mediaUuid && !isUuid(mediaUuid))) notFound()
+
   cacheTag("all-cache", "paragraphs", `paragraph:${paragraphId}`)
 
   let paragraphQuery: ParagraphQuery | undefined

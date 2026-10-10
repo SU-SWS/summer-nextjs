@@ -2,7 +2,7 @@ import {CourseHit} from "@components/algolia/results/summer-course/summer-course
 import ImageCard from "@components/patterns/image-card"
 import {H2, H3} from "@components/elements/headers"
 import ActionLink from "@components/elements/action-link"
-import {getAlgoliaCredential} from "@lib/gql/gql-queries"
+import {cacheFailure, getAlgoliaCredential} from "@lib/gql/gql-queries"
 import {RecommendHit} from "algoliasearch/lite"
 import {cacheTag} from "next/cache"
 
@@ -37,12 +37,18 @@ const getRelatedContent = async (objectID: string): Promise<CourseHit[]> => {
     }),
   }
 
-  const recommendations: {results: RecommendHit[]} = await fetch(
-    `https://${appId}-dsn.algolia.net/1/indexes/*/recommendations`,
-    options
-  ).then(res => res.json())
+  let recommendations: {results?: RecommendHit[]}
+  try {
+    const response = await fetch(`https://${appId}-dsn.algolia.net/1/indexes/*/recommendations`, options)
+    if (!response.ok) throw new Error(`Algolia responded ${response.status} ${response.statusText}`)
+    recommendations = await response.json()
+  } catch (e) {
+    // The course page still renders, just without related courses.
+    cacheFailure(`Unable to fetch related courses for ${objectID}`, e)
+    return []
+  }
 
-  const hits = (recommendations?.results?.[0].hits as CourseHit[]) || []
+  const hits = (recommendations.results?.[0]?.hits as CourseHit[]) || []
   hits.map(hit => {
     delete hit._highlightResult
     delete hit._snippetResult

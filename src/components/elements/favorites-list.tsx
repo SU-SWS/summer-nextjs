@@ -7,12 +7,13 @@ import {XMarkIcon} from "@heroicons/react/20/solid"
 import {H2} from "./headers"
 import cn from "@lib/utils/className"
 import {toast} from "react-toastify"
+import {getSharedFavoritesUrl} from "@lib/utils/shared-favorites"
 
 const ShareButtons = () => {
   const [, copy] = useCopyToClipboard()
   const {favs} = useFavorites()
   const isClient = useIsClient()
-  const urlParams = `/courses/favorites?favs=${favs.map(fav => `${fav.uuid}`).join(",")}`
+  const urlParams = getSharedFavoritesUrl(favs.map(fav => fav.uuid))
   const copyUrl = isClient ? window.location.origin + urlParams : urlParams
 
   const copyToClip = (text: string) => {

@@ -1,8 +1,7 @@
 "use client"
 
 import {liteClient} from "algoliasearch/lite"
-import {useHits, usePagination, Configure} from "react-instantsearch"
-import {InstantSearchNext} from "react-instantsearch-nextjs"
+import {useHits, usePagination, Configure, InstantSearch} from "react-instantsearch"
 import {HTMLAttributes, useLayoutEffect, useMemo, useRef} from "react"
 import {Hit as HitType} from "instantsearch.js"
 import SummerCourse from "@components/algolia/results/summer-course/summer-course"
@@ -29,23 +28,26 @@ const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
   const filters = itemUuids.map(uuid => `objectID:'${uuid}'`).join(" OR ") || "type:'Summer Courses'"
 
   return (
-    <InstantSearchNext
+    // Plain InstantSearch, rather than InstantSearchNext, so that searching only happens in the browser.
+    <InstantSearch
       key={pathname}
       indexName={searchIndex}
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: true}}
-      ignoreMultipleHooksWarning={true}
       insights={true}
     >
       <Configure filters={filters} attributesToHighlight={["html"]} attributesToSnippet={["html"]} />
       <HitList />
-    </InstantSearchNext>
+    </InstantSearch>
   )
 }
 
 const HitList = () => {
-  const {items: hits, sendEvent} = useHits<AlgoliaHit>({})
+  const {items: hits, results, sendEvent} = useHits<AlgoliaHit>({})
   const {currentRefinement: currentPage} = usePagination({padding: 2})
+
+  // Placeholder results are provided until the first search response arrives.
+  if (!results || results.__isArtificial) return null
 
   if (hits.length === 0) {
     return <p>No favorites at this time.</p>

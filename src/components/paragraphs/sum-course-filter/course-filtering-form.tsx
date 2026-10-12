@@ -1,8 +1,15 @@
 "use client"
 
 import {liteClient} from "algoliasearch/lite"
-import {useSearchBox, useRefinementList, useClearRefinements, useInfiniteHits, Configure} from "react-instantsearch"
-import {InstantSearchNext} from "react-instantsearch-nextjs"
+import {
+  useSearchBox,
+  useRefinementList,
+  useClearRefinements,
+  useInfiniteHits,
+  Configure,
+  InstantSearch,
+} from "react-instantsearch"
+import {history} from "instantsearch.js/es/lib/routers"
 import {H2, H3} from "@components/elements/headers"
 import {useEffect, useId, useLayoutEffect, useMemo, useRef} from "react"
 import Button from "@components/elements/button"
@@ -43,17 +50,19 @@ for (const [key, value] of queryKeys.entries()) {
   reverseQueryKeys.set(value, key)
 }
 
+type RouteState = Record<string, string | string[] | undefined>
+
 const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
   const pathname = usePathname()
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
 
   const routing = useMemo(
     () => ({
-      router: {cleanUrlOnDispose: false},
+      router: history<RouteState>({cleanUrlOnDispose: false}),
       stateMapping: {
-        stateToRoute(uiState: UiState): Record<string, string> {
+        stateToRoute(uiState: UiState): RouteState {
           const indexUiState = uiState[searchIndex] ?? {}
-          const route: Record<string, string> = {}
+          const route: RouteState = {}
 
           if (indexUiState.query) {
             route.q = indexUiState.query
@@ -62,26 +71,31 @@ const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
           for (const [attribute, values] of Object.entries(indexUiState.refinementList ?? {})) {
             const param = queryKeys.get(attribute)
             if (param && values.length) {
-              route[param] = values.join(",")
+              route[param] = values
             }
           }
 
           return route
         },
-        routeToState(routeState: Record<string, string>) {
+        routeToState(routeState: RouteState) {
           const {q, ...refinementParams} = routeState
           const refinementList: IndexUiState["refinementList"] = {}
 
           for (const [param, value] of Object.entries(refinementParams)) {
             const attribute = reverseQueryKeys.get(param)
-            if (attribute && value) {
-              refinementList[attribute] = value.split(",")
+            // The url is user input, so a parameter can arrive as a string, an array, or something else entirely. A
+            // plain string is the older comma separated format, e.g. `?units=2,3`, kept so existing links still work.
+            const values = (typeof value === "string" ? value.split(",") : [value].flat()).filter(
+              (item): item is string => typeof item === "string" && !!item
+            )
+            if (attribute && values.length) {
+              refinementList[attribute] = values
             }
           }
 
           return {
             [searchIndex]: {
-              query: q,
+              query: typeof q === "string" ? q : undefined,
               refinementList,
             },
           }
@@ -92,18 +106,18 @@ const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
   )
 
   return (
-    <InstantSearchNext
+    // Plain InstantSearch, rather than InstantSearchNext, so that searching only happens in the browser.
+    <InstantSearch
       key={pathname}
       indexName={searchIndex}
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: false}}
-      ignoreMultipleHooksWarning={true}
       insights={true}
       routing={routing}
     >
       <Configure filters="type:'Summer Courses'" />
       <SearchForm />
-    </InstantSearchNext>
+    </InstantSearch>
   )
 }
 export default CourseFilteringForm
@@ -113,8 +127,16 @@ const transformUnitItems = (items: RefinementListItem[]) => {
     .filter(item => parseInt(item.label) > 0)
     .map(item => ({
       ...item,
-      label: item.label + (parseInt(item.label) > 1 ? "units" : "unit"),
+      label: `${item.label} ${parseInt(item.label) > 1 ? "units" : "unit"}`,
     }))
+}
+
+const sortByUnits = (a: SearchResults.FacetValue, b: SearchResults.FacetValue) =>
+  (parseInt(a.name) || 0) - (parseInt(b.name) || 0)
+
+const unitRefinementProps = {
+  transformItems: transformUnitItems,
+  sortBy: sortByUnits,
 }
 
 const transformWeekdayItem = (items: RefinementListItem[]) => {
@@ -143,50 +165,12 @@ const weekdayRefinementProps = {
 }
 
 const SearchForm = () => {
-  const id = useId()
-
-  const inputRef = useRef<HTMLInputElement>(null)
-  const {query, refine} = useSearchBox({})
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.value = query || ""
-    }
-  }, [query])
-
   return (
     <div id="search-form" className="grid grid-cols-12 sm:gap-30">
       <div className="col-span-12 flex flex-col lg:col-span-4 xl:col-span-3">
         <form className="flex flex-col" role="search" aria-label="Search Courses" onSubmit={e => e.preventDefault()}>
           <H2 className="sr-only">Search and filter course results</H2>
-          <div className="mb-25">
-            <label className="text-18 font-semibold" htmlFor={`${id}-search-input`}>
-              Search courses<span className="sr-only">&nbsp;by keywords</span>
-            </label>
-            <div className="relative mt-10">
-              <input
-                id={`${id}-search-input`}
-                className="w-full grow border-3 border-fog px-20 py-12.5 type-0"
-                ref={inputRef}
-                autoComplete="on"
-                spellCheck={false}
-                maxLength={60}
-                type="text"
-                placeholder="Search by keyword"
-                defaultValue={query}
-              />
-              <button
-                type="submit"
-                className="group absolute top-0 right-0 mr-[1rem] flex h-full items-center"
-                onClick={() => refine(inputRef.current?.value || "")}
-              >
-                <span className="sr-only">Submit Search</span>
-                <MagnifyingGlassIcon
-                  width={40}
-                  className="block rounded-full border-2 border-white bg-digital-red p-7.5 text-white group-hocus:outline-digital-red group-hocus:outline-solid"
-                />
-              </button>
-            </div>
-          </div>
+          <SearchBox />
 
           <RefinementInput attribute="sum_course_interest" label="Filter by Interest Area" accordionExpanded={true} />
 
@@ -205,7 +189,7 @@ const SearchForm = () => {
           <RefinementInput
             attribute="sum_course_units"
             label="Filter by units"
-            useRefinementProps={{transformItems: transformUnitItems}}
+            useRefinementProps={unitRefinementProps}
           />
 
           <CustomCurrentRefinements />
@@ -227,21 +211,61 @@ const SearchForm = () => {
   )
 }
 
-const CustomCurrentRefinements = () => {
-  const {refine} = useSearchBox({})
-  const {refine: clearRefinements} = useClearRefinements({})
+const SearchBox = () => {
+  const id = useId()
+  const inputRef = useRef<HTMLInputElement>(null)
+  const {query, refine} = useSearchBox({})
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = query || ""
+    }
+  }, [query])
+
+  // The form wraps the filters as well, so listen for its submit event rather than rendering it here.
+  useEffect(() => {
+    const form = inputRef.current?.form
+    if (!form) return
+    const onSubmit = () => refine(inputRef.current?.value || "")
+    form.addEventListener("submit", onSubmit)
+    return () => form.removeEventListener("submit", onSubmit)
+  }, [refine])
 
   return (
-    <Button
-      className="my-40"
-      centered
-      buttonElem
-      secondary
-      onClick={() => {
-        clearRefinements()
-        refine("")
-      }}
-    >
+    <div className="mb-25">
+      <label className="text-18 font-semibold" htmlFor={`${id}-search-input`}>
+        Search courses<span className="sr-only">&nbsp;by keywords</span>
+      </label>
+      <div className="relative mt-10">
+        <input
+          id={`${id}-search-input`}
+          className="w-full grow border-3 border-fog px-20 py-12.5 type-0"
+          ref={inputRef}
+          autoComplete="on"
+          spellCheck={false}
+          maxLength={60}
+          type="text"
+          placeholder="Search by keyword"
+          defaultValue={query}
+        />
+        <button type="submit" className="group absolute top-0 right-0 mr-[1rem] flex h-full items-center">
+          <span className="sr-only">Submit Search</span>
+          <MagnifyingGlassIcon
+            width={40}
+            className="block rounded-full border-2 border-white bg-digital-red p-7.5 text-white group-hocus:outline-digital-red group-hocus:outline-solid"
+          />
+        </button>
+      </div>
+    </div>
+  )
+}
+
+const CustomCurrentRefinements = () => {
+  // Include the query so the search keywords are cleared along with the filters.
+  const {refine: clearRefinements} = useClearRefinements({excludedAttributes: []})
+
+  return (
+    <Button className="my-40" centered buttonElem secondary onClick={clearRefinements}>
       Clear all
     </Button>
   )
@@ -265,8 +289,15 @@ const RefinementInput = ({
     ...useRefinementProps,
   })
 
-  const startExpanded = accordionExpanded || !!refinementOptions.filter(item => item.isRefined).length
-  const {buttonProps, panelProps, expanded} = useAccordion({initiallyVisible: startExpanded})
+  const hasRefinedOption = refinementOptions.some(item => item.isRefined)
+  const {buttonProps, panelProps, expanded, expandAccordion} = useAccordion({
+    initiallyVisible: accordionExpanded || hasRefinedOption,
+  })
+
+  // Facets from the url can arrive after the first render, so open the panel once one of its options is applied.
+  useEffect(() => {
+    if (hasRefinedOption) expandAccordion()
+  }, [hasRefinedOption, expandAccordion])
   if (refinementOptions.length === 0) return null
 
   return (
@@ -302,11 +333,13 @@ const RefinementInput = ({
 const HitList = () => {
   const {items: hits, results, currentPageHits, showMore, isLastPage, sendEvent} = useInfiniteHits<AlgoliaHit>()
   const nbHits = results?.nbHits ?? 0
+  // Placeholder results are provided until the first search response arrives.
+  const hasSearched = !!results && !results.__isArtificial
 
   return (
     <div>
       <H2 className="rs-ml-1 big-paragraph! font-normal" aria-live="polite" aria-atomic>
-        {hits.length === 0 && "No results for your search. Please try another search."}
+        {hasSearched && hits.length === 0 && "No results for your search. Please try another search."}
         {hits.length > 0 && `${nbHits} ${nbHits > 1 ? "results" : "result"}`}
       </H2>
 
@@ -315,7 +348,7 @@ const HitList = () => {
           {hits.map((hit, position) => (
             <HitItem
               key={hit.objectID}
-              focusOnItem={hit.objectID === currentPageHits[0].objectID && position > 0}
+              focusOnItem={hit.objectID === currentPageHits[0]?.objectID && position > 0}
               hit={hit}
               sendEvent={sendEvent}
             />

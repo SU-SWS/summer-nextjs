@@ -31,7 +31,10 @@ const BannerParagraph = ({paragraph, eagerLoadImage, headingIds, ...props}: Prop
   const BannerWrapper: ElementType = isSection ? "section" : "div"
 
   const id = getHeadingId(paragraph.uuid, paragraph.suBannerHeader, headingIds)
-  const headerProps = {id, className: cn(headerClasses, "rs-mb-3", {"sr-only": behaviors.hero_pattern?.hide_heading})}
+  const headerProps = {
+    id,
+    className: cn(headerClasses, "no-anchor rs-mb-3", {"sr-only": behaviors.hero_pattern?.hide_heading}),
+  }
 
   return (
     <BannerWrapper

@@ -2,9 +2,25 @@
  * Types that are not provided by Graphql integration.
  */
 
+export type LayoutConfig = {
+  label?: string
+  bg_color?: "f4f4f4" | "ebeae5" | "dcecef" | "dcefec" | "f2e8f1" | "f7ecde" | string
+  top_padding?: "none" | "more"
+  bottom_margin?: "none"
+  bottom_padding?: "none"
+  /**
+   * Two and three column layouts only.
+   */
+  vertical_dividers?: boolean
+  /**
+   * Two column layouts only.
+   */
+  column_widths?: "50-50" | "33-67" | "67-33"
+}
+
 export type LayoutParagraphBehaviors = {
   layout: "layout_paragraphs_1_column" | "layout_paragraphs_2_column" | "layout_paragraphs_3_column" | string
-  config: {label?: string}
+  config: LayoutConfig
   parent_uuid?: string
   region?: string
 }

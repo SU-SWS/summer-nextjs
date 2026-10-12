@@ -9,6 +9,7 @@ import {Maybe} from "@lib/gql/__generated__/graphql"
 import Mathjax from "@components/tools/mathjax"
 import Script from "next/script"
 import {ApplyNowLink} from "./apply-now-link"
+import {getIdAttribute} from "@lib/utils/text-tools"
 import "../../styles/form.css"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -43,6 +44,17 @@ const Wysiwyg = ({html, className, disableDefaultStyles, ...props}: Props) => {
     </div>
   )
 }
+
+/**
+ * Text of a node and all of its descendants. Used for heading anchor ids.
+ */
+const textContent = (node: Element): string =>
+  node.children
+    .map(child => {
+      if (child instanceof Element) return textContent(child)
+      return "data" in child && child.type !== "comment" ? child.data : ""
+    })
+    .join("")
 
 const options: HTMLReactParserOptions = {
   replace: domNode => {
@@ -104,6 +116,11 @@ const options: HTMLReactParserOptions = {
           return <Script {...nodeProps} strategy="lazyOnload"></Script>
 
         case "h2":
+          // Give editor headings an anchor target for the anchor nav.
+          if (!nodeProps.id) {
+            const id = getIdAttribute(textContent(domNode))
+            if (id) nodeProps.id = id
+          }
           return <H2 {...nodeProps}>{domToReact(children, options)}</H2>
         case "h3":
           return <H3 {...nodeProps}>{domToReact(children, options)}</H3>

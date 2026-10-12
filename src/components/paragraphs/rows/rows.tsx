@@ -1,9 +1,9 @@
 import OneColumn from "@components/paragraphs/rows/one-column"
-import TwoColumn, {TwoColumnConfig} from "@components/paragraphs/rows/two-column"
+import TwoColumn from "@components/paragraphs/rows/two-column"
 import ThreeColumn from "@components/paragraphs/rows/three-column"
 import {Maybe, ParagraphStanfordLayout, ParagraphUnion} from "@lib/gql/__generated__/graphql"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
-import {LayoutParagraphBehaviors} from "@lib/drupal/drupal-jsonapi.d"
+import {LayoutConfig, LayoutParagraphBehaviors} from "@lib/drupal/drupal-jsonapi.d"
 import {HTMLAttributes} from "react"
 import cn from "@lib/utils/className"
 import {getHeadingIds, HeadingIds} from "@components/paragraphs/get-heading-ids"
@@ -13,7 +13,7 @@ type Layout = Record<
   {
     item: ParagraphStanfordLayout
     layout: LayoutParagraphBehaviors["layout"]
-    config?: Record<string, unknown>
+    config?: LayoutConfig
     children: ParagraphUnion[]
   }
 >
@@ -55,13 +55,7 @@ const Rows = async ({components, headingIds, className, ...props}: Props) => {
   })
 
   return (
-    <div
-      className={cn(
-        "@container [&>:not([hidden])~:not([hidden])]:mt-80 [&>:not([hidden])~:not([hidden])]:mb-0",
-        className
-      )}
-      {...props}
-    >
+    <div className={cn("@container/rows", className)} {...props}>
       {Object.keys(layouts).map(layoutId => (
         <Row
           key={layoutId}
@@ -82,16 +76,17 @@ const Row = ({
   headingIds,
 }: {
   layout: LayoutParagraphBehaviors["layout"]
-  layoutSettings?: Record<string, unknown>
+  layoutSettings?: LayoutConfig
   items: ParagraphUnion[]
   headingIds: HeadingIds
 }) => {
   if (layout === "layout_paragraphs_2_column")
-    return <TwoColumn config={layoutSettings as TwoColumnConfig} items={items} headingIds={headingIds} />
-  if (layout === "layout_paragraphs_3_column") return <ThreeColumn items={items} headingIds={headingIds} />
+    return <TwoColumn config={layoutSettings} items={items} headingIds={headingIds} />
+  if (layout === "layout_paragraphs_3_column")
+    return <ThreeColumn config={layoutSettings} items={items} headingIds={headingIds} />
 
   // Fall back to one column if the layout is unknown.
-  return <OneColumn items={items} headingIds={headingIds} />
+  return <OneColumn config={layoutSettings || {}} items={items} headingIds={headingIds} />
 }
 
 export default Rows

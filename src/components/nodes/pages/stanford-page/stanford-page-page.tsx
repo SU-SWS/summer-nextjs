@@ -15,6 +15,7 @@ import {getFirstText} from "@lib/utils/text-tools"
 import Wysiwyg from "@components/elements/wysiwyg"
 import cn from "@lib/utils/className"
 import {getHeadingIds} from "@components/paragraphs/get-heading-ids"
+import AnchorNav from "@components/elements/anchor-nav"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordPage
@@ -37,8 +38,18 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
     "ParagraphSumTopBanner",
   ]
 
+  const layout = node.layoutSelection?.id
+  const anchorPosition =
+    layout === "left_anchor_nav" || layout === "left_anchor_no_nav"
+      ? "left"
+      : layout === "top_anchor_nav" || layout === "top_anchor_nav_full_width"
+        ? "top"
+        : false
+  const hideSecondaryNav = layout === "left_anchor_no_nav"
+
   const fullWidth =
-    node.layoutSelection?.id === "stanford_basic_page_full" ||
+    layout === "stanford_basic_page_full" ||
+    layout === "top_anchor_nav_full_width" ||
     !!node.suPageComponents?.find(component => fullWidthComponents.includes(component.__typename))
 
   const lastComponent = node.suPageComponents?.[node.suPageComponents?.length - 1]?.__typename
@@ -87,7 +98,12 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
       )}
 
       {!fullWidth && (
-        <InteriorPage currentPath={node.path || "#"}>
+        <InteriorPage
+          currentPath={node.path || "#"}
+          leftSideBar={anchorPosition === "left" && <AnchorNav />}
+          hideSecondaryNav={hideSecondaryNav}
+        >
+          {anchorPosition === "top" && <AnchorNav horizontal />}
           <Wysiwyg html={node.body?.processed} />
           <Rows components={node.suPageComponents} headingIds={headingIds} />
         </InteriorPage>
@@ -95,7 +111,9 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
 
       {fullWidth && (
         <>
-          <Wysiwyg html={node.body?.processed} />
+          {/* Full width pages have no sidebar, so a left anchor nav is displayed across the top instead. */}
+          {anchorPosition && <AnchorNav horizontal className="centered" />}
+          <Wysiwyg html={node.body?.processed} className="centered mb-40" />
           <Rows components={node.suPageComponents} headingIds={headingIds} />
         </>
       )}

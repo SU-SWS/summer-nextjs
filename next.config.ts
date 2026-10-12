@@ -20,6 +20,7 @@ module.exports = async (_phase: string) => {
   const nextConfig: NextConfig = {
     env: {...(await vaultEnvars())},
     cacheComponents: true,
+    partialPrefetching: false,
     cacheLife: {
       // Safety net for any `use cache` scope that doesn't name a profile.
       default: {

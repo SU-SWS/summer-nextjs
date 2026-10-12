@@ -7,6 +7,7 @@ import {getPathFromContext, PageProps, Slug} from "@lib/drupal/utils"
 // https://vercel.com/docs/functions/runtimes#max-duration
 export const maxDuration = 60
 export const instant = false
+export const ensureStatic = "navigation"
 
 const Page = async (props: PageProps) => {
   const params = await props.params

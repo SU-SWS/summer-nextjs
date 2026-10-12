@@ -16,8 +16,14 @@ const ShareButtons = () => {
   const copyUrl = isClient ? window.location.origin + urlParams : urlParams
 
   const copyToClip = (text: string) => {
-    copy(text).catch(_e => console.warn("An error occurred when copying to clipboard"))
-    toast("Copied!")
+    copy(text)
+      .catch(_e => {
+        console.error("An error occurred when copying to clipboard")
+        toast("An error occurred when copying to clipboard", {type: "error"})
+      })
+      .then(() => {
+        toast("Copied!")
+      })
   }
 
   const smsCopy =

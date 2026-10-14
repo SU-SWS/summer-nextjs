@@ -13,7 +13,7 @@ import {H2} from "@components/elements/headers"
 import {useBoolean} from "usehooks-ts"
 import AlgoliaPager from "@components/algolia/algolia-pager"
 import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
-import {usePathname} from "next/navigation"
+import useRevealKey from "@lib/hooks/useRevealKey"
 
 type Props = {
   appId: string
@@ -24,8 +24,13 @@ type Props = {
 
 type RouteState = Record<string, string | string[] | undefined>
 
-const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
-  const pathName = usePathname()
+const AlgoliaSiteSearch = (props: Props) => {
+  // Remount with a fresh InstantSearch instance and router each time the cached route is revealed again.
+  const revealKey = useRevealKey()
+  return <SiteSearch key={revealKey} {...props} />
+}
+
+const SiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
 
   const routing = useMemo(
@@ -49,7 +54,6 @@ const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
   return (
     // Plain InstantSearch, rather than InstantSearchNext, so that searching only happens in the browser.
     <InstantSearch
-      key={pathName}
       indexName={searchIndex}
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: true}}

@@ -6,12 +6,13 @@ import {HTMLAttributes, useEffect, useLayoutEffect, useMemo, useRef, useState} f
 import {Hit as HitType} from "instantsearch.js"
 import SummerCourse from "@components/algolia/results/summer-course/summer-course"
 import useFavorites from "@lib/hooks/useFavorites"
-import {usePathname, useSearchParams} from "next/navigation"
+import {useSearchParams} from "next/navigation"
 import {AlgoliaHit} from "@components/algolia/results/default"
 import {useBoolean} from "usehooks-ts"
 import AlgoliaPager from "@components/algolia/algolia-pager"
 import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
 import {getSharedFavorites, resolveFavoritePrefixes} from "@lib/utils/shared-favorites"
+import useRevealKey from "@lib/hooks/useRevealKey"
 
 type Props = {
   appId: string
@@ -20,7 +21,8 @@ type Props = {
 }
 
 const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
-  const pathname = usePathname()
+  // Remount with a fresh InstantSearch instance each time the cached route is revealed again.
+  const revealKey = useRevealKey()
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
   const {favs} = useFavorites()
   const searchParams = useSearchParams()
@@ -65,7 +67,7 @@ const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
   return (
     // Plain InstantSearch, rather than InstantSearchNext, so that searching only happens in the browser.
     <InstantSearch
-      key={pathname}
+      key={revealKey}
       indexName={searchIndex}
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: true}}

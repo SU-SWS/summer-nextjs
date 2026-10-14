@@ -28,7 +28,7 @@ import type {SearchResults} from "algoliasearch-helper"
 import {useBoolean} from "usehooks-ts"
 import {IndexUiState, UiState} from "instantsearch.js/es/types/ui-state"
 import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
-import {usePathname} from "next/navigation"
+import useRevealKey from "@lib/hooks/useRevealKey"
 import cn from "@lib/utils/className"
 
 type Props = {
@@ -52,8 +52,13 @@ for (const [key, value] of queryKeys.entries()) {
 
 type RouteState = Record<string, string | string[] | undefined>
 
-const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
-  const pathname = usePathname()
+const CourseFilteringForm = (props: Props) => {
+  // Remount with a fresh InstantSearch instance and router each time the cached route is revealed again.
+  const revealKey = useRevealKey()
+  return <CourseFilteringSearch key={revealKey} {...props} />
+}
+
+const CourseFilteringSearch = ({appId, searchIndex, searchApiKey}: Props) => {
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
 
   const routing = useMemo(
@@ -108,7 +113,6 @@ const CourseFilteringForm = ({appId, searchIndex, searchApiKey}: Props) => {
   return (
     // Plain InstantSearch, rather than InstantSearchNext, so that searching only happens in the browser.
     <InstantSearch
-      key={pathname}
       indexName={searchIndex}
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: false}}

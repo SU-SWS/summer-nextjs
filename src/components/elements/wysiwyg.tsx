@@ -9,7 +9,7 @@ import {Maybe} from "@lib/gql/__generated__/graphql"
 import Mathjax from "@components/tools/mathjax"
 import Script from "next/script"
 import {ApplyNowLink} from "./apply-now-link"
-import {getIdAttribute} from "@lib/utils/text-tools"
+import {getIdFromText} from "@lib/utils/text-tools"
 import "../../styles/form.css"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -118,7 +118,7 @@ const options: HTMLReactParserOptions = {
         case "h2":
           // Give editor headings an anchor target for the anchor nav.
           if (!nodeProps.id) {
-            const id = getIdAttribute(textContent(domNode))
+            const id = getIdFromText(textContent(domNode))
             if (id) nodeProps.id = id
           }
           return <H2 {...nodeProps}>{domToReact(children, options)}</H2>

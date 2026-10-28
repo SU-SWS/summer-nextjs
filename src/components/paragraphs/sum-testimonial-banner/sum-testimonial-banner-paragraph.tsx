@@ -8,14 +8,13 @@ import {H2} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 import YoutubeVideoPill from "@components/elements/youtube-video-pill"
 import ActionLink from "@components/elements/action-link"
-import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
+import {getIdFromText} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumTestimonial
-  headingIds?: HeadingIds
 }
 
-const SumTestimonialBannerParagraph = ({paragraph, headingIds, ...props}: Props) => {
+const SumTestimonialBannerParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const leftText = !!behaviors.sum_testimonial_banner?.sum_testimonial_banner_align
 
@@ -38,7 +37,7 @@ const SumTestimonialBannerParagraph = ({paragraph, headingIds, ...props}: Props)
       break
   }
 
-  const id = getHeadingId(paragraph.uuid, paragraph.sumTestimonialHeading, headingIds)
+  const id = getIdFromText(paragraph.sumTestimonialHeading)
 
   return (
     <article

@@ -25,7 +25,7 @@ import {
 } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList"
 import {ApplyNowLink} from "@components/elements/apply-now-link"
 import type {SearchResults} from "algoliasearch-helper"
-import {useBoolean} from "usehooks-ts"
+import {useBoolean, useIsClient} from "usehooks-ts"
 import {IndexUiState, UiState} from "instantsearch.js/es/types/ui-state"
 import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
 import useRevealKey from "@lib/hooks/useRevealKey"
@@ -55,6 +55,10 @@ type RouteState = Record<string, string | string[] | undefined>
 const CourseFilteringForm = (props: Props) => {
   // Remount with a fresh InstantSearch instance and router each time the cached route is revealed again.
   const revealKey = useRevealKey()
+  // Searching only happens in the browser, and the history router can't be created without `window`. Rendering
+  // nothing on the server keeps the router from throwing there and bailing the page out to client rendering.
+  const isClient = useIsClient()
+  if (!isClient) return null
   return <CourseFilteringSearch key={revealKey} {...props} />
 }
 

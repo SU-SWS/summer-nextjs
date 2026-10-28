@@ -14,7 +14,6 @@ import NodePageMetadata from "@components/nodes/pages/node-page-metadata"
 import {getFirstText} from "@lib/utils/text-tools"
 import Wysiwyg from "@components/elements/wysiwyg"
 import cn from "@lib/utils/className"
-import {getHeadingIds} from "@components/paragraphs/get-heading-ids"
 import AnchorNav from "@components/elements/anchor-nav"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -61,12 +60,6 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
     "ParagraphStanfordBanner",
   ].includes(lastComponent ?? "")
 
-  // Build the heading ids across the banner and the components so they are unique for the whole page.
-  const headingIds = getHeadingIds([
-    ...(node.suPageBanner ? [node.suPageBanner] : []),
-    ...(node.suPageComponents || []),
-  ])
-
   return (
     <article {...props} className={cn({"mb-80": !hasBannerOrCalculator}, props.className)}>
       <NodePageMetadata
@@ -83,12 +76,7 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
             <SumArcBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title} isHome={isHome} />
           )}
           {node.suPageBanner?.__typename === "ParagraphSumTopBanner" && (
-            <SumTopBannerParagraph
-              paragraph={node.suPageBanner}
-              pageTitle={node.title}
-              isHome={isHome}
-              headingIds={headingIds}
-            />
+            <SumTopBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title} isHome={isHome} />
           )}
         </header>
       )}
@@ -105,7 +93,7 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
         >
           {anchorPosition === "top" && <AnchorNav horizontal />}
           <Wysiwyg html={node.body?.processed} />
-          <Rows components={node.suPageComponents} headingIds={headingIds} />
+          <Rows components={node.suPageComponents} />
         </InteriorPage>
       )}
 
@@ -114,7 +102,7 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
           {/* Full width pages have no sidebar, so a left anchor nav is displayed across the top instead. */}
           {anchorPosition && <AnchorNav horizontal className="centered" />}
           <Wysiwyg html={node.body?.processed} className="centered mb-40" />
-          <Rows components={node.suPageComponents} headingIds={headingIds} />
+          <Rows components={node.suPageComponents} />
         </>
       )}
     </article>

@@ -5,20 +5,19 @@ import {H2, H3} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 import Button from "@components/elements/button"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
-import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
+import {getIdFromText} from "@lib/utils/text-tools"
 
 type Props = HTMLAttributes<HTMLElement> & {
   paragraph: ParagraphSumAtAGlance
-  headingIds?: HeadingIds
 }
 
-const SumAtAGlanceParagraph = ({paragraph, headingIds, ...props}: Props) => {
+const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
 
   const Element = paragraph.sumAtAGlanceHeadline ? "article" : "div"
   const headingOnLeft = !!behaviors.sum_at_a_glance_behavior?.sum_at_a_glance_alignment
 
-  const id = getHeadingId(paragraph.uuid, paragraph.sumAtAGlanceHeadline, headingIds)
+  const id = getIdFromText(paragraph.sumAtAGlanceHeadline)
 
   return (
     <Element

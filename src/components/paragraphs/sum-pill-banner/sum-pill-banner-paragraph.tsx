@@ -7,17 +7,16 @@ import Image from "next/image"
 import cn from "@lib/utils/className"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import ActionLink from "@components/elements/action-link"
-import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
+import {getIdFromText} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumPillBanner
-  headingIds?: HeadingIds
 }
 
-const SumPillBannerParagraph = ({paragraph, headingIds, ...props}: Props) => {
+const SumPillBannerParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const Element = paragraph.sumPillBannerHeadline ? "article" : "div"
-  const id = getHeadingId(paragraph.uuid, paragraph.sumPillBannerHeadline, headingIds)
+  const id = getIdFromText(paragraph.sumPillBannerHeadline)
 
   return (
     <Element
@@ -85,12 +84,7 @@ const SumPillBannerParagraph = ({paragraph, headingIds, ...props}: Props) => {
         {paragraph.sumPillBannerCards && (
           <div className="-mt-240 centered rs-mb-8 flex w-full flex-col gap-50 lg:flex-row">
             {paragraph.sumPillBannerCards.map(card => (
-              <PillBannerCard
-                key={card.uuid}
-                card={card}
-                headingLevel={Element === "div" ? "h2" : "h3"}
-                headingIds={headingIds}
-              />
+              <PillBannerCard key={card.uuid} card={card} headingLevel={Element === "div" ? "h2" : "h3"} />
             ))}
           </div>
         )}
@@ -99,15 +93,7 @@ const SumPillBannerParagraph = ({paragraph, headingIds, ...props}: Props) => {
   )
 }
 
-const PillBannerCard = ({
-  card,
-  headingLevel,
-  headingIds,
-}: {
-  card: ParagraphStanfordCard
-  headingLevel: "h2" | "h3"
-  headingIds?: HeadingIds
-}) => {
+const PillBannerCard = ({card, headingLevel}: {card: ParagraphStanfordCard; headingLevel: "h2" | "h3"}) => {
   const cardCopy = {...card}
   const cardBehaviors = getParagraphBehaviors(cardCopy)
   cardBehaviors.su_card_styles = {
@@ -117,7 +103,7 @@ const PillBannerCard = ({
     sum_card_bg_color_variant: false,
   }
   cardCopy.behaviors = JSON.stringify(cardBehaviors)
-  return <CardParagraph paragraph={cardCopy} headingIds={headingIds} />
+  return <CardParagraph paragraph={cardCopy} />
 }
 
 export default SumPillBannerParagraph

@@ -1,13 +1,11 @@
 import Paragraph from "@components/paragraphs/paragraph"
 import {ParagraphUnion} from "@lib/gql/__generated__/graphql"
-import {HeadingIds} from "@components/paragraphs/get-heading-ids"
 import {LayoutConfig} from "@lib/drupal/drupal-jsonapi.d"
 import {getRowClasses} from "@components/paragraphs/rows/get-row-classes"
 import cn from "@lib/utils/className"
 
 type Props = {
   items: ParagraphUnion[]
-  headingIds?: HeadingIds
   /**
    * Layout configuration, when the column is a row of its own rather than a region of a multi column row.
    */
@@ -15,7 +13,7 @@ type Props = {
   className?: string
 }
 
-const OneColumn = ({items, headingIds, config, className}: Props) => {
+const OneColumn = ({items, config, className}: Props) => {
   const draftProps: Record<string, string> = {"data-columns": "1"}
 
   return (
@@ -27,7 +25,7 @@ const OneColumn = ({items, headingIds, config, className}: Props) => {
       {...draftProps}
     >
       {items.map(item => (
-        <Paragraph paragraph={item} headingIds={headingIds} key={item.uuid} />
+        <Paragraph paragraph={item} key={item.uuid} />
       ))}
     </div>
   )

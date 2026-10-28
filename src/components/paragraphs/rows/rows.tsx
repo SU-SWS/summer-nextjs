@@ -6,7 +6,6 @@ import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behavi
 import {LayoutConfig, LayoutParagraphBehaviors} from "@lib/drupal/drupal-jsonapi.d"
 import {HTMLAttributes} from "react"
 import cn from "@lib/utils/className"
-import {getHeadingIds, HeadingIds} from "@components/paragraphs/get-heading-ids"
 
 type Layout = Record<
   string,
@@ -20,15 +19,10 @@ type Layout = Record<
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   components?: Maybe<ParagraphUnion[]>
-  /**
-   * Unique heading ids, when the page displays other paragraphs outside of the rows.
-   */
-  headingIds?: HeadingIds
 }
 
-const Rows = async ({components, headingIds, className, ...props}: Props) => {
+const Rows = async ({components, className, ...props}: Props) => {
   if (!components) return
-  const uniqueHeadingIds = headingIds || getHeadingIds(components)
   const layouts: Layout = {}
 
   // Set the layouts first.
@@ -62,7 +56,6 @@ const Rows = async ({components, headingIds, className, ...props}: Props) => {
           layout={layouts[layoutId].layout}
           layoutSettings={layouts[layoutId].config}
           items={layouts[layoutId].children}
-          headingIds={uniqueHeadingIds}
         />
       ))}
     </div>
@@ -73,20 +66,16 @@ const Row = ({
   layout,
   layoutSettings,
   items,
-  headingIds,
 }: {
   layout: LayoutParagraphBehaviors["layout"]
   layoutSettings?: LayoutConfig
   items: ParagraphUnion[]
-  headingIds: HeadingIds
 }) => {
-  if (layout === "layout_paragraphs_2_column")
-    return <TwoColumn config={layoutSettings} items={items} headingIds={headingIds} />
-  if (layout === "layout_paragraphs_3_column")
-    return <ThreeColumn config={layoutSettings} items={items} headingIds={headingIds} />
+  if (layout === "layout_paragraphs_2_column") return <TwoColumn config={layoutSettings} items={items} />
+  if (layout === "layout_paragraphs_3_column") return <ThreeColumn config={layoutSettings} items={items} />
 
   // Fall back to one column if the layout is unknown.
-  return <OneColumn config={layoutSettings || {}} items={items} headingIds={headingIds} />
+  return <OneColumn config={layoutSettings || {}} items={items} />
 }
 
 export default Rows

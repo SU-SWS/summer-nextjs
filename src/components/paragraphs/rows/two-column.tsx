@@ -2,16 +2,14 @@ import OneColumn from "@components/paragraphs/rows/one-column"
 import {ParagraphUnion} from "@lib/gql/__generated__/graphql"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import cn from "@lib/utils/className"
-import {HeadingIds} from "@components/paragraphs/get-heading-ids"
 import {LayoutConfig} from "@lib/drupal/drupal-jsonapi.d"
 import {getRowClasses} from "@components/paragraphs/rows/get-row-classes"
 
 type Props = {
   items: ParagraphUnion[]
   config?: LayoutConfig
-  headingIds?: HeadingIds
 }
-const TwoColumn = ({items, config, headingIds}: Props) => {
+const TwoColumn = ({items, config}: Props) => {
   const leftItems = items.filter(item => getParagraphBehaviors(item).layout_paragraphs?.region === "left")
   const rightItems = items.filter(item => getParagraphBehaviors(item).layout_paragraphs?.region !== "left")
   const unevenColumns = config?.column_widths === "33-67" || config?.column_widths === "67-33"
@@ -30,7 +28,7 @@ const TwoColumn = ({items, config, headingIds}: Props) => {
       >
         <OneColumn
           items={leftItems}
-          headingIds={headingIds}
+
           className={cn({
             // Only display the divider once the columns are side by side.
             "relative after:absolute after:top-0 after:-right-13 after:h-full after:w-1 after:bg-black after:content-none @6xl/rows:after:-right-25":
@@ -39,7 +37,7 @@ const TwoColumn = ({items, config, headingIds}: Props) => {
             "@6xl/rows:after:content-['']": config?.vertical_dividers && unevenColumns,
           })}
         />
-        <OneColumn items={rightItems} headingIds={headingIds} />
+        <OneColumn items={rightItems} />
       </div>
     </div>
   )

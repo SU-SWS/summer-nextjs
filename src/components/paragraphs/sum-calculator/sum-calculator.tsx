@@ -329,6 +329,8 @@ const SumCalculatorParagraph = ({
               <div className="order-2 mt-50 tw-hidden border-b border-black md:block">
                 <button
                   {...buttonProps}
+                  // Both buttons toggle the same panel, but ids have to stay unique.
+                  id={`${buttonProps.id}-desktop`}
                   className="mb-7.5 ml-auto flex items-center card-paragraph text-digital-blue no-underline hocus:underline"
                 >
                   {expanded ? "Close" : "See"} details

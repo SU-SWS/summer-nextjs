@@ -20,27 +20,22 @@ import SumPillBannerParagraph from "@components/paragraphs/sum-pill-banner/sum-p
 import SumTestimonialBannerParagraph from "@components/paragraphs/sum-testimonial-banner/sum-testimonial-banner-paragraph"
 import UnpublishedBanner from "@components/elements/unpublished-banner"
 import FilteredListParagraph from "@components/paragraphs/stanford-filtered-lists/filtered-list-paragraph"
-import {HeadingIds} from "@components/paragraphs/get-heading-ids"
 
 type Props = {
   /**
    * Paragraph entity to display.
    */
   paragraph: ParagraphUnion
-  /**
-   * Unique heading ids for the paragraphs on the page.
-   */
-  headingIds?: HeadingIds
 }
 
-const Paragraph = async ({paragraph, headingIds}: Props) => {
+const Paragraph = async ({paragraph}: Props) => {
   return (
     <UnpublishedBanner status={paragraph.status} message="Unpublished Content">
-      <ParagraphComponent paragraph={paragraph} headingIds={headingIds} />
+      <ParagraphComponent paragraph={paragraph} />
     </UnpublishedBanner>
   )
 }
-const ParagraphComponent = async ({paragraph, headingIds}: Props) => {
+const ParagraphComponent = async ({paragraph}: Props) => {
   const itemProps: Record<string, string> = {}
   if (process.env.VERCEL_ENV !== "production") {
     itemProps["data-type"] = paragraph.__typename || "unknown"
@@ -49,13 +44,13 @@ const ParagraphComponent = async ({paragraph, headingIds}: Props) => {
 
   switch (paragraph.__typename) {
     case "ParagraphStanfordBanner":
-      return <BannerParagraph paragraph={paragraph} headingIds={headingIds} {...itemProps} />
+      return <BannerParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphStanfordCard":
-      return <CardParagraph paragraph={paragraph} headingIds={headingIds} {...itemProps} />
+      return <CardParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphStanfordEntity":
-      return <EntityParagraph paragraph={paragraph} headingIds={headingIds} {...itemProps} />
+      return <EntityParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphStanfordGallery":
-      return <GalleryParagraph paragraph={paragraph} headingIds={headingIds} {...itemProps} />
+      return <GalleryParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphStanfordMediaCaption":
       return <MediaCaptionParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphStanfordSpacer":
@@ -65,13 +60,13 @@ const ParagraphComponent = async ({paragraph, headingIds}: Props) => {
     case "ParagraphStanfordList":
       return (
         <Suspense>
-          <ListParagraph paragraph={paragraph} headingIds={headingIds} {...itemProps} />
+          <ListParagraph paragraph={paragraph} {...itemProps} />
         </Suspense>
       )
     case "ParagraphStanfordFilteredList":
       return (
         <Suspense>
-          <FilteredListParagraph paragraph={paragraph} headingIds={headingIds} {...itemProps} />
+          <FilteredListParagraph paragraph={paragraph} {...itemProps} />
         </Suspense>
       )
     case "ParagraphSumCalculator":
@@ -81,19 +76,19 @@ const ParagraphComponent = async ({paragraph, headingIds}: Props) => {
     case "ParagraphSumUserFavorite":
       return <UserFavoriteParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumAccordion":
-      return <SumAccordionParagraph paragraph={paragraph} headingIds={headingIds} {...itemProps} />
+      return <SumAccordionParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumCarousel":
-      return <SumCarouselParagraph paragraph={paragraph} headingIds={headingIds} {...itemProps} />
+      return <SumCarouselParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumSlideTeaser":
       return <SumSlideTeaserParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumVideo":
       return <SumVideoParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumAtAGlance":
-      return <SumAtAGlanceParagraph paragraph={paragraph} headingIds={headingIds} {...itemProps} />
+      return <SumAtAGlanceParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumPillBanner":
-      return <SumPillBannerParagraph paragraph={paragraph} headingIds={headingIds} {...itemProps} />
+      return <SumPillBannerParagraph paragraph={paragraph} {...itemProps} />
     case "ParagraphSumTestimonial":
-      return <SumTestimonialBannerParagraph paragraph={paragraph} headingIds={headingIds} {...itemProps} />
+      return <SumTestimonialBannerParagraph paragraph={paragraph} {...itemProps} />
   }
   console.warn(`Unknown paragraph ${paragraph.__typename}. Item ${paragraph.uuid}.`)
 }

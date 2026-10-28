@@ -8,18 +8,20 @@ import cn from "@lib/utils/className"
 import Button from "@components/elements/button"
 import {getViewPagedItems, loadViewPage, VIEW_PAGE_SIZE} from "@lib/gql/gql-view-queries"
 import {signViewConfig} from "@lib/utils/view-config"
-import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
+import {getIdFromText} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordList
-  headingIds?: HeadingIds
 }
 
-const ListParagraph = async ({paragraph, headingIds, ...props}: Props) => {
+const ListParagraph = async ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const viewId = paragraph.suListView?.view || ""
   const displayId = paragraph.suListView?.display || ""
   const limit = paragraph.suListView?.pageSize || VIEW_PAGE_SIZE
+
+  // Taken before awaiting the view, so ids are handed out in the order the paragraphs are displayed.
+  const id = getIdFromText(paragraph.suListHeadline)
 
   const pagedItems =
     viewId && displayId
@@ -47,8 +49,6 @@ const ListParagraph = async ({paragraph, headingIds, ...props}: Props) => {
 
   const ListWrapper: ElementType =
     paragraph.suListHeadline && behaviors.list_paragraph?.heading_behavior !== "remove" ? "section" : "div"
-
-  const id = getHeadingId(paragraph.uuid, paragraph.suListHeadline, headingIds)
 
   return (
     <ListWrapper

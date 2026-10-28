@@ -31,7 +31,7 @@ const StanfordPageListItem = ({node, headingLevel, ...props}: Props) => {
         </div>
 
         {image && (
-          <div className="relative order-1 aspect-[16/9] h-fit w-full shrink-0 @4xl:order-2 @4xl:w-1/4">
+          <div className="relative order-1 aspect-video h-fit w-full shrink-0 @4xl:order-2 @4xl:w-1/4">
             <Image
               className="object-cover"
               src={image.url}

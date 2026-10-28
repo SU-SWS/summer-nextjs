@@ -44,7 +44,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
       )}
     >
       {imageUrl && (
-        <div className={cn("relative w-full", {"aspect-[16/9]": !isSquare, "aspect-[1/1]": isSquare})}>
+        <div className={cn("relative w-full", {"aspect-video": !isSquare, "aspect-[1/1]": isSquare})}>
           <Image
             className="rounded-t-[25px] object-cover object-center"
             src={imageUrl}
@@ -67,7 +67,7 @@ const ImageCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, hasBgColo
 export const ImageCardSkeleton = () => {
   return (
     <div className="centered w-full border border-black-10 pb-50 shadow-lg lg:max-w-[920px] xl:max-w-[980px]">
-      <div className="aspect-[16/9] w-full bg-black-10"></div>
+      <div className="aspect-video w-full bg-black-10"></div>
     </div>
   )
 }

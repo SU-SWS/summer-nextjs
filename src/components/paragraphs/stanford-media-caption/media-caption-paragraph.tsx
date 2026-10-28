@@ -19,7 +19,7 @@ const MediaCaptionParagraph = ({paragraph, ...props}: Props) => {
   return (
     <figure {...props} className={cn("centered lg:max-w-[920px] xl:max-w-[980px]", props.className)}>
       {image?.url && (
-        <div className="relative aspect-[16/9] w-full">
+        <div className="relative aspect-video w-full">
           <Image
             className="object-cover"
             src={image.url}

@@ -8,12 +8,15 @@ import Button from "@components/elements/button"
 import cn from "@lib/utils/className"
 import ImageCard from "@components/patterns/image-card"
 import PillCard from "@components/patterns/pill-card"
-import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
+import {getIdFromText} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordCard
-  headingIds?: HeadingIds
   linkTabIndex?: number
+  /**
+   * Id for the heading, when the parent has already generated it to reference the card.
+   */
+  headingId?: string
 }
 
 const adjustHeadingType = (heading: "h2" | "h3" | "h4" | "div", size?: "larger" | "smaller"): number | undefined => {
@@ -26,7 +29,7 @@ const adjustHeadingType = (heading: "h2" | "h3" | "h4" | "div", size?: "larger" 
   return size === "larger" ? headingTypes[heading] + 1 : headingTypes[heading] - 1
 }
 
-const CardParagraph = ({paragraph, linkTabIndex, headingIds, ...props}: Props) => {
+const CardParagraph = ({paragraph, linkTabIndex, headingId, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
 
   const image = paragraph.suCardMedia?.__typename === "MediaImage" ? paragraph.suCardMedia.mediaImage : undefined
@@ -49,7 +52,7 @@ const CardParagraph = ({paragraph, linkTabIndex, headingIds, ...props}: Props) =
   const cardBgColor = cardVariant === "pill" ? behaviors.su_card_styles?.sum_card_pill_bg_color_variant : undefined
 
   const Element = cardVariant === "pill" ? PillCard : ImageCard
-  const id = getHeadingId(paragraph.uuid, paragraph.suCardHeader, headingIds)
+  const id = headingId || getIdFromText(paragraph.suCardHeader)
   const headerProps = {id, className: cn(headerClasses, {"sr-only": behaviors.su_card_styles?.hide_heading})}
 
   return (

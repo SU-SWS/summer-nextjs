@@ -1,7 +1,6 @@
 import OneColumn from "@components/paragraphs/rows/one-column"
 import {ParagraphUnion} from "@lib/gql/__generated__/graphql"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
-import {HeadingIds} from "@components/paragraphs/get-heading-ids"
 import {LayoutConfig} from "@lib/drupal/drupal-jsonapi.d"
 import {getRowClasses} from "@components/paragraphs/rows/get-row-classes"
 import cn from "@lib/utils/className"
@@ -9,10 +8,9 @@ import cn from "@lib/utils/className"
 type Props = {
   items: ParagraphUnion[]
   config?: LayoutConfig
-  headingIds?: HeadingIds
 }
 
-const ThreeColumn = ({items, config, headingIds}: Props) => {
+const ThreeColumn = ({items, config}: Props) => {
   const leftItems = items.filter(item => getParagraphBehaviors(item).layout_paragraphs?.region === "left")
   const mainItems = items.filter(
     item => !["left", "right"].includes(getParagraphBehaviors(item).layout_paragraphs?.region || "main")
@@ -30,9 +28,9 @@ const ThreeColumn = ({items, config, headingIds}: Props) => {
   return (
     <div className={getRowClasses(config)}>
       <div className="centered grid gap-25 @9xl:grid-cols-3 @9xl:gap-50" {...draftProps}>
-        <OneColumn items={leftItems} headingIds={headingIds} className={dividerClasses} />
-        <OneColumn items={mainItems} headingIds={headingIds} className={dividerClasses} />
-        <OneColumn items={rightItems} headingIds={headingIds} />
+        <OneColumn items={leftItems} className={dividerClasses} />
+        <OneColumn items={mainItems} className={dividerClasses} />
+        <OneColumn items={rightItems} />
       </div>
     </div>
   )

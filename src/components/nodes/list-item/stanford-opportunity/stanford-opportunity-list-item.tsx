@@ -43,7 +43,7 @@ const StanfordOpportunityListItem = ({node, headingLevel, ...props}: Props) => {
 
         {image?.url && (
           <div className="order-1 w-full shrink-0 @3xl:w-1/4">
-            <div className="relative mb-25 aspect-[16/9] @3xl:order-2 @3xl:mb-0">
+            <div className="relative mb-25 aspect-video @3xl:order-2 @3xl:mb-0">
               <Image
                 className="ed11y-ignore object-cover"
                 src={image.url}

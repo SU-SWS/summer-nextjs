@@ -9,7 +9,7 @@ import {Maybe} from "@lib/gql/__generated__/graphql"
 import Mathjax from "@components/tools/mathjax"
 import Script from "next/script"
 import {ApplyNowLink} from "./apply-now-link"
-import {getIdAttribute} from "@lib/utils/text-tools"
+import {getIdFromText} from "@lib/utils/text-tools"
 import "../../styles/form.css"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -118,7 +118,7 @@ const options: HTMLReactParserOptions = {
         case "h2":
           // Give editor headings an anchor target for the anchor nav.
           if (!nodeProps.id) {
-            const id = getIdAttribute(textContent(domNode))
+            const id = getIdFromText(textContent(domNode))
             if (id) nodeProps.id = id
           }
           return <H2 {...nodeProps}>{domToReact(children, options)}</H2>
@@ -157,6 +157,20 @@ const options: HTMLReactParserOptions = {
         case "dd":
         case "i":
         case "aside":
+        case "iframe":
+          // Embed codes often use `width="100%"`, but the attributes only accept pixel integers. Percentages move to
+          // inline styles instead.
+          for (const dimension of ["width", "height"]) {
+            const value = nodeProps[dimension]
+            if (typeof value === "string" && value.endsWith("%")) {
+              nodeProps.style = {...(nodeProps.style as Record<string, string>), [dimension]: value}
+              delete nodeProps[dimension]
+            }
+          }
+          // Obsolete, preflight already removes iframe borders.
+          delete nodeProps.frameBorder
+          return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
+
         case "abbr":
         case "span":
         case "blockquote":

@@ -10,7 +10,7 @@ import {IndexUiState, UiState} from "instantsearch.js/es/types/ui-state"
 import {MagnifyingGlassIcon} from "@heroicons/react/20/solid"
 import DefaultResult, {AlgoliaHit} from "@components/algolia/results/default"
 import {H2} from "@components/elements/headers"
-import {useBoolean} from "usehooks-ts"
+import {useBoolean, useIsClient} from "usehooks-ts"
 import AlgoliaPager from "@components/algolia/algolia-pager"
 import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
 import useRevealKey from "@lib/hooks/useRevealKey"
@@ -27,6 +27,10 @@ type RouteState = Record<string, string | string[] | undefined>
 const AlgoliaSiteSearch = (props: Props) => {
   // Remount with a fresh InstantSearch instance and router each time the cached route is revealed again.
   const revealKey = useRevealKey()
+  // Searching only happens in the browser, and the history router can't be created without `window`. Rendering
+  // nothing on the server keeps the router from throwing there and bailing the page out to client rendering.
+  const isClient = useIsClient()
+  if (!isClient) return null
   return <SiteSearch key={revealKey} {...props} />
 }
 
@@ -57,7 +61,8 @@ const SiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
       indexName={searchIndex}
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: true}}
-      insights={true}
+      // Click and conversion events only count on production, so previews and local builds don't skew the stats.
+      insights={process.env.NEXT_PUBLIC_VERCEL_ENV === "production"}
       routing={routing}
     >
       <SearchForm />

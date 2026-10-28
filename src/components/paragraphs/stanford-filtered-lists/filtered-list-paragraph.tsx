@@ -6,19 +6,21 @@ import {ParagraphStanfordFilteredList} from "@lib/gql/__generated__/graphql"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {getViewPagedItems, loadViewPage, VIEW_PAGE_SIZE} from "@lib/gql/gql-view-queries"
 import {signViewConfig} from "@lib/utils/view-config"
-import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
+import {getIdFromText} from "@lib/utils/text-tools"
 import cn from "@lib/utils/className"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordFilteredList
-  headingIds?: HeadingIds
 }
 
-const FilteredListParagraph = async ({paragraph, headingIds, ...props}: Props) => {
+const FilteredListParagraph = async ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const viewId = paragraph.suFilteredListView?.view || ""
   const displayId = paragraph.suFilteredListView?.display || ""
   const limit = paragraph.suFilteredListView?.pageSize || VIEW_PAGE_SIZE
+
+  // Taken before awaiting the view, so ids are handed out in the order the paragraphs are displayed.
+  const id = getIdFromText(paragraph.suListHeadline)
 
   const pagedItems =
     viewId && displayId
@@ -49,8 +51,6 @@ const FilteredListParagraph = async ({paragraph, headingIds, ...props}: Props) =
 
   const ListWrapper: ElementType =
     paragraph.suListHeadline && behaviors.list_paragraph?.heading_behavior !== "remove" ? "section" : "div"
-  const id = getHeadingId(paragraph.uuid, paragraph.suListHeadline, headingIds)
-
   return (
     <ListWrapper
       {...props}

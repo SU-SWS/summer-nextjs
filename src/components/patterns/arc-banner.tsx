@@ -30,7 +30,7 @@ const ArcBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}
       {...props}
       className={cn("@container relative h-full max-h-fit overflow-hidden md:min-h-[400px]", props.className)}
     >
-      <div className="absolute -z-50 aspect-[16/9] w-full bg-white 4xl:h-full">
+      <div className="absolute -z-50 aspect-video w-full bg-white 4xl:h-full">
         {imageUrl && (
           <Image
             className="ed11y-ignore object-cover"

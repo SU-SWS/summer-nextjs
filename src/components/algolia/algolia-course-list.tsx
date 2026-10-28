@@ -8,7 +8,7 @@ import SummerCourse from "@components/algolia/results/summer-course/summer-cours
 import useFavorites from "@lib/hooks/useFavorites"
 import {useSearchParams} from "next/navigation"
 import {AlgoliaHit} from "@components/algolia/results/default"
-import {useBoolean} from "usehooks-ts"
+import {useBoolean, useIsClient} from "usehooks-ts"
 import AlgoliaPager from "@components/algolia/algolia-pager"
 import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
 import {getSharedFavorites, resolveFavoritePrefixes} from "@lib/utils/shared-favorites"
@@ -20,9 +20,17 @@ type Props = {
   searchApiKey: string
 }
 
-const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
+const AlgoliaCourseList = (props: Props) => {
   // Remount with a fresh InstantSearch instance each time the cached route is revealed again.
   const revealKey = useRevealKey()
+  // Searching only happens in the browser, and the list depends on the url and the visitor's saved favorites. Rendering
+  // nothing on the server keeps `useSearchParams()` from bailing the page out to client rendering.
+  const isClient = useIsClient()
+  if (!isClient) return null
+  return <CourseList key={revealKey} {...props} />
+}
+
+const CourseList = ({appId, searchIndex, searchApiKey}: Props) => {
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
   const {favs} = useFavorites()
   const searchParams = useSearchParams()
@@ -67,11 +75,11 @@ const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
   return (
     // Plain InstantSearch, rather than InstantSearchNext, so that searching only happens in the browser.
     <InstantSearch
-      key={revealKey}
       indexName={searchIndex}
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: true}}
-      insights={true}
+      // Click and conversion events only count on production, so previews and local builds don't skew the stats.
+      insights={process.env.NEXT_PUBLIC_VERCEL_ENV === "production"}
     >
       <Configure filters={filters} attributesToHighlight={["html"]} attributesToSnippet={["html"]} />
       <HitList />

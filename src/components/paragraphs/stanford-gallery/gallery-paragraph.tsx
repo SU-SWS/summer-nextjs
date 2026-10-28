@@ -6,16 +6,15 @@ import {ElementType, HTMLAttributes, HtmlHTMLAttributes} from "react"
 import {MediaStanfordGalleryImage, ParagraphStanfordGallery} from "@lib/gql/__generated__/graphql"
 import Link from "@components/elements/link"
 import cn from "@lib/utils/className"
-import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
+import {getIdFromText} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordGallery
-  headingIds?: HeadingIds
 }
 
-const GalleryParagraph = ({paragraph, headingIds, ...props}: Props) => {
+const GalleryParagraph = ({paragraph, ...props}: Props) => {
   const GalleryWrapper: ElementType = paragraph.suGalleryHeadline ? "article" : "div"
-  const id = getHeadingId(paragraph.uuid, paragraph.suGalleryHeadline, headingIds)
+  const id = getIdFromText(paragraph.suGalleryHeadline)
 
   return (
     <GalleryWrapper

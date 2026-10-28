@@ -9,21 +9,19 @@ import HeroBanner from "@components/patterns/hero-banner"
 import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
 import ActionLink from "@components/elements/action-link"
 import SumVideoParagraph from "@components/paragraphs/sum-video/video-paragraph"
-import {HeadingIds} from "@components/paragraphs/get-heading-ids"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphSumTopBanner
   pageTitle: string
   isHome?: boolean
-  headingIds?: HeadingIds
 }
 
-const SumTopBannerParagraph = ({paragraph, pageTitle, isHome, headingIds, ...props}: Props) => {
+const SumTopBannerParagraph = ({paragraph, pageTitle, isHome, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const bgColor = behaviors.sum_top_banner_behavior?.sum_top_banner_overlay_bkg
 
   return (
-    <div {...props} className={cn("mb-32", props.className)}>
+    <div {...props} className={cn("mb-80", props.className)}>
       <HeroBanner
         cardClassName={cn(
           "mb-0 border border-x-0 border-b-0 border-b-4 border-white bg-poppy-light lg:border-x-4 lg:border-y-0",
@@ -31,7 +29,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, isHome, headingIds, ...pro
             "bg-olive-light": bgColor === "olive",
             "bg-spirited-light": bgColor === "spirited",
             "bg-spirited-dark text-white": bgColor === "spirited_dark",
-            "lg:pb-96": !!paragraph.sumTopBannerCards,
+            "lg:pb-240": !!paragraph.sumTopBannerCards,
           }
         )}
         imageUrl={paragraph.sumTopBannerImage?.mediaImage.url}
@@ -45,15 +43,15 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, isHome, headingIds, ...pro
           </div>
 
           {paragraph.sumTopBannerSuperhead && (
-            <div className="rs-mb-1 order-1 text-09em font-normal uppercase">{paragraph.sumTopBannerSuperhead}</div>
+            <div className="order-1 rs-mb-1 text-[.9em] font-normal uppercase">{paragraph.sumTopBannerSuperhead}</div>
           )}
 
-          <Wysiwyg html={paragraph.sumTopBannerDescrip?.processed} className="big-paragraph order-3" />
+          <Wysiwyg html={paragraph.sumTopBannerDescrip?.processed} className="order-3 big-paragraph" />
 
           {paragraph.sumTopBannerLink?.url && (
-            <div className="rs-pt-2 order-4">
+            <div className="order-4 rs-pt-2">
               <ActionLink
-                className="btn rs-mt-5 rounded-full border-2 border-transparent bg-digital-red px-8 py-4 font-normal text-white transition hocus:border-white hocus:text-white"
+                className="btn rs-mt-5 rounded-full border-2 border-transparent bg-digital-red px-20 py-10 font-normal text-white transition hocus:border-white hocus:text-white"
                 href={paragraph.sumTopBannerLink.url}
               >
                 {paragraph.sumTopBannerLink.title}
@@ -64,7 +62,7 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, isHome, headingIds, ...pro
       </HeroBanner>
 
       {paragraph.sumTopBannerCards && (
-        <div className="centered relative z-10 grid gap-10 children:w-full lg:-mt-96 lg:grid-cols-3 lg:gap-20">
+        <div className="relative z-10 centered grid gap-25 *:w-full lg:-mt-240 lg:grid-cols-3 lg:gap-50">
           {paragraph.sumTopBannerCards.map(card => {
             const behaviors = getParagraphBehaviors(card)
 
@@ -74,8 +72,8 @@ const SumTopBannerParagraph = ({paragraph, pageTitle, isHome, headingIds, ...pro
                 <CardParagraph
                   key={card.uuid}
                   paragraph={card}
-                  headingIds={headingIds}
-                  className={behaviors.su_card_styles?.sum_card_bg_color_variant ? "lg:mt-96" : ""}
+
+                  className={behaviors.su_card_styles?.sum_card_bg_color_variant ? "lg:mt-240" : ""}
                 />
               )
           })}

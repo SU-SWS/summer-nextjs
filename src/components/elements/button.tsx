@@ -31,7 +31,7 @@ type Props = HtmlHTMLAttributes<HTMLAnchorElement | HTMLButtonElement> & {
    */
   onClick?: MouseEventHandler
   /**
-   * Next.js prefetch functionality.
+   * Next.js prefetch functionality. Disabled by default.
    */
   prefetch?: LinkProps["prefetch"]
   /**
@@ -52,18 +52,19 @@ export const Button = ({
   centered = false,
   children,
   className,
+  prefetch = false,
   ...props
 }: Props) => {
   const standardClasses = cn("flex w-fit items-center", {
     "mx-auto": centered,
-    "m-4 text-center": !centered,
-    "btn btn--big hocus:outline-3 rounded-full border-2 border-white bg-digital-red px-12 py-6 text-5xl font-normal text-white no-underline transition hocus:text-white hocus:underline hocus:outline hocus:outline-digital-red [&_*]:text-white":
+    "m-10 text-center": !centered,
+    "btn btn--big rounded-full border-2 border-white bg-digital-red px-30 py-15 text-5xl font-normal text-white no-underline transition hocus:text-white hocus:underline hocus:outline-digital-red hocus:outline-solid [&_*]:text-white":
       big && !secondary,
-    "btn btn--secondary hocus:outline-3 rounded-full border-2 border-digital-red px-16 py-4 font-normal text-digital-red no-underline transition hocus:border-white hocus:bg-digital-red hocus:text-white hocus:underline hocus:outline hocus:outline-digital-red hocus:[&_*]:text-white":
+    "btn btn--secondary rounded-full border-2 border-digital-red px-40 py-10 font-normal text-digital-red no-underline transition hocus:border-white hocus:bg-digital-red hocus:text-white hocus:underline hocus:outline-digital-red hocus:outline-solid [&_*]:hocus:text-white":
       !big && secondary,
-    "btn btn--big btn--secondary hocus:outline-3 rounded-full border-2 border-digital-red px-20 py-6 text-5xl font-normal text-digital-red no-underline transition hocus:border-white hocus:bg-digital-red hocus:text-white hocus:underline hocus:outline hocus:outline-digital-red":
+    "btn btn--big btn--secondary rounded-full border-2 border-digital-red px-50 py-15 text-5xl font-normal text-digital-red no-underline transition hocus:border-white hocus:bg-digital-red hocus:text-white hocus:underline hocus:outline-digital-red hocus:outline-solid":
       big && secondary,
-    "btn hocus:outline-3 rounded-full border-2 border-white bg-digital-red px-8 py-4 font-normal text-white no-underline transition hocus:text-white hocus:underline hocus:outline hocus:outline-digital-red [&_*]:text-white":
+    "btn rounded-full border-2 border-white bg-digital-red px-20 py-10 font-normal text-white no-underline transition hocus:text-white hocus:underline hocus:outline-digital-red hocus:outline-solid [&_*]:text-white":
       !big && !secondary,
   })
 
@@ -76,9 +77,9 @@ export const Button = ({
   }
 
   return (
-    <Link href={href} className={cn(standardClasses, className?.replace("button", ""))} {...props}>
+    <Link href={href} className={cn(standardClasses, className?.replace("button", ""))} prefetch={prefetch} {...props}>
       {children}
-      <ArrowRightIcon width={20} className="ml-2 inline-block" />
+      <ArrowRightIcon width={20} className="ml-5 inline-block" />
     </Link>
   )
 }

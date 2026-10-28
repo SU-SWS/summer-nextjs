@@ -7,7 +7,8 @@ This is a Next.js application that serves as a frontend for a Drupal backend CMS
 ## Technology Stack
 
 - **Frontend Framework**: Next.js (v16)
-- **Styling**: TailwindCSS (v4)
+- **Styling**: TailwindCSS (v4) with the Decanter (v8) design system
+- **Headless UI**: Base UI (`@base-ui/react`) for interactive widgets such as select lists and tabs
 - **Backend CMS**: Drupal (v11)
 - **Data Layer**: GraphQL
 - **Package Manager**: yarn
@@ -128,7 +129,14 @@ src/components/paragraphs/paragraph.tsx
 - `Route`: Fetches any Drupal node, redirect, or other entity for the provided path url.
 - `Menu`: Fetches the menu links for the desired menu.
 
-**GraphQL Client**: graphql-request
+**GraphQL Client**: In-house `fetch` client, `src/lib/gql/gql-client.tsx` (no `graphql-request`). Codegen emits
+operations as plain query strings (`documentMode: "string"`), so `graphql` is only a dev dependency.
+
+- Requests time out after 15 seconds (60 seconds in development and CI builds).
+- Failures throw a `ClientError` subclass: `NetworkError` (unreachable or timed out), `HttpError` (error status
+  or non-JSON body, e.g. a WAF page) or `GraphqlError` (GraphQL errors or no data). Use `describeError()` to log one.
+- Each subclass sets a `DRUPAL_*` digest (`DRUPAL_TIMEOUT`, `DRUPAL_HTTP_503`, ...) that `app/error.tsx` displays, so
+  the cause of a production 500 is visible in the response body.
 
 **GraphQL Compiler Command**: `yarn graphql` 
 
@@ -192,6 +200,9 @@ yarn graphql
 
 # Lint and typescript check
 yarn lint
+
+# Validate the prerendered HTML from the last `yarn build` (rules in .htmlvalidate.json)
+yarn validate:html
 ```
 
 ### Adding New Content Types
@@ -252,18 +263,40 @@ blocking or streaming differently than intended.
 
 ## Styling Guidelines
 
-**TailwindCSS Configuration**: `src/styles/index.css` (CSS-first `@theme`; there is no `tailwind.config.ts`)
+**TailwindCSS Configuration**: `src/styles/index.css` (CSS-first `@theme`; there is no `tailwind.config.ts`).
+It imports `decanter` and `decanter/forms`, then the project's own CSS (`centered-container.css`,
+`typography/*.css`). PostCSS runs `@tailwindcss/postcss` (`postcss.config.mjs`). Prettier sorts classes using
+the same stylesheet (`tailwindStylesheet` in `.prettierrc`).
+
+Decanter docs ship in the package: `node_modules/decanter/docs/` and `node_modules/decanter/UPGRADE.md`.
 
 **Custom Theme Extensions**:
 - Colors:
   - Colors provided by decanter library
+  - A few Tailwind palette colors the site uses (`gray-*`, `green-800`, `red-800`, `blue-600`) are pinned to their
+    Tailwind 3 hex values in `@theme`
 - Typography:
   - stanford font for wordmark
 - Spacing:
-  - Responsive spacing provided by decanter library
+  - Decanter sets `--spacing` to `0.1rem` on a 10px root, so **numeric utilities read as pixels**: `mb-20` is 20px,
+    `w-300` is 300px. This differs from stock Tailwind, where `p-4` is 1rem.
+  - Responsive spacing (`rs-*`) provided by decanter library
 - Tailwind merge:
   - Whenever merging styles, make sure to use the custom merge function `src/lib/utils/className`
   - Example: `className={cn("text-black", {"text-blue": blueText}, props.className)}`
+
+**Rules**:
+- Use `tw-hidden` instead of `hidden`. A third party library loads its own `.hidden` styles that behave
+  differently.
+- Decanter's classes (`rs-*`, `type-*`, `big-paragraph`, `card-paragraph`, `centered`) are ordinary utilities
+  in Tailwind 4. They compete with core utilities by Tailwind's own sort order, not by "core utilities always
+  win" as they did with Decanter 7. Avoid putting two classes that set the same property on one element. Let
+  `cn()` drop one, or use the important modifier (`card-paragraph!`) when one has to win.
+- Custom CSS in `@layer base` or `@layer components` always loses to utilities. Custom CSS that has to compete
+  on specificity goes in `@layer utilities` (see `typography/local-footer.css`), and CSS outside any layer beats
+  every utility.
+- Tailwind 4 applies stacked variants left to right: `hocus:[&_a]:underline` styles links inside a hovered
+  element, while `[&_a]:hocus:underline` styles a hovered link. Pseudo-elements (`before:`, `after:`) go last.
 
 **Component Styling Pattern**: Utility-first
 
@@ -275,6 +308,29 @@ blocking or streaming differently than intended.
 // Example pattern for fetching content
 graphqlClient().request<TypescriptType>(QueryDocument, {variables})
 ```
+
+Inside a `"use cache"` function, catch failures with `cacheFailure()` from `src/lib/gql/gql-queries.tsx` and
+return a fallback. It logs the error and drops the entry's lifetime to minutes, so a Drupal outage is never cached
+for as long as a real answer:
+
+```typescript
+const getThing = async (uuid: string) => {
+  "use cache: remote"
+  cacheTag("all-cache", `thing:${uuid}`)
+  try {
+    return (await graphqlClient().request<ThingQuery>(ThingDocument, {uuid})).thing
+  } catch (e) {
+    cacheFailure(`Unable to fetch thing ${uuid}`, e)
+  }
+}
+```
+
+`cacheFailure()` calls `cacheLife()`, so only use it inside a cache scope, once per invocation. Outside one, log
+with `describeError()` instead.
+
+Full page lookups through `getEntityFromPath()` deliberately rethrow instead of returning `{}`: the render fails,
+so the last good cached page keeps being served rather than being replaced by a cached 404. Teaser and preview
+lookups still return `{}` on failure.
 
 ### Rendering Paragraphs
 
@@ -341,7 +397,7 @@ When working with this codebase, AI agents should ask:
 
 ---
 
-**Last Updated**: 2026-06-08
+**Last Updated**: 2026-10-09
 
 **Maintained By**: pookmish
 

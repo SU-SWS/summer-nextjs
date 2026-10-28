@@ -5,19 +5,22 @@ import {ElementType, HtmlHTMLAttributes, Suspense} from "react"
 import {ParagraphStanfordFilteredList} from "@lib/gql/__generated__/graphql"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {getViewPagedItems, loadViewPage, VIEW_PAGE_SIZE} from "@lib/gql/gql-view-queries"
-import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
+import {signViewConfig} from "@lib/utils/view-config"
+import {getIdFromText} from "@lib/utils/text-tools"
 import cn from "@lib/utils/className"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordFilteredList
-  headingIds?: HeadingIds
 }
 
-const FilteredListParagraph = async ({paragraph, headingIds, ...props}: Props) => {
+const FilteredListParagraph = async ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const viewId = paragraph.suFilteredListView?.view || ""
   const displayId = paragraph.suFilteredListView?.display || ""
   const limit = paragraph.suFilteredListView?.pageSize || VIEW_PAGE_SIZE
+
+  // Taken before awaiting the view, so ids are handed out in the order the paragraphs are displayed.
+  const id = getIdFromText(paragraph.suListHeadline)
 
   const pagedItems =
     viewId && displayId
@@ -34,14 +37,24 @@ const FilteredListParagraph = async ({paragraph, headingIds, ...props}: Props) =
 
   if (behaviors.list_paragraph?.hide_empty && viewItems.length === 0) return null
 
+  // Signed so the public "load more" action can't be called with arbitrary views or filters.
+  const signedConfig =
+    addLoadMore && viewId && displayId
+      ? signViewConfig({
+          viewId,
+          displayId,
+          contextualFilter: paragraph.suFilteredListView?.contextualFilter || [],
+          hasHeadline: !!paragraph.suListHeadline,
+          pageSize: VIEW_PAGE_SIZE,
+        })
+      : undefined
+
   const ListWrapper: ElementType =
     paragraph.suListHeadline && behaviors.list_paragraph?.heading_behavior !== "remove" ? "section" : "div"
-  const id = getHeadingId(paragraph.uuid, paragraph.suListHeadline, headingIds)
-
   return (
     <ListWrapper
       {...props}
-      className={cn("centered mb-20 flex flex-col gap-20", props.className)}
+      className={cn("centered mb-50 flex flex-col gap-50", props.className)}
       aria-labelledby={ListWrapper === "section" ? id : undefined}
       data-nosnippet
     >
@@ -60,18 +73,7 @@ const FilteredListParagraph = async ({paragraph, headingIds, ...props}: Props) =
             displayId={displayId}
             items={viewItems}
             headingLevel={paragraph.suListHeadline ? "h3" : "h2"}
-            loadPage={
-              addLoadMore
-                ? loadViewPage.bind(
-                    null,
-                    viewId,
-                    displayId,
-                    !!paragraph.suListHeadline,
-                    VIEW_PAGE_SIZE,
-                    paragraph.suFilteredListView?.contextualFilter || []
-                  )
-                : undefined
-            }
+            loadPage={signedConfig ? loadViewPage.bind(null, signedConfig) : undefined}
             totalItems={totalItems}
           />
         </Suspense>

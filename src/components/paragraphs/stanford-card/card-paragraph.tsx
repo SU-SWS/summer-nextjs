@@ -8,12 +8,15 @@ import Button from "@components/elements/button"
 import cn from "@lib/utils/className"
 import ImageCard from "@components/patterns/image-card"
 import PillCard from "@components/patterns/pill-card"
-import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
+import {getIdFromText} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordCard
-  headingIds?: HeadingIds
   linkTabIndex?: number
+  /**
+   * Id for the heading, when the parent has already generated it to reference the card.
+   */
+  headingId?: string
 }
 
 const adjustHeadingType = (heading: "h2" | "h3" | "h4" | "div", size?: "larger" | "smaller"): number | undefined => {
@@ -26,7 +29,7 @@ const adjustHeadingType = (heading: "h2" | "h3" | "h4" | "div", size?: "larger" 
   return size === "larger" ? headingTypes[heading] + 1 : headingTypes[heading] - 1
 }
 
-const CardParagraph = ({paragraph, linkTabIndex, headingIds, ...props}: Props) => {
+const CardParagraph = ({paragraph, linkTabIndex, headingId, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
 
   const image = paragraph.suCardMedia?.__typename === "MediaImage" ? paragraph.suCardMedia.mediaImage : undefined
@@ -37,7 +40,7 @@ const CardParagraph = ({paragraph, linkTabIndex, headingIds, ...props}: Props) =
   const headerSize = behaviors.su_card_styles?.sum_card_heading_size
   const headerTag = headerTagChoice[0] as "h2" | "h3" | "h4" | "div"
   const headerType = adjustHeadingType(headerTag, headerSize)
-  const headerClasses = cn(headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "type-3 mb-12") || "mb-12", {
+  const headerClasses = cn(headerTagChoice[1]?.replace(".", " ").replace("su-font-splash", "mb-30 type-3") || "mb-30", {
     "type-4": headerType === 4,
     "type-3": headerType === 3,
     "type-2": headerType === 2,
@@ -49,7 +52,7 @@ const CardParagraph = ({paragraph, linkTabIndex, headingIds, ...props}: Props) =
   const cardBgColor = cardVariant === "pill" ? behaviors.su_card_styles?.sum_card_pill_bg_color_variant : undefined
 
   const Element = cardVariant === "pill" ? PillCard : ImageCard
-  const id = getHeadingId(paragraph.uuid, paragraph.suCardHeader, headingIds)
+  const id = headingId || getIdFromText(paragraph.suCardHeader)
   const headerProps = {id, className: cn(headerClasses, {"sr-only": behaviors.su_card_styles?.hide_heading})}
 
   return (
@@ -62,7 +65,10 @@ const CardParagraph = ({paragraph, linkTabIndex, headingIds, ...props}: Props) =
       isArticle={!!paragraph.suCardHeader && headerTag !== "div"}
       bgColor={cardBgColor}
       hasBgColor={cardVariant !== "pill" ? hasBgColor : undefined}
-      className={cn("break-words sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]", props.className)}
+      className={cn(
+        "wrap-anywhere sm:max-w-[392px] md:max-w-[507px] lg:max-w-[576px] xl:max-w-[980px]",
+        props.className
+      )}
     >
       {paragraph.suCardHeader && (
         <>
@@ -74,7 +80,7 @@ const CardParagraph = ({paragraph, linkTabIndex, headingIds, ...props}: Props) =
       )}
 
       {paragraph.suCardSuperHeader && (
-        <div className="order-first mb-5 text-20 font-normal uppercase">{paragraph.suCardSuperHeader}</div>
+        <div className="order-first mb-12.5 text-20 font-normal uppercase">{paragraph.suCardSuperHeader}</div>
       )}
 
       <Wysiwyg html={paragraph.suCardBody?.processed} className="*:big-paragraph" />

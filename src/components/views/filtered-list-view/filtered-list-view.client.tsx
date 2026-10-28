@@ -108,20 +108,20 @@ const FilteredListViewClient = ({
   return (
     <div {...props} className={cn("relative", props.className)}>
       {isPending && (
-        <div className="absolute left-0 top-0 z-20 h-full w-full bg-black-30 bg-opacity-80">
-          <div className="absolute bottom-20 left-1/2 -translate-x-[25px]">
+        <div className="absolute top-0 left-0 z-20 h-full w-full bg-black-30/80">
+          <div className="absolute bottom-50 left-1/2 -translate-x-[25px]">
             <ArrowPathIcon className="animate-spin" width={50} />
           </div>
         </div>
       )}
-      <div className="flex flex-col gap-24 lg:flex-row">
+      <div className="flex flex-col gap-60 lg:flex-row">
         <form className="shrink-0 lg:w-1/4">
           <div className="flex flex-row items-end justify-between">
-            <h3 className="type-1 mb-4 font-light">Filter by</h3>
+            <h3 className="mb-10 type-1 font-light">Filter by</h3>
             <button
               type="button"
               onClick={handleClearFilters}
-              className="mb-4 block cursor-pointer text-3xl font-normal text-digital-blue no-underline hocus:text-black hocus:underline"
+              className="mb-10 block cursor-pointer text-3xl font-normal text-digital-blue no-underline hocus:text-black hocus:underline"
             >
               Clear all filters
             </button>
@@ -136,7 +136,7 @@ const FilteredListViewClient = ({
                 name={`filter-${filterGroup.label.toLowerCase().replaceAll(/[^a-z0-9-]/g, "-")}`}
                 onRadioChange={onInputChange.bind(null, filterGroup.label)}
                 inputProps={{checked: chosenFilters[filterGroup.label] === ""}}
-                className="pb-3"
+                className="pb-7.5"
               >
                 - Any -
               </RadioButton>
@@ -146,7 +146,7 @@ const FilteredListViewClient = ({
                   value={option.value}
                   name={`filter-${filterGroup.label.toLowerCase().replaceAll(/[^a-z0-9-]/g, "-")}`}
                   onRadioChange={onInputChange.bind(null, filterGroup.label)}
-                  className="pb-2"
+                  className="pb-5"
                 >
                   {option.label}
                 </RadioButton>
@@ -155,7 +155,7 @@ const FilteredListViewClient = ({
           ))}
         </form>
 
-        <div className="flex-grow @container">
+        <div className="@container grow">
           <ul {...ulProps}>
             {items.map((item, i) => (
               <li

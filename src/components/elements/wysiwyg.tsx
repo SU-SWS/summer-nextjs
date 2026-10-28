@@ -1,15 +1,15 @@
 import {Table, Thead, Tbody, Tr, Th, Td} from "@components/elements/tables"
 import Link from "@components/elements/link"
 import parse, {HTMLReactParserOptions, Element, domToReact, attributesToProps, DOMNode} from "html-react-parser"
-import Image from "next/image"
 import Oembed from "@components/elements/ombed"
-import React, {ComponentProps, HtmlHTMLAttributes} from "react"
+import React, {ComponentProps, HtmlHTMLAttributes, ImgHTMLAttributes} from "react"
 import {H2, H3, H4, H5, H6} from "@components/elements/headers"
 import cn from "@lib/utils/className"
 import {Maybe} from "@lib/gql/__generated__/graphql"
 import Mathjax from "@components/tools/mathjax"
 import Script from "next/script"
 import {ApplyNowLink} from "./apply-now-link"
+import {getIdFromText} from "@lib/utils/text-tools"
 import "../../styles/form.css"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
@@ -45,6 +45,17 @@ const Wysiwyg = ({html, className, disableDefaultStyles, ...props}: Props) => {
   )
 }
 
+/**
+ * Text of a node and all of its descendants. Used for heading anchor ids.
+ */
+const textContent = (node: Element): string =>
+  node.children
+    .map(child => {
+      if (child instanceof Element) return textContent(child)
+      return "data" in child && child.type !== "comment" ? child.data : ""
+    })
+    .join("")
+
 const options: HTMLReactParserOptions = {
   replace: domNode => {
     if (domNode instanceof Element) {
@@ -75,13 +86,10 @@ const options: HTMLReactParserOptions = {
 
         case "div":
           if (nodeProps.className && nodeProps.className.includes("left-bar")) {
-            nodeProps.className = cn(
-              nodeProps.className,
-              "rs-px-1 rs-pb-5 rs-pt-7 border-l-3 border-archway-dark border-opacity-50"
-            )
+            nodeProps.className = cn(nodeProps.className, "border-l-3 border-archway-dark/50 rs-pt-7 rs-px-1 rs-pb-5")
           }
           if (nodeProps.className?.includes("tight-spacing")) {
-            nodeProps.className = cn(nodeProps.className, "*:!mb-6 *:!mt-0")
+            nodeProps.className = cn(nodeProps.className, "*:mt-0! *:mb-15!")
           }
           return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
 
@@ -108,6 +116,11 @@ const options: HTMLReactParserOptions = {
           return <Script {...nodeProps} strategy="lazyOnload"></Script>
 
         case "h2":
+          // Give editor headings an anchor target for the anchor nav.
+          if (!nodeProps.id) {
+            const id = getIdFromText(textContent(domNode))
+            if (id) nodeProps.id = id
+          }
           return <H2 {...nodeProps}>{domToReact(children, options)}</H2>
         case "h3":
           return <H3 {...nodeProps}>{domToReact(children, options)}</H3>
@@ -144,6 +157,20 @@ const options: HTMLReactParserOptions = {
         case "dd":
         case "i":
         case "aside":
+        case "iframe":
+          // Embed codes often use `width="100%"`, but the attributes only accept pixel integers. Percentages move to
+          // inline styles instead.
+          for (const dimension of ["width", "height"]) {
+            const value = nodeProps[dimension]
+            if (typeof value === "string" && value.endsWith("%")) {
+              nodeProps.style = {...(nodeProps.style as Record<string, string>), [dimension]: value}
+              delete nodeProps[dimension]
+            }
+          }
+          // Obsolete, preflight already removes iframe borders.
+          delete nodeProps.frameBorder
+          return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
+
         case "abbr":
         case "span":
         case "blockquote":
@@ -176,15 +203,15 @@ const fixClasses = (classes?: string | boolean): string => {
     .replaceAll(" text-align-center ", " text-center [&_a]:mx-auto ")
     .replace(" text-align-right ", " text-right ")
     .replaceAll(" align-center ", " mx-auto ")
-    .replaceAll(" align-left ", " float-left mr-10 mb-10 ")
-    .replaceAll(" align-right ", " float-right ml-10 mb-10 ")
+    .replaceAll(" align-left ", " float-left mr-25 mb-25 ")
+    .replaceAll(" align-right ", " float-right ml-25 mb-25 ")
     .replaceAll(" visually-hidden ", " sr-only ")
-    .replaceAll(" font-splash ", " splash-text type-5 ")
+    .replaceAll(" font-splash ", " splash-text ")
     .replaceAll(" callout-text ", " font-bold type-3 ")
-    .replaceAll(" related-text ", " shadow-lg border border-black-20 p-16 ")
+    .replaceAll(" related-text ", " shadow-lg border border-black-20 p-40 ")
     .replaceAll(
       " drop-cap ",
-      " type-2 first-letter:font-bold first-letter:type-5 first-letter:float-left first-letter:mt-2 first-letter:mb-1 first-letter:mr-4 first-letter:leading-[0.9] "
+      " type-2 first-letter:font-bold first-letter:type-5 first-letter:float-left first-letter:mt-5 first-letter:mb-2.5 first-letter:mr-10 first-letter:leading-[0.9] "
     )
     .replaceAll(" intro-text ", " type-3 ")
     .replace(/ tablesaw.*? /g, " ")
@@ -285,48 +312,41 @@ const cleanMediaMarkup = (node: Element) => {
         </figure>
       )
     }
-    return <WysiwygImage src={src} alt={alt} height={height} width={width} {...nodeProps} />
+    // Only the wrapper's classes carry over; its other attributes describe the media embed, not the image.
+    return <WysiwygImage src={src} alt={alt} height={height} width={width} className={nodeProps.className} />
   }
   const NodeName: React.ElementType = node.name as React.ElementType
   return <NodeName {...nodeProps}>{domToReact(node.children as DOMNode[], options)}</NodeName>
 }
 
+/**
+ * Plain `<img>` rather than `next/image` on purpose.
+ *
+ * Editors embed an image *style* derivative, so the file has already been resized by Drupal for
+ * the context it appears in. Those urls carry a per-image `?itok=` hash, and Drupal returns 403
+ * for a derivative requested without a valid token until the file exists on disk, so the token has
+ * to survive to the browser intact. Sending it through the optimizer instead would mean either
+ * loosening `images.remotePatterns` to accept any query string or dropping the token, and the
+ * remaining win over an already-sized derivative is only the format conversion.
+ */
 const WysiwygImage = ({
   src,
   alt,
-  height,
-  width,
   className,
-}: {
+  ...props
+}: ImgHTMLAttributes<HTMLImageElement> & {
   src: string
-  alt?: Maybe<string>
-  height?: Maybe<string | number>
-  width?: Maybe<string | number>
-  className?: string
-}) => {
-  if (width && height) {
-    return (
-      <Image
-        className={cn(fixClasses(className), "mb-10")}
-        src={src.trim()}
-        alt={alt ? alt.trim() : ""}
-        height={parseInt(`${height}`)}
-        width={parseInt(`${width}`)}
-      />
-    )
-  }
-  return (
-    <div className="relative mb-10 aspect-[16/9] w-full overflow-hidden">
-      <Image
-        className="object-cover object-center"
-        src={src.trim()}
-        alt={alt?.trim() || ""}
-        fill
-        sizes="(max-width: 768px) 100vw, (max-width: 900px) 50vw, (max-width: 1700px) 33vw, 1500px"
-      />
-    </div>
-  )
-}
+}) => (
+  // eslint-disable-next-line @next/next/no-img-element -- see above
+  <img
+    src={src.trim()}
+    alt={alt?.trim() || ""}
+    loading="lazy"
+    decoding="async"
+    {...props}
+    className={cn(fixClasses(className), "mb-25 h-auto max-w-full")}
+  />
+)
 
 const formatHtml = (html: string) => parse(html || "", options)
 

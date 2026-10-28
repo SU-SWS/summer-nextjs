@@ -35,7 +35,7 @@ const InterceptionModal = ({children, ...props}: HtmlHTMLAttributes<HTMLDialogEl
     <dialog
       ref={overlay}
       className={cn(
-        "modal overflow-x-tw-hidden fixed left-0 top-0 z-[10000] m-0 flex h-full w-screen items-center justify-center overflow-y-scroll overscroll-contain bg-black-true bg-opacity-90 p-0",
+        "modal fixed top-0 left-0 z-[10000] m-0 flex h-full w-screen items-center justify-center overflow-y-scroll overscroll-contain bg-black-true/90 p-0",
         props.className
       )}
       onClick={onClick}
@@ -44,7 +44,7 @@ const InterceptionModal = ({children, ...props}: HtmlHTMLAttributes<HTMLDialogEl
       <ReactFocusLock returnFocus>
         <div
           ref={wrapper}
-          className="absolute left-1/2 top-1/2 w-11/12 -translate-x-1/2 -translate-y-1/2 p-6 sm:w-10/12 md:w-8/12 lg:w-1/2"
+          className="absolute top-1/2 left-1/2 w-11/12 -translate-x-1/2 -translate-y-1/2 p-15 sm:w-10/12 md:w-8/12 lg:w-1/2"
         >
           {children}
         </div>
@@ -52,7 +52,7 @@ const InterceptionModal = ({children, ...props}: HtmlHTMLAttributes<HTMLDialogEl
         <button
           type="button"
           onClick={onDismiss}
-          className="group fixed -right-[100px] -top-[100px] flex h-[200px] w-[200px] items-center rounded-full bg-black-true bg-opacity-40 text-white"
+          className="group fixed -top-[100px] -right-[100px] flex h-[200px] w-[200px] items-center rounded-full bg-black-true/40 text-white"
         >
           <span className="sr-only">Close Overlay</span>
           <XMarkIcon

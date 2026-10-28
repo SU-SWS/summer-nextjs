@@ -3,6 +3,8 @@ import {getAlgoliaCredential} from "@lib/gql/gql-queries"
 import AlgoliaSiteSearch from "@components/algolia/algolia-site-search"
 import {Suspense} from "react"
 
+export const instant = false
+
 export const metadata = {
   title: "Search",
   description: "Search the site",
@@ -16,7 +18,7 @@ const Page = async () => {
   const [appId, indexName, apiKey] = await getAlgoliaCredential()
 
   return (
-    <div className="centered mt-32">
+    <div className="mt-80 centered">
       <H1>Search</H1>
 
       <div>

@@ -8,14 +8,13 @@ import cn from "@lib/utils/className"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
 import {getEntityFromPath} from "@lib/gql/gql-queries"
 import {ImageCardSkeleton} from "@components/patterns/image-card"
-import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
+import {getIdFromText} from "@lib/utils/text-tools"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   paragraph: ParagraphStanfordEntity
-  headingIds?: HeadingIds
 }
 
-const EntityParagraph = async ({paragraph, headingIds, ...props}: Props) => {
+const EntityParagraph = async ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const entities = paragraph.suEntityItem || []
   const gridCols = ["lg:grid-cols-3", "lg:grid-cols-1", "lg:grid-cols-2"]
@@ -24,12 +23,12 @@ const EntityParagraph = async ({paragraph, headingIds, ...props}: Props) => {
   const EntityWrapper: ElementType =
     paragraph.suEntityHeadline && behaviors.stanford_teaser?.heading_behavior !== "remove" ? "section" : "div"
 
-  const id = getHeadingId(paragraph.uuid, paragraph.suEntityHeadline, headingIds)
+  const id = getIdFromText(paragraph.suEntityHeadline)
 
   return (
     <EntityWrapper
       {...props}
-      className={cn("centered mb-20 flex flex-col gap-10 lg:max-w-[920px] xl:max-w-[980px]", props.className)}
+      className={cn("centered mb-50 flex flex-col gap-25 lg:max-w-[920px] xl:max-w-[980px]", props.className)}
       aria-labelledby={EntityWrapper === "section" ? id : undefined}
     >
       {EntityWrapper === "section" && (
@@ -43,7 +42,7 @@ const EntityParagraph = async ({paragraph, headingIds, ...props}: Props) => {
 
       <Wysiwyg html={paragraph.suEntityDescription?.processed} />
 
-      <div className={`grid ${gridClass} mb-20 gap-20 [&>*]:w-full`}>
+      <div className={`grid ${gridClass} mb-50 gap-50 [&>*]:w-full`}>
         {entities.map(entity => (
           <Suspense key={`${paragraph.uuid}-${entity.uuid}`} fallback={<ImageCardSkeleton />}>
             <EntityCard path={entity.path} headingLevel={paragraph.suEntityHeadline ? "h3" : "h2"} />

@@ -14,7 +14,7 @@ import NodePageMetadata from "@components/nodes/pages/node-page-metadata"
 import {getFirstText} from "@lib/utils/text-tools"
 import Wysiwyg from "@components/elements/wysiwyg"
 import cn from "@lib/utils/className"
-import {getHeadingIds} from "@components/paragraphs/get-heading-ids"
+import AnchorNav from "@components/elements/anchor-nav"
 
 type Props = HtmlHTMLAttributes<HTMLDivElement> & {
   node: NodeStanfordPage
@@ -37,8 +37,18 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
     "ParagraphSumTopBanner",
   ]
 
+  const layout = node.layoutSelection?.id
+  const anchorPosition =
+    layout === "left_anchor_nav" || layout === "left_anchor_no_nav"
+      ? "left"
+      : layout === "top_anchor_nav" || layout === "top_anchor_nav_full_width"
+        ? "top"
+        : false
+  const hideSecondaryNav = layout === "left_anchor_no_nav"
+
   const fullWidth =
-    node.layoutSelection?.id === "stanford_basic_page_full" ||
+    layout === "stanford_basic_page_full" ||
+    layout === "top_anchor_nav_full_width" ||
     !!node.suPageComponents?.find(component => fullWidthComponents.includes(component.__typename))
 
   const lastComponent = node.suPageComponents?.[node.suPageComponents?.length - 1]?.__typename
@@ -50,14 +60,8 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
     "ParagraphStanfordBanner",
   ].includes(lastComponent ?? "")
 
-  // Build the heading ids across the banner and the components so they are unique for the whole page.
-  const headingIds = getHeadingIds([
-    ...(node.suPageBanner ? [node.suPageBanner] : []),
-    ...(node.suPageComponents || []),
-  ])
-
   return (
-    <article {...props} className={cn({"mb-32": !hasBannerOrCalculator}, props.className)}>
+    <article {...props} className={cn({"mb-80": !hasBannerOrCalculator}, props.className)}>
       <NodePageMetadata
         pageTitle={isHome ? undefined : node.title}
         metatags={node.metatag}
@@ -72,31 +76,33 @@ const StanfordPagePage = ({node, isHome, ...props}: Props) => {
             <SumArcBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title} isHome={isHome} />
           )}
           {node.suPageBanner?.__typename === "ParagraphSumTopBanner" && (
-            <SumTopBannerParagraph
-              paragraph={node.suPageBanner}
-              pageTitle={node.title}
-              isHome={isHome}
-              headingIds={headingIds}
-            />
+            <SumTopBannerParagraph paragraph={node.suPageBanner} pageTitle={node.title} isHome={isHome} />
           )}
         </header>
       )}
 
       {!pageTitleBanners.includes(node.suPageBanner?.__typename) && (
-        <H1 className={cn("centered mt-32", {"sr-only": isHome})}>{node.title}</H1>
+        <H1 className={cn("mt-80 centered", {"sr-only": isHome})}>{node.title}</H1>
       )}
 
       {!fullWidth && (
-        <InteriorPage currentPath={node.path || "#"}>
+        <InteriorPage
+          currentPath={node.path || "#"}
+          leftSideBar={anchorPosition === "left" && <AnchorNav />}
+          hideSecondaryNav={hideSecondaryNav}
+        >
+          {anchorPosition === "top" && <AnchorNav horizontal />}
           <Wysiwyg html={node.body?.processed} />
-          <Rows components={node.suPageComponents} headingIds={headingIds} />
+          <Rows components={node.suPageComponents} />
         </InteriorPage>
       )}
 
       {fullWidth && (
         <>
-          <Wysiwyg html={node.body?.processed} />
-          <Rows components={node.suPageComponents} headingIds={headingIds} />
+          {/* Full width pages have no sidebar, so a left anchor nav is displayed across the top instead. */}
+          {anchorPosition && <AnchorNav horizontal className="centered" />}
+          <Wysiwyg html={node.body?.processed} className="centered mb-40" />
+          <Rows components={node.suPageComponents} />
         </>
       )}
     </article>

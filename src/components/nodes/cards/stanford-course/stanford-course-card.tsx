@@ -13,10 +13,10 @@ const StanfordCourseCard = ({node, headingLevel, ...props}: Props) => {
   const Heading = headingLevel === "h3" ? H3 : H2
   return (
     <ImageCard {...props} aria-labelledby={node.uuid} isArticle>
-      <Heading className="type-3 order-last" id={node.uuid}>
+      <Heading className="order-last type-3" id={node.uuid}>
         <Link href={node.path || "#"}>{node.title}</Link>
       </Heading>
-      <div className="order-first flex gap-5">
+      <div className="order-first flex gap-12.5">
         {node.suCourseSubject && (
           <div className="font-bold">
             {node.suCourseSubject.name}

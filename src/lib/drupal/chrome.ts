@@ -16,6 +16,10 @@ import {getPathFromContext} from "@lib/drupal/utils"
  * @param previewMode  When `true`, reads the draft revision so editors see the flag they just set.
  */
 export const hasMinimalChrome = async (slug?: string[], previewMode?: boolean): Promise<boolean> => {
-  const {entity} = await getEntityFromPath<NodeUnion>(getPathFromContext(slug || ""), previewMode)
+  // A failed lookup fails the page render on its own. Fall back to the full chrome rather than also
+  // failing the layout, so the error boundary still renders inside the header and footer.
+  const {entity} = await getEntityFromPath<NodeUnion>(getPathFromContext(slug || ""), previewMode).catch(() => ({
+    entity: undefined,
+  }))
   return entity?.__typename === "NodeStanfordPage" && !!entity.sumMinimalHeadFoot
 }

@@ -4,6 +4,8 @@ import Link from "@components/elements/link"
 import {graphqlClient} from "@lib/gql/gql-client"
 import {notFound} from "next/navigation"
 import {cacheTag} from "next/cache"
+import {cacheFailure} from "@lib/gql/gql-queries"
+import {isUuid} from "@lib/utils/security"
 import {
   ParagraphDocument,
   ParagraphQuery,
@@ -15,17 +17,28 @@ type Props = {
   params: Promise<{uuid: string[]}>
 }
 
+export const instant = false
+
 const Page = async (props: Props) => {
   "use cache: remote"
 
   const params = await props.params
   const [paragraphId, mediaUuid] = params.uuid
+
+  // Reject malformed ids before they reach Drupal.
+  if (!isUuid(paragraphId) || (mediaUuid && !isUuid(mediaUuid))) notFound()
+
   cacheTag("all-cache", "paragraphs", `paragraph:${paragraphId}`)
 
-  const paragraphQuery = await graphqlClient().request<ParagraphQuery, ParagraphQueryVariables>(ParagraphDocument, {
-    uuid: paragraphId,
-  })
-  if (paragraphQuery.paragraph?.__typename !== "ParagraphStanfordGallery") notFound()
+  let paragraphQuery: ParagraphQuery | undefined
+  try {
+    paragraphQuery = await graphqlClient().request<ParagraphQuery, ParagraphQueryVariables>(ParagraphDocument, {
+      uuid: paragraphId,
+    })
+  } catch (e) {
+    cacheFailure(`Unable to fetch gallery ${paragraphId}`, e)
+  }
+  if (paragraphQuery?.paragraph?.__typename !== "ParagraphStanfordGallery") notFound()
 
   const paragraph = paragraphQuery.paragraph as ParagraphStanfordGallery
 
@@ -57,7 +70,10 @@ const Page = async (props: Props) => {
                 />
               </picture>
               {galleryImage.suGalleryCaption && (
-                <figcaption id={mediaUuid} className="m-0 table-caption w-full caption-bottom bg-white p-5 text-right">
+                <figcaption
+                  id={mediaUuid}
+                  className="m-0 table-caption w-full caption-bottom bg-white p-12.5 text-right"
+                >
                   {galleryImage.suGalleryCaption}
                 </figcaption>
               )}

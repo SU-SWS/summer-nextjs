@@ -1,13 +1,19 @@
 import {MetadataRoute} from "next"
 import {graphqlClient} from "@lib/gql/gql-client"
-import {getHomePagePath} from "@lib/gql/gql-queries"
+import {cacheFailure, getHomePagePath} from "@lib/gql/gql-queries"
 import {cacheLife} from "next/cache"
 import {AllNodesDocument, AllNodesQuery, NodeUnion} from "@lib/gql/__generated__/graphql"
 
 const Sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   "use cache: remote"
+  let nodeQuery: AllNodesQuery
+  try {
+    nodeQuery = await graphqlClient().request<AllNodesQuery>(AllNodesDocument)
+  } catch (e) {
+    cacheFailure("Unable to fetch nodes for the sitemap", e)
+    return []
+  }
   cacheLife("weeks")
-  const nodeQuery = await graphqlClient().request<AllNodesQuery>(AllNodesDocument)
   const nodes: NodeUnion[] = []
 
   nodeQuery.nodeStanfordPages.nodes.map(node => nodes.push(node as NodeUnion))
@@ -15,7 +21,7 @@ const Sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 
   const sitemap: MetadataRoute.Sitemap = []
 
-  const homePath = await getHomePagePath()
+  const homePath = await getHomePagePath().catch(() => undefined)
   nodes.map(node =>
     sitemap.push({
       url: `https://summer.stanford.edu` + (homePath === node.path ? "/" : node.path),

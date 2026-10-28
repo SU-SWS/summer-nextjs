@@ -21,33 +21,33 @@ const StanfordEventCard = ({node, headingLevel, ...props}: Props) => {
   const startDay = parseInt(start.toLocaleDateString("en-US", {day: "numeric", timeZone}))
 
   // Fix difference between server side render and client side render. Replace any strange characters.
-  const dateTimeString = getEventTimeString(start, end, timeZone).replace(/[^a-zA-Z0-9 ,:\-|]/, " ")
+  const dateTimeString = getEventTimeString(start, end, timeZone).replace(/[^a-zA-Z0-9 ,:\-|]/, "")
   const Heading = headingLevel === "h3" ? H3 : H2
   return (
     <ImageCard {...props} aria-labelledby={node.uuid} isArticle>
       <div aria-hidden className="flex w-fit flex-col items-start">
-        <div className="type-0 mb-4 w-full text-center font-semibold">{startMonth.toUpperCase()}</div>
-        <div className="type-5 w-full text-center font-bold">{startDay}</div>
+        <div className="mb-10 w-full text-center type-0 font-semibold">{startMonth.toUpperCase()}</div>
+        <div className="w-full text-center type-5 font-bold">{startDay}</div>
       </div>
 
       <div className="flex flex-col">
-        <Heading className="type-3 [&_a]:text-black [&_a]:hocus:text-digital-red" id={node.uuid}>
+        <Heading className="type-3 [&_a]:text-black hocus:[&_a]:text-digital-red" id={node.uuid}>
           <Link href={node.suEventSource?.url || node.path || "#"}>{node.title}</Link>
         </Heading>
 
-        {node.suEventType && <div className="su-digital-red order-first">{node.suEventType[0].name}</div>}
+        {node.suEventType && <div className="order-first">{node.suEventType[0].name}</div>}
       </div>
 
-      {node.suEventSubheadline && <div className="type-2 mb-5 font-bold">{node.suEventSubheadline}</div>}
+      {node.suEventSubheadline && <div className="mb-12.5 type-2 font-bold">{node.suEventSubheadline}</div>}
 
-      <time className="flex items-center gap-5" dateTime={start.toISOString()}>
+      <time className="flex items-center gap-12.5" dateTime={start.toISOString()}>
         <CalendarDaysIcon width={30} className="shrink-0" />
         {dateTimeString}
       </time>
 
       {node.suEventLocation && (
         <div>
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-12.5">
             <MapPinIcon width={30} className="shrink-0" />
             <Address {...node.suEventLocation} />
           </div>
@@ -55,7 +55,7 @@ const StanfordEventCard = ({node, headingLevel, ...props}: Props) => {
       )}
 
       {node.suEventAltLoc && (
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-12.5">
           <MapPinIcon width={30} className="shrink-0" />
           {node.suEventAltLoc}
         </div>
@@ -109,7 +109,7 @@ export const getEventTimeString = (start: Date, end: Date, timeZone: string): st
         year: "numeric",
         timeZone,
       }) +
-      " - " +
+      "- " +
       end.toLocaleDateString("en-US", {
         month: "long",
         day: "numeric",
@@ -140,13 +140,13 @@ export const getEventTimeString = (start: Date, end: Date, timeZone: string): st
       timeZone,
     })
     dateTimeString +=
-      " | " +
+      "| " +
       start.toLocaleTimeString("en-US", {
         hour: "numeric",
         minute: "numeric",
         timeZone,
       })
-    dateTimeString += " - "
+    dateTimeString += "- "
     dateTimeString += end.toLocaleTimeString("en-US", {
       hour: "numeric",
       minute: "numeric",

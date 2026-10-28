@@ -5,37 +5,36 @@ import {H2, H3} from "@components/elements/headers"
 import Wysiwyg from "@components/elements/wysiwyg"
 import Button from "@components/elements/button"
 import {getParagraphBehaviors} from "@components/paragraphs/get-paragraph-behaviors"
-import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
+import {getIdFromText} from "@lib/utils/text-tools"
 
 type Props = HTMLAttributes<HTMLElement> & {
   paragraph: ParagraphSumAtAGlance
-  headingIds?: HeadingIds
 }
 
-const SumAtAGlanceParagraph = ({paragraph, headingIds, ...props}: Props) => {
+const SumAtAGlanceParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
 
   const Element = paragraph.sumAtAGlanceHeadline ? "article" : "div"
   const headingOnLeft = !!behaviors.sum_at_a_glance_behavior?.sum_at_a_glance_alignment
 
-  const id = getHeadingId(paragraph.uuid, paragraph.sumAtAGlanceHeadline, headingIds)
+  const id = getIdFromText(paragraph.sumAtAGlanceHeadline)
 
   return (
     <Element
       {...props}
-      className={cn("centered flex flex-col gap-20 @container", props.className)}
+      className={cn("@container centered flex flex-col gap-50", props.className)}
       aria-labelledby={paragraph.sumAtAGlanceHeadline ? id : undefined}
     >
-      <div className="grid gap-y-10 @6xl:grid-cols-2">
+      <div className="grid gap-y-25 @6xl:grid-cols-2">
         <div className="mt-auto h-fit">
           <div
-            className={cn("h-40 border-archway-dark border-opacity-50", {
+            className={cn("h-100 border-archway-dark/50", {
               "border-l-3": !headingOnLeft,
               "border-r-3": headingOnLeft,
             })}
           />
           <div
-            className={cn("h-fit border-archway-dark border-opacity-50 p-20", {
+            className={cn("h-fit border-archway-dark/50 p-50", {
               "border-l-3": !headingOnLeft,
               "border-r-3": headingOnLeft,
             })}
@@ -49,27 +48,27 @@ const SumAtAGlanceParagraph = ({paragraph, headingIds, ...props}: Props) => {
           </div>
         </div>
         <div
-          className={cn("items-ba grid grid-cols-1 md:grid-cols-2", {
+          className={cn("grid grid-cols-1 md:grid-cols-2", {
             "@6xl:order-first": !headingOnLeft,
           })}
         >
           <div
-            className={cn("mt-auto border-archway-dark border-opacity-50", {
-              "border-l-3 md:h-80": !headingOnLeft,
-              "h-40 border-r-3 md:h-60": headingOnLeft,
+            className={cn("mt-auto border-archway-dark/50", {
+              "border-l-3 md:h-200": !headingOnLeft,
+              "h-100 border-r-3 md:h-150": headingOnLeft,
             })}
           />
           <div
-            className={cn("mt-auto border-archway-dark border-opacity-50", {
-              "h-40 border-l-3 md:h-60": !headingOnLeft,
-              "border-r-3 md:h-80": headingOnLeft,
+            className={cn("mt-auto border-archway-dark/50", {
+              "h-100 border-l-3 md:h-150": !headingOnLeft,
+              "border-r-3 md:h-200": headingOnLeft,
             })}
           />
 
           {paragraph.sumAtAGlanceFacts.map((fact, i) => (
             <div
               key={fact.uuid}
-              className={cn("border-archway-dark border-opacity-50 p-10", {
+              className={cn("border-archway-dark/50 p-25", {
                 "border-l-3": !headingOnLeft,
                 "border-r-3": headingOnLeft,
                 "md:order-last": i % 2 === 1,
@@ -82,7 +81,7 @@ const SumAtAGlanceParagraph = ({paragraph, headingIds, ...props}: Props) => {
 
           {paragraph.sumAtAGlanceFacts.length % 2 === 1 && (
             <div
-              className={cn("border-archway-dark border-opacity-50 p-10", {
+              className={cn("border-archway-dark/50 p-25", {
                 "border-l-3": !headingOnLeft,
                 "border-r-3": headingOnLeft,
               })}

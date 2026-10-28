@@ -16,7 +16,7 @@ const CardViewGrid = async ({items, totalItems, headingLevel, loadPage, filtered
 
     return (
       <FilteredListViewClient
-        ulProps={{className: "list-unstyled grid @4xl:grid-cols-2 @7xl:grid-cols-3 gap-20 mb-20"}}
+        ulProps={{className: "list-unstyled grid @4xl:grid-cols-2 @7xl:grid-cols-3 gap-50 mb-50"}}
         totalItems={totalItems}
         loadPage={loadPage}
         filters={filters}
@@ -30,7 +30,7 @@ const CardViewGrid = async ({items, totalItems, headingLevel, loadPage, filtered
   }
   return (
     <LoadMoreList
-      ulProps={{className: "list-unstyled grid @4xl:grid-cols-2 @7xl:grid-cols-3 gap-20 mb-20"}}
+      ulProps={{className: "list-unstyled grid @4xl:grid-cols-2 @7xl:grid-cols-3 gap-50 mb-50"}}
       liProps={{className: ""}}
       totalItems={totalItems}
       loadPage={loadPage}

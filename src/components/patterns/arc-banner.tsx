@@ -28,9 +28,9 @@ const ArcBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}
   return (
     <BannerWrapper
       {...props}
-      className={cn("relative h-full max-h-fit overflow-hidden @container md:min-h-[400px]", props.className)}
+      className={cn("@container relative h-full max-h-fit overflow-hidden md:min-h-[400px]", props.className)}
     >
-      <div className="4xl:aspect-auto absolute -z-50 aspect-[16/9] w-full bg-white 4xl:h-full">
+      <div className="absolute -z-50 aspect-video w-full bg-white 4xl:h-full">
         {imageUrl && (
           <Image
             className="ed11y-ignore object-cover"
@@ -42,8 +42,8 @@ const ArcBanner = ({imageUrl, imageAlt, isSection, isBorder, children, ...props}
           />
         )}
         <div
-          className={cn("clip-arc relative h-full w-full border-black bg-white", {
-            "before:clip-arc overflow-hidden bg-black-true before:absolute before:left-0 before:top-[4px] before:z-[1] before:h-[calc(100%-2px)] before:w-full before:bg-white before:content-[''] 4xl:before:top-[2px]":
+          className={cn("relative h-full w-full border-black bg-white clip-arc", {
+            "overflow-hidden bg-black-true before:absolute before:top-[4px] before:left-0 before:z-[1] before:h-[calc(100%-2px)] before:w-full before:bg-white before:content-[''] before:clip-arc 4xl:before:top-[2px]":
               isBorder,
           })}
         />

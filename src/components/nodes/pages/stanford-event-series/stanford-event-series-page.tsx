@@ -18,14 +18,14 @@ const StanfordEventSeriesPage = ({node, ...props}: Props) => {
         metatags={node.metatag}
         backupDescription={node.suEventSeriesSubheadline || getFirstText(node.suEventSeriesComponents)}
       />
-      <H1 className="mt-32">{node.title}</H1>
+      <H1 className="mt-80">{node.title}</H1>
 
-      {node.suEventSeriesDek && <div className="type-4 mb-20 font-bold">{node.suEventSeriesDek}</div>}
+      {node.suEventSeriesDek && <div className="mb-50 type-4 font-bold">{node.suEventSeriesDek}</div>}
       {node.suEventSeriesSubheadline && <div>{node.suEventSeriesSubheadline}</div>}
       {node.suEventSeriesEvent && (
-        <div className="mb-20">
+        <div className="mb-50">
           {node.suEventSeriesEvent.map(event => (
-            <div key={event.uuid} className="border-b border-black-20 py-20 last:border-0">
+            <div key={event.uuid} className="border-b border-black-20 py-50 last:border-0">
               <StanfordEventListItem node={event} />
             </div>
           ))}

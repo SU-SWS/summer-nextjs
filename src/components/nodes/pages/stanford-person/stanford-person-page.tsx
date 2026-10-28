@@ -25,13 +25,13 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
   const imageUrl = node.suPersonPhoto?.mediaImage.url
 
   return (
-    <article className="centered mt-32" {...props}>
+    <article className="mt-80 centered" {...props}>
       <NodePageMetadata
         pageTitle={node.title}
         metatags={node.metatag}
         backupDescription={node.suPersonFullTitle || getCleanDescription(node.body?.processed)}
       />
-      <div className="mb-32 flex flex-col gap-20 lg:flex-row">
+      <div className="mb-80 flex flex-col gap-50 lg:flex-row">
         {imageUrl && (
           <div className="relative mx-auto aspect-[1/1] w-[250px] shrink-0 lg:mx-0">
             <Image className="rounded-full object-cover" src={imageUrl} alt="" loading="eager" fill sizes="750px" />
@@ -41,21 +41,21 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
         <div>
           <ReverseVisualOrder>
             <H1>{node.title}</H1>
-            {node.suPersonShortTitle && <div className="mb-10">{node.suPersonShortTitle}</div>}
+            {node.suPersonShortTitle && <div className="mb-25">{node.suPersonShortTitle}</div>}
           </ReverseVisualOrder>
 
           {node.suPersonFullTitle && <div className="type-2">{node.suPersonFullTitle}</div>}
         </div>
       </div>
 
-      <section className="flex flex-col gap-32 lg:flex-row">
-        <div className="flex-grow">
+      <section className="flex flex-col gap-80 lg:flex-row">
+        <div className="grow">
           <Wysiwyg html={node.body?.processed} />
 
           <Rows components={node.suPersonComponents} />
 
           {node.suPersonEducation && (
-            <div className="mb-10">
+            <div className="mb-25">
               <H2 className="type-2">Education</H2>
               {node.suPersonEducation.map((education, i) => (
                 <div key={`${node.uuid}-education-${i}`}>{education}</div>
@@ -64,9 +64,9 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
           )}
 
           {node.suPersonResearch && (
-            <div className="mb-10">
+            <div className="mb-25">
               <H2 className="type-2">Research</H2>
-              <div className="grid grid-cols-2 gap-10">
+              <div className="grid grid-cols-2 gap-25">
                 {node.suPersonResearch.map((research, i) => (
                   <Wysiwyg key={`${node.uuid}-research-${i}`} html={research.processed} />
                 ))}
@@ -75,9 +75,9 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
           )}
 
           {node.suPersonAffiliations && (
-            <div className="mb-10">
+            <div className="mb-25">
               <H2 className="type-2">Stanford Affiliations</H2>
-              <div className="flex flex-wrap gap-20">
+              <div className="flex flex-wrap gap-50">
                 {node.suPersonAffiliations.map((affiliation, i) => (
                   <div key={`${node.uuid}-affiliation-${i}`} className="min-w-fit">
                     <Button href={affiliation.url}>{affiliation.title}</Button>
@@ -93,41 +93,41 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
             node.suPersonFax ||
             node.suPersonEmail ||
             node.suPersonMailCode) && (
-            <div className="mb-20 flex items-start gap-10">
+            <div className="mb-50 flex items-start gap-25">
               <PhoneIcon width={30} className="shrink-0" />
               <div>
                 <H2 className="type-2">Contact</H2>
 
                 {node.suPersonTelephone && (
-                  <div className="mb-10">
+                  <div className="mb-25">
                     p: <Telephone tel={node.suPersonTelephone} />
                   </div>
                 )}
                 {node.suPersonMobilePhone && (
-                  <div className="mb-10">
+                  <div className="mb-25">
                     m: <Telephone tel={node.suPersonMobilePhone} />
                   </div>
                 )}
 
                 {node.suPersonFax && (
-                  <div className="mb-10">
+                  <div className="mb-25">
                     f: <Telephone tel={node.suPersonFax} />
                   </div>
                 )}
 
                 {node.suPersonEmail && (
-                  <div className="mb-10">
+                  <div className="mb-25">
                     <Email email={node.suPersonEmail} />
                   </div>
                 )}
 
-                {node.suPersonMailCode && <div className="mb-10">Mail Code: {node.suPersonMailCode}</div>}
+                {node.suPersonMailCode && <div className="mb-25">Mail Code: {node.suPersonMailCode}</div>}
               </div>
             </div>
           )}
 
           {(node.suPersonLocationAddress || node.suPersonMapUrl) && (
-            <div className="mb-20 flex items-start gap-10">
+            <div className="mb-50 flex items-start gap-25">
               <MapPinIcon width={30} className="shrink-0" />
               <div>
                 <H2 className="type-2">Location</H2>
@@ -145,7 +145,7 @@ const StanfordPersonPage = ({node, ...props}: Props) => {
           )}
 
           {node.suPersonLinks && (
-            <div className="mb-20 flex items-start gap-10">
+            <div className="mb-50 flex items-start gap-25">
               <LinkIcon width={30} className="shrink-0" />
               <div>
                 <H2 className="type-2">Links</H2>

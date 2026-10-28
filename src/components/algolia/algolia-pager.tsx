@@ -9,7 +9,7 @@ const AlgoliaPager = () => {
   if (nbPages <= 1) return null
   return (
     <nav aria-label="Search results pager">
-      <ul className="list-unstyled mx-auto flex w-fit justify-around gap-10">
+      <ul className="list-unstyled mx-auto flex w-fit justify-around gap-25">
         {pages[0] > 0 && <PagerItem onClick={() => goToPage(0)}>First</PagerItem>}
 
         {pages.map(pageNum => (
@@ -40,7 +40,7 @@ const PagerItem = ({
         "border-[#F26845]": isCurrent,
       })}
     >
-      <button onClick={onClick} className="px-5 hocus:underline">
+      <button onClick={onClick} className="px-12.5 hocus:underline">
         {children}
       </button>
     </li>

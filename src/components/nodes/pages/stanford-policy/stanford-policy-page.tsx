@@ -38,15 +38,15 @@ const StanfordPolicyPage = async ({node, ...props}: Props) => {
   const prevPage = flattenedMenu[flattenedMenu.findIndex(page => page.url === node.path) - 1]
 
   return (
-    <article className="centered pt-32" {...props}>
+    <article className="centered pt-80" {...props}>
       <NodePageMetadata
         pageTitle={node.title}
         metatags={node.metatag}
         backupDescription={getCleanDescription(node.body?.processed)}
       />
-      <div className="flex gap-5">
-        <H1 className="flex-grow">{node.title}</H1>
-        <div className="flex h-fit gap-5">
+      <div className="flex gap-12.5">
+        <H1 className="grow">{node.title}</H1>
+        <div className="flex h-fit gap-12.5">
           {prevPage && (
             <Button href={prevPage.url} secondary className="flex items-center">
               <ChevronLeftIcon width={20} />
@@ -62,7 +62,7 @@ const StanfordPolicyPage = async ({node, ...props}: Props) => {
         </div>
       </div>
       <InteriorPage currentPath={node.path || "#"} menuItems={node.book ? [node.book] : undefined}>
-        <div className="flex flex-col gap-20">
+        <div className="flex flex-col gap-50">
           {(node.suPolicyAuthority || node.suPolicyUpdated || node.suPolicyEffective) && (
             <div>
               {node.suPolicyUpdated && (
@@ -99,22 +99,22 @@ const StanfordPolicyPage = async ({node, ...props}: Props) => {
           )}
 
           {changeLog.length > 0 && (
-            <div className="mb-10 border border-black-40 bg-black-10 p-20">
+            <div className="mb-25 border border-black-40 bg-black-10 p-50">
               <H2 className="type-2">Change log:</H2>
 
               {changeLog.map(change => (
                 <div key={change.uuid}>
-                  <H3 className="type-0 flex gap-2">
-                    <div>
+                  <H3 className="flex gap-5 type-0">
+                    <span>
                       {new Date(change.suPolicyDate.time).toLocaleDateString("en-us", {
                         month: "long",
                         day: "numeric",
                         year: "numeric",
                         timeZone: change.suPolicyDate.timezone,
                       })}
-                    </div>
-                    <div className="w-[2px] shrink-0 bg-black" />
-                    <div>{change.suPolicyTitle}</div>
+                    </span>
+                    <span className="w-[2px] shrink-0 bg-black" />
+                    <span>{change.suPolicyTitle}</span>
                   </H3>
 
                   <div>
@@ -134,7 +134,7 @@ const StanfordPolicyPage = async ({node, ...props}: Props) => {
       {node.suPolicyRelated && (
         <div>
           <H2 className="text-center">Related Policies</H2>
-          <ul className="list-unstyled grid gap-20 lg:grid-cols-3">
+          <ul className="list-unstyled grid gap-50 lg:grid-cols-3">
             {node.suPolicyRelated.map(policy => (
               <li key={policy.uuid}>
                 <Suspense fallback={<ImageCardSkeleton />}>
@@ -162,7 +162,7 @@ const ChildPages = ({bookItems, currentPath}: {bookItems: Array<BookLink>; curre
   const childUrls = getChildUrls(bookItems[0])
   if (!childUrls) return
   return (
-    <ol className="list-unstyled mt-20">
+    <ol className="list-unstyled mt-50">
       {childUrls.map(child => (
         <ChildTeaser key={child.id} path={child.url} />
       ))}
@@ -176,7 +176,7 @@ const ChildTeaser = async ({path}: {path: NodeInterface["path"]}) => {
   if (!queryResponse.entity) return
 
   return (
-    <li className="mb-16 border-b border-black-20 pb-16 last:border-b-0 [&_p]:mb-0">
+    <li className="mb-40 border-b border-black-20 pb-40 last:border-b-0 [&_p]:mb-0">
       <StanfordPolicyListItem node={queryResponse.entity} />
     </li>
   )

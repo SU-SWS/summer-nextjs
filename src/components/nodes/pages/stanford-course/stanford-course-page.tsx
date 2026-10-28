@@ -14,14 +14,14 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 const StanfordCoursePage = ({node, ...props}: Props) => {
   if (node.suCourseLink?.url) redirect(node.suCourseLink?.url)
   return (
-    <article className="centered my-32" {...props}>
+    <article className="my-80 centered" {...props}>
       <NodePageMetadata
         pageTitle={node.title}
         metatags={node.metatag}
         backupDescription={getCleanDescription(node.body?.processed)}
       />
       <H1>{node.title}</H1>
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-25">
         {node.suCourseSubject && <div>{node.suCourseSubject.name}</div>}
 
         {node.suCourseCode && <div>{node.suCourseCode}</div>}

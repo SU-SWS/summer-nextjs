@@ -18,22 +18,22 @@ const StanfordPublicationPage = ({node, ...props}: Props) => {
   const citationUrl = node.suPublicationCitation?.suUrl?.url
   if (citationUrl) redirect(citationUrl)
   return (
-    <article className="centered pt-32" {...props}>
+    <article className="centered pt-80" {...props}>
       <NodePageMetadata
         pageTitle={node.title}
         metatags={node.metatag}
         backupDescription={getFirstText(node.suPublicationComponents)}
       />
-      <ReverseVisualOrder className="gap-10">
+      <ReverseVisualOrder className="gap-25">
         <H1>{node.title}</H1>
 
         {node.suPublicationTopics && <div>{node.suPublicationTopics[0].name}</div>}
       </ReverseVisualOrder>
 
-      <div className="flex flex-col gap-20 lg:flex-row">
-        <Rows components={node.suPublicationComponents} className="order-2 flex-grow lg:order-1" />
+      <div className="flex flex-col gap-50 lg:flex-row">
+        <Rows components={node.suPublicationComponents} className="order-2 grow lg:order-1" />
 
-        <aside className="order-1 flex shrink-0 flex-col gap-10 lg:order-2 lg:w-1/4">
+        <aside className="order-1 flex shrink-0 flex-col gap-25 lg:order-2 lg:w-1/4">
           {node.suPublicationCitation && <Citation citation={node.suPublicationCitation} />}
 
           {node.suPublicationCta && <Button href={node.suPublicationCta.url}>{node.suPublicationCta.title}</Button>}

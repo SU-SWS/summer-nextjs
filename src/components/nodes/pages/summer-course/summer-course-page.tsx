@@ -38,21 +38,21 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
             </H1>
 
             {startDate && (
-              <div className="rs-mb-0 order-first font-sans font-normal">
+              <div className="order-first rs-mb-0 font-sans font-normal">
                 {startDate}
                 {endDate && ` — ${endDate}`}
               </div>
             )}
 
             {node.sumCourseCatalogNumber && <div className="font-normal">{node.sumCourseCatalogNumber}</div>}
-            <div className="rs-mb-4 rs-pb-4 centered w-full border-b border-archway-dark" />
+            <div className="centered rs-mb-4 w-full border-b border-archway-dark rs-pb-4" />
           </div>
         </div>
       </ArcBanner>
 
-      <div className="centered relative z-10 my-32 flex flex-col justify-between gap-10 md:gap-32 lg:flex-row">
+      <div className="relative z-10 my-80 centered flex flex-col justify-between gap-25 md:gap-80 lg:flex-row">
         <FavoriteButton
-          className="absolute -top-20 right-5 md:right-16 xl:right-0"
+          className="absolute -top-50 right-12.5 md:right-40 xl:right-0"
           title={node.title}
           uuid={node.uuid}
           path={node.path || "#"}
@@ -60,10 +60,10 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
         />
 
         <div className="lg:w-7/12 2xl:w-8/12">
-          <div className="rs-mb-4 flex flex-col gap-10 lg:flex-row">
+          <div className="rs-mb-4 flex flex-col gap-25 lg:flex-row">
             {node.sumCourseImage && (
               <div className="lg:w-1/2">
-                <div className="relative aspect-1">
+                <div className="relative aspect-square">
                   <Image
                     className="rounded-[25px] object-cover"
                     src={node.sumCourseImage.mediaImage.url}
@@ -74,7 +74,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
                 </div>
               </div>
             )}
-            <div className="pt-12 children:mb-5 [&_span]:font-bold">
+            <div className="pt-30 *:mb-12.5 [&_span]:font-bold">
               <H2 className="type-1">Details:</H2>
 
               {node.sumCourseSchedule && (
@@ -131,7 +131,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
 
               {node.sumCoursePrerequisites && (
                 <div>
-                  <div className="flex flex-row items-center gap-2 font-semibold">
+                  <div className="flex flex-row items-center gap-5 font-semibold">
                     Pre-requisites:
                     <CourseInfo />
                   </div>
@@ -165,13 +165,13 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
           <div>
             {node.sumCourseDescription && (
               <div className="rs-mb-1">
-                <H3 className="type-1 mb-5">Description:</H3>
+                <H3 className="mb-12.5 type-1">Description:</H3>
                 <Wysiwyg html={node.sumCourseDescription.processed} />
               </div>
             )}
             {node.sumCourseNotes && (
               <div className="rs-mb-1">
-                <H3 className="type-1 mb-5">Course notes:</H3>
+                <H3 className="mb-12.5 type-1">Course notes:</H3>
                 <Wysiwyg className="max-w-full *:max-w-full" html={node.sumCourseNotes?.processed} />
               </div>
             )}
@@ -185,7 +185,7 @@ const SummerCoursePage = async ({node, ...props}: Props) => {
         <RelatedCourses objectId={node.uuid} />
       </div>
       <div className="centered flex flex-col items-end">
-        <div className="rs-mt-3 mb-32 w-full md:w-1/2">
+        <div className="rs-mt-3 mb-80 w-full md:w-1/2">
           <ApplyNowLink href="/apply-now">
             Ready to dive in? Kick off your application today – let&apos;s make things happen!
           </ApplyNowLink>

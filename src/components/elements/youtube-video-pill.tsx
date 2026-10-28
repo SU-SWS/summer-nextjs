@@ -17,7 +17,7 @@ const YoutubeVideoPill = ({videoUrl, intro, ...props}: Props) => {
     <ErrorBoundary
       fallback={
         <a href={videoUrl} className="block text-center">
-          <PlayIcon className="mx-auto aspect-1 w-full max-w-100" />
+          <PlayIcon className="mx-auto aspect-square w-full max-w-100" />
           Play the video.
         </a>
       }
@@ -50,7 +50,7 @@ const YoutubeVideoPillIntroBounded = ({videoUrl, intro, ...props}: Props) => {
     >
       <div
         className={cn("h-full overflow-hidden bg-black transition-all duration-300 ease-in-out", {
-          "rounded-full outline outline-4 outline-offset-[-10px] outline-white": !isPlaying,
+          "rounded-full outline-4 outline-offset-[-10px] outline-white outline-solid": !isPlaying,
         })}
       >
         {isInitialPlay && isIntersecting && <video src={intro} autoPlay muted className="w-full" />}
@@ -58,7 +58,7 @@ const YoutubeVideoPillIntroBounded = ({videoUrl, intro, ...props}: Props) => {
           <YouTube
             videoId={videoId || shortId}
             className={cn("h-full overflow-hidden bg-black transition-all duration-300 ease-in-out", {
-              "rounded-full outline outline-4 outline-offset-[-10px] outline-white": !isPlaying,
+              "rounded-full outline-4 outline-offset-[-10px] outline-white outline-solid": !isPlaying,
             })}
             opts={{
               height: 530,
@@ -84,9 +84,9 @@ const YoutubeVideoPillIntroBounded = ({videoUrl, intro, ...props}: Props) => {
               setIsPlaying(true)
             }}
             aria-label="Play video"
-            className="hocus:outline-3 absolute left-1/2 top-1/2 -translate-x-[50px] -translate-y-[50px] rounded-full border-2 border-transparent hocus:outline hocus:outline-digital-red"
+            className="absolute top-1/2 left-1/2 -translate-x-[50px] -translate-y-[50px] rounded-full border-2 border-transparent hocus:outline-digital-red hocus:outline-solid"
           >
-            <PlayIcon width={100} className="rounded-full bg-digital-red p-10 text-white" />
+            <PlayIcon width={100} className="rounded-full bg-digital-red p-25 text-white" />
           </button>
         )}
       </div>
@@ -154,7 +154,7 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
         videoId={videoId || shortId}
         className={cn(
           "h-full overflow-hidden bg-black transition-all duration-300 ease-in-out",
-          isPlaying && !isInitialPlay ? "" : "rounded-full outline outline-4 outline-offset-[-10px] outline-white"
+          isPlaying && !isInitialPlay ? "" : "rounded-full outline-4 outline-offset-[-10px] outline-white outline-solid"
         )}
         opts={options}
         onReady={(e: YouTubeEvent) => {
@@ -175,9 +175,9 @@ const YoutubeVideoPillBounded = ({videoUrl, ...props}: Props) => {
             videoRef.current?.playVideo()
             document.getElementById(id)?.focus()
           }}
-          className="hocus:outline-3 absolute left-1/2 top-1/2 -translate-x-[50px] -translate-y-[50px] rounded-full border-2 border-transparent hocus:outline hocus:outline-digital-red"
+          className="absolute top-1/2 left-1/2 -translate-x-[50px] -translate-y-[50px] rounded-full border-2 border-transparent hocus:outline-digital-red hocus:outline-solid"
         >
-          <PlayIcon width={100} className="rounded-full bg-digital-red p-10 text-white" />
+          <PlayIcon width={100} className="rounded-full bg-digital-red p-25 text-white" />
         </button>
       )}
     </div>

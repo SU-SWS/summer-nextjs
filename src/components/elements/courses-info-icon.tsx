@@ -32,7 +32,7 @@ const CourseInfo = () => {
         {...buttonProps}
         ref={buttonRef}
         className={cn(
-          "hocus-visible:outline-3 rounded-full border-2 border-transparent hocus-visible:outline hocus-visible:outline-digital-red",
+          "rounded-full border-2 border-transparent hocus-visible:outline-digital-red hocus-visible:outline-solid",
           buttonProps.className
         )}
       >
@@ -42,18 +42,18 @@ const CourseInfo = () => {
       <div
         {...panelProps}
         className={cn(
-          "absolute right-0 top-full z-10 -mr-[110px] mt-5 w-[300px] rounded-[25px] border border-white bg-white p-12 drop-shadow-md sm:-mr-[350px] sm:w-[400px] lg:-mr-[30px]",
+          "absolute top-full right-0 z-10 mt-12.5 -mr-[110px] w-[300px] rounded-[25px] border border-white bg-white p-30 [filter:drop-shadow(0_4px_3px_rgb(0_0_0/0.07))_drop-shadow(0_2px_2px_rgb(0_0_0/0.06))] sm:-mr-[350px] sm:w-[400px] lg:-mr-[30px]",
           expanded ? "block" : "tw-hidden",
           panelProps.className
         )}
       >
-        <div className="absolute -top-3 left-[53%] z-0 h-10 w-10 rotate-45 bg-white sm:left-[5%] md:h-9 md:w-9 lg:left-[85%]" />
-        <div className="mb-2 flex flex-row items-center gap-2">
+        <div className="absolute -top-7.5 left-[53%] z-0 h-25 w-25 rotate-45 bg-white sm:left-[5%] md:h-22.5 md:w-22.5 lg:left-[85%]" />
+        <div className="mb-5 flex flex-row items-center gap-5">
           <InformationCircleIcon width={25} className="text-archway-dark" />
 
           <p className="mb-0 text-[17px] font-semibold">Pre-requisites</p>
           <button type="button" onClick={() => collapseAccordion()} className="align-right ml-auto">
-            <XMarkIcon width={24} className="mt-2 pr-0 hocus:text-spirited-dark" />
+            <XMarkIcon width={24} className="mt-5 pr-0 hocus:text-spirited-dark" />
             <span className="sr-only">Close</span>
           </button>
         </div>

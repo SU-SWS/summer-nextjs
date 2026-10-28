@@ -1,8 +1,8 @@
 "use client"
 
 import {liteClient} from "algoliasearch/lite"
-import {useHits, useSearchBox, usePagination} from "react-instantsearch"
-import {InstantSearchNext} from "react-instantsearch-nextjs"
+import {useHits, useSearchBox, usePagination, InstantSearch} from "react-instantsearch"
+import {history} from "instantsearch.js/es/lib/routers"
 import {HTMLAttributes, useLayoutEffect, useMemo, useRef} from "react"
 import Button from "@components/elements/button"
 import {Hit as HitType} from "instantsearch.js"
@@ -10,10 +10,10 @@ import {IndexUiState, UiState} from "instantsearch.js/es/types/ui-state"
 import {MagnifyingGlassIcon} from "@heroicons/react/20/solid"
 import DefaultResult, {AlgoliaHit} from "@components/algolia/results/default"
 import {H2} from "@components/elements/headers"
-import {useBoolean} from "usehooks-ts"
+import {useBoolean, useIsClient} from "usehooks-ts"
 import AlgoliaPager from "@components/algolia/algolia-pager"
 import type {SendEventForHits} from "instantsearch.js/es/lib/utils"
-import {usePathname} from "next/navigation"
+import useRevealKey from "@lib/hooks/useRevealKey"
 
 type Props = {
   appId: string
@@ -22,20 +22,32 @@ type Props = {
   initialUiState?: IndexUiState
 }
 
-const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
-  const pathName = usePathname()
+type RouteState = Record<string, string | string[] | undefined>
+
+const AlgoliaSiteSearch = (props: Props) => {
+  // Remount with a fresh InstantSearch instance and router each time the cached route is revealed again.
+  const revealKey = useRevealKey()
+  // Searching only happens in the browser, and the history router can't be created without `window`. Rendering
+  // nothing on the server keeps the router from throwing there and bailing the page out to client rendering.
+  const isClient = useIsClient()
+  if (!isClient) return null
+  return <SiteSearch key={revealKey} {...props} />
+}
+
+const SiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
   const searchClient = useMemo(() => liteClient(appId, searchApiKey), [appId, searchApiKey])
 
   const routing = useMemo(
     () => ({
+      router: history<RouteState>({cleanUrlOnDispose: false}),
       stateMapping: {
-        stateToRoute(uiState: UiState): Record<string, string> {
+        stateToRoute(uiState: UiState): RouteState {
           const indexUiState = uiState[searchIndex] ?? {}
           return indexUiState.query ? {q: indexUiState.query} : {}
         },
-        routeToState(routeState: Record<string, string>) {
+        routeToState(routeState: RouteState) {
           return {
-            [searchIndex]: {query: routeState.q},
+            [searchIndex]: {query: typeof routeState.q === "string" ? routeState.q : undefined},
           }
         },
       },
@@ -44,17 +56,17 @@ const AlgoliaSiteSearch = ({appId, searchIndex, searchApiKey}: Props) => {
   )
 
   return (
-    <InstantSearchNext
-      key={pathName}
+    // Plain InstantSearch, rather than InstantSearchNext, so that searching only happens in the browser.
+    <InstantSearch
       indexName={searchIndex}
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: true}}
-      ignoreMultipleHooksWarning={true}
-      insights={true}
+      // Click and conversion events only count on production, so previews and local builds don't skew the stats.
+      insights={process.env.NEXT_PUBLIC_VERCEL_ENV === "production"}
       routing={routing}
     >
       <SearchForm />
-    </InstantSearchNext>
+    </InstantSearch>
   )
 }
 
@@ -65,13 +77,13 @@ const SearchForm = () => {
   return (
     <div>
       <form role="search" aria-labelledby="page-title" onSubmit={e => e.preventDefault()}>
-        <div className="mx-auto mb-20 flex max-w-6xl items-center gap-5">
+        <div className="mx-auto mb-50 flex max-w-6xl items-center gap-12.5">
           <label className="sr-only" htmlFor="search-input">
             Keywords Search
           </label>
           <input
             id="search-input"
-            className="type-3 flex-grow border-0 border-b border-black-30 px-8 py-5"
+            className="grow border-0 border-b border-black-30 px-20 py-12.5 type-3"
             ref={inputRef}
             autoComplete="on"
             spellCheck={false}
@@ -81,14 +93,14 @@ const SearchForm = () => {
             defaultValue={query}
           />
 
-          <Button className="rounded-full p-3" type="submit" onClick={() => refine(inputRef.current?.value || "")}>
+          <Button className="rounded-full p-7.5" type="submit" onClick={() => refine(inputRef.current?.value || "")}>
             <span className="sr-only">Submit Search</span>
             <MagnifyingGlassIcon width={30} className="block text-white" />
           </Button>
 
           <Button
             secondary
-            className="my-16"
+            className="my-40"
             centered
             buttonElem
             onClick={() => {
@@ -106,13 +118,15 @@ const SearchForm = () => {
 }
 
 const HitList = () => {
-  const {items: hits, sendEvent} = useHits<AlgoliaHit>({})
+  const {items: hits, results, sendEvent} = useHits<AlgoliaHit>({})
   const {currentRefinement: currentPage, nbHits} = usePagination({padding: 2})
+  // Placeholder results are provided until the first search response arrives.
+  const hasSearched = !!results && !results.__isArtificial
 
   return (
     <div>
-      <H2 className="rs-ml-1 big-paragraph font-normal" aria-live="polite" aria-atomic>
-        {hits.length === 0 && "No results for your search. Please try another search."}
+      <H2 className="rs-ml-1 big-paragraph! font-normal" aria-live="polite" aria-atomic>
+        {hasSearched && hits.length === 0 && "No results for your search. Please try another search."}
         {hits.length > 0 && `${nbHits} ${nbHits > 1 ? "Results" : "Result"}`}
       </H2>
 

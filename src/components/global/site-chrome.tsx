@@ -24,7 +24,7 @@ const SiteChrome = ({children, minimal}: Props) => (
   <>
     <PageHeader minimal={minimal} />
 
-    <main id="main-content" className="flex-grow">
+    <main id="main-content" className="grow">
       {children}
 
       <ToastMessage />

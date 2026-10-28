@@ -14,19 +14,18 @@ import {getParagraphBehaviors} from "../get-paragraph-behaviors"
 import cn from "@lib/utils/className"
 import CardParagraph from "@components/paragraphs/stanford-card/card-paragraph"
 import SumSlideTeaserParagraph from "@components/paragraphs/sum-slide-teaser/sum-slide-teaser-paragraph"
-import {getHeadingId, HeadingIds} from "@components/paragraphs/get-heading-ids"
+import {getIdFromText} from "@lib/utils/text-tools"
 
 type Props = HTMLAttributes<HTMLElement> & {
   paragraph: ParagraphSumCarousel
-  headingIds?: HeadingIds
 }
 
-const SumCarouselParagraph = ({paragraph, headingIds, ...props}: Props) => {
+const SumCarouselParagraph = ({paragraph, ...props}: Props) => {
   const behaviors = getParagraphBehaviors(paragraph)
   const isArcBanner = behaviors.sum_carousel?.sum_carousel_arc
   const headingSize = behaviors.sum_carousel?.sum_carousel_text_size ? "type-3" : "type-4"
   const Element = paragraph.sumCarouselHeader ? "article" : "div"
-  const id = getHeadingId(paragraph.uuid, paragraph.sumCarouselHeader, headingIds)
+  const id = getIdFromText(paragraph.sumCarouselHeader)
 
   return (
     <Element {...props} aria-labelledby={paragraph.sumCarouselHeader ? id : undefined}>
@@ -56,7 +55,7 @@ const SumCarouselParagraph = ({paragraph, headingIds, ...props}: Props) => {
       )}
 
       {paragraph.sumCarouselSlides && (
-        <div className="relative left-1/2 mb-32 mt-0 w-screen -translate-x-1/2 overflow-x-hidden">
+        <div className="relative left-1/2 mt-0 mb-80 w-screen -translate-x-1/2 overflow-x-hidden">
           <Slideshow className="mx-auto w-[calc(100%-50px)] xl:w-[calc(100%-150px)]">
             {paragraph.sumCarouselSlides.map((slide, slideIndex) => {
               return (
@@ -66,7 +65,6 @@ const SumCarouselParagraph = ({paragraph, headingIds, ...props}: Props) => {
                   slideNumber={slideIndex + 1}
                   totalSlides={paragraph.sumCarouselSlides?.length || 0}
                   slideHeader={paragraph.sumCarouselHeader ? "h3" : "h2"}
-                  headingIds={headingIds}
                 />
               )
             })}
@@ -82,13 +80,11 @@ const CarouselSlide = ({
   slideNumber,
   totalSlides,
   slideHeader,
-  headingIds,
 }: {
   slide: ParagraphSumCarouselSumCarouselSlidesUnion
   slideNumber: number
   totalSlides: number
   slideHeader?: "h2" | "h3"
-  headingIds?: HeadingIds
 }) => {
   const slideCopy = {...slide}
 
@@ -101,7 +97,8 @@ const CarouselSlide = ({
     }
     slideCopy.behaviors = JSON.stringify(slideBehaviors)
 
-    labelId = getHeadingId(slideCopy.uuid, slideCopy.suCardHeader, headingIds)
+    // Generated once and handed to the card, so the slide label matches the card's heading.
+    labelId = getIdFromText(slideCopy.suCardHeader)
   }
 
   if (slideCopy.__typename === "ParagraphSumSlideTeaser") labelId = slideCopy.sumSlideTeaserEntity.uuid
@@ -114,7 +111,7 @@ const CarouselSlide = ({
       aria-label={labelId ? undefined : `${slideNumber} of ${totalSlides}`}
     >
       {slideCopy.__typename === "ParagraphStanfordCard" && (
-        <CardParagraph paragraph={slideCopy} linkTabIndex={-1} headingIds={headingIds} />
+        <CardParagraph paragraph={slideCopy} linkTabIndex={-1} headingId={labelId} />
       )}
       {slideCopy.__typename === "ParagraphSumSlideTeaser" && <SumSlideTeaserParagraph paragraph={slideCopy} />}
     </div>
@@ -133,14 +130,14 @@ type TopProps = {
 
 const CarouselTop = ({header, superHeader, headingSize, description, link, className, headerId}: TopProps) => {
   return (
-    <div className={cn("centered mb-20 text-center", className)}>
+    <div className={cn("centered mb-50 text-center", className)}>
       <div className="flex flex-col">
         {header && (
-          <H2 id={headerId} className={cn("mb-8 font-light", headingSize)}>
+          <H2 id={headerId} className={cn("mb-20 font-light", headingSize)}>
             {header}
           </H2>
         )}
-        {superHeader && <div className="order-first mb-8">{superHeader}</div>}
+        {superHeader && <div className="order-first mb-20">{superHeader}</div>}
       </div>
 
       <Wysiwyg
@@ -149,7 +146,7 @@ const CarouselTop = ({header, superHeader, headingSize, description, link, class
       />
 
       {link?.url && (
-        <ActionLink className="rs-mt-3 mx-auto no-underline hocus:underline" href={link.url}>
+        <ActionLink className="mx-auto rs-mt-3 no-underline hocus:underline" href={link.url}>
           {link.title}
         </ActionLink>
       )}

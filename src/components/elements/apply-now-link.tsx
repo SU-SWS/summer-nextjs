@@ -15,13 +15,14 @@ export const ApplyNowLink = ({className, href, children}: ApplyNowLinkProps) => 
       <span className="rs-mb-0 block text-24 font-semibold uppercase">Apply Now</span>
       <Link
         className={cn(
-          "type-4 flex flex-row items-end gap-8 font-roboto font-light no-underline decoration-2 underline-offset-4 transition hocus:underline",
+          "flex flex-row items-end gap-20 font-roboto type-4 font-light no-underline decoration-2 underline-offset-4 transition hocus:underline",
           className
         )}
         href={href}
+        prefetch={false}
       >
         {children}
-        <ArrowRightIcon width={60} className="ml-2 shrink-0" />
+        <ArrowRightIcon width={60} className="ml-5 shrink-0" />
       </Link>
     </>
   )

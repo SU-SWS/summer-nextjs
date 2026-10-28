@@ -17,7 +17,7 @@ const StanfordPublicationListItem = ({node, apa, chicago, ...props}: Props) => {
       {citation && (
         <Wysiwyg
           html={apa ? node.suPublicationCitation?.apa : node.suPublicationCitation?.chicago}
-          className="ml-12 -indent-12 [&_a]:text-digital-red [&_a]:no-underline [&_a]:hocus:text-black [&_a]:hocus:underline"
+          className="ml-30 -indent-30 [&_a]:text-digital-red [&_a]:no-underline hocus:[&_a]:text-black hocus:[&_a]:underline"
         />
       )}
       {!citation && (

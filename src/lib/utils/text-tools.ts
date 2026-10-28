@@ -85,25 +85,3 @@ export const getIdFromText = (text?: Maybe<string>): string | undefined => {
   used.add(id)
   return id
 }
-
-/**
- * Build id attributes from a list of headings, keeping each id unique. The first occurrence of a heading keeps the
- * plain id and each repeat has a number appended: "overview", "overview-1", "overview-2", etc.
- */
-export const getUniqueIdAttributes = (headings: {key: string; text?: Maybe<string>}[]): Record<string, string> => {
-  const usedIds = new Set<string>()
-  const ids: Record<string, string> = {}
-
-  headings.forEach(({key, text}) => {
-    const baseId = text ? getIdAttribute(text) : undefined
-    if (!baseId || ids[key]) return
-
-    let id = baseId
-    let count = 1
-    while (usedIds.has(id)) id = `${baseId}-${count++}`
-
-    usedIds.add(id)
-    ids[key] = id
-  })
-  return ids
-}

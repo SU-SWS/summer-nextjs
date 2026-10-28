@@ -69,7 +69,7 @@ const StanfordNewsPage = ({node, ...props}: Props) => {
 
       {bannerImageUrl && (
         <figure className="mb-80">
-          <div className="relative aspect-[16/9] w-full">
+          <div className="relative aspect-video w-full">
             <Image
               className="object-cover"
               src={bannerImageUrl}

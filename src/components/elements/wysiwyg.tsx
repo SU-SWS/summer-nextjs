@@ -157,6 +157,20 @@ const options: HTMLReactParserOptions = {
         case "dd":
         case "i":
         case "aside":
+        case "iframe":
+          // Embed codes often use `width="100%"`, but the attributes only accept pixel integers. Percentages move to
+          // inline styles instead.
+          for (const dimension of ["width", "height"]) {
+            const value = nodeProps[dimension]
+            if (typeof value === "string" && value.endsWith("%")) {
+              nodeProps.style = {...(nodeProps.style as Record<string, string>), [dimension]: value}
+              delete nodeProps[dimension]
+            }
+          }
+          // Obsolete, preflight already removes iframe borders.
+          delete nodeProps.frameBorder
+          return <NodeName {...nodeProps}>{domToReact(children, options)}</NodeName>
+
         case "abbr":
         case "span":
         case "blockquote":

@@ -81,7 +81,7 @@ const PillCard = ({imageUrl, imageAlt, videoUrl, isArticle, children, bgColor, .
 export const PillCardSkeleton = () => {
   return (
     <div className="centered w-full rounded-full border border-black-10 pb-50 shadow-lg lg:max-w-[920px] xl:max-w-[980px]">
-      <div className="aspect-[16/9] w-full bg-black-10"></div>
+      <div className="aspect-video w-full bg-black-10"></div>
     </div>
   )
 }

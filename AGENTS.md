@@ -132,9 +132,11 @@ src/components/paragraphs/paragraph.tsx
 **GraphQL Client**: In-house `fetch` client, `src/lib/gql/gql-client.tsx` (no `graphql-request`). Codegen emits
 operations as plain query strings (`documentMode: "string"`), so `graphql` is only a dev dependency.
 
-- Requests time out after 15 seconds.
+- Requests time out after 15 seconds (60 seconds in development and CI builds).
 - Failures throw a `ClientError` subclass: `NetworkError` (unreachable or timed out), `HttpError` (error status
   or non-JSON body, e.g. a WAF page) or `GraphqlError` (GraphQL errors or no data). Use `describeError()` to log one.
+- Each subclass sets a `DRUPAL_*` digest (`DRUPAL_TIMEOUT`, `DRUPAL_HTTP_503`, ...) that `app/error.tsx` displays, so
+  the cause of a production 500 is visible in the response body.
 
 **GraphQL Compiler Command**: `yarn graphql` 
 
@@ -198,6 +200,9 @@ yarn graphql
 
 # Lint and typescript check
 yarn lint
+
+# Validate the prerendered HTML from the last `yarn build` (rules in .htmlvalidate.json)
+yarn validate:html
 ```
 
 ### Adding New Content Types

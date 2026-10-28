@@ -82,7 +82,7 @@ const BannerParagraph = ({paragraph, eagerLoadImage, headingIds, ...props}: Prop
           )}
         </div>
       )}
-      <div className="relative aspect-[16/9] w-full bg-cool-grey lg:absolute lg:top-0 lg:h-full">
+      <div className="relative aspect-video w-full bg-cool-grey lg:absolute lg:top-0 lg:h-full">
         {paragraph.suBannerImage?.mediaImage && (
           <Image
             className="object-cover"

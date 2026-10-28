@@ -71,7 +71,8 @@ const AlgoliaCourseList = ({appId, searchIndex, searchApiKey}: Props) => {
       indexName={searchIndex}
       searchClient={searchClient}
       future={{preserveSharedStateOnUnmount: true}}
-      insights={true}
+      // Click and conversion events only count on production, so previews and local builds don't skew the stats.
+      insights={process.env.NEXT_PUBLIC_VERCEL_ENV === "production"}
     >
       <Configure filters={filters} attributesToHighlight={["html"]} attributesToSnippet={["html"]} />
       <HitList />

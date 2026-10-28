@@ -48,7 +48,7 @@ const StanfordNewsListItem = ({node, headingLevel, ...props}: Props) => {
         </div>
 
         {image?.url && (
-          <div className="relative order-1 mb-25 aspect-[16/9] shrink-0 @3xl:order-2 @3xl:mb-0 @3xl:w-1/4">
+          <div className="relative order-1 mb-25 aspect-video shrink-0 @3xl:order-2 @3xl:mb-0 @3xl:w-1/4">
             <Image
               className="object-cover"
               src={image.url}

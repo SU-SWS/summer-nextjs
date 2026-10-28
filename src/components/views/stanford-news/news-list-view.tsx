@@ -30,7 +30,7 @@ export const NewsListSkeleton = () => {
           <div className="mb-25 h-40 w-1/2 bg-black-10" />
           <div className="mb-12.5 h-17.5 w-1/3 bg-black-10" />
         </div>
-        <div className="relative order-1 mb-25 aspect-[16/9] shrink-0 bg-black-10 @3xl:order-2 @3xl:mb-0 @3xl:w-1/4" />
+        <div className="relative order-1 mb-25 aspect-video shrink-0 bg-black-10 @3xl:order-2 @3xl:mb-0 @3xl:w-1/4" />
       </div>
       <div className="flex min-h-[150px] items-center justify-between pt-25">
         <div className="grow">
@@ -38,7 +38,7 @@ export const NewsListSkeleton = () => {
           <div className="mb-25 h-40 w-1/2 bg-black-10" />
           <div className="mb-12.5 h-17.5 w-1/3 bg-black-10" />
         </div>
-        <div className="relative order-1 mb-25 aspect-[16/9] shrink-0 bg-black-10 @3xl:order-2 @3xl:mb-0 @3xl:w-1/4" />
+        <div className="relative order-1 mb-25 aspect-video shrink-0 bg-black-10 @3xl:order-2 @3xl:mb-0 @3xl:w-1/4" />
       </div>
     </div>
   )

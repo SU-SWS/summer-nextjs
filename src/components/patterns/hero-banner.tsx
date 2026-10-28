@@ -50,7 +50,7 @@ const HeroBanner = ({
         props.className
       )}
     >
-      <div className="relative order-2 aspect-[16/9] w-full bg-cool-grey lg:absolute lg:h-full">
+      <div className="relative order-2 aspect-video w-full bg-cool-grey lg:absolute lg:h-full">
         {imageUrl && (
           <Image
             className="object-cover"

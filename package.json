@@ -9,6 +9,7 @@
     "preview": "next build && next start",
     "start": "next start",
     "lint": "eslint ./src ./app && tsc",
+    "validate:html": "node scripts/validate-html.mjs",
     "graphql": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen --config codegen.ts -r dotenv/config",
     "postinstall": "git config --local core.hooksPath .githooks/; exit 0"
   },
@@ -64,6 +65,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.7",
     "graphql": "^16.14.2",
+    "html-validate": "11.17.0",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "react-docgen": "^8.0.4",

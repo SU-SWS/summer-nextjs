@@ -19,7 +19,7 @@ env:
   # KNOWN_HOSTS secrets), "install" does a fresh `drush drupal:install`.
   DRUPAL_DB_SOURCE: sync
   # How long a cached database is reused, as a `date` format: `%F` is daily, `%G-W%V` is weekly.
-  DRUPAL_DB_CACHE_PERIOD: '%F'
+  DRUPAL_DB_CACHE_PERIOD: '%G-W%V'
   # SQL to run after the database is ready, ie to blank out third party keys. Leave empty for none.
   DRUPAL_CI_SQL: 'truncate config_pages__su_site_algolia_index; truncate config_pages__su_site_algolia_key; truncate config_pages__su_site_algolia_id'
   # Drush command that prints the .env lines the frontend needs to connect to Drupal.

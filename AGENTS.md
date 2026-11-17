@@ -203,7 +203,13 @@ yarn lint
 
 # Validate the prerendered HTML from the last `yarn build` (rules in .htmlvalidate.json)
 yarn validate:html
+
+# Check the prerendered pages for accessibility with axe-core (needs `yarn start` running and a Selenium server)
+yarn validate:a11y
 ```
+
+`validate:a11y` reads `A11Y_BASE_URL` (default `http://localhost:3000`), `SELENIUM_URL` (default `http://localhost:4444`)
+and `A11Y_REPORT` (default `a11y-report.json`).
 
 ### Adding New Content Types
 
@@ -375,7 +381,7 @@ lookups still return `{}` on failure.
 
 ## Testing
 
-**Testing Framework**: None
+**Testing Framework**: No unit tests. CI (`build_lint.yml`) runs `yarn lint`, builds against a real Drupal, then runs `yarn validate:html` and `yarn validate:a11y` (axe-core in Chrome over a Selenium service container) against the prerendered pages.
 
 ## Deployment
 
